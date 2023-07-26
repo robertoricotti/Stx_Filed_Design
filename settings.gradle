@@ -1,0 +1,34 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+        maven{url 'https://mvnrepository.com/artifact/org.locationtech.proj4j/proj4j-epsg'}
+        maven{url 'https://mvnrepository.com/artifact/org.locationtech.proj4j/proj4j'}
+        maven {url 'https://mvnrepository.com/artifact/org.osgeo/proj4j'}
+
+        maven {url 'https://jitpack.io'}
+
+
+        maven{url 'https://mvnrepository.com/artifact/org.gavaghan/geodesy'}
+        maven{url 'https://mvnrepository.com/artifact/com.android.support/customtabs'}
+
+        maven {
+            // this repository can be added if you want to use the implementation
+            // "crs-transformation-adapter-impl-geotools" which uses the "geotools" library
+            url "https://repo.osgeo.org/repository/geotools-releases/"
+        }
+        maven{
+            url' https://mvnrepository.com/artifact/org.locationtech.jts/jts-core'
+        }
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "Stx_Field_Design"
+include ':app'
