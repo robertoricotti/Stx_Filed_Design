@@ -6,12 +6,13 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
+import services.DataSaved;
 
 
 public class MyApp extends Application implements  Application.ActivityLifecycleCallbacks {
     int accCount = 0;
     public static Activity visibleActivity;
-    public static String Actualactivity;
+
 
     @Override
     public void onCreate() {
@@ -28,7 +29,7 @@ public class MyApp extends Application implements  Application.ActivityLifecycle
     public void onActivityStarted(Activity activity) {
         if (activity != null){
             visibleActivity = activity;
-        Actualactivity = String.valueOf(activity);
+        DataSaved.Actualactivity = String.valueOf(activity);
 
         }
 

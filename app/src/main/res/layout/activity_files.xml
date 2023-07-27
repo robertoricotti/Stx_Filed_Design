@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:keepScreenOn="true"
     tools:context="activity.FilesActivity">
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/H_top_10"
@@ -77,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="10dp"
+            android:paddingVertical="10dp"
             android:rotation="180"
             app:tint="@color/white"
             android:src="@drawable/btn_close" />
@@ -87,7 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="10dp"
+            android:paddingVertical="10dp"
             app:tint="@color/transparent"
             android:src="@drawable/btn_positionpage" />
         <ImageView
@@ -95,9 +96,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="10dp"
+            android:paddingVertical="10dp"
             app:tint="@color/transparent"
-            android:src="@drawable/btn_positionpage" />
+            android:src="@drawable/tech_icon" />
 
 
     </LinearLayout>
@@ -108,12 +109,12 @@
         android:background="@color/colorStonexBlue"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="1dp"
+        android:paddingStart="10dp"
         app:layout_constraintBottom_toTopOf="@id/H_top_10"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/transparent"
@@ -178,7 +179,7 @@
                 android:textStyle="bold" />
         </LinearLayout>
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/transparent"
@@ -195,7 +196,8 @@
                 app:tint="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/speed_24" />
+                android:rotation="270"
+                android:src="@drawable/arrow_right_alt_24"/>
 
             <ImageView
                 app:tint="@color/white"
@@ -218,7 +220,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
                 android:gravity="center|left"
-                android:ems="10"
+                android:ems="5"
                 android:text="\t000.00°"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
@@ -228,8 +230,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
                 android:gravity="center|left"
-                android:ems="10"
-                android:text="\t1.0 m/s"
+                android:ems="5"
+                android:text="\t1.0 m"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
@@ -238,11 +240,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
                 android:gravity="center|left"
-                android:ems="10"
+                android:ems="5"
                 android:text="\t000.00 s"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
         </LinearLayout>
+        <ImageView
+            android:id="@+id/img_connetti"
+            android:cropToPadding="true"
+            android:paddingVertical="20dp"
+            android:src="@drawable/btn_positionpage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
 
     </LinearLayout>

@@ -17,15 +17,16 @@ import gnss.NmeaListenerGGAH;
 import services.DataSaved;
 import utils.FullscreenActivity;
 
-public class NewProjectActivity extends AppCompatActivity {
+public class MchMeaureActivity extends AppCompatActivity {
     ImageView btn_exit,img_connect;
     TextView textCoord, txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk;
     private Handler handler;
     private boolean mRunning = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_project);
+        setContentView(R.layout.activity_mch_meaure);
         FullscreenActivity.setFullScreen(this);
         findView();
         onClick();
@@ -49,7 +50,7 @@ public class NewProjectActivity extends AppCompatActivity {
 
         });
         btn_exit.setOnClickListener(view -> {
-            startActivity(new Intent(NewProjectActivity.this,MainActivity.class));
+            startActivity(new Intent(MchMeaureActivity.this,MainActivity.class));
             overridePendingTransition(0,0);
             finish();
         });
@@ -128,14 +129,15 @@ public class NewProjectActivity extends AppCompatActivity {
         }).start();
 
     }
-    @Override
-    public void onBackPressed() {
-
-    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mRunning=false;
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }
