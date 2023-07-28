@@ -1,6 +1,8 @@
 package gnss;
 
 
+import android.util.Log;
+
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
@@ -67,7 +69,7 @@ public class NmeaListenerGGAH {
                             if (ggaWoE.equals("E")) {
                                 mLon_1 = LonDec / 60 + LonInt;
                             } else if (ggaWoE.equals("W")) {
-                                mLon_1 =  LonDec / 60 + LonInt;
+                                mLon_1 = LonDec / 60 + LonInt;
                                 mLon_1 = mLon_1 * -1;
                             }
                             /*
@@ -78,7 +80,7 @@ public class NmeaListenerGGAH {
                             Nord1 = deg2UTM.getNorthing();
                             Est1 = deg2UTM.getEasting();
                             Quota1 = Double.parseDouble(ggaZ1.replace(",", ".")) + Double.parseDouble(ggaZ2.replace(",", "."));
-                            Quota1=Quota1- DataSaved.D_AltezzaAnt;
+                            Quota1 = Quota1 - DataSaved.D_AltezzaAnt;
                             mChar = deg2UTM.getLetter();
                             mZone = deg2UTM.getZone();
 
@@ -106,7 +108,7 @@ public class NmeaListenerGGAH {
                             if (gga_H_NoS.equals("N")) {
                                 mLat_2 = LatDecH / 60 + LatIntH;
                             } else if (gga_H_NoS.equals("S")) {
-                                mLat_2 =  LatDecH / 60 + LatIntH;
+                                mLat_2 = LatDecH / 60 + LatIntH;
                                 mLat_2 = mLat_2 * -1;
                             }
                             /*
@@ -123,8 +125,8 @@ public class NmeaListenerGGAH {
                             /*
 
                              */
-                            Nord2 = new Deg2UTM(mLat_2,mLon_2).getNorthing();
-                            Est2 = new Deg2UTM(mLat_2,mLon_2).getEasting();
+                            Nord2 = new Deg2UTM(mLat_2, mLon_2).getNorthing();
+                            Est2 = new Deg2UTM(mLat_2, mLon_2).getEasting();
                             Quota2 = Double.parseDouble(gga_H_Z1.replace(",", ".")) + Double.parseDouble(gga_H_Z2.replace(",", "."));
                             break;
                         } catch (Exception e) {
@@ -155,8 +157,8 @@ public class NmeaListenerGGAH {
                             String LonCQ = NmeaInput[7];
                             String HgtCQ = NmeaInput[8].substring(0, NmeaInput[8].indexOf("*"));
                             VRMS_ = String.format("%.3f", Float.parseFloat(HgtCQ));
-                            HRMS_ = String.format("%.3f",2 * Math.sqrt(0.5 * ((Math.pow(Double.parseDouble(LatCQ), 2) + Math.pow(Double.parseDouble(LonCQ), 2)) / 2)));
-                            _3DRMS = String.format("%.3f",3 * Math.sqrt(((Math.pow(Double.parseDouble(LatCQ), 2) + Math.pow(Double.parseDouble(LonCQ), 2)) / 2)));
+                            HRMS_ = String.format("%.3f", 2 * Math.sqrt(0.5 * ((Math.pow(Double.parseDouble(LatCQ), 2) + Math.pow(Double.parseDouble(LonCQ), 2)) / 2)));
+                            _3DRMS = String.format("%.3f", 3 * Math.sqrt(((Math.pow(Double.parseDouble(LatCQ), 2) + Math.pow(Double.parseDouble(LonCQ), 2)) / 2)));
                             break;
                         } catch (Exception e) {
                             VRMS_ = "-0";
@@ -166,10 +168,16 @@ public class NmeaListenerGGAH {
                     case "$GPRMC":
                     case "$GNRMC":
                         try {
-
+                          /*  Log.d("RMC", NmeaInput[8]);
+                            DataSaved.HDT_Calc = Double.parseDouble(NmeaInput[8]);
+                            if(DataSaved.HDT_Calc>180){
+                                DataSaved.HDT_Calc-=360;
+                            }else if(DataSaved.HDT_Calc<-180){
+                                DataSaved.HDT_Calc+=360;
+                            }*/
                             break;
                         } catch (Exception e) {
-
+                            DataSaved.HDT_Calc=0;
                         }
                 }
             }

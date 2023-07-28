@@ -54,8 +54,8 @@ public class LaunchScreenActivity extends AppCompatActivity {
                 Manifest.permission.BLUETOOTH_CONNECT,
                 Manifest.permission.BLUETOOTH_SCAN,
                 Manifest.permission.BLUETOOTH_PRIVILEGED,
-                //Manifest.permission.READ_EXTERNAL_STORAGE,
-                //Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.INTERNET,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -68,7 +68,7 @@ public class LaunchScreenActivity extends AppCompatActivity {
         askPermission();
         createSystemFolders();
 
-        count = new CountDownTimer(3000, 40) {
+        count = new CountDownTimer(3000, 1) {
             @Override
             public void onTick(long l) {
                 progress++;

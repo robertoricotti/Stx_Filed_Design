@@ -66,6 +66,20 @@
         app:layout_constraintBottom_toTopOf="@id/guideline_top"
         app:layout_constraintTop_toBottomOf="@id/H_top_10"
         android:text="\tN:12345678.999\t\tE:12345678.999\t\tZ:1234.000 m"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

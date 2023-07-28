@@ -105,7 +105,7 @@ public class FilesActivity extends AppCompatActivity {
                                 if(NmeaListenerGGAH.VRMS_ !=null){
                                     txtCq.setText("\tH: "+NmeaListenerGGAH.HRMS_.replace(",",".")+"\tV: "+NmeaListenerGGAH.VRMS_.replace(",","."));}
                                 else {txtCq.setText("H:---.-- V:---.--");}
-                                txtHdt.setText("\t"+NmeaListenerGGAH.sHDT);
+                                txtHdt.setText("\t" + String.format("%.2f",DataSaved.HDT_Calc));
                                 txtRtk.setText("\t"+NmeaListenerGGAH.ggaRtk);
 
                             } else {
