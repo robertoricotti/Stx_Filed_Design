@@ -8,6 +8,8 @@ public class DataSaved {
     public static String S_nmea;
     public static String Actualactivity;
 
+    public static int I_UnitOfMeasure;
+
     public static double D_AltezzaAnt;
 
 

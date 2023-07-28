@@ -152,7 +152,7 @@ public class BT_DevicesActivity extends AppCompatActivity {
 
                             txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",","."));
                             if (BT_Conn.GNSSServiceState) {
-                                img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
+                                img_connect.setImageResource(R.drawable.btn_positionpage);
 
                                 txtSat.setText("\t"+NmeaListenerGGAH.ggaSat);
                                 if(NmeaListenerGGAH.ggaQuality!=null){
@@ -161,30 +161,37 @@ public class BT_DevicesActivity extends AppCompatActivity {
                                         case "0":
                                         case "1":
                                             txtFix.setText("\tAUTONOMOUS");
+                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
                                             break;
                                         case "2":
                                             txtFix.setText("\tDGNSS");
+                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
                                             break;
                                         case "4":
                                             txtFix.setText("\tFIX");
+                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
                                             break;
                                         case "5":
                                             txtFix.setText("\tFLOAT");
+                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
                                             break;
                                         case "6":
                                             txtFix.setText("\tINS");
+                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
                                             break;
                                         default:txtFix.setText("\tAUTONOMOUS");
+                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
                                             break;
                                     }}
-                                if(NmeaListenerGGAH.sCQ_v!=null){
-                                    txtCq.setText("\tH: "+NmeaListenerGGAH.sCQ_h.replace(",",".")+"\tV: "+NmeaListenerGGAH.sCQ_v.replace(",","."));}
+                                if(NmeaListenerGGAH.VRMS_ !=null){
+                                    txtCq.setText("\tH: "+NmeaListenerGGAH.HRMS_.replace(",",".")+"\tV: "+NmeaListenerGGAH.VRMS_.replace(",","."));}
                                 else {txtCq.setText("H:---.-- V:---.--");}
                                 txtHdt.setText("\t"+NmeaListenerGGAH.sHDT);
                                 txtRtk.setText("\t"+NmeaListenerGGAH.ggaRtk);
 
                             } else {
                                 img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                                img_connect.setImageResource(R.drawable.btn_gpsoff);
 
 
                                 txtSat.setText("--");

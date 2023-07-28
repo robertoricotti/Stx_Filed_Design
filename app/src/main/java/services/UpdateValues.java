@@ -23,6 +23,7 @@ public class UpdateValues extends Service {
         String gpsname = myRW_intMem.MyRead("_gpsname", this);
         String crs = myRW_intMem.MyRead("_crs", this);
         String altezzaAnt=myRW_intMem.MyRead("_altezzaantenna",this);
+        String unitOfMeasure = myRW_intMem.MyRead("_unitofmeasure", this);
 
         if(macaddress==null){
             myRW_intMem.MyWrite("_macaddress","00:00:00:00:00:00",this);
@@ -37,6 +38,9 @@ public class UpdateValues extends Service {
         if(altezzaAnt==null){
             myRW_intMem.MyWrite("_altezzaantenna","2",this);
         }
+        if (unitOfMeasure == null) {
+            myRW_intMem.MyWrite("_unitofmeasure", "0", this);
+        }
 
 
 
@@ -47,7 +51,7 @@ public class UpdateValues extends Service {
         DataSaved.S_gpsname=myRW_intMem.MyRead("_gpsname",this);
         DataSaved.S_CRS=myRW_intMem.MyRead("_crs",this);
         DataSaved.D_AltezzaAnt=Double.parseDouble(myRW_intMem.MyRead("_altezzaantenna",this).replace(",","."));
-
+        DataSaved.I_UnitOfMeasure=Integer.parseInt(myRW_intMem.MyRead("_unitofmeasure",this));
     }
 
     @Override

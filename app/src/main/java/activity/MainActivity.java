@@ -7,7 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.telephony.SmsManager;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +18,7 @@ import bluetooth.BT_Conn;
 import dialogs.CloseAppDialog;
 import dialogs.ConnectDialog;
 import dialogs.CustomToast;
+import dialogs.DialogOffset;
 import gnss.NmeaListenerGGAH;
 import services.DataSaved;
 import utils.FullscreenActivity;
@@ -58,15 +59,16 @@ public class MainActivity extends AppCompatActivity {
         to_mch = findViewById(R.id.img5);
         to_palina = findViewById(R.id.img6);
         to_info = findViewById(R.id.img9);
+        Log.d("MYTEST",getResources().getString(R.string.offset));
     }
 
     @SuppressLint("NewApi")
     private void onClick() {
         to_info.setOnClickListener(view -> {
-            new CustomToast(this, "STX Field Design\n"+BuildConfig.VERSION_NAME.toString()).show();
+            new CustomToast(this, "STX Field Design\n" + BuildConfig.VERSION_NAME.toString()).show();
         });
         to_palina.setOnClickListener(view -> {
-
+            new DialogOffset(MainActivity.this).show();
         });
         btn_exit.setOnClickListener(view -> {
             new CloseAppDialog(this).show();
@@ -121,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",", "."));
                             if (BT_Conn.GNSSServiceState) {
-                                img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
+                                img_connect.setImageResource(R.drawable.btn_positionpage);
                                 textCoord.setText("N: " + String.format("%.3f", NmeaListenerGGAH.Nord1).replace(",", ".") + "\tE: " + String.format("%.3f", NmeaListenerGGAH.Est1).replace(",", ".") + " Z: " + String.format("%.3f", NmeaListenerGGAH.Quota1).replace(",", "."));
                                 txtSat.setText("\t" + NmeaListenerGGAH.ggaSat);
                                 if (NmeaListenerGGAH.ggaQuality != null) {
@@ -130,26 +132,32 @@ public class MainActivity extends AppCompatActivity {
                                         case "0":
                                         case "1":
                                             txtFix.setText("\tAUTONOMOUS");
+                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
                                             break;
                                         case "2":
                                             txtFix.setText("\tDGNSS");
+                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
                                             break;
                                         case "4":
                                             txtFix.setText("\tFIX");
+                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
                                             break;
                                         case "5":
                                             txtFix.setText("\tFLOAT");
+                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
                                             break;
                                         case "6":
                                             txtFix.setText("\tINS");
+                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
                                             break;
                                         default:
                                             txtFix.setText("\tAUTONOMOUS");
+                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
                                             break;
                                     }
                                 }
-                                if (NmeaListenerGGAH.sCQ_v != null) {
-                                    txtCq.setText("\tH: " + NmeaListenerGGAH.sCQ_h.replace(",", ".") + "\tV: " + NmeaListenerGGAH.sCQ_v.replace(",", "."));
+                                if (NmeaListenerGGAH.VRMS_ != null) {
+                                    txtCq.setText("\tH: " + NmeaListenerGGAH.HRMS_.replace(",", ".") + "\tV: " + NmeaListenerGGAH.VRMS_.replace(",", "."));
                                 } else {
                                     txtCq.setText("H:---.-- V:---.--");
                                 }
@@ -158,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
 
                             } else {
                                 img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                                img_connect.setImageResource(R.drawable.btn_gpsoff);
                                 textCoord.setText("\tDISCONNECTED");
                                 txtSat.setText("--");
                                 txtFix.setText("---");
