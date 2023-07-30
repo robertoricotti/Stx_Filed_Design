@@ -60,14 +60,258 @@
         android:layout_width="match_parent"
         android:layout_height="24dp"
         android:textStyle="bold"
-        android:textSize="16dp"
+        android:textSize="16sp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toTopOf="@id/guideline_top"
         app:layout_constraintTop_toBottomOf="@id/H_top_10"
         android:text="\tN:12345678.999\t\tE:12345678.999\t\tZ:1234.000 m"/>
 
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lay1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/H_top_90"
+        android:src="@drawable/escatest"/>
+<LinearLayout
+    android:id="@+id/lay1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/txt_coord"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="HIDDEN PIN CALCULATION"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/_____cancel_text"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <EditText
+            android:id="@+id/et_x1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="X_1"
+            android:inputType="numberDecimal"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:textColor="@color/_____cancel_text"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_weight="1"/>
+        <EditText
+            android:id="@+id/et_y1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Y_1"
+            android:inputType="numberDecimal"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:textColor="@color/_____cancel_text"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_weight="1"/>
+        <EditText
+            android:id="@+id/et_z1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="XXX"
+            android:inputType="numberDecimal"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:enabled="false"
+            android:textColor="@color/_____cancel_text"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_weight="1"/>
 
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <EditText
+            android:id="@+id/et_x2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="X_2"
+            android:textColor="@color/_____cancel_text"
+            android:textStyle="bold"
+            android:inputType="numberDecimal"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:gravity="center"
+            android:layout_weight="1"/>
+        <EditText
+            android:id="@+id/et_y2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Y_2"
+            android:textColor="@color/_____cancel_text"
+            android:textStyle="bold"
+            android:inputType="numberDecimal"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:gravity="center"
+            android:layout_weight="1"/>
+        <EditText
+            android:id="@+id/et_z2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="XXX"
+            android:inputType="numberDecimal"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:textColor="@color/_____cancel_text"
+            android:textStyle="bold"
+            android:enabled="false"
+            android:gravity="center"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <EditText
+            android:id="@+id/et_x3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="X_3"
+            android:textColor="@color/_____cancel_text"
+            android:textStyle="bold"
+            android:inputType="numberDecimal"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:gravity="center"
+            android:layout_weight="1"/>
+        <EditText
+            android:id="@+id/et_y3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Y_3"
+            android:textColor="@color/_____cancel_text"
+            android:textStyle="bold"
+            android:inputType="numberDecimal"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:gravity="center"
+            android:layout_weight="1"/>
+        <EditText
+            android:id="@+id/et_z3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="XXX"
+            android:inputType="numberDecimal"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:textColor="@color/_____cancel_text"
+            android:textStyle="bold"
+            android:enabled="false"
+            android:gravity="center"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/btn_calc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/_____cancel_text"
+            android:text="CALC"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="5dp"
+        >
+       <TextView
+
+           android:id="@+id/txt_result_m"
+           android:layout_weight="1"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:gravity="center"
+           android:minEms="5"
+           android:textStyle="bold"
+           android:textColor="@color/colorStonexBlueLight1"
+           android:textSize="24sp"/>
+        <TextView
+            android:text="  "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/_____cancel_text"
+            android:textSize="24sp"/>
+        <TextView
+
+            android:id="@+id/txt_result_ft"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minEms="5"
+            android:textStyle="bold"
+            android:textColor="@color/colorStonexBlueLight1"
+            android:textSize="24sp"/>
+        <TextView
+            android:text="  "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/_____cancel_text"
+            android:textSize="24sp"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="15dp"
+        >
+        <TextView
+
+            android:id="@+id/txt_result_deg"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minEms="5"
+            android:textStyle="bold"
+            android:textColor="@color/colorStonexBlueLight1"
+            android:textSize="24sp"/>
+
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
 
 
 
