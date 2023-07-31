@@ -22,7 +22,7 @@ import utils.CircumferenceCenterCalculator;
 import utils.FullscreenActivity;
 
 public class MchMeaureActivity extends AppCompatActivity {
-    private boolean icCalculable;
+
     Button btn_calc;
     EditText etX1, etX2, etX3, etY1, etY2, etY3, etZ1, etZ2, etZ3;
     ImageView btn_exit, img_connect,img_tognss;

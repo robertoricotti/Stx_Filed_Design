@@ -43,7 +43,7 @@
         app:layout_constraintGuide_percent="0.6"/>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/H_top_90"
+        android:id="@+id/H_90"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -190,7 +190,7 @@
         android:layout_height="0dp"
         android:background="@color/colorStonexBlue"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/H_top_90">
+        app:layout_constraintTop_toBottomOf="@id/H_90">
 
         <ImageView
             android:id="@+id/btn_exit"

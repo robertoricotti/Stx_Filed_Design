@@ -7,34 +7,15 @@
     android:keepScreenOn="true"
     tools:context="activity.AntennaMeasure">
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/H_top_10"
+        android:id="@+id/H1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.11" />
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15"/>
+        app:layout_constraintGuide_percent="0.05" />
+
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/H_top_37"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.40" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/H_top_63"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.65" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/H_top_90"
+        android:id="@+id/H_90"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -54,18 +35,239 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.666666" />
     <TextView
-        android:id="@+id/txt_coord"
-        android:gravity="center"
-        android:textColor="@color/black"
         android:layout_width="match_parent"
-        android:layout_height="24dp"
-        android:textStyle="bold"
+        android:layout_height="0dp"
         android:textSize="16sp"
-        app:layout_constraintRight_toRightOf="parent"
+        android:text="GPS 1 Antenna Measurement"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/_____cancel_text"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/H1"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/guideline_top"
-        app:layout_constraintTop_toBottomOf="@id/H_top_10"
-        android:text="\tN:12345678.999\t\tE:12345678.999\t\tZ:1234.000 m"/>
+        app:layout_constraintRight_toRightOf="parent"/>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       android:orientation="vertical"
+       app:layout_constraintLeft_toLeftOf="parent"
+       app:layout_constraintRight_toRightOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/H1"
+       app:layout_constraintBottom_toTopOf="@id/H_90">
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:gravity="center"
+           android:textStyle="bold"
+           android:background="@color/_____cancel_text"
+           android:textColor="@color/white"
+           android:text="POINT 1 Target (Len/Side)"/>
+       <LinearLayout
+
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+           <EditText
+               android:id="@+id/etTarget_L"
+               android:textSize="22sp"
+               android:inputType="numberDecimal|numberSigned"
+               android:digits="0123456789.-"
+               android:imeOptions="actionDone"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:hint="Target Length"/>
+           <EditText
+               android:id="@+id/etTarget_S"
+               android:textSize="22sp"
+               android:inputType="numberDecimal|numberSigned"
+               android:digits="0123456789.-"
+               android:imeOptions="actionDone"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:hint="Target Side "/>
+
+
+       </LinearLayout>
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:gravity="center"
+           android:textStyle="bold"
+           android:background="@color/_____cancel_text"
+           android:textColor="@color/white"
+           android:text="POINT 2 GPS1 (Len/Side)"/>
+       <LinearLayout
+
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+           <EditText
+               android:id="@+id/etGPS1_L"
+               android:inputType="numberDecimal|numberSigned"
+               android:digits="0123456789.-"
+               android:textSize="22sp"
+               android:imeOptions="actionDone"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:hint="GPS 1/2 Length"/>
+           <EditText
+               android:id="@+id/etGPS1_S"
+               android:inputType="numberDecimal|numberSigned"
+               android:digits="0123456789.-"
+               android:imeOptions="actionDone"
+               android:textSize="22sp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:hint="GPS 1/2 Side "/>
+
+
+       </LinearLayout>
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:gravity="center"
+           android:textStyle="bold"
+           android:background="@color/_____cancel_text"
+           android:textColor="@color/white"
+           android:text="POINT 3 Parallel (Len/Side)"/>
+       <LinearLayout
+
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+           <EditText
+               android:id="@+id/etParallel_L"
+               android:inputType="numberDecimal|numberSigned"
+               android:digits="0123456789.-"
+               android:textSize="22sp"
+               android:imeOptions="actionDone"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:hint="Parallel 1"/>
+           <EditText
+               android:id="@+id/etParallel_S"
+               android:inputType="numberDecimal|numberSigned"
+               android:digits="0123456789.-"
+               android:textSize="22sp"
+               android:imeOptions="actionDone"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:hint="Parallel 2 "/>
+
+
+
+       </LinearLayout>
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:gravity="center"
+           android:textStyle="bold"
+           android:background="@color/_____cancel_text"
+           android:textColor="@color/white"
+           android:text="POINT 4 GPS1 (2nd measure Len/Side)"/>
+       <LinearLayout
+
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+           <EditText
+               android:id="@+id/etGPS2_L"
+               android:inputType="numberDecimal|numberSigned"
+               android:digits="0123456789.-"
+               android:textSize="22sp"
+               android:imeOptions="actionDone"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:hint="GPS 2/2 Length"/>
+           <EditText
+               android:id="@+id/etGPS2_S"
+               android:inputType="numberDecimal|numberSigned"
+               android:digits="0123456789.-"
+               android:textSize="22sp"
+               android:imeOptions="actionDone"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:hint="GPS2/2 Side "/>
+
+
+       </LinearLayout>
+       <Button
+           android:id="@+id/btn_calcola"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:text="CALC"
+           android:textStyle="bold"/>
+       <Space
+           android:layout_width="match_parent"
+           android:layout_height="10dp"/>
+       <TextView
+           android:textStyle="bold"
+           android:id="@+id/txtAccuracy"
+           android:gravity="left"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:textSize="24sp"
+           android:textColor="@color/colorStonexBlueLight1"
+           android:text="Accouracy: "/>
+       <TextView
+           android:id="@+id/txtxdev"
+           android:gravity="left"
+           android:textStyle="bold"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:textSize="24sp"
+           android:textColor="@color/colorStonexBlueLight1"
+           android:text="X: "/>
+       <TextView
+           android:id="@+id/txtydev"
+           android:gravity="left"
+           android:textStyle="bold"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:textSize="24sp"
+           android:textColor="@color/colorStonexBlueLight1"
+           android:text="Y: "/>
+       <TextView
+           android:id="@+id/txtxreach"
+           android:gravity="left"
+           android:textStyle="bold"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:textSize="24sp"
+           android:textColor="@color/colorStonexBlueLight1"
+           android:text="Reach: "/>
+       <TextView
+           android:id="@+id/txtpitch"
+           android:gravity="left"
+           android:textStyle="bold"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:textSize="24sp"
+           android:textColor="@color/colorStonexBlueLight1"
+           android:text="Pitch: "/>
+       <TextView
+           android:id="@+id/txtroll"
+           android:gravity="left"
+           android:textStyle="bold"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:textSize="24sp"
+           android:textColor="@color/colorStonexBlueLight1"
+           android:text="Roll: "/>
+
+   </LinearLayout>
+
 
 
     <LinearLayout
@@ -73,7 +275,7 @@
         android:layout_height="0dp"
         android:background="@color/colorStonexBlue"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/H_top_90">
+        app:layout_constraintTop_toBottomOf="@id/H_90">
 
         <ImageView
             android:id="@+id/btn_exit"
@@ -81,9 +283,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:paddingVertical="10dp"
-            android:rotation="180"
+            android:rotation="0"
             app:tint="@color/white"
-            android:src="@drawable/btn_close" />
+            android:src="@drawable/btn_to_antennameasurei" />
 
         <ImageView
 
@@ -105,157 +307,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/colorStonexBlue"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingStart="10dp"
-        app:layout_constraintBottom_toTopOf="@id/H_top_10"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/transparent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                app:tint="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/sat_24" />
-
-            <ImageView
-                app:tint="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/gps_fixed_24" />
-
-            <ImageView
-                app:tint="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/location_on_24" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center|left"
-            android:orientation="vertical">
-
-            <TextView
-
-                android:id="@+id/txt_satnr"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:gravity="center|left"
-                android:ems="10"
-                android:text="\t24"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/txt_quality"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:gravity="center|left"
-                android:text="\tFix"
-                android:ems="10"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/txt_precision"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:gravity="center|left"
-                android:ems="10"
-                android:text="\tH: 0.005\t\tV:0.025"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/transparent"
-            android:gravity="center"
-            android:orientation="vertical">
-            <ImageView
-                app:tint="@color/white"
-                android:rotationX="180"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/baseline_360" />
-
-            <ImageView
-                app:tint="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:rotation="270"
-                android:src="@drawable/arrow_right_alt_24"/>
-
-            <ImageView
-                app:tint="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/rtk_24" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center|left"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/txt_hdt"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:gravity="center|left"
-                android:ems="5"
-                android:text="\t000.00°"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/txt_speed"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:gravity="center|left"
-                android:ems="5"
-                android:text="\t1.0 m"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/txt_rtk"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:gravity="center|left"
-                android:ems="5"
-                android:text="\t000.00 s"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-        </LinearLayout>
-        <ImageView
-            android:id="@+id/img_connetti"
-            android:cropToPadding="true"
-            android:paddingVertical="20dp"
-            android:src="@drawable/btn_positionpage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

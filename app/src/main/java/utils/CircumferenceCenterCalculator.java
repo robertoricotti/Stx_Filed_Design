@@ -21,6 +21,7 @@ public class CircumferenceCenterCalculator {
 
 
         // Calcola le pendenze delle rette perpendicolari ai segmenti dei punti medi
+
         double slope1 = -(x2 - x1) / (y2 - y1);
         double slope2 = -(x3 - x2) / (y3 - y2);
 
@@ -29,7 +30,7 @@ public class CircumferenceCenterCalculator {
         double centerY = slope1 * (centerX - midPointX1) + midPointY1;
 
         // Calcola la coordinata z del centro della circonferenza usando il punto 1
-        double centerZ = ((x1 - centerX) * (x1 - centerX) + (y1 - centerY) * (y1 - centerY) +  - x1 * x1 - y1 * y1) / 2.0;
+        double centerZ = ((x1 - centerX) * (x1 - centerX) + (y1 - centerY) * (y1 - centerY) - x1 * x1 - y1 * y1) / 2.0;
 
 
         // Restituisci le coordinate x, y, z,raggio e angolo del centro della circonferenza come un array
