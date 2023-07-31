@@ -35,6 +35,11 @@
         android:theme="@style/Theme.Stx_Field_Design"
         tools:targetApi="31">
         <activity
+            android:name="activity.AntennaMeasure"
+            android:autoRemoveFromRecents="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
             android:name="activity.MchMeaureActivity"
             android:autoRemoveFromRecents="true"
             android:screenOrientation="portrait"
@@ -63,18 +68,18 @@
         <service
             android:name="services.UpdateValues"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
 
         <activity
             android:name="activity.MainActivity"
             android:autoRemoveFromRecents="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="activity.SettingsActivity"
             android:autoRemoveFromRecents="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="activity.LaunchScreenActivity"
             android:exported="true"

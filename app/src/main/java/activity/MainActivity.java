@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                                 } else {
                                     txtCq.setText("H:---.-- V:---.--");
                                 }
-                                txtHdt.setText("\t" + String.format("%.2f",DataSaved.HDT_Calc));
+                                txtHdt.setText("\t" + String.format("%.2f",DataSaved.HDT_Calc).replace(",","."));
                                 txtRtk.setText("\t" + NmeaListenerGGAH.ggaRtk);
 
                             } else {

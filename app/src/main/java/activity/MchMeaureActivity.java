@@ -25,7 +25,7 @@ public class MchMeaureActivity extends AppCompatActivity {
     private boolean icCalculable;
     Button btn_calc;
     EditText etX1, etX2, etX3, etY1, etY2, etY3, etZ1, etZ2, etZ3;
-    ImageView btn_exit, img_connect;
+    ImageView btn_exit, img_connect,img_tognss;
     TextView textCoord, txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk, res_m, res_ft, res_deg;
     private Handler handler;
     private boolean mRunning = true;
@@ -64,6 +64,7 @@ public class MchMeaureActivity extends AppCompatActivity {
         res_m = findViewById(R.id.txt_result_m);
         res_ft = findViewById(R.id.txt_result_ft);
         res_deg = findViewById(R.id.txt_result_deg);
+        img_tognss=findViewById(R.id.btn_tognss);
 
 
     }
@@ -103,6 +104,11 @@ public class MchMeaureActivity extends AppCompatActivity {
         });
         btn_exit.setOnClickListener(view -> {
             startActivity(new Intent(MchMeaureActivity.this, MainActivity.class));
+            overridePendingTransition(0, 0);
+            finish();
+        });
+        img_tognss.setOnClickListener(view -> {
+            startActivity(new Intent(MchMeaureActivity.this, AntennaMeasure.class));
             overridePendingTransition(0, 0);
             finish();
         });
