@@ -35,6 +35,11 @@
         android:theme="@style/Theme.Stx_Field_Design"
         tools:targetApi="31">
         <activity
+            android:name="activity.ExcavatorMeasureXYZ"
+            android:autoRemoveFromRecents="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
             android:name="activity.AntennaMeasure"
             android:autoRemoveFromRecents="true"
             android:screenOrientation="portrait"

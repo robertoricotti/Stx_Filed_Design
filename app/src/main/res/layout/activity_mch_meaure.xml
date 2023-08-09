@@ -123,19 +123,7 @@
             android:textStyle="bold"
             android:gravity="center"
             android:layout_weight="1"/>
-        <EditText
-            android:id="@+id/et_z1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="XXX"
-            android:inputType="numberDecimal"
-            android:imeOptions="actionDone"
-            android:maxLines="1"
-            android:enabled="false"
-            android:textColor="@color/_____cancel_text"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_weight="1"/>
+
 
     </LinearLayout>
     <LinearLayout
@@ -169,19 +157,7 @@
             android:maxLines="1"
             android:gravity="center"
             android:layout_weight="1"/>
-        <EditText
-            android:id="@+id/et_z2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="XXX"
-            android:inputType="numberDecimal"
-            android:imeOptions="actionDone"
-            android:maxLines="1"
-            android:textColor="@color/_____cancel_text"
-            android:textStyle="bold"
-            android:enabled="false"
-            android:gravity="center"
-            android:layout_weight="1"/>
+
 
     </LinearLayout>
     <LinearLayout
@@ -215,19 +191,7 @@
             android:maxLines="1"
             android:gravity="center"
             android:layout_weight="1"/>
-        <EditText
-            android:id="@+id/et_z3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="XXX"
-            android:inputType="numberDecimal"
-            android:imeOptions="actionDone"
-            android:maxLines="1"
-            android:textColor="@color/_____cancel_text"
-            android:textStyle="bold"
-            android:enabled="false"
-            android:gravity="center"
-            android:layout_weight="1"/>
+
 
     </LinearLayout>
     <LinearLayout

@@ -24,7 +24,7 @@ import utils.FullscreenActivity;
 public class MchMeaureActivity extends AppCompatActivity {
 
     Button btn_calc;
-    EditText etX1, etX2, etX3, etY1, etY2, etY3, etZ1, etZ2, etZ3;
+    EditText etX1, etX2, etX3, etY1, etY2, etY3;
     ImageView btn_exit, img_connect,img_tognss;
     TextView textCoord, txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk, res_m, res_ft, res_deg;
     private Handler handler;
@@ -57,9 +57,7 @@ public class MchMeaureActivity extends AppCompatActivity {
         etY1 = findViewById(R.id.et_y1);
         etY2 = findViewById(R.id.et_y2);
         etY3 = findViewById(R.id.et_y3);
-        etZ1 = findViewById(R.id.et_z1);
-        etZ2 = findViewById(R.id.et_z2);
-        etZ3 = findViewById(R.id.et_z3);
+
         btn_calc = findViewById(R.id.btn_calc);
         res_m = findViewById(R.id.txt_result_m);
         res_ft = findViewById(R.id.txt_result_ft);

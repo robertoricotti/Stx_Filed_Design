@@ -201,6 +201,44 @@
 
 
        </LinearLayout>
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:gravity="center"
+           android:textStyle="bold"
+           android:background="@color/_____cancel_text"
+           android:textColor="@color/white"
+           android:text="POINT 5 GPS Orient"/>
+       <LinearLayout
+
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+           <EditText
+               android:id="@+id/etHDT_L"
+               android:inputType="numberDecimal|numberSigned"
+               android:digits="0123456789.-"
+               android:textSize="22sp"
+               android:imeOptions="actionDone"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:hint="HDT Length"/>
+           <EditText
+               android:id="@+id/etHDT_S"
+               android:inputType="numberDecimal|numberSigned"
+               android:digits="0123456789.-"
+               android:textSize="22sp"
+               android:imeOptions="actionDone"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:hint="HDT Side "/>
+
+
+       </LinearLayout>
+
        <Button
            android:id="@+id/btn_calcola"
            android:layout_width="wrap_content"
@@ -265,6 +303,15 @@
            android:textSize="24sp"
            android:textColor="@color/colorStonexBlueLight1"
            android:text="Roll: "/>
+       <TextView
+           android:id="@+id/txtHdt_result"
+           android:gravity="left"
+           android:textStyle="bold"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:textSize="24sp"
+           android:textColor="@color/colorStonexBlueLight1"
+           android:text="GPS 2 Dev: "/>
 
    </LinearLayout>
 
@@ -300,9 +347,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:rotation="180"
             android:paddingVertical="10dp"
-            app:tint="@color/transparent"
-            android:src="@drawable/btn_setting_tech" />
+            app:tint="@color/white"
+            android:src="@drawable/arrow_circle" />
 
 
     </LinearLayout>

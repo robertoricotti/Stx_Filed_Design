@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,10 +23,10 @@ import utils.CircumferenceCenterCalculator;
 import utils.FullscreenActivity;
 
 public class AntennaMeasure extends AppCompatActivity {
-    ImageView btn_exit;
+    ImageView btn_exit, bt_toright;
     Button btn_calc;
-    EditText p1L, p1S, p2L, p2S, p3L, p3S, p4L, p4S;
-    TextView result1, result2, result3, result4, result5, result6;
+    EditText p1L, p1S, p2L, p2S, p3L, p3S, p4L, p4S, pHdtS, pHdtL;
+    TextView result1, result2, result3, result4, result5, result6, result7;
     boolean D26, D27, E27;
 
     private Handler handler;
@@ -59,11 +60,20 @@ public class AntennaMeasure extends AppCompatActivity {
         result4 = findViewById(R.id.txtxreach);
         result5 = findViewById(R.id.txtpitch);
         result6 = findViewById(R.id.txtroll);
+        pHdtL = findViewById(R.id.etHDT_L);
+        pHdtS = findViewById(R.id.etHDT_S);
+        result7 = findViewById(R.id.txtHdt_result);
+        bt_toright = findViewById(R.id.btn_tognss);
+
 
     }
 
     private void onClick() {
-
+        bt_toright.setOnClickListener(view -> {
+            startActivity(new Intent(AntennaMeasure.this, ExcavatorMeasureXYZ.class));
+            overridePendingTransition(0, 0);
+            finish();
+        });
 
         btn_exit.setOnClickListener(view -> {
             startActivity(new Intent(AntennaMeasure.this, MchMeaureActivity.class));
@@ -74,7 +84,7 @@ public class AntennaMeasure extends AppCompatActivity {
             try {
                 calcola();
             } catch (Exception e) {
-               new CustomToast(this,"ERROR Check Values").show();
+                new CustomToast(this, "ERROR Check Values").show();
             }
 
         });
@@ -121,7 +131,7 @@ public class AntennaMeasure extends AppCompatActivity {
         double dP4L = Double.parseDouble(p4L.getText().toString());
         double dP4S = Double.parseDouble(p4S.getText().toString());
         double res2 = ((dP2L - dP4L) / 2) * -1;
-        double roll1 = ((dP3L + dP3S) / 2) / 2;//=((F16+F18)/2)/2
+        double roll1 = ((dP3L + dP3S) / 2) / 2;
         double roll2 = ((dP2S * (-1) - dP4S) / 2) * -1;
         double roll = (roll1 + roll2) / 2;
         D26 = dP2S > roll1;
@@ -141,13 +151,34 @@ public class AntennaMeasure extends AppCompatActivity {
         double pitch = dP2L + res2 - dP1L;
         double accuracyY = Math.round(((y1 - y) * E26) * 1000.0) / 1000.0;
         double accuracyRoll = Math.round(((roll1 - roll) * 1) * 1000.0) / 1000.0;
+        double sideA = Math.abs(dP4S) + Math.abs(Double.parseDouble(pHdtS.getText().toString()));
+        double temp = Math.abs(dP4L) - Math.abs(Double.parseDouble(pHdtL.getText().toString()));
+        double sideB = Math.abs(temp);
+        double sideC = Math.sqrt(sideA * sideA + sideB * sideB);
+        double tempB = (sideB * sideB) + (sideC * sideC) - (sideA * sideA);
+        double Beta = Math.toDegrees(Math.acos(tempB / 2 * sideB * sideC));
+        Beta = Beta % 360;
+        double beta2 = Beta - 90;
 
-        result1.setText("\tAcc Y: " + String.format("%.3f", accuracyY).replace(",",".") + "\t" + "Acc Roll: " + String.format("%.3f", accuracyRoll).replace(",","."));
-        result2.setText("\tX: " + String.format("%.3f", res2).replace(",","."));
-        result3.setText("\tY: " + String.format("%.3f", y).replace(",","."));
-        result4.setText("\tr: " + String.format("%.3f", reach).replace(",","."));
-        result5.setText("\tPitch: " + String.format("%.3f", pitch).replace(",","."));
-        result6.setText("\tRoll: " + String.format("%.3f", roll).replace(",","."));
+
+        if (Math.abs(dP4L) > Math.abs(Double.parseDouble(pHdtL.getText().toString()))) {
+
+            beta2 = 270 - beta2;
+
+        } else if (Math.abs(dP4L) < Math.abs(Double.parseDouble(pHdtL.getText().toString()))) {
+
+            beta2 = 270 + beta2;
+
+        }
+
+
+        result1.setText("\tAcc X: " + String.format("%.3f", accuracyY).replace(",", ".") + "\t" + "Acc Roll: " + String.format("%.3f", accuracyRoll).replace(",", "."));
+        result2.setText("\tY: " + String.format("%.3f", Math.abs(res2)).replace(",", "."));
+        result3.setText("\tX: " + String.format("%.3f", Math.abs(y)).replace(",", "."));
+        result4.setText("\tr: " + String.format("%.3f", reach).replace(",", "."));
+        result5.setText("\tPitch: " + String.format("%.3f", pitch * -1).replace(",", "."));
+        result6.setText("\tRoll: " + String.format("%.3f", roll * -1).replace(",", "."));
+        result7.setText("\tHDT dev: " + String.format("%.3f", beta2).replace(",", "."));
     }
 
 
