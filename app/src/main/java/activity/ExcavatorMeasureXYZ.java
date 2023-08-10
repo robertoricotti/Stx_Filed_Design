@@ -35,6 +35,7 @@ public class ExcavatorMeasureXYZ extends AppCompatActivity {
         setContentView(R.layout.activity_excavator_measure_xyz);
         FullscreenActivity.setFullScreen(this);
         findView();
+        init();
         onClick();
 
 
@@ -206,6 +207,44 @@ public class ExcavatorMeasureXYZ extends AppCompatActivity {
         pointSaved[8] = String.format("%.3f, %.3f, %.3f", d_x9, d_y9, d_z9);
         pointSaved[9] = String.format("%.3f, %.3f, %.3f", d_x10, d_y10, d_z10);
         pointSaved[10] = String.format("%.3f, %.3f, %.3f", d_x11, d_y11, d_z11);
+    }
+    private void init(){
+        String [] str=new MyRW_IntMem().MyRead("pointssaved",ExcavatorMeasureXYZ.this).split(",");
+        x1.setText(str[0]);
+        y1.setText(str[1]);
+        z1.setText(str[2]);
+        x2.setText(str[3]);
+        y2.setText(str[4]);
+        z2.setText(str[5]);
+        x3.setText(str[6]);
+        y3.setText(str[7]);
+        z3.setText(str[8]);
+        x4.setText(str[9]);
+        y4.setText(str[10]);
+        z4.setText(str[11]);
+        x5.setText(str[12]);
+        y5.setText(str[13]);
+        z5.setText(str[14]);
+        x6.setText(str[15]);
+        y6.setText(str[16]);
+        z6.setText(str[17]);
+        x7.setText(str[18]);
+        y7.setText(str[19]);
+        z7.setText(str[20]);
+        x8.setText(str[21]);
+        y8.setText(str[22]);
+        z8.setText(str[23]);
+        x9.setText(str[24]);
+        y9.setText(str[25]);
+        z9.setText(str[26]);
+        x10.setText(str[27]);
+        y10.setText(str[28]);
+        z10.setText(str[29]);
+        x11.setText(str[30]);
+        y11.setText(str[31]);
+        z11.setText(str[32]);
+
+
     }
 
 

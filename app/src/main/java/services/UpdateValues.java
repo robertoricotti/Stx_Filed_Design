@@ -25,6 +25,7 @@ public class UpdateValues extends Service {
         String altezzaAnt=myRW_intMem.MyRead("_altezzaantenna",this);
         String unitOfMeasure = myRW_intMem.MyRead("_unitofmeasure", this);
         String points=myRW_intMem.MyRead("pointssaved", this);
+        String boomresult=myRW_intMem.MyRead("boomresult", this);
 
         if(macaddress==null){
             myRW_intMem.MyWrite("_macaddress","00:00:00:00:00:00",this);
@@ -43,7 +44,10 @@ public class UpdateValues extends Service {
             myRW_intMem.MyWrite("_unitofmeasure", "0", this);
         }
         if (points == null) {
-            myRW_intMem.MyWrite("pointssaved", "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0", this);
+            myRW_intMem.MyWrite("pointssaved", "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0", this);
+        }
+        if(boomresult==null){
+            myRW_intMem.MyWrite("boomresult", "0,0,0", this);
         }
 
 

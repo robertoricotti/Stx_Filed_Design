@@ -14,12 +14,15 @@ import android.widget.TextView;
 
 import com.example.stx_field_design.R;
 
+import java.util.Arrays;
+
 import bluetooth.BT_Conn;
 import dialogs.ConnectDialog;
 import gnss.NmeaListenerGGAH;
 import services.DataSaved;
 import utils.CircumferenceCenterCalculator;
 import utils.FullscreenActivity;
+import utils.MyRW_IntMem;
 
 public class MchMeaureActivity extends AppCompatActivity {
 
@@ -37,6 +40,7 @@ public class MchMeaureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mch_meaure);
         FullscreenActivity.setFullScreen(this);
         findView();
+        init();
         onClick();
         updateUI();
     }
@@ -87,6 +91,8 @@ public class MchMeaureActivity extends AppCompatActivity {
                 res_m.setText(String.format("%.3f", result[2]).replace(",",".")+" m");
                 res_deg.setText(String.format("%.2f", result[3]).replace(",",".")+" °");
                 res_ft.setText(String.format("%.4f", (result[2] * 3.28083333333)).replace(",",".")+" ft");
+                String[] resultArray=new String[]{res_m.getText().toString().replace(" m",""),res_deg.getText().toString().replace(" °",""),res_ft.getText().toString().replace(" ft","")};
+                new MyRW_IntMem().MyWrite("boomresult", Arrays.toString(resultArray),MchMeaureActivity.this);
 
             } else {
                 res_m.setText("Input Err");
@@ -201,6 +207,12 @@ public class MchMeaureActivity extends AppCompatActivity {
 
         // Verifica se la stringa corrisponde al pattern
         return input.matches(decimalPattern);
+    }
+    private void init(){
+        String [] a=new MyRW_IntMem().MyRead("boomresult",MchMeaureActivity.this).split(",");
+        res_m.setText(a[0].replace("[","")+" m");
+        res_deg.setText(a[1]+" °");
+        res_ft.setText(a[2].replace("]","")+" ft");
     }
 
     @Override

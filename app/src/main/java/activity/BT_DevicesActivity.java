@@ -38,13 +38,10 @@ import utils.FullscreenActivity;
 import utils.MyRW_IntMem;
 
 public class BT_DevicesActivity extends AppCompatActivity {
-    ImageView btn_exit, btn_search, btn_stop,img_connect,img_cbt;
-    TextView tv_macaddress;
-    TextView textCoord, txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk;
-    private boolean isSearching=false;
+    ImageView btn_exit, btn_search, btn_stop,img_cbt;
 
-    private Handler handler;
-    private boolean mRunning = true;
+
+
     private BluetoothAdapter bluetoothAdapter;
     private List<BluetoothDevice> deviceList;
     private ListView deviceListView;
@@ -57,22 +54,16 @@ public class BT_DevicesActivity extends AppCompatActivity {
         FullscreenActivity.setFullScreen(this);
         findView();
         onClick();
-        updateUI();
+
     }
 
     private void findView() {
         btn_exit = findViewById(R.id.btn_exit);
         btn_search = findViewById(R.id.img1);
         btn_stop = findViewById(R.id.img2);
-        tv_macaddress = findViewById(R.id.txt_coord);
-        img_connect = findViewById(R.id.img_connetti);
+
         img_cbt=findViewById(R.id.img3);
-        txtSat = findViewById(R.id.txt_satnr);
-        txtFix = findViewById(R.id.txt_quality);
-        txtCq = findViewById(R.id.txt_precision);
-        txtHdt = findViewById(R.id.txt_hdt);
-        txtAltezzaAnt = findViewById(R.id.txt_speed);
-        txtRtk = findViewById(R.id.txt_rtk);
+
         // Inizializza l'adattatore Bluetooth
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter == null) {
@@ -94,10 +85,7 @@ public class BT_DevicesActivity extends AppCompatActivity {
     }
 
     private void onClick() {
-        img_connect.setOnClickListener(view -> {
-            new ConnectDialog(this).show();
 
-        });
         img_cbt.setOnClickListener(view -> {
             new ConnectDialog(this).show();
         });
@@ -134,87 +122,7 @@ public class BT_DevicesActivity extends AppCompatActivity {
 
     }
 
-    private void updateUI() {
 
-        handler = new Handler();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (mRunning) {
-
-
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if(isSearching&&!BT_Conn.GNSSServiceState){
-                                tv_macaddress.setText("...Searching...");
-                            }else{tv_macaddress.setText(DataSaved.S_gpsname+"\t"+DataSaved.S_macAddres);}
-
-                            txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",","."));
-                            if (BT_Conn.GNSSServiceState) {
-                                img_connect.setImageResource(R.drawable.btn_positionpage);
-
-                                txtSat.setText("\t"+NmeaListenerGGAH.ggaSat);
-                                if(NmeaListenerGGAH.ggaQuality!=null){
-                                    switch (NmeaListenerGGAH.ggaQuality) {
-                                        case "":
-                                        case "0":
-                                        case "1":
-                                            txtFix.setText("\tAUTONOMOUS");
-                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
-                                            break;
-                                        case "2":
-                                            txtFix.setText("\tDGNSS");
-                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
-                                            break;
-                                        case "4":
-                                            txtFix.setText("\tFIX");
-                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
-                                            break;
-                                        case "5":
-                                            txtFix.setText("\tFLOAT");
-                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
-                                            break;
-                                        case "6":
-                                            txtFix.setText("\tINS");
-                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
-                                            break;
-                                        default:txtFix.setText("\tAUTONOMOUS");
-                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
-                                            break;
-                                    }}
-                                if(NmeaListenerGGAH.VRMS_ !=null){
-                                    txtCq.setText("\tH: "+NmeaListenerGGAH.HRMS_.replace(",",".")+"\tV: "+NmeaListenerGGAH.VRMS_.replace(",","."));}
-                                else {txtCq.setText("H:---.-- V:---.--");}
-                                txtHdt.setText("\t" + String.format("%.2f",DataSaved.HDT_Calc).replace(",","."));
-                                txtRtk.setText("\t"+NmeaListenerGGAH.ggaRtk);
-
-                            } else {
-                                img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
-                                img_connect.setImageResource(R.drawable.btn_gpsoff);
-
-
-                                txtSat.setText("--");
-                                txtFix.setText("---");
-                                txtCq.setText("H:---.-- V:---.--");
-                                txtHdt.setText("---.--");
-                                txtRtk.setText("----");
-                            }
-
-
-                        }
-                    });
-                    // sleep per intervallo update UI
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();
-
-    }
 
     @SuppressLint("MissingPermission")
     private void pairWithDevice(BluetoothDevice device) {
@@ -250,19 +158,18 @@ public class BT_DevicesActivity extends AppCompatActivity {
             deviceListAdapter.clear();
             deviceList.clear();
             bluetoothAdapter.startDiscovery();
-            isSearching=true;
+
         }
     }
 
     @SuppressLint("MissingPermission")
     private void stopSearch() {
         bluetoothAdapter.cancelDiscovery();
-        isSearching=false;
-        // Mostra il ProgressDialog
+
+
 
     }
 
-    // BroadcastReceiver per ricevere gli aggiornamenti sullo stato dei dispositivi Bluetooth
     private final BroadcastReceiver bluetoothReceiver = new BroadcastReceiver() {
 
         @SuppressLint("MissingPermission")
@@ -291,8 +198,6 @@ public class BT_DevicesActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mRunning = false;
-        // Assicurati di deregistrare il BroadcastReceiver quando l'Activity viene distrutta
         unregisterReceiver(bluetoothReceiver);
     }
 }
