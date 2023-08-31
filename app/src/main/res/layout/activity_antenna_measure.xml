@@ -166,6 +166,7 @@
        </LinearLayout>
 
        <TextView
+           android:visibility="gone"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:gravity="center"
@@ -179,6 +180,7 @@
            android:layout_height="wrap_content"
            android:orientation="horizontal">
            <EditText
+               android:visibility="gone"
                android:id="@+id/etGPS2_L"
                android:inputType="numberDecimal|numberSigned"
                android:digits="0123456789.-"
@@ -189,6 +191,7 @@
                android:layout_weight="1"
                android:hint="GPS 2/2 Length"/>
            <EditText
+               android:visibility="gone"
                android:id="@+id/etGPS2_S"
                android:inputType="numberDecimal|numberSigned"
                android:digits="0123456789.-"
@@ -217,6 +220,7 @@ android:visibility="invisible"
            android:layout_height="wrap_content"
            android:orientation="horizontal">
            <EditText
+               android:visibility="gone"
                android:id="@+id/etHDT_L"
                android:inputType="numberDecimal|numberSigned"
                android:digits="0123456789.-"
@@ -227,6 +231,7 @@ android:visibility="invisible"
                android:layout_weight="1"
                android:hint="HDT Length"/>
            <EditText
+               android:visibility="gone"
                android:id="@+id/etHDT_S"
                android:inputType="numberDecimal|numberSigned"
                android:digits="0123456789.-"

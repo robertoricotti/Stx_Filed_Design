@@ -3,12 +3,26 @@ package gnss;
 
 import android.util.Log;
 
+import org.locationtech.jts.algorithm.distance.DistanceToPoint;
+
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Locale;
+import java.util.Queue;
 
 import services.DataSaved;
 
 public class NmeaListenerGGAH {
+
+    ////
+
+    static Queue<Double> bearingQueue = new LinkedList<>();
+    int queueSize = 20;
+    static double bearingValue;
+
+
+    ///
     public String[] NmeaInput;
     CalculateXor8 calculateXor8;
     String myNmea;
@@ -135,7 +149,6 @@ public class NmeaListenerGGAH {
                     case "$GPHDT":
                     case "$GNHDT":
                     case "$HCHDT":
-
                         try {
                             mch_Hdt = Double.parseDouble(NmeaInput[1]);
                             if (NmeaInput[1].equals("0.0000") || NmeaInput[1].equals("")) {
@@ -167,18 +180,38 @@ public class NmeaListenerGGAH {
                         }
                     case "$GPRMC":
                     case "$GNRMC":
-                        try {
-                          /*  Log.d("RMC", NmeaInput[8]);
-                            DataSaved.HDT_Calc = Double.parseDouble(NmeaInput[8]);
-                            if(DataSaved.HDT_Calc>180){
-                                DataSaved.HDT_Calc-=360;
-                            }else if(DataSaved.HDT_Calc<-180){
-                                DataSaved.HDT_Calc+=360;
-                            }*/
-                            break;
+                        try{
+                            if(Double.parseDouble(NmeaInput[7])>0.4) {
+                                bearingValue = Double.parseDouble(NmeaInput[8]);
+                                if (bearingValue > 180) {
+                                    bearingValue -= 360;
+                                } else if (bearingValue < -180) {
+                                    bearingValue += 360;
+                                }
+
+                                    bearingQueue.offer(bearingValue); // Aggiunge il valore alla coda
+                                    Log.d("MYRMC", bearingQueue.size() + "");
+                                    if (bearingQueue.size() >= queueSize) {
+                                        double sum = 0;
+                                        for (double value : bearingQueue) {
+                                            sum += value;
+                                        }
+                                        DataSaved.HDT_Calc = sum / bearingQueue.size();
+                                        bearingQueue.clear();
+                                    }
+
+
+
+
+
+
+
+                            }
                         } catch (Exception e) {
+
                             DataSaved.HDT_Calc=0;
                         }
+                        break;
                 }
             }
             try {

@@ -130,7 +130,7 @@ public class BT_Conn extends BluetoothClass.Device {
 
                                                                 new NmeaListenerGGAH(data);
                                                                 DataSaved.S_nmea = data;
-
+                                                                /*
                                                                 if (!isStop) {
                                                                     x1 = NmeaListenerGGAH.Est1;
                                                                     y1 = NmeaListenerGGAH.Nord1;
@@ -158,8 +158,9 @@ public class BT_Conn extends BluetoothClass.Device {
                                                                     if(Math.abs(hd3-hd2)<5d){
                                                                     DataSaved.HDT_Calc=(hd1+hd2+hd3)/3;}
                                                                     count=0;
-                                                                }
+                                                                }*/
                                                             }
+
                                                         });
                                                     } else {
                                                         readBuffer_Gnss[0][readBufferPosition_Gnss[0]++] = b;

@@ -44,9 +44,9 @@ public class ConnectDialog {
         exit = alertDialog.findViewById(R.id._h_exit);
         textView=alertDialog.findViewById(R.id.titleC);
         if(BT_Conn.GNSSServiceState){
-            textView.setText("Disconnect From\n"+DataSaved.S_macAddres+"\n"+DataSaved.S_gpsname);
+            textView.setText("Disconnect From\n"+DataSaved.S_gpsname+"\n"+DataSaved.S_macAddres);
         }else{
-            textView.setText("Connect To\n"+DataSaved.S_macAddres+"\n"+DataSaved.S_gpsname);
+            textView.setText("Connect To\n"+DataSaved.S_gpsname+"\n"+DataSaved.S_macAddres);
         }
     }
 

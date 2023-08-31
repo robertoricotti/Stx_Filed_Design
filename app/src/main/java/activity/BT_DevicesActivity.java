@@ -15,6 +15,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -38,12 +39,11 @@ import utils.FullscreenActivity;
 import utils.MyRW_IntMem;
 
 public class BT_DevicesActivity extends AppCompatActivity {
-    ImageView btn_exit, btn_search, btn_stop,img_cbt;
-
+    ImageView btn_exit, btn_search, btn_stop, img_cbt;
 
 
     private BluetoothAdapter bluetoothAdapter;
-    private List<BluetoothDevice> deviceList;
+    private List<BluetoothDeviceInfo> deviceList;
     private ListView deviceListView;
     private ArrayAdapter<String> deviceListAdapter;
 
@@ -62,7 +62,7 @@ public class BT_DevicesActivity extends AppCompatActivity {
         btn_search = findViewById(R.id.img1);
         btn_stop = findViewById(R.id.img2);
 
-        img_cbt=findViewById(R.id.img3);
+        img_cbt = findViewById(R.id.img3);
 
         // Inizializza l'adattatore Bluetooth
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -103,53 +103,42 @@ public class BT_DevicesActivity extends AppCompatActivity {
         });
 
         deviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @SuppressLint("MissingPermission")
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                BluetoothDevice selectedDevice = deviceList.get(position);
-                new CustomToast(BT_DevicesActivity.this, selectedDevice.getAddress()).show();
-                new MyRW_IntMem().MyWrite("_macaddress", selectedDevice.getAddress().toUpperCase().toString(), BT_DevicesActivity.this);
-                try {
-                    new MyRW_IntMem().MyWrite("_gpsname", selectedDevice.getName().toUpperCase().toString(), BT_DevicesActivity.this);
-                } catch (Exception e) {
-
-                }
+                BluetoothDeviceInfo selectedDeviceInfo = deviceList.get(position);
+                new CustomToast(BT_DevicesActivity.this, selectedDeviceInfo.getDeviceAddress()).show();
+                new MyRW_IntMem().MyWrite("_macaddress", selectedDeviceInfo.getDeviceAddress().toUpperCase(), BT_DevicesActivity.this);
+                new MyRW_IntMem().MyWrite("_gpsname", selectedDeviceInfo.getDeviceName().toUpperCase(), BT_DevicesActivity.this);
                 startService(new Intent(BT_DevicesActivity.this, UpdateValues.class));
-                pairWithDevice(selectedDevice);
+                pairWithDevice(selectedDeviceInfo.getDeviceAddress());
             }
-
         });
+
 
     }
 
 
-
     @SuppressLint("MissingPermission")
-    private void pairWithDevice(BluetoothDevice device) {
+    private void pairWithDevice(String deviceAddress) {
+        // Get the BluetoothDevice object based on the device address
+        BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
+
         // Avvia il processo di abbinamento
-        @SuppressLint("MissingPermission") boolean pairingStarted = device.createBond();
+        boolean pairingStarted = device.createBond();
         if (pairingStarted) {
             new CustomToast(BT_DevicesActivity.this, "PAIRING PROCESS STARTED WITH: " + device.getName()).show();
         } else {
-            new CustomToast(BT_DevicesActivity.this, "CHECK IF ALREADY PAIRED: " + device.getName()).show();
+            new CustomToast(BT_DevicesActivity.this, "MACADDRESS SAVED: " + device.getName()).show();
         }
     }
 
 
+    @SuppressLint("MissingPermission")
     private void searchDevices() {
         if (!bluetoothAdapter.isEnabled()) {
             // Se il Bluetooth non è abilitato, richiedi all'utente di abilitarlo
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
-            }
+
             startActivityForResult(enableBtIntent, 1);
 
 
@@ -165,30 +154,53 @@ public class BT_DevicesActivity extends AppCompatActivity {
     @SuppressLint("MissingPermission")
     private void stopSearch() {
         bluetoothAdapter.cancelDiscovery();
+        new CustomToast(BT_DevicesActivity.this, "STOPPED..").show();
 
 
 
     }
 
     private final BroadcastReceiver bluetoothReceiver = new BroadcastReceiver() {
+        // ...
 
-        @SuppressLint("MissingPermission")
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                deviceList.add(device);
-                String deviceName = device.getName();
-                String deviceAddress = device.getAddress();
-                if (deviceName == null) {
-                    deviceName = "UNKNOWN";
-                }
-                if(!deviceName.contains("UNKNOWN")){
-                deviceListAdapter.add(deviceName + "\n" + deviceAddress);
-                }
+
+                @SuppressLint("MissingPermission") BluetoothDeviceInfo deviceInfo = new BluetoothDeviceInfo(device.getName(), device.getAddress());
+                deviceList.add(deviceInfo);
+
+
+                // Update the list adapter with the new data
+                deviceListAdapter.add(deviceInfo.toString());
             }
         }
+        // ...
     };
+
+    public class BluetoothDeviceInfo {
+        private String deviceName;
+        private String deviceAddress;
+
+        public BluetoothDeviceInfo(String name, String address) {
+            this.deviceName = name;
+            this.deviceAddress = address;
+        }
+
+        public String getDeviceName() {
+            return deviceName;
+        }
+
+        public String getDeviceAddress() {
+            return deviceAddress;
+        }
+
+        @Override
+        public String toString() {
+            return deviceName + "\n" + deviceAddress;
+        }
+    }
 
     @Override
     public void onBackPressed() {
