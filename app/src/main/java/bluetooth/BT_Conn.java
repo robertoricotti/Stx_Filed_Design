@@ -31,6 +31,7 @@ import java.util.concurrent.Executors;
 import activity.MyApp;
 import dialogs.CustomToast;
 import gnss.HDTCalculator;
+import gnss.My_LocationCalc;
 import gnss.NmeaListenerGGAH;
 import services.DataSaved;
 
@@ -136,12 +137,11 @@ public class BT_Conn extends BluetoothClass.Device {
                                                                     isStop = true;
                                                                 }
 
-                                                                if (((Math.abs(NmeaListenerGGAH.Est1 - x1) > 0.1)||(Math.abs(NmeaListenerGGAH.Nord1 - y1) > 0.1)) && isStop) {
+                                                                if (((Math.abs(NmeaListenerGGAH.Est1 - x1) > 0.25)||(Math.abs(NmeaListenerGGAH.Nord1 - y1) > 0.25)) && isStop) {
                                                                     x2 = NmeaListenerGGAH.Est1;
                                                                     y2 = NmeaListenerGGAH.Nord1;
-                                                                    hdTOT = HDTCalculator.calculateHDT(x1, y1, x2, y2);
+                                                                    hdTOT = My_LocationCalc.calcBearingXY(x1, y1, x2, y2);
                                                                     count++;
-
                                                                     isStop = false;
                                                                 }
                                                                 if(hdTOT>180){

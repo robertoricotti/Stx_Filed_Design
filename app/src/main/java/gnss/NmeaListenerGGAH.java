@@ -183,13 +183,13 @@ public class NmeaListenerGGAH {
             }
             try {
                 if (gga_H_Quality.equals("4") && ggaQuality.equals("4")) {
-                    mch_Orientation = HDTCalculator.calculateHDT(Est1, Nord1, Est2, Nord2);
+                    mch_Orientation = My_LocationCalc.calcBearing(mLat_1,mLon_1,mLat_2,mLon_2);
 
                 } else {
                     mch_Orientation = mch_Hdt;
                 }
                 sMchOrient = String.format("%.3f", mch_Orientation);
-                mchBaseline = new Gps1Gps2_Baseline(Est1, Nord1, Quota1, Est2, Nord2, Quota2).getBaseline();
+                mchBaseline =My_LocationCalc.baseLineDist(mLat_1,mLon_1,mLat_2,mLon_2);
             } catch (Exception e) {
 
                 mch_Orientation = 0.000;

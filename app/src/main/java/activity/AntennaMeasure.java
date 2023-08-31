@@ -25,8 +25,8 @@ import utils.FullscreenActivity;
 public class AntennaMeasure extends AppCompatActivity {
     ImageView btn_exit, bt_toright;
     Button btn_calc;
-    EditText p1L, p1S, p2L, p2S, p3L, p3S, p4L, p4S, pHdtS, pHdtL;
-    TextView result1, result2, result3, result4, result5, result6, result7;
+    EditText p1L, p1S, p2L, p2S, p3L, p3S, p4L, p4S; //pHdtS, pHdtL;
+    TextView result1, result2, result3, result4, result5, result6;// result7;
     boolean D26, D27, E27;
 
     private Handler handler;
@@ -60,9 +60,9 @@ public class AntennaMeasure extends AppCompatActivity {
         result4 = findViewById(R.id.txtxreach);
         result5 = findViewById(R.id.txtpitch);
         result6 = findViewById(R.id.txtroll);
-        pHdtL = findViewById(R.id.etHDT_L);
-        pHdtS = findViewById(R.id.etHDT_S);
-        result7 = findViewById(R.id.txtHdt_result);
+        //pHdtL = findViewById(R.id.etHDT_L);
+        //pHdtS = findViewById(R.id.etHDT_S);
+        //result7 = findViewById(R.id.txtHdt_result);
         bt_toright = findViewById(R.id.btn_tognss);
 
 
@@ -151,7 +151,7 @@ public class AntennaMeasure extends AppCompatActivity {
         double pitch = dP2L + res2 - dP1L;
         double accuracyY = Math.round(((y1 - y) * E26) * 1000.0) / 1000.0;
         double accuracyRoll = Math.round(((roll1 - roll) * 1) * 1000.0) / 1000.0;
-        double sideA = Math.abs(dP4S) + Math.abs(Double.parseDouble(pHdtS.getText().toString()));
+       /* double sideA = Math.abs(dP4S) + Math.abs(Double.parseDouble(pHdtS.getText().toString()));
         double temp = Math.abs(dP4L) - Math.abs(Double.parseDouble(pHdtL.getText().toString()));
         double sideB = Math.abs(temp);
         double sideC = Math.sqrt(sideA * sideA + sideB * sideB);
@@ -169,7 +169,7 @@ public class AntennaMeasure extends AppCompatActivity {
 
             beta2 = 270 + beta2;
 
-        }
+        }*/
 
 
         result1.setText("\tAcc X: " + String.format("%.3f", accuracyY).replace(",", ".") + "\t" + "Acc Roll: " + String.format("%.3f", accuracyRoll).replace(",", "."));
@@ -178,7 +178,7 @@ public class AntennaMeasure extends AppCompatActivity {
         result4.setText("\tr: " + String.format("%.3f", reach).replace(",", "."));
         result5.setText("\tPitch: " + String.format("%.3f", pitch * -1).replace(",", "."));
         result6.setText("\tRoll: " + String.format("%.3f", roll * -1).replace(",", "."));
-        result7.setText("\tHDT dev: " + String.format("%.3f", beta2).replace(",", "."));
+        //result7.setText("\tHDT dev: " + String.format("%.3f", beta2).replace(",", "."));
     }
 
 
