@@ -11,7 +11,9 @@ public class DataSaved {
     public static int I_UnitOfMeasure;
 
     public static double D_AltezzaAnt;
-    public static double HDT_Calc;
+    public static int rmcSize;
+    public static int useRmc;
+
 
 
 }

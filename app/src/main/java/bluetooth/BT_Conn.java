@@ -9,13 +9,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
 import android.widget.Toast;
-
-import androidx.annotation.RequiresApi;
 
 
 import java.io.IOException;
@@ -24,15 +19,8 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-import activity.MyApp;
-import dialogs.CustomToast;
-import gnss.HDTCalculator;
-import gnss.My_LocationCalc;
-import gnss.NmeaListenerGGAH;
+import gnss.NmeaListener_SingleHead;
 import services.DataSaved;
 
 
@@ -128,18 +116,18 @@ public class BT_Conn extends BluetoothClass.Device {
                                                         handler.post(new Runnable() {
                                                             public void run() {
 
-                                                                new NmeaListenerGGAH(data);
+                                                                new NmeaListener_SingleHead(data);
                                                                 DataSaved.S_nmea = data;
                                                                 /*
                                                                 if (!isStop) {
-                                                                    x1 = NmeaListenerGGAH.Est1;
-                                                                    y1 = NmeaListenerGGAH.Nord1;
+                                                                    x1 = NmeaListener_SingleHead.Est1;
+                                                                    y1 = NmeaListener_SingleHead.Nord1;
                                                                     isStop = true;
                                                                 }
 
-                                                                if (((Math.abs(NmeaListenerGGAH.Est1 - x1) > 0.25)||(Math.abs(NmeaListenerGGAH.Nord1 - y1) > 0.25)) && isStop) {
-                                                                    x2 = NmeaListenerGGAH.Est1;
-                                                                    y2 = NmeaListenerGGAH.Nord1;
+                                                                if (((Math.abs(NmeaListener_SingleHead.Est1 - x1) > 0.25)||(Math.abs(NmeaListener_SingleHead.Nord1 - y1) > 0.25)) && isStop) {
+                                                                    x2 = NmeaListener_SingleHead.Est1;
+                                                                    y2 = NmeaListener_SingleHead.Nord1;
                                                                     hdTOT = My_LocationCalc.calcBearingXY(x1, y1, x2, y2);
                                                                     count++;
                                                                     isStop = false;

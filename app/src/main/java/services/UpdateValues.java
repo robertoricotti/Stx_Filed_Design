@@ -26,6 +26,8 @@ public class UpdateValues extends Service {
         String unitOfMeasure = myRW_intMem.MyRead("_unitofmeasure", this);
         String points=myRW_intMem.MyRead("pointssaved", this);
         String boomresult=myRW_intMem.MyRead("boomresult", this);
+        String rmcSize=myRW_intMem.MyRead("rmcSize", this);
+        String useRmc=myRW_intMem.MyRead("useRmc", this);
 
         if(macaddress==null){
             myRW_intMem.MyWrite("_macaddress","00:00:00:00:00:00",this);
@@ -49,6 +51,13 @@ public class UpdateValues extends Service {
         if(boomresult==null){
             myRW_intMem.MyWrite("boomresult", "0,0,0", this);
         }
+        if(rmcSize==null){
+            myRW_intMem.MyWrite("rmcSize", "5", this);
+        }
+        if(useRmc==null){
+            myRW_intMem.MyWrite("useRmc", "0", this);
+        }
+
 
 
 
@@ -60,6 +69,8 @@ public class UpdateValues extends Service {
         DataSaved.S_CRS=myRW_intMem.MyRead("_crs",this);
         DataSaved.D_AltezzaAnt=Double.parseDouble(myRW_intMem.MyRead("_altezzaantenna",this).replace(",","."));
         DataSaved.I_UnitOfMeasure=Integer.parseInt(myRW_intMem.MyRead("_unitofmeasure",this));
+        DataSaved.rmcSize=Integer.parseInt(myRW_intMem.MyRead("rmcSize",this));
+        DataSaved.useRmc=Integer.parseInt(myRW_intMem.MyRead("useRmc",this));
     }
 
     @Override

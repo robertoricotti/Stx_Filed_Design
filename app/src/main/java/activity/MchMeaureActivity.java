@@ -6,7 +6,6 @@ import androidx.core.content.ContextCompat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,7 +17,7 @@ import java.util.Arrays;
 
 import bluetooth.BT_Conn;
 import dialogs.ConnectDialog;
-import gnss.NmeaListenerGGAH;
+import gnss.NmeaListener_SingleHead;
 import services.DataSaved;
 import utils.CircumferenceCenterCalculator;
 import utils.FullscreenActivity;
@@ -135,10 +134,10 @@ public class MchMeaureActivity extends AppCompatActivity {
                             if (BT_Conn.GNSSServiceState) {
                                 img_connect.setImageResource(R.drawable.btn_positionpage);
 
-                                textCoord.setText("N: " + String.format("%.3f", NmeaListenerGGAH.Nord1).replace(",", ".") + "\tE: " + String.format("%.3f", NmeaListenerGGAH.Est1).replace(",", ".") + " Z: " + String.format("%.3f", NmeaListenerGGAH.Quota1).replace(",", "."));
-                                txtSat.setText("\t" + NmeaListenerGGAH.ggaSat);
-                                if (NmeaListenerGGAH.ggaQuality != null) {
-                                    switch (NmeaListenerGGAH.ggaQuality) {
+                                textCoord.setText("N: " + String.format("%.3f", NmeaListener_SingleHead.Nord1).replace(",", ".") + "\tE: " + String.format("%.3f", NmeaListener_SingleHead.Est1).replace(",", ".") + " Z: " + String.format("%.3f", NmeaListener_SingleHead.Quota1).replace(",", "."));
+                                txtSat.setText("\t" + NmeaListener_SingleHead.ggaSat);
+                                if (NmeaListener_SingleHead.ggaQuality != null) {
+                                    switch (NmeaListener_SingleHead.ggaQuality) {
                                         case "":
                                         case "0":
                                         case "1":
@@ -167,13 +166,13 @@ public class MchMeaureActivity extends AppCompatActivity {
                                             break;
                                     }
                                 }
-                                if (NmeaListenerGGAH.VRMS_ != null) {
-                                    txtCq.setText("\tH: " + NmeaListenerGGAH.HRMS_.replace(",", ".") + "\tV: " + NmeaListenerGGAH.VRMS_.replace(",", "."));
+                                if (NmeaListener_SingleHead.VRMS_ != null) {
+                                    txtCq.setText("\tH: " + NmeaListener_SingleHead.HRMS_.replace(",", ".") + "\tV: " + NmeaListener_SingleHead.VRMS_.replace(",", "."));
                                 } else {
                                     txtCq.setText("H:---.-- V:---.--");
                                 }
-                                txtHdt.setText("\t" + String.format("%.2f", DataSaved.HDT_Calc));
-                                txtRtk.setText("\t" + NmeaListenerGGAH.ggaRtk);
+                                txtHdt.setText("\t" + String.format("%.2f", NmeaListener_SingleHead.tractorBearing).replace(",","."));
+                                txtRtk.setText("\t" + NmeaListener_SingleHead.ggaRtk);
 
                             } else {
                                 img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
