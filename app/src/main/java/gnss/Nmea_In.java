@@ -1,12 +1,16 @@
 package gnss;
 
 
+import org.locationtech.proj4j.ProjCoordinate;
+
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
+import coords_calc.GPS;
 import services.DataSaved;
+import services.UpdateValues;
 
-public class NmeaListener_SingleHead {
+public class Nmea_In {
 
 
     public String[] NmeaInput;
@@ -14,15 +18,15 @@ public class NmeaListener_SingleHead {
     String myNmea;
     String mNmea1, mNmea2;
     Deg2UTM deg2UTM;
+    GPS gps_cl;
     public static char mChar;
     public static int mZone;
     public static String VRMS_, HRMS_;
-    public static double Nord1, Est1, Quota1, mLat_1, mLon_1, mSpeed_rmc, mBearing_rmc, tractorBearing;
+    public static double Nord1, Est1, Quota1, mLat_1, mLon_1, mSpeed_rmc, mBearing_rmc, tractorBearing,Crs_Nord,Crs_Est;
     public static String ggaNord, ggaEast, ggaNoS, ggaWoE, ggaZ1, ggaZ2, ggaSat, ggaDop, ggaQuality, ggaRtk, sMchOrient;//String data from  GPS1
 
 
-    public NmeaListener_SingleHead(String NmeaGGAH) {
-
+    public Nmea_In(String NmeaGGAH) {
 
         try {
             myNmea = NmeaGGAH.substring(NmeaGGAH.indexOf("$") + 1, NmeaGGAH.indexOf("*"));
@@ -36,6 +40,7 @@ public class NmeaListener_SingleHead {
 
                 switch (NmeaInput[0]) {
 
+                    case "$GLGGA":
                     case "$GNGGA":
                     case "$GPGGA":
                         try {
@@ -68,13 +73,18 @@ public class NmeaListener_SingleHead {
                                 mLon_1 = mLon_1 * -1;
                             }
 
+
                             deg2UTM = new Deg2UTM(mLat_1, mLon_1);
+
                             Nord1 = deg2UTM.getNorthing();
                             Est1 = deg2UTM.getEasting();
                             Quota1 = Double.parseDouble(ggaZ1.replace(",", ".")) + Double.parseDouble(ggaZ2.replace(",", "."));
                             Quota1 = Quota1 - DataSaved.D_AltezzaAnt;
                             mChar = deg2UTM.getLetter();
                             mZone = deg2UTM.getZone();
+                            UpdateValues.wgsToUtm.transform(new ProjCoordinate(mLon_1, mLat_1), UpdateValues.result);
+                            Crs_Est= UpdateValues.result.x;
+                            Crs_Nord=UpdateValues.result.y;
                             break;
                         } catch (Exception e) {
 
@@ -107,6 +117,7 @@ public class NmeaListener_SingleHead {
                             mBearing_rmc = 0;
                         }
                         break;
+
                 }
             }
 
@@ -116,9 +127,6 @@ public class NmeaListener_SingleHead {
 
                 GPSTracker.onLocationUpdate(mLat_1,mLon_1,DataSaved.rmcSize);
                tractorBearing= GPSTracker.getAverageBearing();
-
-
-
             }
 
         } catch (Exception e) {

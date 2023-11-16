@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <EditText
+        android:id="@+id/id_point"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:imeOptions="actionDone"
+        android:ems="5"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/id_point"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:textStyle="bold"/>
+
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/z"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp">
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="50dp"
+            android:backgroundTint="@color/red"
+            android:text="DELETE"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/okay_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_toEndOf="@id/delete"
+            android:backgroundTint="@color/_____cancel_text"
+            android:text="OK"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/latitude"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_point"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp">
+
+        <TextView
+            android:id="@+id/latLabel"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textColor="#3F51B5"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:text="LAT:" />
+
+        <EditText
+            android:id="@+id/valueLat"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/latLabel"
+            android:inputType="number"
+            android:imeOptions="actionDone"
+            android:text="0.0000000"
+            android:layout_centerVertical="true"
+            android:textColor="#3F51B5"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/longitude"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/latitude"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp">
+
+        <TextView
+            android:id="@+id/longLabel"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textColor="#3F51B5"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:text="LONG:" />
+
+        <EditText
+            android:id="@+id/valueLong"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/longLabel"
+            android:inputType="number"
+            android:imeOptions="actionDone"
+            android:text="0.0000000"
+            android:textColor="#3F51B5"
+            android:layout_centerVertical="true"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/z"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/longitude"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp">
+
+        <TextView
+            android:id="@+id/zLabel"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textColor="#3F51B5"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:text="Z:" />
+
+        <EditText
+            android:id="@+id/valueZ"
+            android:focusable="false"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/zLabel"
+            android:inputType="number"
+            android:imeOptions="actionDone"
+            android:text="0.0000000"
+            android:textColor="#3F51B5"
+            android:layout_centerVertical="true"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

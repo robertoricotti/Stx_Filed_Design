@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 import com.example.stx_field_design.R;
 
-import bluetooth.BT_Conn;
+import bluetooth.BT_Conn_GPS;
 import dialogs.ConnectDialog;
-import gnss.NmeaListener_SingleHead;
+import gnss.Nmea_In;
 import services.DataSaved;
 import utils.FullscreenActivity;
 
@@ -46,12 +46,12 @@ public class StakeOutactivity extends AppCompatActivity {
     }
     private void onClick(){
         img_connect.setOnClickListener(view -> {
-            new ConnectDialog(this).show();
+            new ConnectDialog(this,1).show();
 
         });
         btn_exit.setOnClickListener(view -> {
             startActivity(new Intent(StakeOutactivity.this,MainActivity.class));
-            overridePendingTransition(0,0);
+
             finish();
         });
 
@@ -69,13 +69,13 @@ public class StakeOutactivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",","."));
-                            if (BT_Conn.GNSSServiceState) {
+                            if (BT_Conn_GPS.GNSSServiceState) {
                                 img_connect.setImageResource(R.drawable.btn_positionpage);
 
-                                textCoord.setText("N: " + String.format("%.3f", NmeaListener_SingleHead.Nord1).replace(",", ".") + "\tE: " + String.format("%.3f", NmeaListener_SingleHead.Est1).replace(",", ".") + " Z: " + String.format("%.3f", NmeaListener_SingleHead.Quota1).replace(",", "."));
-                                txtSat.setText("\t"+ NmeaListener_SingleHead.ggaSat);
-                                if(NmeaListener_SingleHead.ggaQuality!=null){
-                                    switch (NmeaListener_SingleHead.ggaQuality) {
+                                textCoord.setText("N: " + String.format("%.3f", Nmea_In.Nord1).replace(",", ".") + "\tE: " + String.format("%.3f", Nmea_In.Est1).replace(",", ".") + " Z: " + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
+                                txtSat.setText("\t"+ Nmea_In.ggaSat);
+                                if(Nmea_In.ggaQuality!=null){
+                                    switch (Nmea_In.ggaQuality) {
                                         case "":
                                         case "0":
                                         case "1":
@@ -102,11 +102,11 @@ public class StakeOutactivity extends AppCompatActivity {
                                             img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
                                             break;
                                     }}
-                                if(NmeaListener_SingleHead.VRMS_ !=null){
-                                    txtCq.setText("\tH: "+ NmeaListener_SingleHead.HRMS_.replace(",",".")+"\tV: "+ NmeaListener_SingleHead.VRMS_.replace(",","."));}
+                                if(Nmea_In.VRMS_ !=null){
+                                    txtCq.setText("\tH: "+ Nmea_In.HRMS_.replace(",",".")+"\tV: "+ Nmea_In.VRMS_.replace(",","."));}
                                 else {txtCq.setText("H:---.-- V:---.--");}
-                                txtHdt.setText("\t" + String.format("%.2f", NmeaListener_SingleHead.tractorBearing).replace(",","."));
-                                txtRtk.setText("\t"+ NmeaListener_SingleHead.ggaRtk);
+                                txtHdt.setText("\t" + String.format("%.2f", Nmea_In.tractorBearing).replace(",","."));
+                                txtRtk.setText("\t"+ Nmea_In.ggaRtk);
 
                             } else {
                                 img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));

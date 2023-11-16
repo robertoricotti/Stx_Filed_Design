@@ -85,7 +85,7 @@ public class ExcavatorMeasureXYZ extends AppCompatActivity {
     private void onClick(){
         exit.setOnClickListener(view -> {
             startActivity(new Intent(ExcavatorMeasureXYZ.this, AntennaMeasure.class));
-            overridePendingTransition(0, 0);
+
             finish();
         });
         calcola.setOnClickListener(view -> {

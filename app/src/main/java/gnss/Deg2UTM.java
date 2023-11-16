@@ -9,12 +9,10 @@ package gnss;
 
 public class Deg2UTM
 {
-
     double Easting;
     double Northing;
     int Zone;
     char Letter;
-
 
     public Deg2UTM(double Lat, double Lon)
     {
@@ -68,10 +66,7 @@ public class Deg2UTM
         if (Letter<'M')
             Northing = Northing + 10000000;
 
-
-
     }
-
 
 
     public double getEasting() {

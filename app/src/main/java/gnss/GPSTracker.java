@@ -3,6 +3,8 @@ package gnss;
 import java.util.Queue;
 import java.util.LinkedList;
 
+import services.DataSaved;
+
 public class GPSTracker {
 
 
@@ -26,14 +28,14 @@ public class GPSTracker {
 
 
             double distance = calculateDistance(secondLastPosition.lat, secondLastPosition.lon, newLat, newLon);
-            if (distance > 0.1) {//dist 20cm
+            if (distance > 0.2) {//dist 20cm
 
                 double bearing = calculateBearing(secondLastPosition.lat, secondLastPosition.lon, newLat, newLon);
 
 
                 bearingQueue.offer(bearing);
 
-                if (bearingQueue.size() > 3) {
+                if (bearingQueue.size() > DataSaved.rmcSize) {
                     bearingQueue.poll();
                 }
             }

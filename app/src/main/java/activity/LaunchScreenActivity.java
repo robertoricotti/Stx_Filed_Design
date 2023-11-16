@@ -26,13 +26,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import services.AutoConnectionService;
 import services.UpdateValues;
 import utils.FullscreenActivity;
 import utils.MyRW_IntMem;
 
 
 @SuppressLint("CustomSplashScreen")
-public class LaunchScreenActivity extends AppCompatActivity {
+public class
+LaunchScreenActivity extends AppCompatActivity {
     private ProgressBar pgBar;
 
     private int progress = 0;
@@ -67,6 +69,11 @@ public class LaunchScreenActivity extends AppCompatActivity {
 
         askPermission();
         createSystemFolders();
+        try {
+            startService(new Intent(this, AutoConnectionService.class));
+        } catch (Exception e) {
+            //
+        }
 
         count = new CountDownTimer(3000, 1) {
             @Override

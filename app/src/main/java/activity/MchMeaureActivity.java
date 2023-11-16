@@ -15,9 +15,9 @@ import com.example.stx_field_design.R;
 
 import java.util.Arrays;
 
-import bluetooth.BT_Conn;
+import bluetooth.BT_Conn_GPS;
 import dialogs.ConnectDialog;
-import gnss.NmeaListener_SingleHead;
+import gnss.Nmea_In;
 import services.DataSaved;
 import utils.CircumferenceCenterCalculator;
 import utils.FullscreenActivity;
@@ -66,8 +66,6 @@ public class MchMeaureActivity extends AppCompatActivity {
         res_ft = findViewById(R.id.txt_result_ft);
         res_deg = findViewById(R.id.txt_result_deg);
         img_tognss=findViewById(R.id.btn_tognss);
-
-
     }
 
     private void onClick() {
@@ -98,21 +96,19 @@ public class MchMeaureActivity extends AppCompatActivity {
                 res_ft.setText("Input Err");
                 res_deg.setText("Input Err");
             }
-
-
         });
+
+
         img_connect.setOnClickListener(view -> {
-            new ConnectDialog(this).show();
+            new ConnectDialog(this,1).show();
 
         });
         btn_exit.setOnClickListener(view -> {
             startActivity(new Intent(MchMeaureActivity.this, MainActivity.class));
-            overridePendingTransition(0, 0);
             finish();
         });
         img_tognss.setOnClickListener(view -> {
             startActivity(new Intent(MchMeaureActivity.this, AntennaMeasure.class));
-            overridePendingTransition(0, 0);
             finish();
         });
 
@@ -131,13 +127,13 @@ public class MchMeaureActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",", "."));
-                            if (BT_Conn.GNSSServiceState) {
+                            if (BT_Conn_GPS.GNSSServiceState) {
                                 img_connect.setImageResource(R.drawable.btn_positionpage);
 
-                                textCoord.setText("N: " + String.format("%.3f", NmeaListener_SingleHead.Nord1).replace(",", ".") + "\tE: " + String.format("%.3f", NmeaListener_SingleHead.Est1).replace(",", ".") + " Z: " + String.format("%.3f", NmeaListener_SingleHead.Quota1).replace(",", "."));
-                                txtSat.setText("\t" + NmeaListener_SingleHead.ggaSat);
-                                if (NmeaListener_SingleHead.ggaQuality != null) {
-                                    switch (NmeaListener_SingleHead.ggaQuality) {
+                                textCoord.setText("N: " + String.format("%.3f", Nmea_In.Nord1).replace(",", ".") + "\tE: " + String.format("%.3f", Nmea_In.Est1).replace(",", ".") + " Z: " + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
+                                txtSat.setText("\t" + Nmea_In.ggaSat);
+                                if (Nmea_In.ggaQuality != null) {
+                                    switch (Nmea_In.ggaQuality) {
                                         case "":
                                         case "0":
                                         case "1":
@@ -166,13 +162,13 @@ public class MchMeaureActivity extends AppCompatActivity {
                                             break;
                                     }
                                 }
-                                if (NmeaListener_SingleHead.VRMS_ != null) {
-                                    txtCq.setText("\tH: " + NmeaListener_SingleHead.HRMS_.replace(",", ".") + "\tV: " + NmeaListener_SingleHead.VRMS_.replace(",", "."));
+                                if (Nmea_In.VRMS_ != null) {
+                                    txtCq.setText("\tH: " + Nmea_In.HRMS_.replace(",", ".") + "\tV: " + Nmea_In.VRMS_.replace(",", "."));
                                 } else {
                                     txtCq.setText("H:---.-- V:---.--");
                                 }
-                                txtHdt.setText("\t" + String.format("%.2f", NmeaListener_SingleHead.tractorBearing).replace(",","."));
-                                txtRtk.setText("\t" + NmeaListener_SingleHead.ggaRtk);
+                                txtHdt.setText("\t" + String.format("%.2f", Nmea_In.tractorBearing).replace(",","."));
+                                txtRtk.setText("\t" + Nmea_In.ggaRtk);
 
                             } else {
                                 img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));

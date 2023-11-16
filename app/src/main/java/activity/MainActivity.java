@@ -7,25 +7,35 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.stx_field_design.BuildConfig;
 import com.example.stx_field_design.R;
 
-import bluetooth.BT_Conn;
+import bluetooth.BT_Conn_CAN;
+import bluetooth.BT_Conn_GPS;
+import dialogs.PickProjectDialog;
+import gnss.My_LocationCalc;
+import gnss.Nmea_In;
+import project.DataProjectSingleton;
+import project.MenuProject;
 import dialogs.CloseAppDialog;
 import dialogs.ConnectDialog;
 import dialogs.CustomToast;
 import dialogs.DialogOffset;
-import gnss.NmeaListener_SingleHead;
+import project.LoadProject;
 import services.DataSaved;
 import utils.FullscreenActivity;
+import utils.MyRW_IntMem;
 
 public class MainActivity extends AppCompatActivity {
-    ImageView btn_exit, btn_tognss, to_bt, to_files, to_new, to_settings, to_stakeout, img_connect, to_mch, to_palina, to_info;
+    boolean showCoord=false;
+    ImageView btn_exit, btn_to_can, to_bt, openProject, to_new, to_settings, to_stakeout, img_connect, to_mch, to_palina, to_info,toPairCan;
     TextView textCoord, txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk;
+    PickProjectDialog pickProjectDialog;
+    MyRW_IntMem myRWIntMem;
+    DataProjectSingleton dataProject;
     private Handler handler;
     private boolean mRunning = true;
 
@@ -35,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         FullscreenActivity.setFullScreen(this);
         findView();
+        init();
         onClick();
         updateUI();
 
@@ -42,9 +53,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void findView() {
         btn_exit = findViewById(R.id.btn_exit);
-        btn_tognss = findViewById(R.id.btn_tognss);
+        btn_to_can = findViewById(R.id.btn_tognss);
         to_bt = findViewById(R.id.img1);
-        to_files = findViewById(R.id.img2);
+        openProject = findViewById(R.id.openProject);
         to_new = findViewById(R.id.img3);
         to_settings = findViewById(R.id.img4);
         to_stakeout = findViewById(R.id.img7);
@@ -59,11 +70,21 @@ public class MainActivity extends AppCompatActivity {
         to_mch = findViewById(R.id.img5);
         to_palina = findViewById(R.id.img6);
         to_info = findViewById(R.id.img9);
-        Log.d("MYTEST",getResources().getString(R.string.offset));
+        toPairCan=findViewById(R.id.img8);
+
+    }
+
+    private void init(){
+        pickProjectDialog = new PickProjectDialog(this);
+        myRWIntMem = new MyRW_IntMem();
+        dataProject = DataProjectSingleton.getInstance();
     }
 
     @SuppressLint("NewApi")
     private void onClick() {
+        btn_to_can.setOnClickListener(view -> {
+            new ConnectDialog(this,2).show();
+        });
         to_info.setOnClickListener(view -> {
             new CustomToast(this, "STX Field Design\n" + BuildConfig.VERSION_NAME.toString()).show();
         });
@@ -74,38 +95,60 @@ public class MainActivity extends AppCompatActivity {
             new CloseAppDialog(this).show();
         });
         to_bt.setOnClickListener(view -> {
-            startActivity(new Intent(MainActivity.this, BT_DevicesActivity.class));
-            overridePendingTransition(0, 0);
+            Intent intent=new Intent(MainActivity.this, BT_DevicesActivity.class);
+            BT_DevicesActivity.flag="GPS";
+            startActivity(intent);
             finish();
         });
-        to_files.setOnClickListener(view -> {
-            startActivity(new Intent(MainActivity.this, FilesActivity.class));
-            overridePendingTransition(0, 0);
+        toPairCan.setOnClickListener(view -> {
+            Intent intent=new Intent(MainActivity.this, BT_DevicesActivity.class);
+            BT_DevicesActivity.flag="CAN";
+            startActivity(intent);
             finish();
         });
+        openProject.setOnClickListener(view -> {
+
+            String path = myRWIntMem.MyRead("projectPath", this);
+
+            if(path == null){
+                if(!pickProjectDialog.dialog.isShowing())
+                    pickProjectDialog.show();
+            }
+            else{
+                DataProjectSingleton.getInstance().readProject(path);
+
+                startActivity(new Intent(this, LoadProject.class));
+
+                finish();
+            }
+        });
+
         to_new.setOnClickListener(view -> {
-            startActivity(new Intent(MainActivity.this, NewProjectActivity.class));
-            overridePendingTransition(0, 0);
+            startActivity(new Intent(MainActivity.this, MenuProject.class));
+
             finish();
         });
         to_settings.setOnClickListener(view -> {
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-            overridePendingTransition(0, 0);
+
             finish();
         });
         to_stakeout.setOnClickListener(view -> {
             startActivity(new Intent(MainActivity.this, StakeOutactivity.class));
-            overridePendingTransition(0, 0);
+
             finish();
         });
         img_connect.setOnClickListener(view -> {
-            new ConnectDialog(this).show();
+            new ConnectDialog(this,1).show();
 
         });
         to_mch.setOnClickListener(view -> {
             startActivity(new Intent(MainActivity.this, MchMeaureActivity.class));
-            overridePendingTransition(0, 0);
+
             finish();
+        });
+        textCoord.setOnClickListener(view -> {
+            showCoord=!showCoord;
         });
     }
 
@@ -122,12 +165,28 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",", "."));
-                            if (BT_Conn.GNSSServiceState) {
+                            if(BT_Conn_CAN.CANerviceState){
+                                btn_to_can.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
+
+                            }else{
+                                btn_to_can.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+
+                            }
+
+                            if (BT_Conn_GPS.GNSSServiceState) {
+                                if(showCoord){
+                                    textCoord.setText("Lat: " + My_LocationCalc.decimalToDMS(Nmea_In.mLat_1) + "\tLon: "
+                                            + My_LocationCalc.decimalToDMS(Nmea_In.mLon_1) + " Z: "
+                                            + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
+                                }else {
+                                    textCoord.setText("E: " + String.format("%.3f", Nmea_In.Crs_Est).replace(",", ".") + "\tN: "
+                                            + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + " Z: "
+                                            + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
+                                }
                                 img_connect.setImageResource(R.drawable.btn_positionpage);
-                                textCoord.setText("N: " + String.format("%.3f", NmeaListener_SingleHead.Nord1).replace(",", ".") + "\tE: " + String.format("%.3f", NmeaListener_SingleHead.Est1).replace(",", ".") + " Z: " + String.format("%.3f", NmeaListener_SingleHead.Quota1).replace(",", "."));
-                                txtSat.setText("\t" + NmeaListener_SingleHead.ggaSat);
-                                if (NmeaListener_SingleHead.ggaQuality != null) {
-                                    switch (NmeaListener_SingleHead.ggaQuality) {
+                                txtSat.setText("\t" + Nmea_In.ggaSat);
+                                if (Nmea_In.ggaQuality != null) {
+                                    switch (Nmea_In.ggaQuality) {
                                         case "":
                                         case "0":
                                         case "1":
@@ -156,13 +215,13 @@ public class MainActivity extends AppCompatActivity {
                                             break;
                                     }
                                 }
-                                if (NmeaListener_SingleHead.VRMS_ != null) {
-                                    txtCq.setText("\tH: " + NmeaListener_SingleHead.HRMS_.replace(",", ".") + "\tV: " + NmeaListener_SingleHead.VRMS_.replace(",", "."));
+                                if (Nmea_In.VRMS_ != null) {
+                                    txtCq.setText("\tH: " + Nmea_In.HRMS_.replace(",", ".") + "\tV: " + Nmea_In.VRMS_.replace(",", "."));
                                 } else {
                                     txtCq.setText("H:---.-- V:---.--");
                                 }
-                                txtHdt.setText("\t" + String.format("%.2f", NmeaListener_SingleHead.tractorBearing).replace(",","."));
-                                txtRtk.setText("\t" + NmeaListener_SingleHead.ggaRtk);
+                                txtHdt.setText("\t" + String.format("%.2f", Nmea_In.tractorBearing).replace(",","."));
+                                txtRtk.setText("\t" + Nmea_In.ggaRtk);
 
                             } else {
                                 img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));

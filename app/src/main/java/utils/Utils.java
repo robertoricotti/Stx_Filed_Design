@@ -3,6 +3,11 @@ package utils;
 import android.annotation.SuppressLint;
 import android.content.Context;
 
+import java.security.SecureRandom;
+
+import coords_calc.DistToPoint;
+import coords_calc.GPS;
+
 
 public class Utils {
 
@@ -150,6 +155,29 @@ public class Utils {
             return "(ft)";
         else
             return "(in)";
+    }
+
+    public static String randomString(int lunghezza) {
+        String caratteriPermesse = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        return new SecureRandom().ints(lunghezza, 0, caratteriPermesse.length())
+                .mapToObj(caratteriPermesse::charAt)
+                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                .toString();
+    }
+
+    public static double slopeCalculator(GPS pA, GPS pB){
+        double val = new DistToPoint(pA.getX(), pA.getY(), 0, pB.getX(), pB.getY(), 0).getDist_to_point();//base
+
+        if (Math.abs(val) > 0.1) {
+            double cC = new DistToPoint(pA.getX(), pA.getY(), pA.getZ(), pB.getX(), pB.getY(), pB.getZ()).getDist_to_point();//lato lungo
+            double a = Math.sqrt(Math.abs(cC * cC - val * val));//altezza
+            double dist = (val * val) + (cC * cC) - (a * a); // Corrected formula
+            double g = Math.toDegrees(Math.acos(dist / (2 * val * cC)));
+            int neg = pA.getZ() < pB.getZ() ? 1 : -1;
+
+            return Double.isNaN(g) ? 0 : (g * neg);
+        }
+        return 0;
     }
 }
 

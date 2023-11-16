@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.example.stx_field_design.R;
 
+import services.AutoConnectionService;
 import utils.FullscreenActivity;
 
 public class CloseAppDialog {
@@ -18,8 +19,10 @@ public class CloseAppDialog {
     Button yes, no;
 
 
+
     public CloseAppDialog(Activity activity) {
         this.activity = activity;
+
     }
 
     public void show(){
@@ -42,6 +45,11 @@ public class CloseAppDialog {
     private void onClick() {
 
         yes.setOnClickListener((View v) -> {
+            try {
+                activity.stopService(new Intent(activity, AutoConnectionService.class));
+            } catch (Exception e) {
+
+            }
 
             alertDialog.dismiss();
 

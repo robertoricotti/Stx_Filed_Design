@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.stx_field_design.R;
@@ -30,6 +31,10 @@ import utils.MyRW_IntMem;
 
 public class BT_DevicesActivity extends AppCompatActivity {
     ImageView btn_exit, btn_search, btn_stop, img_cbt;
+    TextView titolo;
+
+    public static String flag = "";
+    int who;
 
 
     private BluetoothAdapter bluetoothAdapter;
@@ -45,13 +50,15 @@ public class BT_DevicesActivity extends AppCompatActivity {
         findView();
         onClick();
 
+
+
     }
 
     private void findView() {
         btn_exit = findViewById(R.id.btn_exit);
         btn_search = findViewById(R.id.img1);
         btn_stop = findViewById(R.id.img2);
-
+        titolo = findViewById(R.id.titlo);
         img_cbt = findViewById(R.id.img3);
 
         // Inizializza l'adattatore Bluetooth
@@ -71,21 +78,24 @@ public class BT_DevicesActivity extends AppCompatActivity {
         // Registra il BroadcastReceiver per ricevere gli aggiornamenti sullo stato dei dispositivi Bluetooth
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         registerReceiver(bluetoothReceiver, filter);
+        titolo.setText(flag+" DEVICE LIST");
+        if(flag.contains("GPS")){who=1;}else if(flag.contains("CAN")){who=2;}
 
     }
 
     private void onClick() {
 
         img_cbt.setOnClickListener(view -> {
-            new ConnectDialog(this).show();
+            new ConnectDialog(this,who).show();
         });
         btn_exit.setOnClickListener(view -> {
             startActivity(new Intent(BT_DevicesActivity.this, MainActivity.class));
-            overridePendingTransition(0, 0);
+
             finish();
         });
         btn_search.setOnClickListener(view -> {
-            new CustomToast(BT_DevicesActivity.this, "START SEARCH...").show();
+
+            new CustomToast(BT_DevicesActivity.this, flag+" SEARCH STARTED...").show();
             searchDevices();
         });
         btn_stop.setOnClickListener(view -> {
@@ -97,8 +107,13 @@ public class BT_DevicesActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 BluetoothDeviceInfo selectedDeviceInfo = deviceList.get(position);
                 new CustomToast(BT_DevicesActivity.this, selectedDeviceInfo.getDeviceAddress()).show();
-                new MyRW_IntMem().MyWrite("_macaddress", selectedDeviceInfo.getDeviceAddress().toUpperCase(), BT_DevicesActivity.this);
-                new MyRW_IntMem().MyWrite("_gpsname", selectedDeviceInfo.getDeviceName().toUpperCase(), BT_DevicesActivity.this);
+                if (flag.equals("GPS")) {
+                    new MyRW_IntMem().MyWrite("_macaddress", selectedDeviceInfo.getDeviceAddress().toUpperCase(), BT_DevicesActivity.this);
+                    new MyRW_IntMem().MyWrite("_gpsname", selectedDeviceInfo.getDeviceName().toUpperCase(), BT_DevicesActivity.this);
+                } else if (flag.equals("CAN")) {
+                    new MyRW_IntMem().MyWrite("_macaddress_can", selectedDeviceInfo.getDeviceAddress().toUpperCase(), BT_DevicesActivity.this);
+                    new MyRW_IntMem().MyWrite("_canname", selectedDeviceInfo.getDeviceName().toUpperCase(), BT_DevicesActivity.this);
+                }
                 startService(new Intent(BT_DevicesActivity.this, UpdateValues.class));
                 pairWithDevice(selectedDeviceInfo.getDeviceAddress());
             }
@@ -116,9 +131,10 @@ public class BT_DevicesActivity extends AppCompatActivity {
         // Avvia il processo di abbinamento
         boolean pairingStarted = device.createBond();
         if (pairingStarted) {
-            new CustomToast(BT_DevicesActivity.this, "PAIRING PROCESS STARTED WITH: " + device.getName()).show();
+
+            new CustomToast(BT_DevicesActivity.this, flag+ " PAIRING PROCESS STARTED WITH: " + device.getName()).show();
         } else {
-            new CustomToast(BT_DevicesActivity.this, "MACADDRESS SAVED: " + device.getName()).show();
+            new CustomToast(BT_DevicesActivity.this, flag + " MACADDRESS SAVED: " + device.getName()).show();
         }
     }
 
@@ -145,7 +161,6 @@ public class BT_DevicesActivity extends AppCompatActivity {
     private void stopSearch() {
         bluetoothAdapter.cancelDiscovery();
         new CustomToast(BT_DevicesActivity.this, "STOPPED..").show();
-
 
 
     }
@@ -201,5 +216,6 @@ public class BT_DevicesActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(bluetoothReceiver);
+        flag="";
     }
 }

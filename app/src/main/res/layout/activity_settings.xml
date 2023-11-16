@@ -6,18 +6,20 @@
     android:layout_height="match_parent"
     android:keepScreenOn="true"
     tools:context="activity.SettingsActivity">
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/H_top_10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.11" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15"/>
+        app:layout_constraintGuide_percent="0.15" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/H_top_37"
@@ -53,86 +55,154 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.666666" />
+
     <TextView
         android:id="@+id/txt_coord"
-        android:gravity="center"
-        android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="24dp"
-        android:textStyle="bold"
+        android:gravity="center"
+        android:text="\tN:12345678.999\t\tE:12345678.999\t\tZ:1234.000 m"
+        android:textColor="@color/black"
         android:textSize="16dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/guideline_top"
-        app:layout_constraintTop_toBottomOf="@id/H_top_10"
-        android:text="\tN:12345678.999\t\tE:12345678.999\t\tZ:1234.000 m"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/H_top_10" />
+
     <TextView
         android:id="@+id/txtUseRMC"
-        android:layout_marginTop="5dp"
-        android:textColor="@color/white"
-        android:background="@color/_____cancel_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:layout_marginTop="5dp"
+        android:background="@color/_____cancel_text"
         android:gravity="center"
-        android:text="Bearing Average"
-        app:layout_constraintTop_toBottomOf="@id/txt_coord"
+        android:text="Bearing Mode"
+        android:textColor="@color/white"
+        android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_coord" />
+
     <CheckBox
         android:id="@+id/ckRMC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Use RMC"
         android:layout_marginHorizontal="10dp"
-        app:layout_constraintTop_toBottomOf="@id/txtUseRMC"
+        android:text="Use RMC"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtUseRMC"
 
         />
+
     <CheckBox
         android:id="@+id/ckPos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Use POSITIONS"
         android:layout_marginHorizontal="10dp"
-        app:layout_constraintTop_toBottomOf="@id/txtUseRMC"
+        android:text="Use POSITIONS"
         app:layout_constraintLeft_toRightOf="@id/ckRMC"
-        />
-    <TextView
-    android:id="@+id/txtOrSmooth"
-    android:layout_marginTop="5dp"
-    android:textColor="@color/white"
-    android:background="@color/_____cancel_text"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:textSize="18sp"
-    android:gravity="center"
-    android:text="Bearing Mode"
-    app:layout_constraintTop_toBottomOf="@id/ckRMC"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/txtUseRMC" />
 
-<SeekBar
-    android:id="@+id/seekRmc"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:max="20"
-    android:min="2"
-    android:layout_marginHorizontal="30dp"
-    android:layout_marginVertical="10dp"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/txtOrSmooth"/>
-    <ImageView
-        android:id="@+id/imgTest"
+    <TextView
+        android:id="@+id/txtOrSmooth"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/baseline_navigation_24"
-        android:padding="35dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@color/_____cancel_text"
+        android:gravity="center"
+        android:text="Bearing Mode"
+        android:textColor="@color/white"
+        android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ckRMC" />
+
+    <SeekBar
+        android:id="@+id/seekRmc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginVertical="10dp"
+        android:max="20"
+        android:min="2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtOrSmooth" />
+    <TextView
+        android:id="@+id/txtTollerances"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@color/_____cancel_text"
+        android:gravity="center"
+        android:text="Tolerances"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/seekRmc" />
+    <LinearLayout
+        android:id="@+id/layoutTol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="5dp"
+        app:layout_constraintTop_toBottomOf="@id/txtTollerances"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:gravity="left"
+
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:text="Z:"/>
+        <EditText
+            android:id="@+id/z_tol"
+            android:gravity="center"
+            android:ems="4"
+            android:hint="0.000"
+            android:maxLength="5"
+            android:inputType="numberDecimal"
+            android:textSize="24sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Space
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:text="XY:"/>
+        <EditText
+            android:id="@+id/xy_tol"
+            android:gravity="center"
+            android:ems="4"
+            android:hint="0.000"
+            android:maxLength="5"
+            android:inputType="numberDecimal"
+            android:textSize="24sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgTest"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:padding="0dp"
+        android:src="@drawable/baseline_navigation_24"
         app:layout_constraintBottom_toTopOf="@id/H_90"
-        app:layout_constraintTop_toBottomOf="@id/seekRmc"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTollerances"
+        app:tint="@color/transparentdarkgray" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -148,8 +218,8 @@
             android:layout_weight="1"
             android:paddingVertical="10dp"
             android:rotation="0"
-            app:tint="@color/white"
-            android:src="@drawable/btn_to_antennameasurei" />
+            android:src="@drawable/btn_to_antennameasurei"
+            app:tint="@color/white" />
 
         <ImageView
 
@@ -157,16 +227,17 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:paddingVertical="10dp"
-            app:tint="@color/transparent"
-            android:src="@drawable/btn_positionpage" />
+            android:src="@drawable/btn_positionpage"
+            app:tint="@color/transparent" />
+
         <ImageView
             android:id="@+id/btn_tognss"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:paddingVertical="10dp"
-            app:tint="@color/transparent"
-            android:src="@drawable/btn_setting_tech" />
+            android:src="@drawable/btn_save"
+            app:tint="@color/white" />
 
 
     </LinearLayout>
@@ -190,22 +261,22 @@
             android:orientation="vertical">
 
             <ImageView
-                app:tint="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/sat_24" />
+                android:src="@drawable/sat_24"
+                app:tint="@color/white" />
 
             <ImageView
-                app:tint="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/gps_fixed_24" />
+                android:src="@drawable/gps_fixed_24"
+                app:tint="@color/white" />
 
             <ImageView
-                app:tint="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/location_on_24" />
+                android:src="@drawable/location_on_24"
+                app:tint="@color/white" />
         </LinearLayout>
 
         <LinearLayout
@@ -220,8 +291,8 @@
                 android:id="@+id/txt_satnr"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
-                android:gravity="center|left"
                 android:ems="10"
+                android:gravity="center|left"
                 android:text="\t24"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
@@ -230,9 +301,9 @@
                 android:id="@+id/txt_quality"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
+                android:ems="10"
                 android:gravity="center|left"
                 android:text="\tFix"
-                android:ems="10"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
@@ -240,12 +311,13 @@
                 android:id="@+id/txt_precision"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
-                android:gravity="center|left"
                 android:ems="10"
+                android:gravity="center|left"
                 android:text="\tH: 0.005\t\tV:0.025"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -253,25 +325,26 @@
             android:background="@color/transparent"
             android:gravity="center"
             android:orientation="vertical">
-            <ImageView
-                app:tint="@color/white"
-                android:rotationX="180"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/baseline_360" />
 
             <ImageView
-                app:tint="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rotationX="180"
+                android:src="@drawable/baseline_360"
+                app:tint="@color/white" />
+
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:rotation="270"
-                android:src="@drawable/arrow_right_alt_24"/>
+                android:src="@drawable/arrow_right_alt_24"
+                app:tint="@color/white" />
 
             <ImageView
-                app:tint="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/rtk_24" />
+                android:src="@drawable/rtk_24"
+                app:tint="@color/white" />
 
 
         </LinearLayout>
@@ -287,8 +360,8 @@
                 android:id="@+id/txt_hdt"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
-                android:gravity="center|left"
                 android:ems="5"
+                android:gravity="center|left"
                 android:text="\t000.00°"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
@@ -297,8 +370,8 @@
                 android:id="@+id/txt_speed"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
-                android:gravity="center|left"
                 android:ems="5"
+                android:gravity="center|left"
                 android:text="\t1.0 m"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
@@ -307,19 +380,20 @@
                 android:id="@+id/txt_rtk"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
-                android:gravity="center|left"
                 android:ems="5"
+                android:gravity="center|left"
                 android:text="\t000.00 s"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
         </LinearLayout>
+
         <ImageView
             android:id="@+id/img_connetti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:cropToPadding="true"
             android:paddingVertical="20dp"
-            android:src="@drawable/btn_positionpage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:src="@drawable/btn_positionpage" />
 
 
     </LinearLayout>

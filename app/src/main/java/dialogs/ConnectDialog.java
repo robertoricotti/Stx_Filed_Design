@@ -2,6 +2,7 @@ package dialogs;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -10,23 +11,25 @@ import android.widget.TextView;
 
 import com.example.stx_field_design.R;
 
-import activity.MainActivity;
-import bluetooth.BT_Conn;
+import bluetooth.BT_Conn_CAN;
+import bluetooth.BT_Conn_GPS;
+import services.AutoConnectionService;
 import services.DataSaved;
 import utils.FullscreenActivity;
-import utils.MyRW_IntMem;
 
 public class ConnectDialog {
     Activity activity;
     AlertDialog alertDialog;
     Button yes, exit;
     TextView textView;
+    int flag;
 
-    public ConnectDialog(Activity activity) {
+    public ConnectDialog(Activity activity, int flag) {
         this.activity = activity;
+        this.flag=flag;
     }
 
-    public void show(){
+    public void show() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
@@ -39,20 +42,37 @@ public class ConnectDialog {
         onClick();
     }
 
-    private void findView(){
+    private void findView() {
         yes = alertDialog.findViewById(R.id._h_yes);
         exit = alertDialog.findViewById(R.id._h_exit);
-        textView=alertDialog.findViewById(R.id.titleC);
-        if(BT_Conn.GNSSServiceState){
-            textView.setText("Disconnect From\n"+DataSaved.S_gpsname+"\n"+DataSaved.S_macAddres);
-        }else{
-            textView.setText("Connect To\n"+DataSaved.S_gpsname+"\n"+DataSaved.S_macAddres);
+        textView = alertDialog.findViewById(R.id.titleC);
+        if(flag==1) {
+            if (BT_Conn_GPS.GNSSServiceState) {
+                textView.setText("GPS\nDisconnect From\n" + DataSaved.S_gpsname + "\n" + DataSaved.S_macAddres);
+            } else {
+                textView.setText("GPS\nConnect To\n" + DataSaved.S_gpsname + "\n" + DataSaved.S_macAddres);
+            }
+        }else if(flag==2){
+            if (BT_Conn_CAN.CANerviceState) {
+                textView.setText("CAN\nDisconnect From\n" + DataSaved.S_can_name + "\n" + DataSaved.S_macAddress_CAN);
+            } else {
+                textView.setText("CAN\nConnect To\n" + DataSaved.S_can_name + "\n" + DataSaved.S_macAddress_CAN);
+            }
         }
     }
 
-    private void onClick(){
+    private void onClick() {
         yes.setOnClickListener((View v) -> {
-            new BT_Conn().GNSS_Connection(activity, !BT_Conn.GNSSServiceState, DataSaved.S_macAddres);
+            if(flag==1) {
+                new BT_Conn_GPS().GNSS_Connection(activity, !BT_Conn_GPS.GNSSServiceState);
+            }else if(flag==2){
+                new BT_Conn_CAN().CAN_Connection(activity,!BT_Conn_CAN.CANerviceState);
+            }
+            try {
+                activity.stopService(new Intent(activity, AutoConnectionService.class));
+            } catch (Exception e) {
+              alertDialog.dismiss();
+            }
             alertDialog.dismiss();
         });
 

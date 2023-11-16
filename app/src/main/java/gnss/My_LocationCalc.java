@@ -32,6 +32,7 @@ public class My_LocationCalc {
         double a = Math.pow(Math.sin(dLat / 2),2) + Math.pow(Math.sin(dLon / 2),2) * Math.cos(lat1) * Math.cos(lat2);
         double c = 2 * Math.asin(Math.sqrt(a));
         return EarthRadius * c;
+
     }
     public static double calcBearingXY(double x1, double y1, double x2, double y2) {
         double lat1_D = y1 / EarthRadius; // Converte y in metri in latitudine in gradi
@@ -56,35 +57,38 @@ public class My_LocationCalc {
         return bearing;
     }
     public static double dmsToDecimal(String dms) {
-        Pattern pattern = Pattern.compile("(\\d+)°(\\d+)'(\\d+\\.?\\d*)\"");
-        Matcher matcher = pattern.matcher(dms);
+        // Rimuovi spazi e caratteri speciali dalla stringa DMS
+        dms = dms.replaceAll("[^0-9.°'-]", "");
 
-        if (matcher.matches()) {
-            int degrees = Integer.parseInt(matcher.group(1));
-            int minutes = Integer.parseInt(matcher.group(2));
-            double seconds = Double.parseDouble(matcher.group(3));
+        // Divide la stringa DMS nei componenti
+        String[] parts = dms.split("[°'\"']+");
 
-            double decimal = degrees + (minutes / 60.0) + (seconds / 3600.0);
-            return decimal;
-        } else {
-            return 0;
+        if (parts.length == 3) {
+            try {
+                int degrees = Integer.parseInt(parts[0]);
+                int minutes = Integer.parseInt(parts[1])*Integer.compare(degrees,0);
+                double seconds = Double.parseDouble(parts[2])*Integer.compare(degrees,0);
 
+                double decimal = degrees + (minutes / 60.0) + (seconds / 3600.0);
+                return decimal;
+            } catch (NumberFormatException e) {
+                // Gestisci eventuali errori di parsing
+                e.printStackTrace();
+            }
         }
+        return 0;
+        //throw new IllegalArgumentException("Formato DMS non valido: " + dms);
     }
+
     public static String decimalToDMS(double decimal) {
         int degrees = (int) decimal;
         double tempMinutes = (decimal - degrees) * 60;
         int minutes = (int) tempMinutes;
         double seconds = (tempMinutes - minutes) * 60;
 
-        String formattedSeconds = String.format("%.4f", seconds);
+        String formattedSeconds = String.format("%.6f", Math.abs(seconds));
 
-        return String.format("%d° %d' %s\"", degrees, minutes, formattedSeconds);
+        return String.format("%d° %d' %s\"", degrees, Math.abs(minutes), formattedSeconds).replace(",",".");
     }
-
-
-
-
-
 
 }

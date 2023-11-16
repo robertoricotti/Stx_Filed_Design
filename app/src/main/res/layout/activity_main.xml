@@ -89,28 +89,30 @@
         app:tint="@color/_____cancel_text" />
 
     <ImageView
-        app:tint="@color/_____cancel_text"
-        android:id="@+id/img2"
+        android:id="@+id/img3"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="20dp"
         android:src="@drawable/btn_files"
         app:layout_constraintBottom_toTopOf="@id/H_top_37"
-        app:layout_constraintLeft_toRightOf="@id/V1"
-        app:layout_constraintRight_toLeftOf="@id/V2"
-        app:layout_constraintTop_toBottomOf="@id/guideline_top" />
+        app:layout_constraintEnd_toStartOf="@+id/V2"
+        app:layout_constraintLeft_toRightOf="@id/V2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/V1"
+        app:layout_constraintTop_toBottomOf="@id/guideline_top"
+        app:tint="@color/_____cancel_text" />
 
     <ImageView
-        app:tint="@color/_____cancel_text"
-        android:id="@+id/img3"
+        android:id="@+id/openProject"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="20dp"
-        android:src="@drawable/btn_new"
-        app:layout_constraintBottom_toTopOf="@id/H_top_37"
-        app:layout_constraintLeft_toRightOf="@id/V2"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline_top" />
+        app:layout_constraintBottom_toTopOf="@+id/H_top_37"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/V2"
+        app:layout_constraintTop_toTopOf="@+id/guideline_top"
+        app:srcCompat="@drawable/create_surf_btn"
+        app:tint="@color/_____cancel_text" />
 
     <ImageView
         app:tint="@color/_____cancel_text"
@@ -119,10 +121,11 @@
         android:layout_height="0dp"
         android:padding="20dp"
         android:src="@drawable/btn_setting"
-        app:layout_constraintBottom_toTopOf="@id/H_top_63"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/V1"
-        app:layout_constraintTop_toBottomOf="@id/H_top_37" />
+        app:layout_constraintBottom_toTopOf="@id/g_stop"
+        app:layout_constraintLeft_toRightOf="@id/V1"
+        app:layout_constraintRight_toLeftOf="@id/V2"
+        app:layout_constraintTop_toBottomOf="@id/H_top_63"
+         />
 
     <ImageView
         android:id="@+id/img5"
@@ -150,6 +153,7 @@
 
     <ImageView
         app:tint="@color/_____cancel_text"
+        android:visibility="invisible"
         android:id="@+id/img7"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -166,12 +170,13 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="20dp"
-        android:src="@drawable/btn_example"
-        app:tint="@color/transparent"
-        app:layout_constraintBottom_toTopOf="@id/g_stop"
-        app:layout_constraintLeft_toRightOf="@id/V1"
-        app:layout_constraintRight_toLeftOf="@id/V2"
-        app:layout_constraintTop_toBottomOf="@id/H_top_63" />
+        android:src="@drawable/btn_canconn"
+        app:tint="@color/_____cancel_text"
+        app:layout_constraintBottom_toTopOf="@id/H_top_63"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/V1"
+        app:layout_constraintTop_toBottomOf="@id/H_top_37"
+         />
 
     <ImageView
         android:id="@+id/img9"
@@ -215,8 +220,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:paddingVertical="10dp"
-            app:tint="@color/transparent"
-            android:src="@drawable/btn_setting_tech" />
+            app:tint="@color/white"
+            android:src="@drawable/btn_ecu_connect" />
 
 
     </LinearLayout>

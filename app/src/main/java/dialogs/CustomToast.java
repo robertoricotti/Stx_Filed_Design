@@ -40,6 +40,7 @@ public class CustomToast {
         toast.setDuration(Toast.LENGTH_LONG);
         toast.setView(layout);
         toast.show();
+
     }
 
 }

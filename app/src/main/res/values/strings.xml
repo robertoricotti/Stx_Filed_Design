@@ -110,6 +110,7 @@
     <string name="pick">PICK</string>
     <string name="release">RELEASE</string>
     <string name="quick_setup">QUICK SETUP</string>
+    <string name="id_point">ID POINT</string>
 
 
     <!-- Strings used for fragments for navigation -->

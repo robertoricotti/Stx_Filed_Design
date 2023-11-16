@@ -64,13 +64,13 @@ public class AntennaMeasure extends AppCompatActivity {
     private void onClick() {
         bt_toright.setOnClickListener(view -> {
             startActivity(new Intent(AntennaMeasure.this, ExcavatorMeasureXYZ.class));
-            overridePendingTransition(0, 0);
+
             finish();
         });
 
         btn_exit.setOnClickListener(view -> {
             startActivity(new Intent(AntennaMeasure.this, MchMeaureActivity.class));
-            overridePendingTransition(0, 0);
+
             finish();
         });
         btn_calc.setOnClickListener(view -> {
