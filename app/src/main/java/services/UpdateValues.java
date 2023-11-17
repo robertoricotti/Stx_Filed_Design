@@ -3,6 +3,7 @@ package services;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+
 import android.util.Log;
 
 import org.locationtech.proj4j.CRSFactory;
@@ -16,7 +17,7 @@ import org.locationtech.proj4j.UnsupportedParameterException;
 import org.locationtech.proj4j.datum.Datum;
 import org.locationtech.proj4j.datum.Ellipsoid;
 
-import java.util.Arrays;
+
 
 import utils.MyRW_IntMem;
 
@@ -25,9 +26,9 @@ public class UpdateValues extends Service {
     CRSFactory crsFactory = new CRSFactory();
     CoordinateReferenceSystem WGS84;
     CoordinateReferenceSystem UTM;
-    CoordinateTransformFactory ctFactory,ctFactory2;
-    public static CoordinateTransform wgsToUtm,utmToWgs84;
-    public static ProjCoordinate result,result_2;
+    CoordinateTransformFactory ctFactory;
+    public static CoordinateTransform wgsToUtm;
+    public static ProjCoordinate result;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -54,6 +55,10 @@ public class UpdateValues extends Service {
         String rot=myRW_intMem.MyRead("rot", this);
         String ztol=myRW_intMem.MyRead("z_tol", this);
         String xytol=myRW_intMem.MyRead("xy_tol", this);
+        String maprotmode=myRW_intMem.MyRead("_maprotmode",this);
+        String offsetPitch=myRW_intMem.MyRead("_offsetpitch",this);
+        String offsetRoll=myRW_intMem.MyRead("_offsetpitch",this);
+        String useTilt=myRW_intMem.MyRead("_usetilt",this);
         if(macaddress==null){
             myRW_intMem.MyWrite("_macaddress","00:00:00:00:00:00",this);
         }
@@ -100,6 +105,18 @@ public class UpdateValues extends Service {
         if(xytol==null){
             myRW_intMem.MyWrite("xy_tol", "0.03", this);
         }
+        if(maprotmode==null){
+            myRW_intMem.MyWrite("_maprotmode", "0", this);
+        }
+        if(offsetPitch==null){
+            myRW_intMem.MyWrite("_offsetpitch", "0", this);
+        }
+        if(offsetRoll==null){
+            myRW_intMem.MyWrite("_offsetroll", "0", this);
+        }
+        if(useTilt==null){
+            myRW_intMem.MyWrite("_usetilt", "0", this);
+        }
 
 
 
@@ -121,6 +138,10 @@ public class UpdateValues extends Service {
         DataSaved.useRmc=Integer.parseInt(myRW_intMem.MyRead("useRmc",this));
         DataSaved.xy_tol=Double.parseDouble(myRW_intMem.MyRead("xy_tol",this).replace(",","."));
         DataSaved.z_tol=Double.parseDouble(myRW_intMem.MyRead("z_tol",this).replace(",","."));
+        DataSaved.MapRotMode=myRW_intMem.MyRead("_maprotmode",this);
+        DataSaved.offsetPitch=Double.parseDouble(myRW_intMem.MyRead("_offsetpitch",this).replace(",","."));
+        DataSaved.offsetRoll=Double.parseDouble(myRW_intMem.MyRead("_offsetroll",this).replace(",","."));
+        DataSaved.useTilt=Integer.parseInt(myRW_intMem.MyRead("_usetilt",this));
 
         try {
             Datum datum;
@@ -138,8 +159,6 @@ public class UpdateValues extends Service {
             ctFactory = new CoordinateTransformFactory();
             wgsToUtm = ctFactory.createTransform(WGS84, UTM);
             result = new ProjCoordinate();
-            utmToWgs84=ctFactory2.createTransform(UTM,WGS84);
-            result_2=new ProjCoordinate();
             String[] parameters = UTM.getParameters();
             datum=UTM.getDatum();
             Ellipsoid ellipsoid = datum.getEllipsoid();

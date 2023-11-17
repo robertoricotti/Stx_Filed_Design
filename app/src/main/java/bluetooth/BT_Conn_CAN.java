@@ -23,6 +23,8 @@ import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import can.Can_Decoder;
+import can.PLC_DataTypes_BigEndian;
 import gnss.Nmea_In;
 import services.DataSaved;
 
@@ -30,19 +32,19 @@ public class BT_Conn_CAN extends BluetoothClass.Device {
 
     public static boolean CANerviceState = false;
     public static String CAN_DEVICE;
-    private OutputStream mmOutputStream = null;
-    private Context con;
-    private BluetoothSocket mmSocket = null;
-    private InputStream mmInputStream = null;
-    private BluetoothAdapter mBluetoothAdapter_CAN;
-    private BluetoothDevice mmDevice_CAN;
+    private static OutputStream mmOutputStream = null;
+
+    private static BluetoothSocket mmSocket = null;
+    private static InputStream mmInputStream = null;
+    private static BluetoothAdapter mBluetoothAdapter_CAN;
+    private static BluetoothDevice mmDevice_CAN;
 
     // Aggiunto ExecutorService per eseguire  in background
-    private ExecutorService executorService = Executors.newSingleThreadExecutor();
+
 
     @SuppressLint("MissingPermission")
     public void CAN_Connection(Context context, boolean CANen) {
-        con = context;
+
         final Thread[] workerThread_CAN = new Thread[1];
         final byte[][] readBuffer_CAN = new byte[1][1];
         final int[] readBufferPosition_CAN = new int[1];
@@ -53,98 +55,94 @@ public class BT_Conn_CAN extends BluetoothClass.Device {
         filterG.addAction(BluetoothDevice.EXTRA_DEVICE);
         context.registerReceiver(broadcastReceiverCAN, filterG);
         if (CANen) {
-            executorService.submit(new Runnable() {
-                @Override
-                public void run() {
-                    mBluetoothAdapter_CAN = BluetoothAdapter.getDefaultAdapter();
-                    if (mBluetoothAdapter_CAN == null) {
-                        Toast.makeText(context.getApplicationContext(), "!!!No Bluetooth Available !!!", Toast.LENGTH_LONG).show();
-                        return;
-                    }
-                    if (!mBluetoothAdapter_CAN.isEnabled()) {
-                        Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                        context.startActivity(enableBluetooth);
-                    }
 
-                    @SuppressLint("MissingPermission") Set<BluetoothDevice> pairedDevices = mBluetoothAdapter_CAN.getBondedDevices();
-                    if (pairedDevices.size() > 0) {
-                        for (BluetoothDevice device : pairedDevices) {
-                            if (device.getAddress().equals(DataSaved.S_macAddress_CAN)) {
-                                mmDevice_CAN = device;
-                                UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-                                try {
-                                    mmSocket = mmDevice_CAN.createRfcommSocketToServiceRecord(uuid);
-                                } catch (IOException e) {
-                                }
-                                try {
-                                    mmSocket.connect();
-                                } catch (IOException e) {
-                                }
-                                try {
-                                    mmInputStream = mmSocket.getInputStream();
-                                } catch (IOException e) {
-                                }
-                                try {
-                                    mmOutputStream = mmSocket.getOutputStream();
-                                } catch (IOException e) {
-                                }
-                                try {
-                                    CAN_DEVICE = mmDevice_CAN.getAddress();
-                                    final Handler handler = new Handler();
-                                    final int delimiter = 10;//verificare
-                                    stopWorker_CAN[0] = false;
-                                    readBufferPosition_CAN[0] = 0;
-                                    readBuffer_CAN[0] = new byte[1024];
-                                    workerThread_CAN[0] = new Thread(new Runnable() {
-                                        public void run() {
-                                            while (!Thread.currentThread().isInterrupted() && !stopWorker_CAN[0]) {
-                                                try {
-                                                    int bytesAvailable = mmInputStream.available();
-                                                    if (bytesAvailable > 0) {
-                                                        byte[] packetBytes = new byte[bytesAvailable];
-                                                        mmInputStream.read(packetBytes);
-                                                        char[] hexArray = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-                                                        char[] hexChars = new char[packetBytes.length * 2];
-                                                        int v;
-                                                        for (int j = 0; j < packetBytes.length; j++) {
-                                                            v = packetBytes[j] & 0xFF;
-                                                            hexChars[j * 2] = hexArray[v / 16];
-                                                            hexChars[j * 2 + 1] = hexArray[v % 16];
-                                                        }
-                                                        for (int i = 0; i < bytesAvailable; i++) {
-                                                            byte b = packetBytes[i];
 
-                                                            if (b == delimiter) {
-                                                                byte[] encodedBytes = new byte[readBufferPosition_CAN[0]];
-                                                                System.arraycopy(readBuffer_CAN[0], 0, encodedBytes, 0, encodedBytes.length);
-                                                                final String data = new String(encodedBytes, StandardCharsets.US_ASCII);
-                                                                readBufferPosition_CAN[0] = 0;
-                                                                handler.post(new Runnable() {
-                                                                    public void run() {
-                                                                        Log.d("CAN_msg: ", Arrays.toString(hexChars));
-                                                                    }
-                                                                });
-                                                            } else {
-                                                                readBuffer_CAN[0][readBufferPosition_CAN[0]++] = b;
+            mBluetoothAdapter_CAN = BluetoothAdapter.getDefaultAdapter();
+            if (mBluetoothAdapter_CAN == null) {
+                Toast.makeText(context.getApplicationContext(), "!!!No Bluetooth Available !!!", Toast.LENGTH_LONG).show();
+                return;
+            }
+            if (!mBluetoothAdapter_CAN.isEnabled()) {
+                Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                context.startActivity(enableBluetooth);
+            }
+
+            @SuppressLint("MissingPermission") Set<BluetoothDevice> pairedDevices = mBluetoothAdapter_CAN.getBondedDevices();
+            if (pairedDevices.size() > 0) {
+                for (BluetoothDevice device : pairedDevices) {
+                    if (device.getAddress().equals(DataSaved.S_macAddress_CAN)) {
+                        mmDevice_CAN = device;
+                        UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+                        try {
+                            mmSocket = mmDevice_CAN.createRfcommSocketToServiceRecord(uuid);
+                        } catch (IOException e) {
+                        }
+                        try {
+                            mmSocket.connect();
+                        } catch (IOException e) {
+                        }
+                        try {
+                            mmInputStream = mmSocket.getInputStream();
+                        } catch (IOException e) {
+                        }
+                        try {
+                            mmOutputStream = mmSocket.getOutputStream();
+                        } catch (IOException e) {
+                        }
+                        try {
+                            CAN_DEVICE = mmDevice_CAN.getAddress();
+                            final Handler handler = new Handler();
+                            final int delimiter = 13;//verificare
+                            readBuffer_CAN[0] = new byte[1024];
+                            workerThread_CAN[0] = new Thread(new Runnable() {
+                                public void run() {
+                                    while (!Thread.currentThread().isInterrupted() && !stopWorker_CAN[0]) {
+                                        try {
+                                            int bytesAvailable = mmInputStream.available();
+                                            if (bytesAvailable > 0) {
+                                                byte[] packetBytes = new byte[bytesAvailable];
+                                                mmInputStream.read(packetBytes);
+                                                char[] hexArray = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+                                                char[] hexChars = new char[packetBytes.length * 2];
+                                                int v;
+                                                for (int j = 0; j < packetBytes.length; j++) {
+                                                    v = packetBytes[j] & 0xFF;
+                                                    hexChars[j * 2] = hexArray[v / 16];
+                                                    hexChars[j * 2 + 1] = hexArray[v % 16];
+                                                }
+                                                for (int i = 0; i < bytesAvailable; i++) {
+                                                    byte b = packetBytes[i];
+
+                                                    if (b == delimiter) {
+                                                        byte[] encodedBytes = new byte[readBufferPosition_CAN[0]];
+                                                        System.arraycopy(readBuffer_CAN[0], 0, encodedBytes, 0, encodedBytes.length);
+                                                        readBufferPosition_CAN[0] = 0;
+                                                        handler.post(new Runnable() {
+                                                            public void run() {
+                                                                new Can_Decoder(encodedBytes);
                                                             }
-                                                        }
+                                                        });
+                                                    } else {
+                                                        readBuffer_CAN[0][readBufferPosition_CAN[0]++] = b;
                                                     }
-                                                } catch (Exception ex) {
-                                                    stopWorker_CAN[0] = true;
                                                 }
                                             }
+                                        } catch (Exception ex) {
+                                            stopWorker_CAN[0] = true;
                                         }
-                                    });
-                                    // Chiamata a connectToùcanin background utilizzando ExecutorService
-                                    executorService.submit(workerThread_CAN[0]);
-                                } catch (Exception en) {
+                                    }
                                 }
-                                break;
-                            }
+                            });
+                            workerThread_CAN[0].start();
+
+                        } catch (Exception en) {
                         }
+                        break;
                     }
                 }
-            });
+            }
+
+
         }
         if (!CANen) {
             if (CANerviceState) {
@@ -171,12 +169,6 @@ public class BT_Conn_CAN extends BluetoothClass.Device {
         }
     }
 
-    public void sendCAN(byte[]data) {
-        try {
-            mmOutputStream.write(data);
-        } catch (Exception e) {
-        }
-    }
 
     private final BroadcastReceiver broadcastReceiverCAN = new BroadcastReceiver() {
         @Override
@@ -192,7 +184,7 @@ public class BT_Conn_CAN extends BluetoothClass.Device {
                     } else if (BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action)) {
                         CANerviceState = false;
                         Toast.makeText(context.getApplicationContext(), "CAN DISCONNECTED", Toast.LENGTH_SHORT).show();
-                        closeExecutorService();
+
                     }
                 }
             } else {
@@ -203,9 +195,45 @@ public class BT_Conn_CAN extends BluetoothClass.Device {
         }
     };
 
-    private void closeExecutorService() {
-        if (executorService != null && !executorService.isShutdown()) {
-            executorService.shutdown();
+
+    public void sendCAN(int id, byte[] data) {
+        try {
+            byte sof = 0x43; // SOF start of frame
+            byte dlc = (byte) (data.length + 3);
+            byte[] identifier = PLC_DataTypes_BigEndian.U16_to_bytes_be(id);
+            int totalLength = 2 + 1 + 1 + identifier.length + data.length;//lunghezza totale del messaggio su cui calcolare xor
+            byte[] xor = new byte[totalLength];
+            int currentIndex = 0;
+            xor[currentIndex++] = sof;
+            xor[currentIndex++] = dlc;
+            xor[currentIndex++] = 0; // Placeholder come da manuale IFM
+            System.arraycopy(identifier, 0, xor, currentIndex, identifier.length);
+            currentIndex += identifier.length;
+            System.arraycopy(data, 0, xor, currentIndex, data.length);
+
+            byte xorResult = (byte) new CalculateXor8(xor).xor;//checksum
+
+            byte eof = 0x0D; // EOF end of frame
+
+            // Creare l'array risultante e copiare i byte uno per uno
+            int msgLength = 1 + 1 + 1 + identifier.length + data.length + 1 + 1; // sof + dlc + 0 + identifier + data + xorResult + eof
+            byte[] msg = new byte[msgLength];
+            currentIndex = 0;
+
+            msg[currentIndex++] = sof;
+            msg[currentIndex++] = dlc;
+            msg[currentIndex++] = 0; // Placeholder
+            System.arraycopy(identifier, 0, msg, currentIndex, identifier.length);
+            currentIndex += identifier.length;
+            System.arraycopy(data, 0, msg, currentIndex, data.length);
+            currentIndex += data.length;
+            msg[currentIndex++] = xorResult;
+            msg[currentIndex] = eof;
+
+
+            mmOutputStream.write(msg);
+        } catch (Exception e) {
+
         }
     }
 }

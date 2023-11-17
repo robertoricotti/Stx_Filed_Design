@@ -68,11 +68,7 @@ public class ConnectDialog {
             }else if(flag==2){
                 new BT_Conn_CAN().CAN_Connection(activity,!BT_Conn_CAN.CANerviceState);
             }
-            try {
-                activity.stopService(new Intent(activity, AutoConnectionService.class));
-            } catch (Exception e) {
-              alertDialog.dismiss();
-            }
+
             alertDialog.dismiss();
         });
 

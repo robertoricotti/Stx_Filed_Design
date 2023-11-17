@@ -15,6 +15,7 @@ import com.example.stx_field_design.R;
 
 import bluetooth.BT_Conn_CAN;
 import bluetooth.BT_Conn_GPS;
+import can.Can_Decoder;
 import dialogs.PickProjectDialog;
 import gnss.My_LocationCalc;
 import gnss.Nmea_In;
@@ -32,7 +33,7 @@ import utils.MyRW_IntMem;
 public class MainActivity extends AppCompatActivity {
     boolean showCoord=false;
     ImageView btn_exit, btn_to_can, to_bt, openProject, to_new, to_settings, to_stakeout, img_connect, to_mch, to_palina, to_info,toPairCan;
-    TextView textCoord, txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk;
+    TextView textCoord, txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk,txt_tilt;
     PickProjectDialog pickProjectDialog;
     MyRW_IntMem myRWIntMem;
     DataProjectSingleton dataProject;
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         to_palina = findViewById(R.id.img6);
         to_info = findViewById(R.id.img9);
         toPairCan=findViewById(R.id.img8);
+        txt_tilt=findViewById(R.id.tx_slope);
 
     }
 
@@ -166,11 +168,15 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",", "."));
                             if(BT_Conn_CAN.CANerviceState){
+                                txt_tilt.setText(String.valueOf("Pitch: "+String.format("%.2f",Can_Decoder.correctPitch)+"°       Roll: "+String.format("%.2f",Can_Decoder.correctRoll)+"°"));
+
                                 btn_to_can.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
-
+                                btn_to_can.setImageResource(R.drawable.btn_ecu_connect);
                             }else{
-                                btn_to_can.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                                txt_tilt.setText(String.valueOf("CAN DISCONNECTED"));
 
+                                btn_to_can.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                                btn_to_can.setImageResource(R.drawable.btn_can_disconn);
                             }
 
                             if (BT_Conn_GPS.GNSSServiceState) {

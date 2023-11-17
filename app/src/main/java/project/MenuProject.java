@@ -19,12 +19,13 @@ import activity.MainActivity;
 import bluetooth.BT_Conn_GPS;
 import dialogs.ConnectDialog;
 import dialogs.PickProjectDialog;
+import gnss.My_LocationCalc;
 import gnss.Nmea_In;
 import services.DataSaved;
 import utils.FullscreenActivity;
 
 public class MenuProject extends AppCompatActivity {
-
+private boolean showCoord=false;
     ImageButton plane, ab, delaunay;
     ImageView btnExit, imgConnect;
     TextView textCoord, txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk;
@@ -65,6 +66,9 @@ public class MenuProject extends AppCompatActivity {
     }
 
     private void onClick(){
+        textCoord.setOnClickListener(view -> {
+            showCoord=!showCoord;
+        });
         plane.setOnClickListener((View v) -> {
             startActivity(new Intent(this, PlaneProject.class));
 
@@ -107,8 +111,16 @@ public class MenuProject extends AppCompatActivity {
             txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",", "."));
             if (BT_Conn_GPS.GNSSServiceState) {
                 imgConnect.setImageResource(R.drawable.btn_positionpage);
+                if(showCoord){
+                    textCoord.setText("Lat: " + My_LocationCalc.decimalToDMS(Nmea_In.mLat_1) + "\tLon: "
+                            + My_LocationCalc.decimalToDMS(Nmea_In.mLon_1) + " Z: "
+                            + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
+                }else {
+                    textCoord.setText("E: " + String.format("%.3f", Nmea_In.Crs_Est).replace(",", ".") + "\tN: "
+                            + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + " Z: "
+                            + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
+                }
 
-                textCoord.setText("N: " + String.format("%.3f", Nmea_In.Nord1).replace(",", ".") + "\tE: " + String.format("%.3f", Nmea_In.Est1).replace(",", ".") + " Z: " + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
                 txtSat.setText("\t" + Nmea_In.ggaSat);
                 if (Nmea_In.ggaQuality != null) {
                     switch (Nmea_In.ggaQuality) {

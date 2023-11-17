@@ -22,7 +22,10 @@ import com.example.stx_field_design.R;
 import java.util.Map;
 
 import activity.MainActivity;
+import bluetooth.BT_Conn_CAN;
 import bluetooth.BT_Conn_GPS;
+import can.Can_Decoder;
+import can.PLC_DataTypes_BigEndian;
 import coords_calc.GPS;
 import coords_calc.Surface_Selector;
 import dialogs.ConnectDialog;
@@ -37,10 +40,8 @@ import utils.MyRW_IntMem;
 public class LoadProject extends AppCompatActivity {
     boolean showCoord = false;
     public static boolean auto;
-
-
-    TextView textCoord, txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk;
-    ImageView back, openList, imgConnect,lineID;
+    TextView textCoord, txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk,txt_incl;
+    ImageView back, openList, imgConnect,lineID,canconnect;
     TextView altitude, distance, fileName;
     Button loadProject;
     ConstraintLayout container;
@@ -55,6 +56,7 @@ public class LoadProject extends AppCompatActivity {
     Surface_Selector surfaceSelector;
     boolean rotLeft=false;
     boolean rotRight=false;
+    static int idData=0x6FA;//pacchetto dati
 
 
     @Override
@@ -97,6 +99,8 @@ public class LoadProject extends AppCompatActivity {
         rotateLeft = findViewById(R.id.rotateLeft);
         rotateRight = findViewById(R.id.rotateRight);
         autorotate = findViewById(R.id.autorotate);
+        txt_incl=findViewById(R.id.txt_incl);
+        canconnect=findViewById(R.id.canconnect);
 
     }
 
@@ -118,10 +122,18 @@ public class LoadProject extends AppCompatActivity {
         }
         dataProject.mScaleFactor = Float.parseFloat(new MyRW_IntMem().MyRead("zoomF", this));
         dataProject.rotate = (float) Double.parseDouble(new MyRW_IntMem().MyRead("rot", this));
+        if(new MyRW_IntMem().MyRead("_maprotmode",this).equals("0")){
+            auto=false;
+        }else if(new MyRW_IntMem().MyRead("_maprotmode",this).equals("1")){
+            auto=true;
+        }
 
     }
 
     private void onClick() {
+        canconnect.setOnClickListener(view -> {
+            new ConnectDialog(this,2).show();
+        });
         autorotate.setOnClickListener(v -> {
             auto = !auto;
         });
@@ -132,6 +144,11 @@ public class LoadProject extends AppCompatActivity {
         back.setOnClickListener((View v) -> {
             new MyRW_IntMem().MyWrite("zoomF", String.valueOf(dataProject.mScaleFactor), this);
             new MyRW_IntMem().MyWrite("rot", String.valueOf(dataProject.rotate), this);
+            if(auto){
+            new MyRW_IntMem().MyWrite("_maprotmode","1",this);}
+            else {
+                new MyRW_IntMem().MyWrite("_maprotmode","0",this);
+            }
             startActivity(new Intent(this, MainActivity.class));
 
             finish();
@@ -276,9 +293,22 @@ public class LoadProject extends AppCompatActivity {
             surfaceStatus.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), surfaceSelector.isPointInsideSurface() ? R.color.pure_green : R.color.red));
             surfaceOK.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), surfaceSelector.isSurfaceOK() ? R.color.pure_green : R.color.red));
             double v = 0;
-            String strAltitude = "Z: " + String.format("%.3f", surfaceSelector.getAltitudeDifference(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1)).replace(",", ".") + " m";
             v = surfaceSelector.getAltitudeDifference(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1);
             if (Double.isNaN(v)) v = 0;
+            if(BT_Conn_CAN.CANerviceState){
+                int dataOut= (int) (v*1000);
+                byte[] data= PLC_DataTypes_BigEndian.S32_to_bytes_be( dataOut);
+                new BT_Conn_CAN().sendCAN(idData,data);
+                txt_incl.setText(String.valueOf("Pitch: "+String.format("%.2f", Can_Decoder.correctPitch)+"°       Roll: "+String.format("%.2f",Can_Decoder.correctRoll)+"°"));
+                canconnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
+                canconnect.setImageResource(R.drawable.btn_ecu_connect);
+
+            }else {
+                txt_incl.setText(String.valueOf("CAN DISCONNECTED"));
+                canconnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                canconnect.setImageResource(R.drawable.btn_can_disconn);
+            }
+
 
             String strDistance = "DIST: " + String.format("%.3f", surfaceSelector.getDistance(Nmea_In.mLat_1, Nmea_In.mLon_1)).replace(",", ".") + " m";
 

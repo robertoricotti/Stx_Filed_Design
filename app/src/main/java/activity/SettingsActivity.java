@@ -1,11 +1,18 @@
 package activity;
 
+import static can.Can_Decoder.Deg_pitch;
+import static can.Can_Decoder.Deg_roll;
+import static can.Can_Decoder.correctPitch;
+import static can.Can_Decoder.correctRoll;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,8 +22,11 @@ import android.widget.Toast;
 
 import com.example.stx_field_design.R;
 
+import bluetooth.BT_Conn_CAN;
 import bluetooth.BT_Conn_GPS;
+import can.Can_Decoder;
 import dialogs.ConnectDialog;
+import gnss.My_LocationCalc;
 import gnss.Nmea_In;
 import services.DataSaved;
 import services.UpdateValues;
@@ -24,13 +34,15 @@ import utils.FullscreenActivity;
 import utils.MyRW_IntMem;
 
 public class SettingsActivity extends AppCompatActivity {
+    private boolean showCoord=false;
     ImageView btn_exit,img_connect,imgTest,imgSave;
-    TextView textCoord, txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk,txtsmootRmc;
+    TextView textCoord, txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk,txtsmootRmc,txt_tilt;
     private Handler handler;
     EditText xyTol,zTol;
     private boolean mRunning = true;
     SeekBar seekRmc;
-    CheckBox ckrmc,ckpos;
+    CheckBox ckrmc,ckpos,ckhdt,usetilt;
+    Button calib;
 
 
     @Override
@@ -62,12 +74,28 @@ public class SettingsActivity extends AppCompatActivity {
         imgSave=findViewById(R.id.btn_tognss);
         xyTol=findViewById(R.id.xy_tol);
         zTol=findViewById(R.id.z_tol);
+        ckhdt=findViewById(R.id.ckhdt);
+        txt_tilt=findViewById(R.id.txt_tilt);
+        calib=findViewById(R.id.calibrateTilt);
+        usetilt=findViewById(R.id.ckUseTilt);
+        if(DataSaved.useTilt==0){
+            usetilt.setChecked(false);
+        }else if(DataSaved.useTilt==1){
+            usetilt.setChecked(true);
+        }
+
         if(DataSaved.useRmc==0){
             ckrmc.setChecked(true);
             ckpos.setChecked(false);
+            ckhdt.setChecked(false);
         }else if(DataSaved.useRmc==1){
             ckpos.setChecked(true);
             ckrmc.setChecked(false);
+            ckhdt.setChecked(false);
+        }else if(DataSaved.useRmc==2){
+            ckpos.setChecked(false);
+            ckrmc.setChecked(false);
+            ckhdt.setChecked(true);
         }
 
 
@@ -77,6 +105,16 @@ public class SettingsActivity extends AppCompatActivity {
         zTol.setText(String.format("%.3f",DataSaved.z_tol));
     }
     private void onClick(){
+        calib.setOnClickListener(view -> {
+            DataSaved.offsetRoll=Deg_roll;
+            DataSaved.offsetPitch=Deg_pitch;
+            new MyRW_IntMem().MyWrite("_offsetpitch",String.valueOf(DataSaved.offsetPitch),SettingsActivity.this);
+            new MyRW_IntMem().MyWrite("_offsetroll",String.valueOf(DataSaved.offsetRoll),SettingsActivity.this);
+            Log.d("calibraz","offp: "+DataSaved.offsetPitch+"  offroll:  "+DataSaved.offsetRoll);
+        });
+        textCoord.setOnClickListener(view -> {
+            showCoord=!showCoord;
+        });
         imgSave.setOnClickListener(view -> {
             save();
         });
@@ -89,17 +127,34 @@ public class SettingsActivity extends AppCompatActivity {
 
             finish();
         });
+        usetilt.setOnClickListener(view -> {
+            if(usetilt.isChecked()){
+            DataSaved.useTilt=1;}
+            else {
+                DataSaved.useTilt=0;
+            }
+            new MyRW_IntMem().MyWrite("_usetilt",String.valueOf(DataSaved.useTilt),SettingsActivity.this);
+        });
 
         ckrmc.setOnClickListener(view -> {
             ckpos.setChecked(false);
             ckrmc.setChecked(true);
+            ckhdt.setChecked(false);
             DataSaved.useRmc=0;
             new MyRW_IntMem().MyWrite("useRmc",String.valueOf(DataSaved.useRmc),SettingsActivity.this);
         });
         ckpos.setOnClickListener(view -> {
             ckpos.setChecked(true);
             ckrmc.setChecked(false);
+            ckhdt.setChecked(false);
             DataSaved.useRmc=1;
+            new MyRW_IntMem().MyWrite("useRmc",String.valueOf(DataSaved.useRmc),SettingsActivity.this);
+        });
+        ckhdt.setOnClickListener(view -> {
+            ckpos.setChecked(false);
+            ckrmc.setChecked(false);
+            ckhdt.setChecked(true);
+            DataSaved.useRmc=2;
             new MyRW_IntMem().MyWrite("useRmc",String.valueOf(DataSaved.useRmc),SettingsActivity.this);
         });
 
@@ -136,14 +191,28 @@ public class SettingsActivity extends AppCompatActivity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
+                            if(BT_Conn_CAN.CANerviceState){
+                                txt_tilt.setText(String.valueOf("Pitch: "+String.format("%.2f", correctPitch)+"°       Roll: "+String.format("%.2f", correctRoll)+"°"));
+
+                            }else{
+                                txt_tilt.setText(String.valueOf("CAN DISCONNECTED"));
+                            }
                             int rot= (int) Nmea_In.tractorBearing;
                             imgTest.setRotation(rot);
                             txtsmootRmc.setText("Bearing Average: \t\t"+DataSaved.rmcSize);
                             txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",","."));
                             if (BT_Conn_GPS.GNSSServiceState) {
                                 img_connect.setImageResource(R.drawable.btn_positionpage);
+                                if(showCoord){
+                                    textCoord.setText("Lat: " + My_LocationCalc.decimalToDMS(Nmea_In.mLat_1) + "\tLon: "
+                                            + My_LocationCalc.decimalToDMS(Nmea_In.mLon_1) + " Z: "
+                                            + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
+                                }else {
+                                    textCoord.setText("E: " + String.format("%.3f", Nmea_In.Crs_Est).replace(",", ".") + "\tN: "
+                                            + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + " Z: "
+                                            + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
+                                }
 
-                                textCoord.setText("N: " + String.format("%.3f", Nmea_In.Nord1).replace(",", ".") + "\tE: " + String.format("%.3f", Nmea_In.Est1).replace(",", ".") + " Z: " + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
                                 txtSat.setText("\t"+ Nmea_In.ggaSat);
                                 if(Nmea_In.ggaQuality!=null){
                                     switch (Nmea_In.ggaQuality) {

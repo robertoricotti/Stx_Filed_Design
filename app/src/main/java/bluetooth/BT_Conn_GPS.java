@@ -10,10 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.Toast;
-
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -23,211 +20,22 @@ import java.util.UUID;
 
 import gnss.Nmea_In;
 import services.DataSaved;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 public class BT_Conn_GPS extends BluetoothClass.Device {
 
     public static boolean GNSSServiceState = false;
     public static String GpsDEVICE;
-    private OutputStream mmOutputStream = null;
-    private Context con;
-    private BluetoothSocket mmSocket = null;
-    private InputStream mmInputStream = null;
-    private BluetoothAdapter mBluetoothAdapter_GNSS;
-    private BluetoothDevice mmDevice_Gnss;
+    private static OutputStream mmOutputStream = null;
 
-    // Aggiunto ExecutorService per eseguire  in background
-    private ExecutorService executorService = Executors.newSingleThreadExecutor();
+    private static BluetoothSocket mmSocket = null;
+    private static InputStream mmInputStream = null;
+    private static BluetoothAdapter mBluetoothAdapter_GNSS;
+    private static BluetoothDevice mmDevice_Gnss;
+
+
 
     @SuppressLint("MissingPermission")
     public void GNSS_Connection(Context context, boolean GNSSen) {
-        con = context;
-        final Thread[] workerThread_Gnss = new Thread[1];
-        final byte[][] readBuffer_Gnss = new byte[1][1];
-        final int[] readBufferPosition_Gnss = new int[1];
-        final boolean[] stopWorker_Gnss = new boolean[1];
-        IntentFilter filterG = new IntentFilter();
-        filterG.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
-        filterG.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
-        filterG.addAction(BluetoothDevice.EXTRA_DEVICE);
-        context.registerReceiver(broadcastReceiverGNSS, filterG);
-        if (GNSSen) {
-            executorService.submit(new Runnable() {
-                @Override
-                public void run() {
-                    mBluetoothAdapter_GNSS = BluetoothAdapter.getDefaultAdapter();
-                    if (mBluetoothAdapter_GNSS == null) {
-                        Toast.makeText(context.getApplicationContext(), "!!!No Bluetooth Available !!!", Toast.LENGTH_LONG).show();
-                        return;
-                    }
-                    if (!mBluetoothAdapter_GNSS.isEnabled()) {
-                        Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                        context.startActivity(enableBluetooth);
-                    }
 
-                    @SuppressLint("MissingPermission") Set<BluetoothDevice> pairedDevices = mBluetoothAdapter_GNSS.getBondedDevices();
-                    if (pairedDevices.size() > 0) {
-                        for (BluetoothDevice device : pairedDevices) {
-                            if (device.getAddress().equals(DataSaved.S_macAddres)) {
-                                mmDevice_Gnss = device;
-                                UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-                                try {
-                                    mmSocket = mmDevice_Gnss.createRfcommSocketToServiceRecord(uuid);
-                                } catch (IOException e) {
-                                }
-                                try {
-
-                                    mmSocket.connect();
-
-                                } catch (IOException e) {
-
-                                }
-                                try {
-                                    mmInputStream = mmSocket.getInputStream();
-                                } catch (IOException e) {
-                                }
-                                try {
-                                    mmOutputStream = mmSocket.getOutputStream();
-                                } catch (IOException e) {
-                                }
-                                try {
-                                    GpsDEVICE = mmDevice_Gnss.getAddress();
-                                    final Handler handler = new Handler();
-                                    final int delimiter = 10;
-                                    stopWorker_Gnss[0] = false;
-                                    readBufferPosition_Gnss[0] = 0;
-                                    readBuffer_Gnss[0] = new byte[1024];
-                                    workerThread_Gnss[0] = new Thread(new Runnable() {
-                                        public void run() {
-                                            while (!Thread.currentThread().isInterrupted() && !stopWorker_Gnss[0]) {
-                                                try {
-                                                    int bytesAvailable = mmInputStream.available();
-                                                    if (bytesAvailable > 0) {
-                                                        byte[] packetBytes = new byte[bytesAvailable];
-                                                        mmInputStream.read(packetBytes);
-                                                        for (int i = 0; i < bytesAvailable; i++) {
-                                                            byte b = packetBytes[i];
-                                                            if (b == delimiter) {
-                                                                byte[] encodedBytes = new byte[readBufferPosition_Gnss[0]];
-                                                                System.arraycopy(readBuffer_Gnss[0], 0, encodedBytes, 0, encodedBytes.length);
-                                                                final String data = new String(encodedBytes, StandardCharsets.US_ASCII);
-                                                                readBufferPosition_Gnss[0] = 0;
-                                                                handler.post(new Runnable() {
-                                                                    public void run() {
-                                                                        new Nmea_In(data);
-                                                                        DataSaved.S_nmea = data;
-                                                                    }
-                                                                });
-                                                            } else {
-                                                                readBuffer_Gnss[0][readBufferPosition_Gnss[0]++] = b;
-                                                            }
-                                                        }
-                                                    }
-                                                } catch (Exception ex) {
-                                                    stopWorker_Gnss[0] = true;
-                                                }
-                                            }
-                                        }
-                                    });
-                                    // Chiamata a connectToGNSS in background utilizzando ExecutorService
-                                    executorService.submit(workerThread_Gnss[0]);
-                                } catch (Exception en) {
-                                }
-                                break;
-                            }
-                        }
-                    }
-                }
-            });
-        }
-        if (!GNSSen) {
-            if (GNSSServiceState) {
-                for (int i = 0; i < 2; i++) {
-                    if (i == 1) {
-                        Toast.makeText(context.getApplicationContext(), "Disconnecting...", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-            stopWorker_Gnss[0] = true;
-
-            try {
-                mmInputStream.close();
-            } catch (Exception e) {
-            }
-            try {
-                mmOutputStream.close();
-            } catch (Exception e) {
-            }
-            try {
-                mmSocket.close();
-            } catch (Exception e) {
-            }
-        }
-    }
-
-    public void sendGnss(String msg) {
-        try {
-            mmOutputStream.write(msg.getBytes());
-        } catch (Exception e) {
-        }
-    }
-
-    private final BroadcastReceiver broadcastReceiverGNSS = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            BluetoothDevice device;
-            String action = intent.getAction();
-            device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-            if (GpsDEVICE != null) {
-                if (GpsDEVICE.equals(device.getAddress())) {
-                    if (BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)) {
-                        GNSSServiceState = true;
-                        Toast.makeText(context.getApplicationContext(), "GPS CONNECTED", Toast.LENGTH_SHORT).show();
-                    } else if (BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action)) {
-                        GNSSServiceState = false;
-                        Toast.makeText(context.getApplicationContext(), "GPS DISCONNECTED", Toast.LENGTH_SHORT).show();
-                        closeExecutorService();
-                    }
-                }
-            } else {
-                if (broadcastReceiverGNSS.getDebugUnregister()) {
-                    broadcastReceiverGNSS.abortBroadcast();
-                }
-            }
-        }
-    };
-    private void closeExecutorService() {
-        if (executorService != null && !executorService.isShutdown()) {
-            executorService.shutdown();
-        }
-    }
-}
-
-
-
-
-
-
-
-/*
-public class BT_Conn_GPS extends BluetoothClass.Device {
-
-    public static boolean GNSSServiceState = false;
-
-    public static String GpsDEVICE;
-    static OutputStream mmOutputStream = null;
-    Context con;
-    static BluetoothSocket mmSocket = null;
-    static InputStream mmInputStream = null;
-    BluetoothAdapter mBluetoothAdapter_GNSS;
-
-    BluetoothDevice mmDevice_Gnss;
-
-
-    @SuppressLint("MissingPermission")
-    public void GNSS_Connection(Context context, boolean GNSSen, String MACADDRESSGnss) {
-        con = context;
         final Thread[] workerThread_Gnss = new Thread[1];
         final byte[][] readBuffer_Gnss = new byte[1][1];
         final int[] readBufferPosition_Gnss = new int[1];
@@ -241,7 +49,6 @@ public class BT_Conn_GPS extends BluetoothClass.Device {
 
             mBluetoothAdapter_GNSS = BluetoothAdapter.getDefaultAdapter();
             if (mBluetoothAdapter_GNSS == null) {
-
                 Toast.makeText(context.getApplicationContext(), "!!!No Bluetooth Available !!!", Toast.LENGTH_LONG).show();
             }
             if (!mBluetoothAdapter_GNSS.isEnabled()) {
@@ -252,28 +59,24 @@ public class BT_Conn_GPS extends BluetoothClass.Device {
             @SuppressLint("MissingPermission") Set<BluetoothDevice> pairedDevices = mBluetoothAdapter_GNSS.getBondedDevices();
             if (pairedDevices.size() > 0) {
                 for (BluetoothDevice device : pairedDevices) {
-                    if (device.getAddress().equals(MACADDRESSGnss)) {
+                    if (device.getAddress().equals(DataSaved.S_macAddres)) {
                         mmDevice_Gnss = device;
                         UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
                         try {
                             mmSocket = mmDevice_Gnss.createRfcommSocketToServiceRecord(uuid);
                         } catch (IOException e) {
-
                         }
                         try {
                             mmSocket.connect();
                         } catch (IOException e) {
-
                         }
                         try {
                             mmInputStream = mmSocket.getInputStream();
                         } catch (IOException e) {
-
                         }
                         try {
                             mmOutputStream = mmSocket.getOutputStream();
                         } catch (IOException e) {
-
                         }
                         try {
                             GpsDEVICE = mmDevice_Gnss.getAddress();
@@ -299,12 +102,9 @@ public class BT_Conn_GPS extends BluetoothClass.Device {
                                                         readBufferPosition_Gnss[0] = 0;
                                                         handler.post(new Runnable() {
                                                             public void run() {
-
                                                                 new Nmea_In(data);
                                                                 DataSaved.S_nmea = data;
-
                                                             }
-
                                                         });
                                                     } else {
                                                         readBuffer_Gnss[0][readBufferPosition_Gnss[0]++] = b;
@@ -316,15 +116,15 @@ public class BT_Conn_GPS extends BluetoothClass.Device {
                                         }
                                     }
                                 }
-                            });
-                            workerThread_Gnss[0].start();
+                            });workerThread_Gnss[0].start();
+
+
                         } catch (Exception en) {
                         }
                         break;
                     }
                 }
             }
-
         }
         if (!GNSSen) {
             if (GNSSServiceState) {
@@ -337,7 +137,6 @@ public class BT_Conn_GPS extends BluetoothClass.Device {
             stopWorker_Gnss[0] = true;
 
             try {
-
                 mmInputStream.close();
             } catch (Exception e) {
             }
@@ -345,26 +144,19 @@ public class BT_Conn_GPS extends BluetoothClass.Device {
                 mmOutputStream.close();
             } catch (Exception e) {
             }
-
             try {
                 mmSocket.close();
-
             } catch (Exception e) {
             }
         }
-
     }
 
     public void sendGnss(String msg) {
         try {
-
             mmOutputStream.write(msg.getBytes());
         } catch (Exception e) {
-
         }
-
     }
-
 
     private final BroadcastReceiver broadcastReceiverGNSS = new BroadcastReceiver() {
         @Override
@@ -375,12 +167,10 @@ public class BT_Conn_GPS extends BluetoothClass.Device {
             if (GpsDEVICE != null) {
                 if (GpsDEVICE.equals(device.getAddress())) {
                     if (BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)) {
-
                         GNSSServiceState = true;
-
                     } else if (BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action)) {
-
                         GNSSServiceState = false;
+
                     }
                 }
             } else {
@@ -392,7 +182,15 @@ public class BT_Conn_GPS extends BluetoothClass.Device {
     };
 
 
-}*/
+}
+
+
+
+
+
+
+
+
 
 
 

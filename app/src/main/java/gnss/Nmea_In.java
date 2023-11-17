@@ -6,24 +6,22 @@ import org.locationtech.proj4j.ProjCoordinate;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
+import can.Can_Decoder;
+import coords_calc.CoordsConverter;
 import coords_calc.GPS;
 import services.DataSaved;
 import services.UpdateValues;
 
 public class Nmea_In {
-
-
     public String[] NmeaInput;
     CalculateXor8 calculateXor8;
     String myNmea;
     String mNmea1, mNmea2;
-    Deg2UTM deg2UTM;
-    GPS gps_cl;
-    public static char mChar;
-    public static int mZone;
+    private double lat1,lon1,tempq;
+
     public static String VRMS_, HRMS_;
-    public static double Nord1, Est1, Quota1, mLat_1, mLon_1, mSpeed_rmc, mBearing_rmc, tractorBearing,Crs_Nord,Crs_Est;
-    public static String ggaNord, ggaEast, ggaNoS, ggaWoE, ggaZ1, ggaZ2, ggaSat, ggaDop, ggaQuality, ggaRtk, sMchOrient;//String data from  GPS1
+    public static double Nord1, Est1, Quota1, mLat_1, mLon_1, mSpeed_rmc, mBearing_rmc, tractorBearing,Crs_Nord,Crs_Est,mch_Hdt;
+    public static String ggaNord, ggaEast, ggaNoS, ggaWoE, ggaZ1, ggaZ2, ggaSat, ggaDop, ggaQuality, ggaRtk;//String data from  GPS1
 
 
     public Nmea_In(String NmeaGGAH) {
@@ -58,35 +56,61 @@ public class Nmea_In {
                             int LatInt = Integer.parseInt(ggaNord.substring(0, 2));
                             double LatDec = Double.parseDouble(ggaNord.substring(2, NmeaInput[2].length()));
                             if (ggaNoS.equals("N")) {
-                                mLat_1 = LatDec / 60 + LatInt;
+                                lat1 = LatDec / 60 + LatInt;
                             } else if (ggaNoS.equals("S")) {
-                                mLat_1 = LatDec / 60 + LatInt;
-                                mLat_1 = mLat_1 * -1;
+                                lat1 = LatDec / 60 + LatInt;
+                                lat1 = lat1 * -1;
                             }
 
                             int LonInt = Integer.parseInt(ggaEast.substring(0, 3));
                             double LonDec = Double.parseDouble(ggaEast.substring(3, NmeaInput[2].length()));
                             if (ggaWoE.equals("E")) {
-                                mLon_1 = LonDec / 60 + LonInt;
+                                lon1 = LonDec / 60 + LonInt;
                             } else if (ggaWoE.equals("W")) {
-                                mLon_1 = LonDec / 60 + LonInt;
-                                mLon_1 = mLon_1 * -1;
+                                lon1 = LonDec / 60 + LonInt;
+                                lon1 = lon1 * -1;
                             }
+                            tempq = Double.parseDouble(ggaZ1.replace(",", ".")) + Double.parseDouble(ggaZ2.replace(",", "."));
+                            Quota1 = tempq - DataSaved.D_AltezzaAnt;
+                            if(DataSaved.useTilt==0) {
+                                mLat_1=lat1;
+                                mLon_1=lon1;
+                                UpdateValues.wgsToUtm.transform(new ProjCoordinate(lon1, lat1), UpdateValues.result);
+                                Crs_Est = UpdateValues.result.x;
+                                Crs_Nord = UpdateValues.result.y;
+
+                            }
+                            else if(DataSaved.useTilt==1){
+                                UpdateValues.wgsToUtm.transform(new ProjCoordinate(lon1, lat1), UpdateValues.result);
+                                double []end=Exca_Quaternion.endPoint(new double[]{UpdateValues.result.x,UpdateValues.result.y,tempq},Can_Decoder.correctPitch-90,Can_Decoder.correctRoll,DataSaved.D_AltezzaAnt,tractorBearing);
+                                Crs_Est = end[0];
+                                Crs_Nord = end[1];
+                                Quota1=end[2];
+                              double []latlon=CoordsConverter.transformIntoWGS84(DataSaved.S_CRS,end[0],end[1]);
+                                mLon_1=latlon[1];
+                                mLat_1=latlon[0];
 
 
-                            deg2UTM = new Deg2UTM(mLat_1, mLon_1);
-
-                            Nord1 = deg2UTM.getNorthing();
-                            Est1 = deg2UTM.getEasting();
-                            Quota1 = Double.parseDouble(ggaZ1.replace(",", ".")) + Double.parseDouble(ggaZ2.replace(",", "."));
-                            Quota1 = Quota1 - DataSaved.D_AltezzaAnt;
-                            mChar = deg2UTM.getLetter();
-                            mZone = deg2UTM.getZone();
-                            UpdateValues.wgsToUtm.transform(new ProjCoordinate(mLon_1, mLat_1), UpdateValues.result);
-                            Crs_Est= UpdateValues.result.x;
-                            Crs_Nord=UpdateValues.result.y;
+                            }
                             break;
                         } catch (Exception e) {
+
+                        }
+                    case "$GPHDT":
+                    case "$GNHDT":
+                    case "$HCHDT":
+
+                        try {
+                            mch_Hdt = Double.parseDouble(NmeaInput[1]);
+
+                            if (NmeaInput[1].equals("0.0000") || NmeaInput[1].equals("")) {
+                                mch_Hdt = 999;
+                            }
+
+                            break;
+
+                        } catch (Exception e) {
+                            mch_Hdt = 0;
 
                         }
 
@@ -127,6 +151,8 @@ public class Nmea_In {
 
                 GPSTracker.onLocationUpdate(mLat_1,mLon_1,DataSaved.rmcSize);
                tractorBearing= GPSTracker.getAverageBearing();
+            }else if(DataSaved.useRmc==2){
+                tractorBearing=mch_Hdt;
             }
 
         } catch (Exception e) {

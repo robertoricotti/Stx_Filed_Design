@@ -10,6 +10,8 @@ public class DataSaved {
     public static String S_nmea;
     public static String Actualactivity;
 
+    public static String MapRotMode;
+
     public static int I_UnitOfMeasure;
 
     public static double D_AltezzaAnt;
@@ -17,6 +19,11 @@ public class DataSaved {
     public static double xy_tol;
     public static int rmcSize;
     public static int useRmc;
+    public static int lrFrame;
+    public static double offsetPitch;
+    public static double offsetRoll;
+    public static int useTilt;
+
 
 
 

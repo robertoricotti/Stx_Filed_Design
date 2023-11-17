@@ -103,6 +103,14 @@
         android:text="Use POSITIONS"
         app:layout_constraintLeft_toRightOf="@id/ckRMC"
         app:layout_constraintTop_toBottomOf="@id/txtUseRMC" />
+    <CheckBox
+        android:id="@+id/ckhdt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:text="Use DUAL HEAD"
+        app:layout_constraintLeft_toRightOf="@id/ckPos"
+        app:layout_constraintTop_toBottomOf="@id/txtUseRMC" />
 
     <TextView
         android:id="@+id/txtOrSmooth"
@@ -191,6 +199,57 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
+    <TextView
+        android:id="@+id/txtslopeSet"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@color/_____cancel_text"
+        android:gravity="center"
+        android:text="Tilt Setup"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutTol" />
+    <TextView
+        android:id="@+id/txt_tilt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text=""
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtslopeSet" />
+
+    <CheckBox
+        android:id="@+id/ckUseTilt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:text="Use Tilt "
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_tilt"
+        app:layout_constraintBottom_toBottomOf="@id/calibrateTilt"
+        app:layout_constraintRight_toLeftOf="@id/calibrateTilt"
+        />
+    <Button
+        android:id="@+id/calibrateTilt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:text="SET ZERO"
+        android:textStyle="bold"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toRightOf="@id/ckUseTilt"
+        app:layout_constraintTop_toBottomOf="@id/txt_tilt"
+        app:layout_constraintRight_toRightOf="parent"
+        />
 
     <ImageView
         android:id="@+id/imgTest"
@@ -201,7 +260,7 @@
         app:layout_constraintBottom_toTopOf="@id/H_90"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtTollerances"
+        app:layout_constraintTop_toBottomOf="@id/H_top_63"
         app:tint="@color/transparentdarkgray" />
 
     <LinearLayout
