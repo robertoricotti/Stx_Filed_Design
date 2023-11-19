@@ -27,6 +27,7 @@ import dialogs.ConnectDialog;
 import dialogs.CustomToast;
 import services_and_bluetooth.Bluetooth_CAN_Service;
 import services_and_bluetooth.Bluetooth_GNSS_Service;
+import services_and_bluetooth.DataSaved;
 import services_and_bluetooth.UpdateValues;
 import utils.FullscreenActivity;
 import utils.MyRW_IntMem;
@@ -87,8 +88,11 @@ public class BT_DevicesActivity extends AppCompatActivity {
         // Registra il BroadcastReceiver per ricevere gli aggiornamenti sullo stato dei dispositivi Bluetooth
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         registerReceiver(bluetoothReceiver, filter);
-        titolo.setText(flag+" DEVICE LIST");
-        if(flag.contains("GPS")){who=1;}else if(flag.contains("CAN")){who=2;}
+
+        if(flag.contains("GPS")){who=1;
+            titolo.setText(flag+" DEVICE LIST\n"+ DataSaved.S_gpsname+"   "+DataSaved.S_macAddres);
+        }else if(flag.contains("CAN")){who=2;
+            titolo.setText(flag+" DEVICE LIST\n"+ DataSaved.S_can_name+"   "+DataSaved.S_macAddress_CAN);}
 
     }
 

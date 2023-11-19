@@ -19,9 +19,12 @@ import java.util.concurrent.Executors;
 import project.LoadProject;
 
 public class AutoConnectionService extends Service {
+    byte c=0;
     private int countG=-1, countCan=-1;
     private Bluetooth_CAN_Service mBluetoothService;
+    private Bluetooth_GNSS_Service mBluetoothGpsService;
     private boolean mServiceBound = false;
+    private boolean mServiceBoundGps = false;
 
     int id = 0x6FA;
     public static byte[] data_6FA = new byte[]{0, 0, 0, 0, 0, 0, 0, 0};
@@ -47,6 +50,20 @@ public class AutoConnectionService extends Service {
             mServiceBound = false;
         }
     };
+    private final ServiceConnection mServiceConnectionGps = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Bluetooth_GNSS_Service.BluetoothGNSSBinder binderG = (Bluetooth_GNSS_Service.BluetoothGNSSBinder) service;
+            mBluetoothGpsService = binderG.getService();
+            mServiceBoundGps = true;
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mServiceBoundGps = false;
+        }
+    };
 
 
     @Override
@@ -55,6 +72,9 @@ public class AutoConnectionService extends Service {
         mExecutor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
         Intent intent = new Intent(this, Bluetooth_CAN_Service.class);
         bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
+
+        Intent intentG = new Intent(this, Bluetooth_GNSS_Service.class);
+        bindService(intentG, mServiceConnectionGps, Context.BIND_AUTO_CREATE);
         super.onCreate();
 
 
@@ -77,6 +97,10 @@ public class AutoConnectionService extends Service {
         if (mServiceBound) {
             unbindService(mServiceConnection);
             mServiceBound = false;
+        }
+        if (mServiceBoundGps) {
+            unbindService(mServiceConnectionGps);
+            mServiceBoundGps = false;
         }
         super.onDestroy();
         try {
@@ -108,11 +132,14 @@ public class AutoConnectionService extends Service {
                 public void run() {
 
 
-                    if (!Bluetooth_GNSS_Service.gpsIsConnected && DataSaved.S_macAddres != null&&(countG%2==0)&&countG<10) {
+
+                    if (!Bluetooth_GNSS_Service.gpsIsConnected && DataSaved.S_macAddres != null&&(countG%2==0)&&countG<=10) {
 
                         try {
-                            startService(new Intent(AutoConnectionService.this, Bluetooth_GNSS_Service.class));
-                            Log.d("BT SERVICE", "PROVO A CONNETTERMI AL GPS");
+                            if (!DataSaved.S_macAddres.equals("00:00:00:00:00:00")) {
+                                startService(new Intent(AutoConnectionService.this, Bluetooth_GNSS_Service.class));
+                                Log.d("BT SERVICE", "PROVO A CONNETTERMI AL GPS");
+                            }
                         } catch (Exception e) {
                             //do nothing
                         }
@@ -122,7 +149,7 @@ public class AutoConnectionService extends Service {
                         countG=0;
                     }
 
-                    if (!Bluetooth_CAN_Service.canIsConnected && DataSaved.S_macAddress_CAN != null&&(countCan%2!=0)&&countCan<10) {
+                    if (!Bluetooth_CAN_Service.canIsConnected && DataSaved.S_macAddress_CAN != null&&(countCan%2!=0)&&countCan<=10) {
 
                         try {
                             if (!DataSaved.S_macAddress_CAN.equals("00:00:00:00:00:00")) {
@@ -138,9 +165,11 @@ public class AutoConnectionService extends Service {
                     if(Bluetooth_CAN_Service.canIsConnected){
                         countCan=0;
                     }
-            Log.d("CONTEGGI","G: "+countG+ "   Can: "+countCan);
-                    countG++;
-                    countCan++;
+            if(countG<1000){
+                    countG++;}
+            if(countCan<100){
+                    countCan++;}
+
                 }
             };
 
@@ -154,16 +183,20 @@ public class AutoConnectionService extends Service {
                     TimerTask() {
                         @Override
                         public void run() {
+                        /*  if(Bluetooth_GNSS_Service.gpsIsConnected){
+                                mBluetoothGpsService.sendGNSSata("Sample Message\r\n");
+                                //Usare questo codice per scrivere su seriale da bluetooth
+                            }*/
 
-
+                                c++;
                             if (Bluetooth_CAN_Service.canIsConnected) {
 
                                 if (mServiceBound) {
                                     try {
-                                        mBluetoothService.sendCANData(id, new byte[]{page, data_6FA[0], data_6FA[1], data_6FA[2], data_6FA[3]});
+                                        mBluetoothService.sendCANData(id, new byte[]{page, data_6FA[0], data_6FA[1], data_6FA[2], data_6FA[3],c},false);
 
                                     } catch (Exception e) {
-                                        mBluetoothService.sendCANData(id, new byte[]{(byte) 0xFF, 0, 0, 0, 0});
+                                        mBluetoothService.sendCANData(id, new byte[]{(byte) 0xFF, 0, 0, 0, c},false);
                                     }
                                 }
                             }

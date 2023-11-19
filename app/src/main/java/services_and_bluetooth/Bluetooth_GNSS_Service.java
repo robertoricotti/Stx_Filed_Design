@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 
@@ -20,6 +21,7 @@ import java.util.UUID;
 import gnss.Nmea_In;
 
 public class Bluetooth_GNSS_Service extends Service {
+    private final IBinder mBinder = new Bluetooth_GNSS_Service.BluetoothGNSSBinder();
     public static boolean gpsIsConnected;
     final int handlerState = 0;
     //used to identify handler message
@@ -74,7 +76,12 @@ public class Bluetooth_GNSS_Service extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        bluetoothIn.removeCallbacksAndMessages(null);
+        try {
+            bluetoothIn.removeCallbacksAndMessages(null);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
         stopThread = true;
         if (mConnectedThread != null) {
             mConnectedThread.closeStreams();
@@ -85,12 +92,13 @@ public class Bluetooth_GNSS_Service extends Service {
         gpsIsConnected=false;
         Log.d("SERVICE", "onDestroy");
 
+
     }
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return mBinder;
     }
 
     //Checks that the Android device Bluetooth is available and prompts to be turned on if off
@@ -163,7 +171,7 @@ public class Bluetooth_GNSS_Service extends Service {
                 Log.d("DEBUG BT", "CONNECTED THREAD STARTED");
                 //I send a character when resuming.beginning transmission to check device is connected
                 //If it is not an exception will be thrown in the write method and finish() will be called
-                mConnectedThread.write("x");
+                mConnectedThread.write("x\n\r");
             } catch (IOException e) {
                 try {
                     Log.d("DEBUG BT", "SOCKET CONNECTION FAILED : " + e.toString());
@@ -278,6 +286,17 @@ public class Bluetooth_GNSS_Service extends Service {
 
                 stopSelf();
             }
+        }
+    }
+
+    public class BluetoothGNSSBinder extends Binder {
+        Bluetooth_GNSS_Service getService() {
+            return Bluetooth_GNSS_Service.this;
+        }
+    }
+    public void sendGNSSata(String s) {
+        if (mConnectedThread != null) {
+            mConnectedThread.write(s);
         }
     }
 }
