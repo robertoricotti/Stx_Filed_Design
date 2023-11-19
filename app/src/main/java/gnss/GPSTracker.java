@@ -3,7 +3,7 @@ package gnss;
 import java.util.Queue;
 import java.util.LinkedList;
 
-import services.DataSaved;
+import services_and_bluetooth.DataSaved;
 
 public class GPSTracker {
 

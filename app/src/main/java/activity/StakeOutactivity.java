@@ -11,10 +11,10 @@ import android.widget.TextView;
 
 import com.example.stx_field_design.R;
 
-import bluetooth.BT_Conn_GPS;
 import dialogs.ConnectDialog;
 import gnss.Nmea_In;
-import services.DataSaved;
+import services_and_bluetooth.Bluetooth_GNSS_Service;
+import services_and_bluetooth.DataSaved;
 import utils.FullscreenActivity;
 
 public class StakeOutactivity extends AppCompatActivity {
@@ -69,7 +69,7 @@ public class StakeOutactivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",","."));
-                            if (BT_Conn_GPS.GNSSServiceState) {
+                            if (Bluetooth_GNSS_Service.gpsIsConnected) {
                                 img_connect.setImageResource(R.drawable.btn_positionpage);
 
                                 textCoord.setText("N: " + String.format("%.3f", Nmea_In.Nord1).replace(",", ".") + "\tE: " + String.format("%.3f", Nmea_In.Est1).replace(",", ".") + " Z: " + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));

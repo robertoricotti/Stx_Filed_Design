@@ -11,10 +11,9 @@ import android.widget.TextView;
 
 import com.example.stx_field_design.R;
 
-import bluetooth.BT_Conn_CAN;
-import bluetooth.BT_Conn_GPS;
-import services.AutoConnectionService;
-import services.DataSaved;
+import services_and_bluetooth.Bluetooth_CAN_Service;
+import services_and_bluetooth.Bluetooth_GNSS_Service;
+import services_and_bluetooth.DataSaved;
 import utils.FullscreenActivity;
 
 public class ConnectDialog {
@@ -47,13 +46,13 @@ public class ConnectDialog {
         exit = alertDialog.findViewById(R.id._h_exit);
         textView = alertDialog.findViewById(R.id.titleC);
         if(flag==1) {
-            if (BT_Conn_GPS.GNSSServiceState) {
+            if (Bluetooth_GNSS_Service.gpsIsConnected) {
                 textView.setText("GPS\nDisconnect From\n" + DataSaved.S_gpsname + "\n" + DataSaved.S_macAddres);
             } else {
                 textView.setText("GPS\nConnect To\n" + DataSaved.S_gpsname + "\n" + DataSaved.S_macAddres);
             }
         }else if(flag==2){
-            if (BT_Conn_CAN.CANerviceState) {
+            if (Bluetooth_CAN_Service.canIsConnected) {
                 textView.setText("CAN\nDisconnect From\n" + DataSaved.S_can_name + "\n" + DataSaved.S_macAddress_CAN);
             } else {
                 textView.setText("CAN\nConnect To\n" + DataSaved.S_can_name + "\n" + DataSaved.S_macAddress_CAN);
@@ -64,9 +63,19 @@ public class ConnectDialog {
     private void onClick() {
         yes.setOnClickListener((View v) -> {
             if(flag==1) {
-                new BT_Conn_GPS().GNSS_Connection(activity, !BT_Conn_GPS.GNSSServiceState);
+             if(Bluetooth_GNSS_Service.gpsIsConnected){
+                activity.stopService(new Intent(activity, Bluetooth_GNSS_Service.class));}
+             else {
+                 activity.startService(new Intent(activity, Bluetooth_GNSS_Service.class));
+             }
+
             }else if(flag==2){
-                new BT_Conn_CAN().CAN_Connection(activity,!BT_Conn_CAN.CANerviceState);
+                if(Bluetooth_CAN_Service.canIsConnected){
+                    activity.stopService(new Intent(activity, Bluetooth_CAN_Service.class));}
+                else {
+                    activity.startService(new Intent(activity, Bluetooth_CAN_Service.class));
+                }
+
             }
 
             alertDialog.dismiss();

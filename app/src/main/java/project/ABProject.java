@@ -19,7 +19,6 @@ import androidx.core.content.ContextCompat;
 
 import com.example.stx_field_design.R;
 
-import bluetooth.BT_Conn_GPS;
 import coords_calc.DistToPoint;
 import coords_calc.EasyPointCalculator;
 import coords_calc.GPS;
@@ -29,7 +28,8 @@ import dialogs.MyEpsgDialog;
 import dialogs.SaveFileDialog;
 import gnss.My_LocationCalc;
 import gnss.Nmea_In;
-import services.DataSaved;
+import services_and_bluetooth.Bluetooth_GNSS_Service;
+import services_and_bluetooth.DataSaved;
 import utils.FullscreenActivity;
 import utils.MyRW_IntMem;
 import utils.Utils;
@@ -294,7 +294,7 @@ public class ABProject extends AppCompatActivity {
 
             crs.setText(dataProject.getEpsgCode() != null ? dataProject.getEpsgCode() : DataSaved.S_CRS);
 
-            textCoord.setText(!BT_Conn_GPS.GNSSServiceState ? "DISCONNECTED" : "N: " + String.format("%.3f", Nmea_In.Nord1).replace(",", ".") + "\tE: " + String.format("%.3f", Nmea_In.Est1).replace(",", ".") + " Z: " + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
+            textCoord.setText(!Bluetooth_GNSS_Service.gpsIsConnected ? "DISCONNECTED" : "E: " + String.format("%.3f", Nmea_In.Crs_Est).replace(",", ".") + "\tN: " + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + " Z: " + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
 
             canvas.invalidate();
             aggiornaCoordinate();
@@ -506,7 +506,7 @@ public class ABProject extends AppCompatActivity {
 
     private void aggiornaCoordinate() {
         txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",", "."));
-        if (BT_Conn_GPS.GNSSServiceState) {
+        if (Bluetooth_GNSS_Service.gpsIsConnected) {
             imgConnect.setImageResource(R.drawable.btn_positionpage);
 
             if (showCoord) {

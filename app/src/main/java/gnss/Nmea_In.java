@@ -8,9 +8,8 @@ import java.util.Locale;
 
 import can.Can_Decoder;
 import coords_calc.CoordsConverter;
-import coords_calc.GPS;
-import services.DataSaved;
-import services.UpdateValues;
+import services_and_bluetooth.DataSaved;
+import services_and_bluetooth.UpdateValues;
 
 public class Nmea_In {
     public String[] NmeaInput;

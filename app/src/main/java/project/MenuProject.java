@@ -16,12 +16,12 @@ import androidx.core.content.ContextCompat;
 import com.example.stx_field_design.R;
 
 import activity.MainActivity;
-import bluetooth.BT_Conn_GPS;
 import dialogs.ConnectDialog;
 import dialogs.PickProjectDialog;
 import gnss.My_LocationCalc;
 import gnss.Nmea_In;
-import services.DataSaved;
+import services_and_bluetooth.Bluetooth_GNSS_Service;
+import services_and_bluetooth.DataSaved;
 import utils.FullscreenActivity;
 
 public class MenuProject extends AppCompatActivity {
@@ -109,7 +109,7 @@ private boolean showCoord=false;
         updateRunnable = () -> {
 
             txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",", "."));
-            if (BT_Conn_GPS.GNSSServiceState) {
+            if (Bluetooth_GNSS_Service.gpsIsConnected) {
                 imgConnect.setImageResource(R.drawable.btn_positionpage);
                 if(showCoord){
                     textCoord.setText("Lat: " + My_LocationCalc.decimalToDMS(Nmea_In.mLat_1) + "\tLon: "

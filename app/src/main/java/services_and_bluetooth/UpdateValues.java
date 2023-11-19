@@ -1,4 +1,4 @@
-package services;
+package services_and_bluetooth;
 
 import android.app.Service;
 import android.content.Intent;
@@ -130,6 +130,7 @@ public class UpdateValues extends Service {
         DataSaved.S_macAddres=myRW_intMem.MyRead("_macaddress",this);
         DataSaved.S_gpsname=myRW_intMem.MyRead("_gpsname",this);
         DataSaved.S_macAddress_CAN=myRW_intMem.MyRead("_macaddress_can",this);
+
         DataSaved.S_can_name=myRW_intMem.MyRead("_canname",this);
         DataSaved.S_CRS=myRW_intMem.MyRead("_crs",this);
         DataSaved.D_AltezzaAnt=Double.parseDouble(myRW_intMem.MyRead("_altezzaantenna",this).replace(",","."));

@@ -22,14 +22,13 @@ import android.widget.Toast;
 
 import com.example.stx_field_design.R;
 
-import bluetooth.BT_Conn_CAN;
-import bluetooth.BT_Conn_GPS;
-import can.Can_Decoder;
 import dialogs.ConnectDialog;
 import gnss.My_LocationCalc;
 import gnss.Nmea_In;
-import services.DataSaved;
-import services.UpdateValues;
+import services_and_bluetooth.Bluetooth_CAN_Service;
+import services_and_bluetooth.Bluetooth_GNSS_Service;
+import services_and_bluetooth.DataSaved;
+import services_and_bluetooth.UpdateValues;
 import utils.FullscreenActivity;
 import utils.MyRW_IntMem;
 
@@ -191,7 +190,7 @@ public class SettingsActivity extends AppCompatActivity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            if(BT_Conn_CAN.CANerviceState){
+                            if(Bluetooth_CAN_Service.canIsConnected){
                                 txt_tilt.setText(String.valueOf("Pitch: "+String.format("%.2f", correctPitch)+"°       Roll: "+String.format("%.2f", correctRoll)+"°"));
 
                             }else{
@@ -201,7 +200,7 @@ public class SettingsActivity extends AppCompatActivity {
                             imgTest.setRotation(rot);
                             txtsmootRmc.setText("Bearing Average: \t\t"+DataSaved.rmcSize);
                             txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",","."));
-                            if (BT_Conn_GPS.GNSSServiceState) {
+                            if (Bluetooth_GNSS_Service.gpsIsConnected) {
                                 img_connect.setImageResource(R.drawable.btn_positionpage);
                                 if(showCoord){
                                     textCoord.setText("Lat: " + My_LocationCalc.decimalToDMS(Nmea_In.mLat_1) + "\tLon: "

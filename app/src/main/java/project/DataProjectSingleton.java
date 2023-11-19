@@ -3,25 +3,19 @@ package project;
 import android.content.Context;
 import android.content.Intent;
 
-import androidx.annotation.Nullable;
-
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import coords_calc.CoordsConverter;
-import coords_calc.DistToPoint;
 import coords_calc.GPS;
 import gnss.My_LocationCalc;
-import services.DataSaved;
-import services.UpdateValues;
+import services_and_bluetooth.UpdateValues;
 import utils.MyRW_IntMem;
 
 public class DataProjectSingleton {

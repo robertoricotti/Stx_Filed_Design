@@ -25,7 +25,9 @@ import java.util.List;
 
 import dialogs.ConnectDialog;
 import dialogs.CustomToast;
-import services.UpdateValues;
+import services_and_bluetooth.Bluetooth_CAN_Service;
+import services_and_bluetooth.Bluetooth_GNSS_Service;
+import services_and_bluetooth.UpdateValues;
 import utils.FullscreenActivity;
 import utils.MyRW_IntMem;
 
@@ -49,7 +51,14 @@ public class BT_DevicesActivity extends AppCompatActivity {
         FullscreenActivity.setFullScreen(this);
         findView();
         onClick();
+        try {
+            stopService(new Intent(this, AutoCloseable.class));
+            stopService(new Intent(this, Bluetooth_GNSS_Service.class));
+            stopService(new Intent(this, Bluetooth_CAN_Service.class));
 
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
 
 
     }
@@ -215,6 +224,14 @@ public class BT_DevicesActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        try {
+            startService(new Intent(this, AutoCloseable.class));
+            startService(new Intent(this, Bluetooth_GNSS_Service.class));
+            startService(new Intent(this, Bluetooth_CAN_Service.class));
+
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
         unregisterReceiver(bluetoothReceiver);
         flag="";
     }

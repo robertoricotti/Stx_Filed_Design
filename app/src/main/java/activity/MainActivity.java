@@ -13,8 +13,6 @@ import android.widget.TextView;
 import com.example.stx_field_design.BuildConfig;
 import com.example.stx_field_design.R;
 
-import bluetooth.BT_Conn_CAN;
-import bluetooth.BT_Conn_GPS;
 import can.Can_Decoder;
 import dialogs.PickProjectDialog;
 import gnss.My_LocationCalc;
@@ -26,7 +24,9 @@ import dialogs.ConnectDialog;
 import dialogs.CustomToast;
 import dialogs.DialogOffset;
 import project.LoadProject;
-import services.DataSaved;
+import services_and_bluetooth.Bluetooth_CAN_Service;
+import services_and_bluetooth.Bluetooth_GNSS_Service;
+import services_and_bluetooth.DataSaved;
 import utils.FullscreenActivity;
 import utils.MyRW_IntMem;
 
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",", "."));
-                            if(BT_Conn_CAN.CANerviceState){
+                            if(Bluetooth_CAN_Service.canIsConnected){
                                 txt_tilt.setText(String.valueOf("Pitch: "+String.format("%.2f",Can_Decoder.correctPitch)+"°       Roll: "+String.format("%.2f",Can_Decoder.correctRoll)+"°"));
 
                                 btn_to_can.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
                                 btn_to_can.setImageResource(R.drawable.btn_can_disconn);
                             }
 
-                            if (BT_Conn_GPS.GNSSServiceState) {
+                            if (Bluetooth_GNSS_Service.gpsIsConnected) {
                                 if(showCoord){
                                     textCoord.setText("Lat: " + My_LocationCalc.decimalToDMS(Nmea_In.mLat_1) + "\tLon: "
                                             + My_LocationCalc.decimalToDMS(Nmea_In.mLon_1) + " Z: "

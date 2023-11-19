@@ -22,8 +22,6 @@ import com.example.stx_field_design.R;
 import java.util.Map;
 
 import activity.MainActivity;
-import bluetooth.BT_Conn_CAN;
-import bluetooth.BT_Conn_GPS;
 import can.Can_Decoder;
 import can.PLC_DataTypes_BigEndian;
 import coords_calc.GPS;
@@ -33,13 +31,19 @@ import dialogs.CoordsGNSSInfo;
 import dialogs.PickProjectDialog;
 import gnss.My_LocationCalc;
 import gnss.Nmea_In;
-import services.DataSaved;
+import services_and_bluetooth.AutoConnectionService;
+import services_and_bluetooth.Bluetooth_CAN_Service;
+import services_and_bluetooth.Bluetooth_GNSS_Service;
+import services_and_bluetooth.DataSaved;
 import utils.FullscreenActivity;
 import utils.MyRW_IntMem;
 
 public class LoadProject extends AppCompatActivity {
     boolean showCoord = false;
     public static boolean auto;
+
+    public static byte page=0;
+    public static byte[] quota;
     TextView textCoord, txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk,txt_incl;
     ImageView back, openList, imgConnect,lineID,canconnect;
     TextView altitude, distance, fileName;
@@ -295,10 +299,12 @@ public class LoadProject extends AppCompatActivity {
             double v = 0;
             v = surfaceSelector.getAltitudeDifference(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1);
             if (Double.isNaN(v)) v = 0;
-            if(BT_Conn_CAN.CANerviceState){
+            if(Bluetooth_CAN_Service.canIsConnected){
                 int dataOut= (int) (v*1000);
                 byte[] data= PLC_DataTypes_BigEndian.S32_to_bytes_be( dataOut);
-                new BT_Conn_CAN().sendCAN(idData,data);
+                AutoConnectionService.data_6FA=data;
+                page=1;
+
                 txt_incl.setText(String.valueOf("Pitch: "+String.format("%.2f", Can_Decoder.correctPitch)+"°       Roll: "+String.format("%.2f",Can_Decoder.correctRoll)+"°"));
                 canconnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
                 canconnect.setImageResource(R.drawable.btn_ecu_connect);
@@ -337,14 +343,14 @@ public class LoadProject extends AppCompatActivity {
 
             txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",", "."));
 
-            if (BT_Conn_GPS.GNSSServiceState) {
+            if (Bluetooth_GNSS_Service.gpsIsConnected) {
                 imgConnect.setImageResource(R.drawable.btn_positionpage);
                 if (showCoord) {
                     textCoord.setText("Lat: " + My_LocationCalc.decimalToDMS(Nmea_In.mLat_1) + "\tLon: "
                             + My_LocationCalc.decimalToDMS(Nmea_In.mLon_1) + " Z: "
                             + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
                 } else {
-                    textCoord.setText("E: " + String.format("%.3f", Nmea_In.Crs_Est).replace(",", ".") + "\tN: "
+                    textCoord.setText("E: " + String.format("%.3f", Nmea_In.Crs_Est).replace(",", ".") + "\t\tN: "
                             + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + " Z: "
                             + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
                 }
@@ -409,6 +415,7 @@ public class LoadProject extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        page=0;
         super.onDestroy();
         if (updateRunnable != null) {
             handler.removeCallbacks(updateRunnable);

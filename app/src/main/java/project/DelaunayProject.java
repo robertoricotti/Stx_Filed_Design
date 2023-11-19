@@ -21,14 +21,14 @@ import com.example.stx_field_design.R;
 
 import java.util.Map;
 
-import bluetooth.BT_Conn_GPS;
 import coords_calc.GPS;
 import dialogs.MyEpsgDialog;
 import dialogs.PickProjectDialog;
 import dialogs.SaveFileDialog;
 import gnss.My_LocationCalc;
 import gnss.Nmea_In;
-import services.DataSaved;
+import services_and_bluetooth.Bluetooth_GNSS_Service;
+import services_and_bluetooth.DataSaved;
 import utils.FullscreenActivity;
 import utils.Utils;
 
@@ -206,7 +206,7 @@ public class DelaunayProject extends AppCompatActivity {
             btnLineRef.setText(dataProject.getDistanceID() == null ? "LINE ID" : dataProject.getDistanceID());
 
             txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",","."));
-            if (BT_Conn_GPS.GNSSServiceState) {
+            if (Bluetooth_GNSS_Service.gpsIsConnected) {
                 img_connect.setImageResource(R.drawable.btn_positionpage);
 
                 if(showCoord){

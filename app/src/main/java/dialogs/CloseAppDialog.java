@@ -10,7 +10,9 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.example.stx_field_design.R;
 
-import services.AutoConnectionService;
+import services_and_bluetooth.AutoConnectionService;
+import services_and_bluetooth.Bluetooth_CAN_Service;
+import services_and_bluetooth.Bluetooth_GNSS_Service;
 import utils.FullscreenActivity;
 
 public class CloseAppDialog {
@@ -47,6 +49,8 @@ public class CloseAppDialog {
         yes.setOnClickListener((View v) -> {
             try {
                 activity.stopService(new Intent(activity, AutoConnectionService.class));
+                activity.stopService((new Intent(activity, Bluetooth_GNSS_Service.class)));
+                activity.stopService((new Intent(activity, Bluetooth_CAN_Service.class)));
             } catch (Exception e) {
 
             }

@@ -4,14 +4,10 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Environment;
-import android.provider.Settings;
 import android.util.Log;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,15 +17,10 @@ import androidx.core.app.ActivityCompat;
 import com.example.stx_field_design.R;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
-import services.AutoConnectionService;
-import services.UpdateValues;
+import services_and_bluetooth.AutoConnectionService;
+import services_and_bluetooth.UpdateValues;
 import utils.FullscreenActivity;
-import utils.MyRW_IntMem;
 
 
 @SuppressLint("CustomSplashScreen")
@@ -70,6 +61,7 @@ LaunchScreenActivity extends AppCompatActivity {
         askPermission();
         createSystemFolders();
         try {
+
             startService(new Intent(this, AutoConnectionService.class));
         } catch (Exception e) {
             //
