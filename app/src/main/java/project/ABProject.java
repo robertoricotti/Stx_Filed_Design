@@ -154,6 +154,13 @@ public class ABProject extends AppCompatActivity {
             new MyRW_IntMem().MyWrite("zoomF", String.valueOf(dataProject.mScaleFactor),this);
 
             if (dataProject.getSize() == 4 || dataProject.getSize() == 6) {
+                calcZ();
+                calc2();
+                calc3();
+                calc4();
+                calc5();
+                calc6();
+                calc7();
                 if (!saveFileDialog.dialog.isShowing())
                     saveFileDialog.show();
             } else {

@@ -5,6 +5,7 @@ import static can.Can_Decoder.Deg_roll;
 import static can.Can_Decoder.correctPitch;
 import static can.Can_Decoder.correctRoll;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -37,7 +38,7 @@ public class SettingsActivity extends AppCompatActivity {
     ImageView btn_exit,img_connect,imgTest,imgSave;
     TextView textCoord, txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk,txtsmootRmc,txt_tilt;
     private Handler handler;
-    EditText xyTol,zTol;
+    EditText xyTol,zTol,tiltTol;
     private boolean mRunning = true;
     SeekBar seekRmc;
     CheckBox ckrmc,ckpos,ckhdt,usetilt;
@@ -45,13 +46,13 @@ public class SettingsActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         FullscreenActivity.setFullScreen(this);
         findView();
-        onClick();
         init();
+        onClick();
         updateUI();
     }
     private void findView(){
@@ -77,6 +78,7 @@ public class SettingsActivity extends AppCompatActivity {
         txt_tilt=findViewById(R.id.txt_tilt);
         calib=findViewById(R.id.calibrateTilt);
         usetilt=findViewById(R.id.ckUseTilt);
+        tiltTol=findViewById(R.id.tilt_tol);
         if(DataSaved.useTilt==0){
             usetilt.setChecked(false);
         }else if(DataSaved.useTilt==1){
@@ -100,8 +102,9 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
     private void init(){
-        xyTol.setText(String.format("%.3f",DataSaved.xy_tol));
-        zTol.setText(String.format("%.3f",DataSaved.z_tol));
+        xyTol.setText(String.format("%.3f",DataSaved.xy_tol).replace(",","."));
+        zTol.setText(String.format("%.3f",DataSaved.z_tol).replace(",","."));
+        tiltTol.setText(String.format("%.1f",DataSaved.tilt_Tol).replace(",","."));
     }
     private void onClick(){
         calib.setOnClickListener(view -> {
@@ -283,6 +286,9 @@ public class SettingsActivity extends AppCompatActivity {
         }
         if(!zTol.getText().toString().equals("")){
             new MyRW_IntMem().MyWrite("z_tol", zTol.getText().toString(), this);
+        }
+        if(!tiltTol.getText().toString().equals("")){
+            new MyRW_IntMem().MyWrite("tilt_tol", tiltTol.getText().toString(), this);
         }
         startService(new Intent(SettingsActivity.this, UpdateValues.class));
         Toast.makeText(this, "SAVED!", Toast.LENGTH_SHORT).show();

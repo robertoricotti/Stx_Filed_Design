@@ -2,6 +2,7 @@ package project;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -11,10 +12,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.Guideline;
 import androidx.core.content.ContextCompat;
 
 import com.example.stx_field_design.R;
@@ -41,11 +44,11 @@ import utils.MyRW_IntMem;
 public class LoadProject extends AppCompatActivity {
     boolean showCoord = false;
     public static boolean auto;
-
-    public static byte page=0;
+    Guideline guideline;
+    public static byte page = 0;
     public static byte[] quota;
-    TextView textCoord, txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk,txt_incl;
-    ImageView back, openList, imgConnect,lineID,canconnect;
+    TextView textCoord, txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk, txt_incl;
+    ImageView back, openList, imgConnect, lineID, canconnect, imgPick, imgSign, imgSat, imgHdt;
     TextView altitude, distance, fileName;
     Button loadProject;
     ConstraintLayout container;
@@ -58,14 +61,17 @@ public class LoadProject extends AppCompatActivity {
     Handler handler;
     Runnable updateRunnable;
     Surface_Selector surfaceSelector;
-    boolean rotLeft=false;
-    boolean rotRight=false;
-    static int idData=0x6FA;//pacchetto dati
+    boolean rotLeft = false;
+    boolean rotRight = false;
+    boolean zommaIn = false;
+    boolean zommaOut = false;
+    static int idData = 0x6FA;//pacchetto dati
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_load_project);
         FullscreenActivity.setFullScreen(this);
         findView();
@@ -103,8 +109,13 @@ public class LoadProject extends AppCompatActivity {
         rotateLeft = findViewById(R.id.rotateLeft);
         rotateRight = findViewById(R.id.rotateRight);
         autorotate = findViewById(R.id.autorotate);
-        txt_incl=findViewById(R.id.txt_incl);
-        canconnect=findViewById(R.id.canconnect);
+        txt_incl = findViewById(R.id.txt_incl);
+        canconnect = findViewById(R.id.canconnect);
+        imgPick = findViewById(R.id.imgPick);
+        imgSign = findViewById(R.id.imgsign);
+        imgSat = findViewById(R.id.imgSat);
+        imgHdt = findViewById(R.id.imgHdt);
+        guideline = findViewById(R.id.H_top_10);
 
     }
 
@@ -126,32 +137,32 @@ public class LoadProject extends AppCompatActivity {
         }
         dataProject.mScaleFactor = Float.parseFloat(new MyRW_IntMem().MyRead("zoomF", this));
         dataProject.rotate = (float) Double.parseDouble(new MyRW_IntMem().MyRead("rot", this));
-        if(new MyRW_IntMem().MyRead("_maprotmode",this).equals("0")){
-            auto=false;
-        }else if(new MyRW_IntMem().MyRead("_maprotmode",this).equals("1")){
-            auto=true;
+        if (new MyRW_IntMem().MyRead("_maprotmode", this).equals("0")) {
+            auto = false;
+        } else if (new MyRW_IntMem().MyRead("_maprotmode", this).equals("1")) {
+            auto = true;
         }
 
     }
 
     private void onClick() {
         canconnect.setOnClickListener(view -> {
-            new ConnectDialog(this,2).show();
+            new ConnectDialog(this, 2).show();
         });
         autorotate.setOnClickListener(v -> {
             auto = !auto;
         });
         imgConnect.setOnClickListener(view -> {
-            new ConnectDialog(this,1).show();
+            new ConnectDialog(this, 1).show();
 
         });
         back.setOnClickListener((View v) -> {
             new MyRW_IntMem().MyWrite("zoomF", String.valueOf(dataProject.mScaleFactor), this);
             new MyRW_IntMem().MyWrite("rot", String.valueOf(dataProject.rotate), this);
-            if(auto){
-            new MyRW_IntMem().MyWrite("_maprotmode","1",this);}
-            else {
-                new MyRW_IntMem().MyWrite("_maprotmode","0",this);
+            if (auto) {
+                new MyRW_IntMem().MyWrite("_maprotmode", "1", this);
+            } else {
+                new MyRW_IntMem().MyWrite("_maprotmode", "0", this);
             }
             startActivity(new Intent(this, MainActivity.class));
 
@@ -174,35 +185,49 @@ public class LoadProject extends AppCompatActivity {
         });
 
         zoomIn.setOnClickListener((View v) -> {
-            dataProject.mScaleFactor += 0.05f;
-            canvas.invalidate();
+
+        });
+        zoomIn.setOnTouchListener((view, motionEvent) -> {
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                zommaIn = true;
+            }
+            if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                zommaIn = false;
+            }
+            return true;
+        });
+        zoomOut.setOnTouchListener((view, motionEvent) -> {
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                zommaOut = true;
+            }
+            if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                zommaOut = false;
+            }
+            return true;
         });
 
         zoomOut.setOnClickListener((View v) -> {
-            if (dataProject.mScaleFactor > 0.1f) {
-                dataProject.mScaleFactor -= 0.05f;
-                canvas.invalidate();
-            }
+
         });
 
-       rotateRight.setOnTouchListener((view, motionEvent) -> {
+        rotateRight.setOnTouchListener((view, motionEvent) -> {
 
-           if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-              rotRight=true;
-           }
-           if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-               rotRight=false;
-           }
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                rotRight = true;
+            }
+            if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                rotRight = false;
+            }
 
-           return false;
-       });
+            return false;
+        });
         rotateLeft.setOnTouchListener((view, motionEvent) -> {
 
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-               rotLeft=true;
+                rotLeft = true;
             }
             if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                rotLeft=false;
+                rotLeft = false;
             }
 
             return false;
@@ -250,8 +275,20 @@ public class LoadProject extends AppCompatActivity {
     private void updateUI() {
         handler = new Handler();
         updateRunnable = () -> {
-            if(rotRight){
-                rotLeft=false;
+            if(zommaOut){
+                zommaIn=false;
+                if (dataProject.mScaleFactor > 0.002f) {
+                    dataProject.mScaleFactor -= 0.002f;
+
+                }
+            }
+            if(zommaIn){
+                zommaOut=false;
+                dataProject.mScaleFactor += 0.002f;
+
+            }
+            if (rotRight) {
+                rotLeft = false;
                 if (dataProject.rotate <= 360f) {
                     dataProject.rotate += 2f;
 
@@ -259,8 +296,8 @@ public class LoadProject extends AppCompatActivity {
                     dataProject.rotate = 0f;
                 }
             }
-            if(rotLeft){
-                rotRight=false;
+            if (rotLeft) {
+                rotRight = false;
                 if (dataProject.rotate >= 1f) {
                     dataProject.rotate -= 2f;
 
@@ -285,7 +322,7 @@ public class LoadProject extends AppCompatActivity {
                 autorotate.setAlpha(0.4f);
             }
 
-            fileName.setText(dataProject.getProjectName().replace(".csv",""));
+            fileName.setText(dataProject.getProjectName().replace(".csv", ""));
 
 
             surfaceStatus.setText(surfaceSelector.isPointInsideSurface() ? "IN" : "OUT");
@@ -299,17 +336,17 @@ public class LoadProject extends AppCompatActivity {
             double v = 0;
             v = surfaceSelector.getAltitudeDifference(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1);
             if (Double.isNaN(v)) v = 0;
-            if(Bluetooth_CAN_Service.canIsConnected){
-                int dataOut= (int) (v*1000);
-                byte[] data= PLC_DataTypes_BigEndian.S32_to_bytes_be( dataOut);
-                AutoConnectionService.data_6FA=data;
-                page=1;
+            if (Bluetooth_CAN_Service.canIsConnected) {
+                int dataOut = (int) (v * 1000);
+                byte[] data = PLC_DataTypes_BigEndian.S32_to_bytes_be(dataOut);
+                AutoConnectionService.data_6FA = data;
+                page = 1;
 
-                txt_incl.setText(String.valueOf("Pitch: "+String.format("%.2f", Can_Decoder.correctPitch)+"°       Roll: "+String.format("%.2f",Can_Decoder.correctRoll)+"°"));
+                txt_incl.setText(String.valueOf("Pitch: " + String.format("%.2f", Can_Decoder.correctPitch) + "°       Roll: " + String.format("%.2f", Can_Decoder.correctRoll) + "°"));
                 canconnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
                 canconnect.setImageResource(R.drawable.btn_ecu_connect);
 
-            }else {
+            } else {
                 txt_incl.setText(String.valueOf("CAN DISCONNECTED"));
                 canconnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
                 canconnect.setImageResource(R.drawable.btn_can_disconn);
@@ -321,15 +358,15 @@ public class LoadProject extends AppCompatActivity {
 
             if (surfaceSelector.isPointInsideSurface()) {
                 if (Math.abs(v) <= DataSaved.z_tol) {
-                    altitude.setText("⧗ "+String.format("%.3f",v));
+                    altitude.setText("⧗ " + String.format("%.3f", v).replace(",", "."));
                     altitude.setBackgroundColor(getColor(R.color.green));
                     altitude.setTextColor(getColor(R.color._____cancel_text));
-                } else if (v < -(DataSaved.z_tol+0.001)) {
-                    altitude.setText("▲ " +String.format("%.3f",v));
+                } else if (v < -(DataSaved.z_tol + 0.001)) {
+                    altitude.setText("▲ " + String.format("%.3f", v).replace(",", "."));
                     altitude.setBackgroundColor(getColor(R.color.red));
                     altitude.setTextColor(getColor(R.color.white));
-                } else if (v > DataSaved.z_tol+0.001) {
-                    altitude.setText("▼ " +String.format("%.3f",v));
+                } else if (v > DataSaved.z_tol + 0.001) {
+                    altitude.setText("▼ " + String.format("%.3f", v).replace(",", "."));
                     altitude.setBackgroundColor(getColor(R.color.blue));
                     altitude.setTextColor(getColor(R.color.white));
                 }
@@ -413,9 +450,41 @@ public class LoadProject extends AppCompatActivity {
     public void onBackPressed() {
     }
 
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // Qui puoi eseguire le azioni necessarie quando avviene una rotazione
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            imgConnect.setPadding(0, 15, 0, 15);
+            txtRtk.setVisibility(View.GONE);
+            txtCq.setVisibility(View.GONE);
+            imgSign.setVisibility(View.GONE);
+            imgPick.setVisibility(View.GONE);
+            imgSat.setVisibility(View.GONE);
+            imgHdt.setVisibility(View.GONE);
+            txtSat.setVisibility(View.GONE);
+            txtHdt.setVisibility(View.GONE);
+            guideline.setGuidelinePercent(0.08f);
+            // Esegui azioni per l'orientamento orizzontale
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            // Esegui azioni per l'orientamento verticale
+            imgConnect.setPadding(0, 35, 0, 35);
+            txtRtk.setVisibility(View.VISIBLE);
+            txtCq.setVisibility(View.VISIBLE);
+            imgSign.setVisibility(View.VISIBLE);
+            imgPick.setVisibility(View.VISIBLE);
+            imgSat.setVisibility(View.VISIBLE);
+            imgHdt.setVisibility(View.VISIBLE);
+            txtSat.setVisibility(View.VISIBLE);
+            txtHdt.setVisibility(View.VISIBLE);
+            guideline.setGuidelinePercent(0.11f);
+
+        }
+    }
+
     @Override
     protected void onDestroy() {
-        page=0;
+        page = 0;
         super.onDestroy();
         if (updateRunnable != null) {
             handler.removeCallbacks(updateRunnable);

@@ -174,12 +174,26 @@
             android:ems="4"
             android:hint="0.000"
             android:maxLength="5"
+            android:selectAllOnFocus="true"
             android:inputType="numberDecimal"
             android:textSize="24sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        <Space
-            android:layout_weight="1"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:text="Tilt: "/>
+        <EditText
+            android:id="@+id/tilt_tol"
+            android:gravity="center"
+            android:ems="4"
+            android:hint="0.0"
+            android:maxLength="3"
+            android:selectAllOnFocus="true"
+            android:inputType="numberDecimal"
+            android:textSize="24sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
@@ -194,6 +208,7 @@
             android:ems="4"
             android:hint="0.000"
             android:maxLength="5"
+            android:selectAllOnFocus="true"
             android:inputType="numberDecimal"
             android:textSize="24sp"
             android:layout_width="wrap_content"

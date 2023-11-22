@@ -43,29 +43,6 @@ public class ABCanvas extends View {
         canvas.scale(dataProject.getmScaleFactor(), dataProject.getmScaleFactor(), half_width, half_height);
         canvas.translate(dataProject.getOffsetX(), dataProject.offsetY);
 
-        // aggiungere bitmap per la griglia
-        paint.setColor(Color.BLACK);
-        paint.setStrokeWidth(0.5f / dataProject.getmScaleFactor());
-
-        int num_lines = 2500;
-        int distance_const = 75;
-
-        float dist = 0;
-
-        float max_value = 20000;
-
-        PointF center = new PointF(getWidth() / 2f, getHeight() / 2f);
-
-        canvas.drawLine(-max_value, center.y, max_value, center.y, paint);
-        canvas.drawLine(center.x, -max_value, center.x, max_value, paint);
-
-        for (int i = 0; i < num_lines; i++) {
-            dist += distance_const;
-            canvas.drawLine(-max_value, center.y + dist, max_value, center.y + dist, paint);
-            canvas.drawLine(-max_value, center.y - dist, max_value, center.y - dist, paint);
-            canvas.drawLine(center.x + dist, -max_value, center.x + dist, max_value, paint);
-            canvas.drawLine(center.x - dist, -max_value, center.x - dist, max_value, paint);
-        }
 
 
 

@@ -4,10 +4,15 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.icu.text.DecimalFormat;
+import android.icu.text.DecimalFormatSymbols;
+import android.icu.text.NumberFormat;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import java.math.RoundingMode;
 import java.util.Locale;
 
 import services_and_bluetooth.DataSaved;
@@ -23,6 +28,7 @@ public class MyApp extends Application implements  Application.ActivityLifecycle
         super.onCreate();
         registerActivityLifecycleCallbacks(this);
 
+
     }
 
     @Override
@@ -34,7 +40,8 @@ public class MyApp extends Application implements  Application.ActivityLifecycle
         if (activity != null){
             visibleActivity = activity;
         DataSaved.Actualactivity = String.valueOf(activity);
-            setLocale(activity,"en");
+            setLocale(visibleActivity,"en");
+            Log.d("MY_APP", String.valueOf(visibleActivity));
 
         }
 
@@ -59,14 +66,32 @@ public class MyApp extends Application implements  Application.ActivityLifecycle
     @Override
     public void onActivityDestroyed(@NonNull Activity activity) {
     }
-    public static void setLocale(Activity activity, String languageCode) {
+   /* public static void setLocale(Activity activity, String languageCode) {
         Locale locale = new Locale(languageCode);
         Locale.setDefault(locale);
         Resources resources = activity.getResources();
         Configuration config = resources.getConfiguration();
         config.setLocale(locale);
         resources.updateConfiguration(config, resources.getDisplayMetrics());
-    }
+
+    }*/
+   public static void setLocale(Activity activity, String languageCode) {
+       // Imposta la lingua
+       Locale locale = new Locale(languageCode);
+       Locale.setDefault(locale);
+
+       // Imposta il separatore decimale come punto
+       DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols(locale);
+       decimalFormatSymbols.setDecimalSeparator('.');
+
+       // Applica le configurazioni alla risorsa
+       Resources resources = activity.getResources();
+       Configuration config = resources.getConfiguration();
+       config.setLocale(locale);
+       resources.updateConfiguration(config, resources.getDisplayMetrics());
+
+
+   }
 
 
 }

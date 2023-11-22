@@ -75,6 +75,7 @@ public class UpdateValues extends Service {
             String rot=myRW_intMem.MyRead("rot", UpdateValues.this);
             String ztol=myRW_intMem.MyRead("z_tol", UpdateValues.this);
             String xytol=myRW_intMem.MyRead("xy_tol", UpdateValues.this);
+            String tilt_tol=myRW_intMem.MyRead("tilt_tol", UpdateValues.this);
             String maprotmode=myRW_intMem.MyRead("_maprotmode",UpdateValues.this);
             String offsetPitch=myRW_intMem.MyRead("_offsetpitch",UpdateValues.this);
             String offsetRoll=myRW_intMem.MyRead("_offsetpitch",UpdateValues.this);
@@ -124,6 +125,9 @@ public class UpdateValues extends Service {
             if(ztol==null){
                 myRW_intMem.MyWrite("z_tol", "0.03", UpdateValues.this);
             }
+            if(tilt_tol==null){
+                myRW_intMem.MyWrite("tilt_tol", "0.5", UpdateValues.this);
+            }
             if(xytol==null){
                 myRW_intMem.MyWrite("xy_tol", "0.03", UpdateValues.this);
             }
@@ -155,6 +159,7 @@ public class UpdateValues extends Service {
             DataSaved.useRmc=Integer.parseInt(myRW_intMem.MyRead("useRmc",UpdateValues.this));
             DataSaved.xy_tol=Double.parseDouble(myRW_intMem.MyRead("xy_tol",UpdateValues.this).replace(",","."));
             DataSaved.z_tol=Double.parseDouble(myRW_intMem.MyRead("z_tol",UpdateValues.this).replace(",","."));
+            DataSaved.tilt_Tol=Double.parseDouble(myRW_intMem.MyRead("tilt_tol",UpdateValues.this).replace(",","."));
             DataSaved.MapRotMode=myRW_intMem.MyRead("_maprotmode",UpdateValues.this);
             DataSaved.offsetPitch=Double.parseDouble(myRW_intMem.MyRead("_offsetpitch",UpdateValues.this).replace(",","."));
             DataSaved.offsetRoll=Double.parseDouble(myRW_intMem.MyRead("_offsetroll",UpdateValues.this).replace(",","."));

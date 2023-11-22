@@ -16,6 +16,7 @@ public class DataSaved {
     public static int I_UnitOfMeasure;
 
     public static double D_AltezzaAnt;
+    public static double tilt_Tol;
     public static double z_tol;
     public static double xy_tol;
     public static int rmcSize;

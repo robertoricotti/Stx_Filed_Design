@@ -2,31 +2,29 @@ package activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
-import android.content.res.Resources;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Environment;
+
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 
+
 import com.example.stx_field_design.R;
 
+
 import java.io.File;
-import java.io.FileOutputStream;
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Vector;
+
 
 import services_and_bluetooth.AutoConnectionService;
 import services_and_bluetooth.UpdateValues;
@@ -36,6 +34,8 @@ import utils.FullscreenActivity;
 @SuppressLint("CustomSplashScreen")
 public class
 LaunchScreenActivity extends AppCompatActivity {
+
+
     private ProgressBar pgBar;
 
     private int progress = 0;
@@ -51,10 +51,8 @@ LaunchScreenActivity extends AppCompatActivity {
         pgBar = findViewById(R.id.progressBar);
         FullscreenActivity.setFullScreen(this);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+
             PERMISSIONS = new String[]{
-
-
                     Manifest.permission.BLUETOOTH,
                     Manifest.permission.BLUETOOTH_ADMIN,
                     Manifest.permission.BLUETOOTH_CONNECT,
@@ -68,11 +66,13 @@ LaunchScreenActivity extends AppCompatActivity {
                     Manifest.permission.ACCESS_NETWORK_STATE,
 
                     };
-        }
+
 
 
         askPermission();
         createSystemFolders();
+
+
 
         try {
 
@@ -98,28 +98,7 @@ LaunchScreenActivity extends AppCompatActivity {
     }
 
     private void createSystemFolders() {
-        /*File exdirectory= null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
-            exdirectory = new File(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "/STX").getPath());
-        }
-        if(exdirectory.exists()){
-            File xprojectsDirectory = new File(exdirectory, "/Projects");
-                xprojectsDirectory.mkdir();
-                Log.d("MyPath",xprojectsDirectory.getPath().toString());
 
-        }else {
-            File[] files = exdirectory.listFiles();
-            Log.d("MyPath Files", "FileName:" + files.length);
-            Toast.makeText(this, files.length+"   len", Toast.LENGTH_LONG).show();
-            for (int i = 0; i < files.length; i++)
-            {
-                Log.d("MyPath Files", "FileName:" + files[i].getName());
-            }
-        }
-*/
-
-
-        ////////////////////////////////////////////////////////////////////////////
 
         File directory = new File(getExternalFilesDir(null) + "/Stx Field");
 
@@ -141,6 +120,7 @@ LaunchScreenActivity extends AppCompatActivity {
             }
         }
     }
+
 
 
     @Override
@@ -183,6 +163,7 @@ LaunchScreenActivity extends AppCompatActivity {
                 Toast.makeText(this, "Until you grant the permission, we cannot proceed further", Toast.LENGTH_SHORT).show();
             }
         }
+
     }
 
 
@@ -191,5 +172,7 @@ LaunchScreenActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
+
 
 }

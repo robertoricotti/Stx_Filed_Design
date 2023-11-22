@@ -2,6 +2,7 @@ package dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import java.io.File;
 
 import project.ABProject;
 import project.DataProjectSingleton;
+import project.MenuProject;
 import utils.FullscreenActivity;
 
 public class SaveFileDialog {
@@ -61,6 +63,8 @@ public class SaveFileDialog {
                 dataProject.saveProject(new File(activity.getExternalFilesDir(null) + "/Stx Field").getAbsolutePath() + "/Projects/", fileName.getText().toString() + ".csv");
 
                 Toast.makeText(activity, "File Saved!", Toast.LENGTH_SHORT).show();
+                activity.startActivity(new Intent(activity, MenuProject.class));
+                activity.finishAndRemoveTask();
                 dialog.dismiss();
             }
             else {

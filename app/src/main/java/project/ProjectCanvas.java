@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.location.Location;
@@ -32,7 +33,6 @@ public class ProjectCanvas extends View {
         paint = new Paint();
         dataProject = DataProjectSingleton.getInstance();
         translateTouch();
-
     }
 
     @SuppressLint("DrawAllocation")
@@ -43,72 +43,32 @@ public class ProjectCanvas extends View {
         paint.setAntiAlias(true);
 
         float half_width = getWidth() / 2f;
-
         float half_height = getHeight() / 2f;
 
         canvas.save();
         canvas.scale(dataProject.getmScaleFactor(), dataProject.getmScaleFactor(), half_width, half_height);
         canvas.translate(dataProject.getOffsetX(), dataProject.offsetY);
 
-
-        // aggiungere bitmap per la griglia
         paint.setColor(Color.BLACK);
-        paint.setStrokeWidth(0.5f / dataProject.getmScaleFactor());
-
-        int num_lines = 2500;
-        int distance_const = 75;
-
-        float dist = 0;
-
-        float max_value = 20000;
-
-        PointF center = new PointF(getWidth() / 2f, getHeight() / 2f);
-
-        canvas.drawLine(-max_value, center.y, max_value, center.y, paint);
-        canvas.drawLine(center.x, -max_value, center.x, max_value, paint);
-
-        for (int i = 0; i < num_lines; i++) {
-            dist += distance_const;
-            canvas.drawLine(-max_value, center.y + dist, max_value, center.y + dist, paint);
-            canvas.drawLine(-max_value, center.y - dist, max_value, center.y - dist, paint);
-            canvas.drawLine(center.x + dist, -max_value, center.x + dist, max_value, paint);
-            canvas.drawLine(center.x - dist, -max_value, center.x - dist, max_value, paint);
-        }
-        ///
-
-        paint.setColor(Color.BLACK);
-
         canvas.drawCircle(half_width, half_height, 10 / dataProject.getmScaleFactor(), paint);
 
         float size = 50;
 
         paint.setColor(Color.BLUE);
-
         RectF rover = new RectF(half_width - size, half_height - size, half_width + size, half_height + size);
-
         canvas.drawArc(rover, 0, 360, true, paint);
 
         paint.setColor(Color.WHITE);
-
         rover = new RectF(half_width - (size / 2f), half_height - (size / 2f), half_width + (size / 2f), half_height + (size / 2f));
-
         canvas.drawArc(rover, 0, 360, true, paint);
 
         paint.setColor(Color.BLUE);
-
-        paint.setStyle(Paint.Style.STROKE); // Riempimento del cerchio
-
+        paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(2 / dataProject.getmScaleFactor());
-
-        // Definisci l'area dell'arco (un cerchio completo)
         RectF rectF = new RectF(half_width - dataProject.getRadius(), half_height - dataProject.getRadius(), half_width + dataProject.getRadius(), half_height + dataProject.getRadius());
-
-        // Disegna il cerchio
         canvas.drawArc(rectF, 0, 360, true, paint);
 
-
-        paint.setStyle(Paint.Style.FILL); // Riempimento del cerchio
-
+        paint.setStyle(Paint.Style.FILL);
         double myLat = Nmea_In.mLat_1;
         double myLong = Nmea_In.mLon_1;
 
@@ -129,41 +89,35 @@ public class ProjectCanvas extends View {
         int counter = 0;
 
         for (Map.Entry<String, GPS> entry : dataProject.getPoints().entrySet()) {
-
             GPS value = entry.getValue();
-
             id = entry.getKey();
             pointLat = value.getLatitude();
             pointLong = value.getLongitude();
 
-            if(id.equals(dataProject.getDistanceID())){
+            if (id.equals(dataProject.getDistanceID())) {
                 indexLine = counter;
             }
 
             Location.distanceBetween(myLat, myLong, pointLat, pointLong, result);
-
-
             meters = result[0] * dataProject.getScale();
-            double resultAngolo=0;
-            if(LoadProject.auto) {
-                resultAngolo = result[1]- (Nmea_In.tractorBearing);//applica la rotazione ai punti
-                resultAngolo=resultAngolo- 90;
-
-            }else{
-                resultAngolo = result[1] + dataProject.rotate;//applica la rotazione ai punti
+            double resultAngolo = 0;
+            if (LoadProject.auto) {
+                resultAngolo = result[1] - (Nmea_In.tractorBearing);
+                resultAngolo = resultAngolo - 90;
+            } else {
+                resultAngolo = result[1] + dataProject.rotate;
             }
 
-            if(resultAngolo < 0)
+            if (resultAngolo < 0)
                 resultAngolo += 360;
 
-            angolo = resultAngolo ;
+            angolo = resultAngolo;
 
-            double angleRadians = Math.toRadians(angolo); // Converte l'angolo in radianti
+            double angleRadians = Math.toRadians(angolo);
             float endX = getWidth() / 2f + (float) (meters * Math.cos(angleRadians));
             float endY = getHeight() / 2f + (float) (meters * Math.sin(angleRadians));
 
             paint.setColor(Color.RED);
-
             canvas.drawCircle(endX, endY, size / 2.5f, paint);
 
             paint.setColor(Color.BLACK);
@@ -171,12 +125,10 @@ public class ProjectCanvas extends View {
             canvas.drawText(id, endX + 25f, endY - 25f, paint);
 
             coordinates[counter] = new Coordinate(endX, endY, 0);
-
             counter++;
         }
 
-
-        if(dataProject.isDelaunay()){
+        if (dataProject.isDelaunay()) {
             GeometryFactory geometryFactory = new GeometryFactory();
             Geometry inputGeometry = geometryFactory.createMultiPointFromCoords(coordinates);
 
@@ -203,16 +155,29 @@ public class ProjectCanvas extends View {
             for (int i = 0; i < triangoli.length; i++) {
                 start = new Coordinate(triangoli[i].x, triangoli[i].y);
 
-                if((i + 1) % 3 != 0)
+                if ((i + 1) % 3 != 0)
                     dest = new Coordinate(triangoli[i + 1].x, triangoli[i + 1].y);
                 else
                     dest = new Coordinate(triangoli[i - 2].x, triangoli[i - 2].y);
 
                 canvas.drawLine((float) start.x, (float) start.y, (float) dest.x, (float) dest.y, paint);
             }
+
+            // Codice per riempire l'area chiusa
+            paint.setColor(Color.parseColor("#800F00FF")); // Colore rosso semitrasparente
+            paint.setStyle(Paint.Style.FILL);
+
+            for (int i = 0; i < triangoli.length; i += 3) {
+                Path trianglePath = new Path();
+                trianglePath.moveTo((float) triangoli[i].x, (float) triangoli[i].y);
+                trianglePath.lineTo((float) triangoli[i + 1].x, (float) triangoli[i + 1].y);
+                trianglePath.lineTo((float) triangoli[i + 2].x, (float) triangoli[i + 2].y);
+                trianglePath.close();
+                canvas.drawPath(trianglePath, paint);
+            }
         }
 
-        if(indexLine != -1){
+        if (indexLine != -1) {
             paint.setColor(Color.BLUE);
             canvas.drawLine(half_width, half_height, (float) coordinates[indexLine].x, (float) coordinates[indexLine].y, paint);
 
