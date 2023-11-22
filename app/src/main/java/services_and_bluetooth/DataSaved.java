@@ -11,6 +11,7 @@ public class DataSaved {
     public static String Actualactivity;
 
     public static String MapRotMode;
+    public static String S_projectName;
 
     public static int I_UnitOfMeasure;
 

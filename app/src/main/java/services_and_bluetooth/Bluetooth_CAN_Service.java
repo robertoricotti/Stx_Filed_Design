@@ -30,7 +30,7 @@ public class Bluetooth_CAN_Service extends Service {
     final int[] readBufferPosition_CAN = new int[1];
     private final IBinder mBinder = new BluetoothCANBinder();
     private byte[] messageFrame = new byte[]{0x01, 0x01};//heartib data every 3 sec
-    private int idHeartBeat = 0x186fe;//heartbit every 3 sec
+    private int idHeartBeat = 0x6fe;//heartbit every 3 sec
     public static boolean canIsConnected;
     final int handlerState = 0;
     //used to identify handler message
@@ -38,7 +38,7 @@ public class Bluetooth_CAN_Service extends Service {
     private BluetoothAdapter btAdapter = null;
 
     private ConnectingThread mConnectingThread;
-    private ConnectedThread mConnectedThread;
+    private static ConnectedThread mConnectedThread;
 
     private boolean stopThread;
     // SPP UUID service - this should work for most devices
@@ -178,7 +178,7 @@ public class Bluetooth_CAN_Service extends Service {
                 Log.d("DEBUG BT CAN", "CONNECTED THREAD STARTED");
                 //I send a character when resuming.beginning transmission to check device is connected
                 //If it is not an exception will be thrown in the write method and finish() will be called
-                mConnectedThread.writeCAN(idHeartBeat, messageFrame, false);
+                mConnectedThread.writeCAN(idHeartBeat, messageFrame);
             } catch (IOException e) {
                 try {
                     Log.d("DEBUG BT CAN", "SOCKET CONNECTION FAILED : " + e.toString());
@@ -289,23 +289,17 @@ public class Bluetooth_CAN_Service extends Service {
 
 
         //write method
-        void writeCAN(int id, byte[] data, boolean ext) {
+        void writeCAN(int id, byte[] data) {
             try {
-                byte placeHolder = 0;
-                if (ext) {
-                    placeHolder = (byte) 0xD0;
-                } else {
-                    placeHolder = 0;
-                }
                 byte sof = 0x43; // SOF start of frame
                 byte dlc = (byte) (data.length + 3);
-                byte[] identifier = PLC_DataTypes_BigEndian.U32_to_bytes_be(id);
+                byte[] identifier = PLC_DataTypes_BigEndian.U16_to_bytes_be(id);
                 int totalLength = 2 + 1 + 1 + identifier.length + data.length;//lunghezza totale del messaggio su cui calcolare xor
                 byte[] xor = new byte[totalLength];
                 int currentIndex = 0;
                 xor[currentIndex++] = sof;
                 xor[currentIndex++] = dlc;
-                xor[currentIndex++] = placeHolder; // Placeholder come da manuale IFM
+                xor[currentIndex++] = 0; // Placeholder come da manuale IFM
                 System.arraycopy(identifier, 0, xor, currentIndex, identifier.length);
                 currentIndex += identifier.length;
                 System.arraycopy(data, 0, xor, currentIndex, data.length);
@@ -321,7 +315,7 @@ public class Bluetooth_CAN_Service extends Service {
 
                 msg[currentIndex++] = sof;
                 msg[currentIndex++] = dlc;
-                msg[currentIndex++] = placeHolder; // Placeholder
+                msg[currentIndex++] = 0; // Placeholder
                 System.arraycopy(identifier, 0, msg, currentIndex, identifier.length);
                 currentIndex += identifier.length;
                 System.arraycopy(data, 0, msg, currentIndex, data.length);
@@ -332,6 +326,8 @@ public class Bluetooth_CAN_Service extends Service {
 
                 mmOutStream.write(msg);
             } catch (Exception e) {
+
+
                 canIsConnected = false;
                 stopSelf();
             }
@@ -358,9 +354,9 @@ public class Bluetooth_CAN_Service extends Service {
         }
     }
 
-    public void sendCANData(int id, byte[] data, boolean ext) {
+    public static void sendCANData(int id, byte[] data) {
         if (mConnectedThread != null) {
-            mConnectedThread.writeCAN(id, data, ext);
+            mConnectedThread.writeCAN(id, data);
         }
     }
 

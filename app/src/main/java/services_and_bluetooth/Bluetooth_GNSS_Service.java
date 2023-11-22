@@ -29,7 +29,7 @@ public class Bluetooth_GNSS_Service extends Service {
     private BluetoothAdapter btAdapter = null;
 
     private ConnectingThread mConnectingThread;
-    private ConnectedThread mConnectedThread;
+    private static ConnectedThread mConnectedThread;
 
     private boolean stopThread;
     // SPP UUID service - this should work for most devices
@@ -171,7 +171,7 @@ public class Bluetooth_GNSS_Service extends Service {
                 Log.d("DEBUG BT", "CONNECTED THREAD STARTED");
                 //I send a character when resuming.beginning transmission to check device is connected
                 //If it is not an exception will be thrown in the write method and finish() will be called
-                mConnectedThread.write("x\n\r");
+                mConnectedThread.write("GETALL\n\r");
             } catch (IOException e) {
                 try {
                     Log.d("DEBUG BT", "SOCKET CONNECTION FAILED : " + e.toString());
@@ -294,7 +294,7 @@ public class Bluetooth_GNSS_Service extends Service {
             return Bluetooth_GNSS_Service.this;
         }
     }
-    public void sendGNSSata(String s) {
+    public static void sendGNSSata(String s) {
         if (mConnectedThread != null) {
             mConnectedThread.write(s);
         }

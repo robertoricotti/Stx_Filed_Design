@@ -2,9 +2,13 @@ package activity;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+
+import java.util.Locale;
 
 import services_and_bluetooth.DataSaved;
 
@@ -30,6 +34,7 @@ public class MyApp extends Application implements  Application.ActivityLifecycle
         if (activity != null){
             visibleActivity = activity;
         DataSaved.Actualactivity = String.valueOf(activity);
+            setLocale(activity,"en");
 
         }
 
@@ -53,6 +58,14 @@ public class MyApp extends Application implements  Application.ActivityLifecycle
 
     @Override
     public void onActivityDestroyed(@NonNull Activity activity) {
+    }
+    public static void setLocale(Activity activity, String languageCode) {
+        Locale locale = new Locale(languageCode);
+        Locale.setDefault(locale);
+        Resources resources = activity.getResources();
+        Configuration config = resources.getConfiguration();
+        config.setLocale(locale);
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
     }
 
 

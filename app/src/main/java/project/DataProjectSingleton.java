@@ -12,6 +12,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import activity.MyApp;
 import coords_calc.CoordsConverter;
 import coords_calc.GPS;
 import gnss.My_LocationCalc;
@@ -285,6 +287,8 @@ public class DataProjectSingleton {
 
             this.projectName = info[0];
             this.epsgCode = info[1];
+            new MyRW_IntMem().MyWrite("_crs",this.epsgCode,MyApp.visibleActivity);
+            MyApp.visibleActivity.startService(new Intent(MyApp.visibleActivity,UpdateValues.class));
 
 
 
