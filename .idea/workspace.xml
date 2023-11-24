@@ -9,57 +9,37 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f92bf50-0241-4f68-8acd-219dc0291d3c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/dialogs/CustomArrayAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/circle_96.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/play_96.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/values-land/dimens.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/values-v23/themes.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/values-w1240dp/dimens.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/values-w600dp/dimens.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/proguard-rules.pro" beforeDir="false" />
+    <list default="true" id="4f92bf50-0241-4f68-8acd-219dc0291d3c" name="Changes" comment="24/11/23 commit">
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/baseline_usb_96.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/btn_usb_stick.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity/LaunchScreenActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity/LaunchScreenActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/activity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity/SettingsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity/SettingsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity/StakeOutactivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/dialogs/MyEpsgDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/dialogs/MyEpsgDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/dialogs/SaveFileDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/dialogs/SaveFileDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/gnss/GPSTracker.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/gnss/MachineBearing_from_POSITIONS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/gnss/MachineBearing_fromRMC.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/gnss/MachineBearing_from_RMC.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/gnss/Nmea_In.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/gnss/Nmea_In.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/project/ABProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/project/ABProject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/project/DataProjectSingleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/project/DataProjectSingleton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/project/LoadProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/project/LoadProject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/project/ProjectCanvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/project/ProjectCanvas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/services_and_bluetooth/DataSaved.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/services_and_bluetooth/DataSaved.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/services_and_bluetooth/UpdateValues.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/services_and_bluetooth/UpdateValues.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_stake_outactivity.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/text_row.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/text_row.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-night/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-night/themes.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[RF8N71Y1M2X]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="layoutResourceFile" />
+      </list>
+    </option>
   </component>
   <component name="GenerateSignedApkSettings">
     <option name="KEY_STORE_PATH" value="D:\MyKey\cpKey\platform.keystore" />
@@ -85,7 +65,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "cidr.known.project.marker": "true",
-    "last_opened_file_path": "D:/MyKey/cpKey/platform.keystore"
+    "last_opened_file_path": "D:/Development/Stx_Field_Design/app/src/main/res/drawable"
   },
   "keyToStringList": {
     "ExportApk.BuildVariants": [
@@ -93,6 +73,11 @@
     ]
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Development\Stx_Field_Design\app\src\main\res\drawable" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="Stx_Field_Design.app.main" />
@@ -170,6 +155,18 @@
       <option name="presentableId" value="Default" />
       <updated>1700783250042</updated>
     </task>
+    <task id="LOCAL-00001" summary="24/11/23 commit">
+      <created>1700784584420</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1700784584420</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="24/11/23 commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="24/11/23 commit" />
   </component>
 </project>

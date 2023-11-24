@@ -84,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("NewApi")
     private void onClick() {
+        to_stakeout.setOnClickListener(view -> {
+            Intent intent=new Intent(MainActivity.this, USBActivity.class);
+            startActivity(intent);
+            finish();
+        });
         btn_to_can.setOnClickListener(view -> {
             new ConnectDialog(this,2).show();
         });
@@ -248,6 +253,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }).start();
+
+    }
+
+    @Override
+    public void onBackPressed() {
 
     }
 

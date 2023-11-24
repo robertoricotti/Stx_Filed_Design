@@ -64,6 +64,13 @@
             android:exported="false" />
 
         <activity
+            android:name="activity.USBActivity"
+            android:autoRemoveFromRecents="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <activity
             android:name="project.DelaunayProject"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
