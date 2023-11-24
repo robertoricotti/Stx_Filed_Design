@@ -207,7 +207,6 @@ public class LoadProject extends AppCompatActivity {
         });
 
 
-
         rotateRight.setOnTouchListener((view, motionEvent) -> {
 
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
@@ -236,7 +235,7 @@ public class LoadProject extends AppCompatActivity {
             alertDialog.setTitle("Choose ID");
 
             String[] items = new String[dataProject.getSize() + 1];
-            items[0] = "NONE";
+            items[0] = "AB Line";
 
             int counter = 1;
             for (Map.Entry<String, GPS> entry : dataProject.getPoints().entrySet()) {
@@ -273,15 +272,15 @@ public class LoadProject extends AppCompatActivity {
     private void updateUI() {
         handler = new Handler();
         updateRunnable = () -> {
-            if(zommaOut){
-                zommaIn=false;
+            if (zommaOut) {
+                zommaIn = false;
                 if (dataProject.mScaleFactor > 0.005f) {
                     dataProject.mScaleFactor -= 0.05f;
 
                 }
             }
-            if(zommaIn){
-                zommaOut=false;
+            if (zommaIn) {
+                zommaOut = false;
                 dataProject.mScaleFactor += 0.05f;
 
             }
@@ -319,8 +318,12 @@ public class LoadProject extends AppCompatActivity {
                 rotateRight.setAlpha(1f);
                 autorotate.setAlpha(0.4f);
             }
+            try {
+                fileName.setText(dataProject.getProjectName().replace(".csv", ""));
 
-            fileName.setText(dataProject.getProjectName().replace(".csv", ""));
+            } catch (Exception e) {
+                fileName.setText(" ");
+            }
 
 
             surfaceStatus.setText(surfaceSelector.isPointInsideSurface() ? "IN" : "OUT");
@@ -340,12 +343,12 @@ public class LoadProject extends AppCompatActivity {
                 AutoConnectionService.data_6FA = data;
                 page = 1;
 
-                txt_incl.setText(String.valueOf("Pitch: " + String.format("%.2f", Can_Decoder.correctPitch).replace(",",".") + "°       Roll: " + String.format("%.2f", Can_Decoder.correctRoll).replace(",",".") + "°"));
+                txt_incl.setText(String.valueOf("Pitch: " + String.format("%.2f", Can_Decoder.correctPitch).replace(",", ".") + "°       Roll: " + String.format("%.2f", Can_Decoder.correctRoll).replace(",", ".") + "°"));
                 canconnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
                 canconnect.setImageResource(R.drawable.btn_ecu_connect);
-                if(Math.abs(Can_Decoder.correctPitch)<=DataSaved.tilt_Tol&&Math.abs(Can_Decoder.correctRoll)<=DataSaved.tilt_Tol){
+                if (Math.abs(Can_Decoder.correctPitch) <= DataSaved.tilt_Tol && Math.abs(Can_Decoder.correctRoll) <= DataSaved.tilt_Tol) {
                     txt_incl.setTextColor(Color.parseColor("#008000"));
-                }else {
+                } else {
                     txt_incl.setTextColor(Color.BLACK);
                 }
 
@@ -357,8 +360,14 @@ public class LoadProject extends AppCompatActivity {
             }
 
 
-            String strDistance = "DIST: " + String.format("%.3f", surfaceSelector.getDistance(Nmea_In.mLat_1, Nmea_In.mLon_1)).replace(",", ".") + " m";
-
+            String strDistance = "DIST: " + String.format("%.3f", surfaceSelector.getDistance()).replace(",", ".") + " m";
+            if(Math.abs(surfaceSelector.getDistance())<=DataSaved.xy_tol){
+                distance.setBackgroundColor(getColor(R.color.green));
+                distance.setTextColor(getColor(R.color._____cancel_text));
+            }else {
+                distance.setBackgroundColor(getColor(R.color._____cancel_text));
+                distance.setTextColor(getColor(R.color.white));
+            }
 
             if (surfaceSelector.isPointInsideSurface()) {
                 if (Math.abs(v) <= DataSaved.z_tol) {

@@ -3,6 +3,7 @@ package dialogs;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Environment;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +61,7 @@ public class SaveFileDialog {
 
                 DataProjectSingleton dataProject = DataProjectSingleton.getInstance();
 
-                dataProject.saveProject(new File(activity.getExternalFilesDir(null) + "/Stx Field").getAbsolutePath() + "/Projects/", fileName.getText().toString() + ".csv");
+                dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/CSV/", fileName.getText().toString() + ".csv");
 
                 Toast.makeText(activity, "File Saved!", Toast.LENGTH_SHORT).show();
                 activity.startActivity(new Intent(activity, MenuProject.class));

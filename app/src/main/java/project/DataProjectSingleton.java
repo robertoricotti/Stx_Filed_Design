@@ -89,12 +89,13 @@ public class DataProjectSingleton {
         this.context=context;
         this.epsgCode = epsgCode;
        new MyRW_IntMem().MyWrite("_crs",epsgCode.toString(),context);
-       MyApp.visibleActivity.startService(new Intent(MyApp.visibleActivity,UpdateValues.class));
+
 
         Pattern pattern = Pattern.compile("\\+units=([^,\\s]+)");
 
         Matcher matcher = pattern.matcher(CoordsConverter.getInfoParams(this.epsgCode));
 
+        MyApp.visibleActivity.startService(new Intent(MyApp.visibleActivity,UpdateValues.class));
         if (matcher.find())
             this.units = matcher.group(1);
     }
@@ -287,6 +288,7 @@ public class DataProjectSingleton {
 
             this.projectName = info[0];
             this.epsgCode = info[1];
+            new MyRW_IntMem().MyWrite("projectPath", path, MyApp.visibleActivity);
             new MyRW_IntMem().MyWrite("_crs",this.epsgCode,MyApp.visibleActivity);
             MyApp.visibleActivity.startService(new Intent(MyApp.visibleActivity,UpdateValues.class));
 

@@ -16,13 +16,14 @@ public class MachineBearing_from_POSITIONS {
         positionQueue.offer(new Position(newLat, newLon));
 
 
-        if (positionQueue.size() > size) {
+        if (positionQueue.size() > 5) {
 
             positionQueue.poll();
         }
 
 
         if (positionQueue.size() >= size) {
+            Position lastPosition = positionQueue.poll();
             Position secondLastPosition = positionQueue.peek();
 
 
@@ -34,7 +35,7 @@ public class MachineBearing_from_POSITIONS {
 
                 bearingQueue.offer(bearing);
 
-                if (bearingQueue.size() > size) {
+                if (bearingQueue.size() > DataSaved.rmcSize) {
                     bearingQueue.poll();
                 }
             }

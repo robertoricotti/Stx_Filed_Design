@@ -18,6 +18,7 @@ import org.locationtech.proj4j.datum.Datum;
 import org.locationtech.proj4j.datum.Ellipsoid;
 
 
+import java.util.Arrays;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -176,7 +177,7 @@ public class UpdateValues extends Service {
                 WGS84 = crsFactory.createFromName("epsg:" +"4326");
                 try {
                     UTM = crsFactory.createFromName("epsg:" +  DataSaved.S_CRS);
-                    Log.d("TEST_ROB ser",DataSaved.S_CRS);
+                    Log.d("INIZIALIZZA CRS",DataSaved.S_CRS);
                 } catch (UnsupportedParameterException e) {
                     throw new RuntimeException(e);
                 } catch (InvalidValueException e) {
@@ -187,6 +188,8 @@ public class UpdateValues extends Service {
                 ctFactory = new CoordinateTransformFactory();
                 wgsToUtm = ctFactory.createTransform(WGS84, UTM);
                 result = new ProjCoordinate();
+
+                Log.d("INIZIALIZZA CRS", Arrays.toString(UTM.getParameters()));
 
             } catch (Exception e) {
 

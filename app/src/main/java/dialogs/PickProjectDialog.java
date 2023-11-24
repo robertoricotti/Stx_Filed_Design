@@ -3,6 +3,7 @@ package dialogs;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
@@ -17,12 +18,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.stx_field_design.R;
 
 import java.io.File;
+import java.nio.file.attribute.UserPrincipal;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import activity.MainActivity;
+import activity.MyApp;
 import project.DataProjectSingleton;
 import project.LoadProject;
 import project.PickProjectAdapter;
+import services_and_bluetooth.UpdateValues;
 import utils.FullscreenActivity;
 import utils.MyRW_IntMem;
 
@@ -43,9 +48,9 @@ public class PickProjectDialog {
         recyclerView = dialog.findViewById(R.id.recycler);
 
         arrayFiles = new ArrayList<>();
+        File dir = new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field");
+        String path = dir.getAbsolutePath() + "/Projects/CSV/";
 
-        File dir = new File(activity.getExternalFilesDir(null) + "/Stx Field");
-        String path = dir.getAbsolutePath() + "/Projects/";
 
         File directory = new File(path);
         File[] files = directory.listFiles();
@@ -86,20 +91,18 @@ public class PickProjectDialog {
             else {
                 DataProjectSingleton dataProject = DataProjectSingleton.getInstance();
 
-                String path = new File(activity.getExternalFilesDir(null) + "/Stx Field").getAbsolutePath() + "/Projects/" + arrayFiles.get(pickProjectAdapter.getSelectedItem());
-
-                new MyRW_IntMem().MyWrite("projectPath", path, activity);
-
+                String path = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Stx Field").getAbsolutePath() + "/Projects/CSV/" + arrayFiles.get(pickProjectAdapter.getSelectedItem());
 
                 dataProject.readProject(path);
 
                 if(!(activity instanceof LoadProject)){
-                    activity.startActivity(new Intent(activity, LoadProject.class));
+
+                    activity.startActivity(new Intent(activity, MainActivity.class));
 
                     activity.finish();
                 }
-
                 dialog.dismiss();
+
             }
         });
 

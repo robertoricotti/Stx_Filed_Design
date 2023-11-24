@@ -59,45 +59,51 @@ public class Surface_Selector {
     }
 
     public double getAltitudeDifference(double myLat, double myLong, double myZ) {
-        DataProjectSingleton dataProject = DataProjectSingleton.getInstance();
 
-        double[] myCoords = CoordsConverter.transformIntoCRS(dataProject.getEpsgCode(), myLat, myLong);
 
         switch (size) {
             case 1:
 
                 break;
             case 3:
-                return surface3pts.getAltitudeDifference(myCoords[0], myCoords[1], myZ);
+                return surface3pts.getAltitudeDifference(Nmea_In.Crs_Est, Nmea_In.Crs_Nord, myZ);
             case 4:
             case 6:
-                return surface4ptsPlus.getAltitudeDifference(myCoords[0], myCoords[1], myZ);
+                return surface4ptsPlus.getAltitudeDifference(Nmea_In.Crs_Est, Nmea_In.Crs_Nord, myZ);
         }
 
         return 0;
     }
 
-    public double getDistance(double myLat, double myLong) {
+
+    public double getDistance() {
 
         DataProjectSingleton dataProject = DataProjectSingleton.getInstance();
 
         GPS refPoint = dataProject.getSinglePoint();
 
         if (refPoint == null) {
-            return 0;
+            GPS myA = dataProject.getPoints().get("A");//coordinate misurate di A
+            GPS myB = dataProject.getPoints().get("B");//coordinate misurate di B
+            double diff = Math.abs(Nmea_In.tractorBearing - dataProject.abOrient());
+            if (diff >= 90) {
+                return new DistToLine(Nmea_In.Crs_Est, Nmea_In.Crs_Nord, myB.getX(), myB.getY(), myA.getX(), myA.getY()).linedistance;
+
+            } else {
+                return new DistToLine(Nmea_In.Crs_Est, Nmea_In.Crs_Nord, myA.getX(), myA.getY(), myB.getX(), myB.getY()).linedistance;
+            }
+
         }
 
         float[] result = new float[3];
 
-        Location.distanceBetween(myLat, myLong, refPoint.getLatitude(), refPoint.getLongitude(), result);
+        Location.distanceBetween(Nmea_In.mLat_1, Nmea_In.mLon_1, refPoint.getLatitude(), refPoint.getLongitude(), result);
+
 
         return result[0];
     }
 
     public boolean isPointInsideSurface() {
-        DataProjectSingleton dataProject = DataProjectSingleton.getInstance();
-
-        double[] myCoords = CoordsConverter.transformIntoCRS(dataProject.getEpsgCode(), Nmea_In.mLat_1, Nmea_In.mLon_1);
 
         switch (size) {
             case 1:
@@ -105,12 +111,12 @@ public class Surface_Selector {
                 break;
 
             case 3:
-                return surface3pts.isPointInsideTriangle(myCoords[0], myCoords[1]);
+                return surface3pts.isPointInsideTriangle(Nmea_In.Crs_Est, Nmea_In.Crs_Nord);
 
 
             case 4:
             case 6:
-                return surface4ptsPlus.isPointInside1(myCoords[0], myCoords[1]) || surface4ptsPlus.isPointInside2(myCoords[0], myCoords[1]);
+                return surface4ptsPlus.isPointInside1(Nmea_In.Crs_Est, Nmea_In.Crs_Nord) || surface4ptsPlus.isPointInside2(Nmea_In.Crs_Est, Nmea_In.Crs_Nord);
 
         }
 

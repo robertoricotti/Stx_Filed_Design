@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("NewApi")
     private void onClick() {
         to_stakeout.setOnClickListener(view -> {
-            Intent intent=new Intent(MainActivity.this, USBActivity.class);
+            Intent intent=new Intent(MainActivity.this, UsbActivity.class);
             startActivity(intent);
             finish();
         });

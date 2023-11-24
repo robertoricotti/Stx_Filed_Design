@@ -55,8 +55,8 @@ public class ProjectCanvas extends View {
         canvas.scale(dataProject.getmScaleFactor(), dataProject.getmScaleFactor(), half_width, half_height);
         canvas.translate(dataProject.getOffsetX(), dataProject.offsetY);
 
-        paint.setColor(Color.BLACK);
-        canvas.drawCircle(half_width, half_height, 10 / dataProject.getmScaleFactor(), paint);
+       // paint.setColor(Color.BLACK);
+       // canvas.drawCircle(half_width, half_height, 10 / dataProject.getmScaleFactor(), paint);
 
         size = 50;
         if(DataSaved.imgMode==0){
@@ -183,6 +183,12 @@ public class ProjectCanvas extends View {
             paint.setColor(Color.GREEN);
 
             canvas.drawCircle((float) coordinates[indexLine].x, (float) coordinates[indexLine].y, size / 2.5f, paint);
+        }else {
+
+            paint.setColor(Color.GREEN);
+            paint.setStrokeWidth(5f);
+            canvas.drawLine((float) coordinates[0].x, (float) coordinates[0].y, (float) coordinates[1].x, (float) coordinates[1].y, paint);
+
         }
 
 
@@ -211,7 +217,7 @@ public class ProjectCanvas extends View {
         // Disegna il triangolo
         float centerX = getWidth() / 2f;
         float centerY = getHeight() / 2f;
-        float triangleSize = 100; //
+        float triangleSize = 150; //
 
         float x1 = centerX - triangleSize / 2;
         float y1 = centerY + triangleSize / (2 * (float) Math.tan(Math.toRadians(30)));

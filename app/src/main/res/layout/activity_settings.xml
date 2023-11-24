@@ -109,7 +109,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:text="Use DUAL HEAD"
+        android:text="DUAL HEAD"
         app:layout_constraintLeft_toRightOf="@id/ckPos"
         app:layout_constraintTop_toBottomOf="@id/txtUseRMC" />
 
@@ -157,7 +157,7 @@
         android:id="@+id/layoutTol"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="left"
+        android:gravity="center"
         android:orientation="horizontal"
         android:paddingHorizontal="5dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -196,7 +196,7 @@
             android:id="@+id/tilt_tol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="4"
+            android:ems="2"
             android:gravity="center"
             android:hint="0.0"
             android:inputType="numberDecimal"
@@ -258,6 +258,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:text="Use Tilt "
+        android:ems="8"
         app:layout_constraintBottom_toBottomOf="@id/calibrateTilt"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/calibrateTilt"
@@ -284,7 +285,7 @@
         android:rotation="270"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/H_top_63"
+        app:layout_constraintTop_toBottomOf="@id/ckPalina"
         app:tint="@color/blue" />
 
     <TextView
@@ -307,8 +308,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:text="Circle"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/calibrateTilt"
+        android:ems="8"
+        app:layout_constraintLeft_toLeftOf="@id/ckUseTilt"
+        app:layout_constraintRight_toRightOf="@id/ckUseTilt"
         app:layout_constraintTop_toBottomOf="@id/txtimagemode" />
 
     <CheckBox
@@ -317,8 +319,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:text="Triangle"
-        app:layout_constraintLeft_toRightOf="@id/ckPalina"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/calibrateTilt"
+        app:layout_constraintRight_toRightOf="@id/calibrateTilt"
         app:layout_constraintTop_toBottomOf="@id/txtimagemode" />
 
     <LinearLayout

@@ -82,7 +82,7 @@ public class Utils {
             //return String.format("%.2f", v / 0.0254).replace(",", ".");
         }
         else {
-            return String.format("%.2f", v).replace(",", ".");
+            return String.format("%.3f", v).replace(",", ".");
         }
     }
 
