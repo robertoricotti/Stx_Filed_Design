@@ -64,7 +64,7 @@ public class SaveFileDialog {
 
                 Toast.makeText(activity, "File Saved!", Toast.LENGTH_SHORT).show();
                 activity.startActivity(new Intent(activity, MenuProject.class));
-                activity.finishAndRemoveTask();
+                activity.finish();
                 dialog.dismiss();
             }
             else {

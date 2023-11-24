@@ -56,7 +56,7 @@ public class ABProject extends AppCompatActivity {
     SaveFileDialog saveFileDialog;
     Handler handler;
     Runnable updateRunnable;
-    double myZ, myLen, mySlope;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

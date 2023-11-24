@@ -14,6 +14,7 @@ public class DataSaved {
     public static String S_projectName;
 
     public static int I_UnitOfMeasure;
+    public static int imgMode;
 
     public static double D_AltezzaAnt;
     public static double tilt_Tol;

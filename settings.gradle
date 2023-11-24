@@ -8,7 +8,7 @@ pluginManagement {
         maven {url 'https://mvnrepository.com/artifact/org.osgeo/proj4j'}
 
         maven {url 'https://jitpack.io'}
-
+        maven {url 'https://mvnrepository.com/artifact/commons-io/commons-io'}
 
         maven{url 'https://mvnrepository.com/artifact/org.gavaghan/geodesy'}
         maven{url 'https://mvnrepository.com/artifact/com.android.support/customtabs'}

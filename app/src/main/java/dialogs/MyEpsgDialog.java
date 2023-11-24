@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
@@ -17,25 +18,24 @@ import com.example.stx_field_design.R;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import project.DataProjectSingleton;
 import utils.FullscreenActivity;
 import utils.MyEpsgNumber;
-
 public class MyEpsgDialog {
     Activity activity;
     public Dialog dialog;
     ArrayList<String> epsgList;
     SearchView searchView;
     ListView listView;
-    ArrayAdapter<String> arrayAdapter;
+    CustomArrayAdapter arrayAdapter; // Utilizziamo CustomArrayAdapter invece di ArrayAdapter
     String strEpsg;
 
     public MyEpsgDialog(Activity activity) {
         this.activity = activity;
         dialog = new Dialog(activity);
         dialog.setContentView(R.layout.epsg);
-
     }
 
     public void show() {
@@ -51,8 +51,6 @@ public class MyEpsgDialog {
         findView();
         init();
         onClick();
-
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -63,10 +61,10 @@ public class MyEpsgDialog {
                 strEpsg = String.valueOf(MyEpsgNumber.class.getField(selectedFromList).getInt(selectedFromList));
                 DataProjectSingleton dataProject = DataProjectSingleton.getInstance();
                 dataProject.clearData();
-                dataProject.setEpsgCode(strEpsg,activity.getApplicationContext());
+                dataProject.setEpsgCode(strEpsg, activity.getApplicationContext());
+
                 dialog.dismiss();
-            }
-            catch (Exception ignored) {}
+            } catch (Exception ignored) {}
         });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -91,7 +89,6 @@ public class MyEpsgDialog {
             searchView.clearFocus();
             dialog.dismiss();
         });
-
     }
 
     private void findView() {
@@ -109,10 +106,10 @@ public class MyEpsgDialog {
             for (Field method : methods) {
                 epsgList.add(method.getName());
             }
-        }
-        catch (Exception ignored) {}
+        } catch (Exception ignored) {}
 
-        arrayAdapter = new ArrayAdapter<>(activity, R.layout.text_row, R.id.my_text_row, epsgList);
+        arrayAdapter = new CustomArrayAdapter(activity, R.layout.text_row, epsgList);
         listView.setAdapter(arrayAdapter);
     }
 }
+

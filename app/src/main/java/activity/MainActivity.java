@@ -135,11 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
             finish();
         });
-        to_stakeout.setOnClickListener(view -> {
-            startActivity(new Intent(MainActivity.this, StakeOutactivity.class));
 
-            finish();
-        });
         img_connect.setOnClickListener(view -> {
             new ConnectDialog(this,1).show();
 
@@ -261,8 +257,5 @@ public class MainActivity extends AppCompatActivity {
         mRunning = false;
     }
 
-    @Override
-    public void onBackPressed() {
 
-    }
 }

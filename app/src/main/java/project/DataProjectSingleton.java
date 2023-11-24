@@ -89,7 +89,7 @@ public class DataProjectSingleton {
         this.context=context;
         this.epsgCode = epsgCode;
        new MyRW_IntMem().MyWrite("_crs",epsgCode.toString(),context);
-       context.startService(new Intent(context,UpdateValues.class));
+       MyApp.visibleActivity.startService(new Intent(MyApp.visibleActivity,UpdateValues.class));
 
         Pattern pattern = Pattern.compile("\\+units=([^,\\s]+)");
 

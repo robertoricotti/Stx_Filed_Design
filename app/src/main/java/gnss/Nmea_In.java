@@ -145,11 +145,11 @@ public class Nmea_In {
             }
 
             if (DataSaved.useRmc == 0) {
-                tractorBearing = MachineBearing_fromRMC.machineBearing(mBearing_rmc, mSpeed_rmc, DataSaved.rmcSize);
+                tractorBearing = MachineBearing_from_RMC.machineBearing(mBearing_rmc, mSpeed_rmc, DataSaved.rmcSize);
             }else if(DataSaved.useRmc==1){
 
-                GPSTracker.onLocationUpdate(mLat_1,mLon_1,DataSaved.rmcSize);
-               tractorBearing= GPSTracker.getAverageBearing();
+                MachineBearing_from_POSITIONS.onLocationUpdate(mLat_1,mLon_1,DataSaved.rmcSize);
+               tractorBearing= MachineBearing_from_POSITIONS.getAverageBearing();
             }else if(DataSaved.useRmc==2){
                 tractorBearing=mch_Hdt;
             }

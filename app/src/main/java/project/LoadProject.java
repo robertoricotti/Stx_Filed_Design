@@ -3,6 +3,7 @@ package project;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -145,6 +146,7 @@ public class LoadProject extends AppCompatActivity {
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void onClick() {
         canconnect.setOnClickListener(view -> {
             new ConnectDialog(this, 2).show();
@@ -184,9 +186,7 @@ public class LoadProject extends AppCompatActivity {
             canvas.invalidate();
         });
 
-        zoomIn.setOnClickListener((View v) -> {
 
-        });
         zoomIn.setOnTouchListener((view, motionEvent) -> {
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                 zommaIn = true;
@@ -206,9 +206,7 @@ public class LoadProject extends AppCompatActivity {
             return true;
         });
 
-        zoomOut.setOnClickListener((View v) -> {
 
-        });
 
         rotateRight.setOnTouchListener((view, motionEvent) -> {
 
@@ -277,14 +275,14 @@ public class LoadProject extends AppCompatActivity {
         updateRunnable = () -> {
             if(zommaOut){
                 zommaIn=false;
-                if (dataProject.mScaleFactor > 0.002f) {
-                    dataProject.mScaleFactor -= 0.002f;
+                if (dataProject.mScaleFactor > 0.005f) {
+                    dataProject.mScaleFactor -= 0.05f;
 
                 }
             }
             if(zommaIn){
                 zommaOut=false;
-                dataProject.mScaleFactor += 0.002f;
+                dataProject.mScaleFactor += 0.05f;
 
             }
             if (rotRight) {
@@ -342,14 +340,20 @@ public class LoadProject extends AppCompatActivity {
                 AutoConnectionService.data_6FA = data;
                 page = 1;
 
-                txt_incl.setText(String.valueOf("Pitch: " + String.format("%.2f", Can_Decoder.correctPitch) + "°       Roll: " + String.format("%.2f", Can_Decoder.correctRoll) + "°"));
+                txt_incl.setText(String.valueOf("Pitch: " + String.format("%.2f", Can_Decoder.correctPitch).replace(",",".") + "°       Roll: " + String.format("%.2f", Can_Decoder.correctRoll).replace(",",".") + "°"));
                 canconnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
                 canconnect.setImageResource(R.drawable.btn_ecu_connect);
+                if(Math.abs(Can_Decoder.correctPitch)<=DataSaved.tilt_Tol&&Math.abs(Can_Decoder.correctRoll)<=DataSaved.tilt_Tol){
+                    txt_incl.setTextColor(Color.parseColor("#008000"));
+                }else {
+                    txt_incl.setTextColor(Color.BLACK);
+                }
 
             } else {
                 txt_incl.setText(String.valueOf("CAN DISCONNECTED"));
                 canconnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
                 canconnect.setImageResource(R.drawable.btn_can_disconn);
+                txt_incl.setTextColor(Color.RED);
             }
 
 

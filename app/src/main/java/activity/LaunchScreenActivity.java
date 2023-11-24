@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 
+import android.os.Environment;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -19,11 +20,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 
-
 import com.example.stx_field_design.R;
 
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 
 import services_and_bluetooth.AutoConnectionService;
@@ -35,7 +37,6 @@ import utils.FullscreenActivity;
 public class
 LaunchScreenActivity extends AppCompatActivity {
 
-
     private ProgressBar pgBar;
 
     private int progress = 0;
@@ -44,6 +45,7 @@ LaunchScreenActivity extends AppCompatActivity {
     CountDownTimer count;
 
 
+    @SuppressLint("InlinedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.launchscreen_activity);
@@ -52,6 +54,21 @@ LaunchScreenActivity extends AppCompatActivity {
         FullscreenActivity.setFullScreen(this);
 
 
+        if (Build.VERSION.SDK_INT >= 33) {
+            PERMISSIONS = new String[]{
+                    Manifest.permission.BLUETOOTH,
+                    Manifest.permission.BLUETOOTH_ADMIN,
+                    Manifest.permission.BLUETOOTH_CONNECT,
+                    Manifest.permission.BLUETOOTH_SCAN,
+                    Manifest.permission.INTERNET,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_NETWORK_STATE,
+                    Manifest.permission.READ_MEDIA_IMAGES,
+                    Manifest.permission.READ_MEDIA_AUDIO,
+                    Manifest.permission.READ_MEDIA_VIDEO};
+
+        } else if(Build.VERSION.SDK_INT == 31){
             PERMISSIONS = new String[]{
                     Manifest.permission.BLUETOOTH,
                     Manifest.permission.BLUETOOTH_ADMIN,
@@ -63,15 +80,38 @@ LaunchScreenActivity extends AppCompatActivity {
                     Manifest.permission.INTERNET,
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_NETWORK_STATE,
+                    Manifest.permission.MANAGE_EXTERNAL_STORAGE,
+                    Manifest.permission.ACCESS_NETWORK_STATE};
 
-                    };
+        }
+        else if(Build.VERSION.SDK_INT == 29){
+            PERMISSIONS = new String[]{
+                    Manifest.permission.BLUETOOTH,
+                    Manifest.permission.BLUETOOTH_ADMIN,
+                    Manifest.permission.BLUETOOTH_PRIVILEGED,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.INTERNET,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_NETWORK_STATE};
 
+        }else {
+            PERMISSIONS = new String[]{
+                    Manifest.permission.BLUETOOTH,
+                    Manifest.permission.BLUETOOTH_ADMIN,
+                    Manifest.permission.BLUETOOTH_CONNECT,
+                    Manifest.permission.BLUETOOTH_SCAN,
+                    Manifest.permission.BLUETOOTH_PRIVILEGED,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.INTERNET,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.MANAGE_EXTERNAL_STORAGE,
+                    Manifest.permission.ACCESS_NETWORK_STATE};
 
-
-        askPermission();
-        createSystemFolders();
-
+        }
 
 
         try {
@@ -95,37 +135,70 @@ LaunchScreenActivity extends AppCompatActivity {
 
             }
         };
+        checkAndRequestPermissions();
+        createAppFolders();
+       // createFolder( "STX FIELD");
+        //logFilesInFolder("STX FIELD/Projects");
     }
 
-    private void createSystemFolders() {
+
+    public static void createFolder(String folderName) {
+        // Ottieni il percorso della directory dell'applicazione specifica
+        File folder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), folderName);
+
+        // Crea la cartella se non esiste già
+        if (!folder.exists()) {
+            boolean success = folder.mkdirs();
+
+            if (success) {
+                Log.d("FileUtil_scrittura", "Cartella creata con successo: " + folder.getAbsolutePath());
+            } else {
+                Log.e("FileUtil_scrittura", "Errore durante la creazione della cartella: " + folder.getAbsolutePath());
+            }
+        } else {
+            Log.d("FileUtil_scrittura", "La cartella esiste già: " + folder.getAbsolutePath());
+        }
+        File folder2=new File(folder,"/Projects");
+        if (!folder2.exists()) {
+            boolean success = folder2.mkdirs();
+
+            if (success) {
+                Log.d("FileUtil_scrittura", "Cartella creata con successo: " + folder.getAbsolutePath());
+            } else {
+                Log.e("FileUtil_scrittura", "Errore durante la creazione della cartella: " + folder.getAbsolutePath());
+            }
+        } else {
+            Log.d("FileUtil_scrittura", "La cartella esiste già: " + folder.getAbsolutePath());
+        }
 
 
-        File directory = new File(getExternalFilesDir(null) + "/Stx Field");
 
-        if (!directory.exists()) {
-            if (directory.mkdir()) {
 
-                File projectsDirectory = new File(directory.getAbsolutePath() + "/Projects");
-               // File csvDirectory = new File(directory.getAbsolutePath() + "/CSV");
-                //File stxDirectory = new File(directory.getAbsolutePath() + "/STX");
-                //File devicesDirectory = new File(directory.getAbsolutePath() + "/Devices");
+    }
 
-                if (projectsDirectory.mkdir()  ) {
-                    Log.e("CreateFolders", "Folder created OK");
-                } else {
-                    Log.e("CreateFolders", "Failed to create subdirectories.");
+    public static void logFilesInFolder(String folderName) {
+        File folder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), folderName);
+
+        if (folder.exists() && folder.isDirectory()) {
+            File[] files = folder.listFiles();
+
+            if (files != null && files.length > 0) {
+                for (File file : files) {
+                    Log.d("FileUtil_lettura", "Nome file: " + file.getName() + ", Percorso: " + file.getAbsolutePath());
                 }
             } else {
-                Log.e("CreateFolders", "Failed to create directory Stx Field.");
+                Log.d("FileUtil_lettura", "La cartella è vuota: " + folder.getAbsolutePath());
             }
+        } else {
+            Log.e("FileUtil_lettura", "La cartella non esiste o non è una directory: " + folder.getAbsolutePath());
         }
     }
 
 
 
-    @Override
-    public void onBackPressed() {
-    }
+
+
+
 
     protected void goMain() {
         startService(new Intent(LaunchScreenActivity.this, UpdateValues.class));
@@ -136,35 +209,69 @@ LaunchScreenActivity extends AppCompatActivity {
 
 
     }
+    private void createAppFolders() {
 
 
-    public void askPermission() {
+        File directory = new File(getExternalFilesDir(null) + "/Stx Field");
 
-        for (String permission : PERMISSIONS) {
-            if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(PERMISSIONS, PERMISSION_ALL);
-                return;
+        if (!directory.exists()) {
+            if (directory.mkdir()) {
+
+                File projectsDirectory = new File(directory.getAbsolutePath() + "/Projects");
+
+                if (projectsDirectory.mkdir()) {
+                    Log.e("CreateFolders", "Folder created OK");
+                } else {
+                    Log.e("CreateFolders", "Failed to create subdirectories.");
+                }
+            } else {
+                Log.e("CreateFolders", "Failed to create directory Stx Field.");
             }
         }
     }
+
+    public void checkAndRequestPermissions() {
+        List<String> permissionsToRequest = new ArrayList<>();
+
+        for (String permission : PERMISSIONS) {
+            if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                permissionsToRequest.add(permission);
+            }
+        }
+
+        if (!permissionsToRequest.isEmpty()) {
+            // Richiedi i permessi mancanti
+            ActivityCompat.requestPermissions(this, permissionsToRequest.toArray(new String[0]), PERMISSION_ALL);
+        } else {
+            // Tutti i permessi sono già concessi, avvia il timer
+            count.start();
+        }
+    }
+
 
     @SuppressLint("MissingSuperCall")
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == 1) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == PERMISSION_ALL) {
+            boolean allPermissionsGranted = true;
+            for (int result : grantResults) {
+                if (result != PackageManager.PERMISSION_GRANTED) {
+                    allPermissionsGranted = false;
+                    break;
+                }
+            }
+
+            if (allPermissionsGranted) {
+                // Tutti i permessi sono stati concessi, avvia il timer
                 count.start();
             } else {
-                try {
-                    count.wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                Toast.makeText(this, "Until you grant the permission, we cannot proceed further", Toast.LENGTH_SHORT).show();
+                // Almeno un permesso non è stato concesso, gestisci di conseguenza (es. chiudi l'app)
+                Toast.makeText(this, "Per continuare, devi concedere tutti i permessi richiesti.", Toast.LENGTH_SHORT).show();
             }
         }
-
     }
+
+
 
 
 
@@ -172,7 +279,6 @@ LaunchScreenActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
-
 
 
 }
