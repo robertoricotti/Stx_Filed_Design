@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -224,21 +225,20 @@ public class SettingsActivity extends AppCompatActivity {
                             } else {
                                 txt_tilt.setText(String.valueOf("CAN DISCONNECTED"));
                             }
-                            //int rot= (int) Nmea_In.tractorBearing;
-                            // imgTest.setRotation(rot);
+                            if (showCoord) {
+                                textCoord.setText("Lat: " + My_LocationCalc.decimalToDMS(Nmea_In.mLat_1) + "\tLon: "
+                                        + My_LocationCalc.decimalToDMS(Nmea_In.mLon_1) + " Z: "
+                                        + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
+                            } else {
+                                textCoord.setText("E: " + String.format("%.3f", Nmea_In.Crs_Est).replace(",", ".") + "\t\tN: "
+                                        + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + " Z: "
+                                        + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
+                            }
                             txtsmootRmc.setText("Bearing Average: \t\t" + DataSaved.rmcSize);
                             txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",", "."));
                             if (Bluetooth_GNSS_Service.gpsIsConnected) {
                                 img_connect.setImageResource(R.drawable.btn_positionpage);
-                                if (showCoord) {
-                                    textCoord.setText("Lat: " + My_LocationCalc.decimalToDMS(Nmea_In.mLat_1) + "\tLon: "
-                                            + My_LocationCalc.decimalToDMS(Nmea_In.mLon_1) + " Z: "
-                                            + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
-                                } else {
-                                    textCoord.setText("E: " + String.format("%.3f", Nmea_In.Crs_Est).replace(",", ".") + "\tN: "
-                                            + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + " Z: "
-                                            + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
-                                }
+
 
                                 txtSat.setText("\t" + Nmea_In.ggaSat);
                                 if (Nmea_In.ggaQuality != null) {
@@ -278,12 +278,11 @@ public class SettingsActivity extends AppCompatActivity {
                                 }
                                 txtHdt.setText("\t" + String.format("%.2f", Nmea_In.tractorBearing).replace(",", "."));
                                 txtRtk.setText("\t" + Nmea_In.ggaRtk);
-
+                                textCoord.setTextColor(Color.BLACK);
                             } else {
                                 img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
                                 img_connect.setImageResource(R.drawable.btn_gpsoff);
-
-                                textCoord.setText("\tDISCONNECTED");
+                                textCoord.setTextColor(Color.RED);
                                 txtSat.setText("--");
                                 txtFix.setText("---");
                                 txtCq.setText("H:---.-- V:---.--");

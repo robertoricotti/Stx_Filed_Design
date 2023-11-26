@@ -392,18 +392,19 @@ public class LoadProject extends AppCompatActivity {
             distance.setText(strDistance);
 
             txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",", "."));
+            if (showCoord) {
+                textCoord.setText("Lat: " + My_LocationCalc.decimalToDMS(Nmea_In.mLat_1) + "\tLon: "
+                        + My_LocationCalc.decimalToDMS(Nmea_In.mLon_1) + " Z: "
+                        + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
+            } else {
+                textCoord.setText("E: " + String.format("%.3f", Nmea_In.Crs_Est).replace(",", ".") + "\t\tN: "
+                        + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + " Z: "
+                        + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
+            }
 
             if (Bluetooth_GNSS_Service.gpsIsConnected) {
                 imgConnect.setImageResource(R.drawable.btn_positionpage);
-                if (showCoord) {
-                    textCoord.setText("Lat: " + My_LocationCalc.decimalToDMS(Nmea_In.mLat_1) + "\tLon: "
-                            + My_LocationCalc.decimalToDMS(Nmea_In.mLon_1) + " Z: "
-                            + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
-                } else {
-                    textCoord.setText("E: " + String.format("%.3f", Nmea_In.Crs_Est).replace(",", ".") + "\t\tN: "
-                            + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + " Z: "
-                            + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
-                }
+
 
                 txtSat.setText("\t" + Nmea_In.ggaSat);
 
@@ -439,11 +440,11 @@ public class LoadProject extends AppCompatActivity {
                 }
                 txtHdt.setText("\t" + String.format("%.2f", Nmea_In.tractorBearing).replace(",", "."));
                 txtRtk.setText("\t" + Nmea_In.ggaRtk);
-
+                textCoord.setTextColor(Color.BLACK);
             } else {
                 imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
                 imgConnect.setImageResource(R.drawable.btn_gpsoff);
-                textCoord.setText("\tDISCONNECTED");
+                textCoord.setTextColor(Color.RED);
                 txtSat.setText("--");
                 txtFix.setText("---");
                 txtCq.setText("H:---.-- V:---.--");

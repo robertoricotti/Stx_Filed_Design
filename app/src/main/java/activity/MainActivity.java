@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
@@ -180,16 +181,18 @@ public class MainActivity extends AppCompatActivity {
                                 btn_to_can.setImageResource(R.drawable.btn_can_disconn);
                             }
 
+                            if(showCoord){
+                                textCoord.setText("Lat: " + My_LocationCalc.decimalToDMS(Nmea_In.mLat_1) + "\tLon: "
+                                        + My_LocationCalc.decimalToDMS(Nmea_In.mLon_1) + " Z: "
+                                        + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
+                            }else {
+                                textCoord.setText("E: " + String.format("%.3f", Nmea_In.Crs_Est).replace(",", ".") + "\t\tN: "
+                                        + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + " Z: "
+                                        + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
+                            }
+
                             if (Bluetooth_GNSS_Service.gpsIsConnected) {
-                                if(showCoord){
-                                    textCoord.setText("Lat: " + My_LocationCalc.decimalToDMS(Nmea_In.mLat_1) + "\tLon: "
-                                            + My_LocationCalc.decimalToDMS(Nmea_In.mLon_1) + " Z: "
-                                            + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
-                                }else {
-                                    textCoord.setText("E: " + String.format("%.3f", Nmea_In.Crs_Est).replace(",", ".") + "\tN: "
-                                            + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + " Z: "
-                                            + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
-                                }
+
                                 img_connect.setImageResource(R.drawable.btn_positionpage);
                                 txtSat.setText("\t" + Nmea_In.ggaSat);
                                 if (Nmea_In.ggaQuality != null) {
@@ -229,11 +232,13 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 txtHdt.setText("\t" + String.format("%.2f", Nmea_In.tractorBearing).replace(",","."));
                                 txtRtk.setText("\t" + Nmea_In.ggaRtk);
+                                textCoord.setTextColor(Color.BLACK);
 
                             } else {
                                 img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
                                 img_connect.setImageResource(R.drawable.btn_gpsoff);
-                                textCoord.setText("\tDISCONNECTED");
+                               // textCoord.setText("\tDISCONNECTED");
+                                textCoord.setTextColor(Color.RED);
                                 txtSat.setText("--");
                                 txtFix.setText("---");
                                 txtCq.setText("H:---.-- V:---.--");

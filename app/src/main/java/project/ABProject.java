@@ -2,6 +2,7 @@ package project;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -48,7 +49,7 @@ public class ABProject extends AppCompatActivity {
     TextView textCoord;
 
     int pickIndex;
-    boolean textCoordStatus = false;
+
     DataProjectSingleton dataProject;
     ABCanvas canvas;
 
@@ -283,7 +284,7 @@ public class ABProject extends AppCompatActivity {
         });
 
         textCoord.setOnClickListener((View v) -> {
-            textCoordStatus = !textCoordStatus;
+            showCoord = !showCoord;
         });
     }
 
@@ -301,7 +302,6 @@ public class ABProject extends AppCompatActivity {
 
             crs.setText(dataProject.getEpsgCode() != null ? dataProject.getEpsgCode() : DataSaved.S_CRS);
 
-            textCoord.setText(!Bluetooth_GNSS_Service.gpsIsConnected ? "DISCONNECTED" : "E: " + String.format("%.3f", Nmea_In.Crs_Est).replace(",", ".") + "\tN: " + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + " Z: " + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
 
             canvas.invalidate();
             aggiornaCoordinate();
@@ -513,18 +513,19 @@ public class ABProject extends AppCompatActivity {
 
     private void aggiornaCoordinate() {
         txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",", "."));
+        if (showCoord) {
+            textCoord.setText("Lat: " + My_LocationCalc.decimalToDMS(Nmea_In.mLat_1) + "\tLon: "
+                    + My_LocationCalc.decimalToDMS(Nmea_In.mLon_1) + " Z: "
+                    + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
+        } else {
+            textCoord.setText("E: " + String.format("%.3f", Nmea_In.Crs_Est).replace(",", ".") + "\t\tN: "
+                    + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + " Z: "
+                    + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
+        }
         if (Bluetooth_GNSS_Service.gpsIsConnected) {
             imgConnect.setImageResource(R.drawable.btn_positionpage);
 
-            if (showCoord) {
-                textCoord.setText("Lat: " + My_LocationCalc.decimalToDMS(Nmea_In.mLat_1) + "\tLon: "
-                        + My_LocationCalc.decimalToDMS(Nmea_In.mLon_1) + " Z: "
-                        + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
-            } else {
-                textCoord.setText("E: " + String.format("%.3f", Nmea_In.Crs_Est).replace(",", ".") + "\tN: "
-                        + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + " Z: "
-                        + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
-            }
+
 
             txtSat.setText("\t" + Nmea_In.ggaSat);
 
@@ -565,12 +566,13 @@ public class ABProject extends AppCompatActivity {
             }
             txtHdt.setText("\t" + String.format("%.2f", Nmea_In.tractorBearing).replace(",", "."));
             txtRtk.setText("\t" + Nmea_In.ggaRtk);
+            textCoord.setTextColor(Color.BLACK);
 
         } else {
 
             imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
             imgConnect.setImageResource(R.drawable.btn_gpsoff);
-            textCoord.setText("\tDISCONNECTED");
+            textCoord.setTextColor(Color.RED);
             txtSat.setText("--");
             txtFix.setText("---");
             txtCq.setText("H:---.-- V:---.--");

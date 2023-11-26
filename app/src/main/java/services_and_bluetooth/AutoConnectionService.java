@@ -3,12 +3,20 @@ package services_and_bluetooth;
 import static project.LoadProject.page;
 
 import android.app.Service;
-import android.content.ComponentName;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.location.OnNmeaMessageListener;
+
 import android.content.Intent;
-import android.content.ServiceConnection;
+
 import android.os.IBinder;
 import android.util.Log;
+
+import androidx.core.app.ActivityCompat;
+
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -16,12 +24,17 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import project.LoadProject;
+import activity.MyApp;
+import gnss.Nmea_In;
+import utils.LocationUtils;
+
 
 public class AutoConnectionService extends Service {
+
+    static String androidNmea = "$GPGGA,210230,3855.4487,N,09446.0071,W,1,07,1.1,370.5,M,-29.5,M,,*7A";
     byte c;
 
-    int id = 0x6FA,countG=-1,countCan=-1;
+    int id = 0x6FA, countG = -1, countCan = -1;
     public static byte[] data_6FA = new byte[]{0, 0, 0, 0, 0, 0, 0, 0};
 
 
@@ -30,9 +43,54 @@ public class AutoConnectionService extends Service {
     Timer timer_6000, timer_3000;
     TimerTask timertask_6000, timertask_3000;
 
+    private LocationManager locationManager;
+    private LocationListener locationListener;
+    private OnNmeaMessageListener nmeaMessageListener;
+
 
     @Override
     public void onCreate() {
+
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+                double altitude = location.getAltitude();
+
+                // Ora puoi utilizzare latitude, longitude, altitude come necessario
+            }
+
+            // Altri metodi di LocationListener rimossi per brevità
+        };
+
+        // Aggiungi il listener per le stringhe NMEA
+        nmeaMessageListener = new OnNmeaMessageListener() {
+            @Override
+            public void onNmeaMessage(String message, long timestamp) {
+                Log.d("NMEA", message);
+                androidNmea = message;
+                // Ora puoi gestire la stringa NMEA come necessario
+            }
+        };
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        locationManager.addNmeaListener(nmeaMessageListener);
+
+
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, locationListener);
+
 
         mExecutor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
@@ -56,7 +114,10 @@ public class AutoConnectionService extends Service {
     public void onDestroy() {
 
         super.onDestroy();
-
+        if (locationManager != null) {
+            locationManager.removeUpdates(locationListener);
+            locationManager.removeNmeaListener(nmeaMessageListener);
+        }
 
         try {
             timer_6000.cancel();
@@ -86,7 +147,10 @@ public class AutoConnectionService extends Service {
             timertask_6000 = new TimerTask() {
                 @Override
                 public void run() {
-
+                    if (!LocationUtils.isLocationEnabled(MyApp.visibleActivity)) {
+                        // Se la localizzazione è disabilitata, richiedi all'utente di attivarla
+                        LocationUtils.requestLocationSettings(MyApp.visibleActivity);
+                    }
 
                     countG++;
                     countCan++;
@@ -137,10 +201,13 @@ public class AutoConnectionService extends Service {
                     TimerTask() {
                         @Override
                         public void run() {
-                      /*      if (Bluetooth_GNSS_Service.gpsIsConnected) {
-                                Bluetooth_GNSS_Service.sendGNSSata("Sample Message\r\n");
+                            if (!Bluetooth_GNSS_Service.gpsIsConnected) {
+
+                                //Bluetooth_GNSS_Service.sendGNSSata("Sample Message\r\n");
+                                new Nmea_In(androidNmea);
                                 //Usare questo codice per scrivere su seriale da bluetooth
-                            }*/
+
+                            }
 
 
                             if (Bluetooth_CAN_Service.canIsConnected) {
@@ -161,6 +228,7 @@ public class AutoConnectionService extends Service {
 
 
         }
+
 
     }
 
