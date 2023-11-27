@@ -119,7 +119,7 @@ public class UpdateValues extends Service {
                 myRW_intMem.MyWrite("useRmc", "1", UpdateValues.this);
             }
             if(zoomF==null){
-                myRW_intMem.MyWrite("zoomF", "1.0", UpdateValues.this);
+                myRW_intMem.MyWrite("zoomF", "0.5", UpdateValues.this);
             }
             if(rot==null){
                 myRW_intMem.MyWrite("rot", "0", UpdateValues.this);

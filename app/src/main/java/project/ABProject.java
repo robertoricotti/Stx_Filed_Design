@@ -267,7 +267,7 @@ public class ABProject extends AppCompatActivity {
         center.setOnClickListener((View v) -> {
             dataProject.setOffsetX(0);
             dataProject.setOffsetY(0);
-            dataProject.setmScaleFactor(1f);
+           // dataProject.setmScaleFactor(0.5f);
             canvas.invalidate();
         });
 
@@ -277,7 +277,7 @@ public class ABProject extends AppCompatActivity {
         });
 
         zoomOut.setOnClickListener((View v) -> {
-            if (dataProject.mScaleFactor > 0.1f) {
+            if (dataProject.mScaleFactor > 0.05f) {
                 dataProject.mScaleFactor -= 0.05f;
                 canvas.invalidate();
             }
@@ -573,7 +573,7 @@ public class ABProject extends AppCompatActivity {
             imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
             imgConnect.setImageResource(R.drawable.btn_gpsoff);
             textCoord.setTextColor(Color.RED);
-            txtSat.setText("--");
+            txtSat.setText("\t" + Nmea_In.ggaSat);
             txtFix.setText("---");
             txtCq.setText("H:---.-- V:---.--");
             txtHdt.setText("---.--");

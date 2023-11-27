@@ -87,10 +87,20 @@ public class Surface_Selector {
             GPS myB = dataProject.getPoints().get("B");//coordinate misurate di B
             double diff = Math.abs(Nmea_In.tractorBearing - dataProject.abOrient());
             if (diff >= 90) {
-                return new DistToLine(Nmea_In.Crs_Est, Nmea_In.Crs_Nord, myB.getX(), myB.getY(), myA.getX(), myA.getY()).linedistance;
+                try {
+                    return new DistToLine(Nmea_In.Crs_Est, Nmea_In.Crs_Nord, myB.getX(), myB.getY(), myA.getX(), myA.getY()).linedistance;
+
+                } catch (Exception e) {
+                    return 0;
+                }
 
             } else {
-                return new DistToLine(Nmea_In.Crs_Est, Nmea_In.Crs_Nord, myA.getX(), myA.getY(), myB.getX(), myB.getY()).linedistance;
+                try {
+                    return new DistToLine(Nmea_In.Crs_Est, Nmea_In.Crs_Nord, myA.getX(), myA.getY(), myB.getX(), myB.getY()).linedistance;
+
+                } catch (Exception e) {
+                  return 0;
+                }
             }
 
         }

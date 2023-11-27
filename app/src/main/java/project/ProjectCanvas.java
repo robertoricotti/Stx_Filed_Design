@@ -185,8 +185,8 @@ public class ProjectCanvas extends View {
             canvas.drawCircle((float) coordinates[indexLine].x, (float) coordinates[indexLine].y, size / 2.5f, paint);
         }else {
 
-            paint.setColor(Color.GREEN);
-            paint.setStrokeWidth(5f);
+            paint.setColor(Color.YELLOW);
+            paint.setStrokeWidth(8f);
             canvas.drawLine((float) coordinates[0].x, (float) coordinates[0].y, (float) coordinates[1].x, (float) coordinates[1].y, paint);
 
         }

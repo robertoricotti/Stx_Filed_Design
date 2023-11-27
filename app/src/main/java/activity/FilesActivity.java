@@ -129,7 +129,7 @@ public class FilesActivity extends AppCompatActivity {
                                 img_connect.setImageResource(R.drawable.btn_gpsoff);
 
                                 textCoord.setTextColor(Color.RED);
-                                txtSat.setText("--");
+                                txtSat.setText("\t" + Nmea_In.ggaSat);
                                 txtFix.setText("---");
                                 txtCq.setText("H:---.-- V:---.--");
                                 txtHdt.setText("---.--");

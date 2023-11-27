@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -118,16 +119,21 @@ public class MainActivity extends AppCompatActivity {
 
             String path = myRWIntMem.MyRead("projectPath", this);
 
+
             if(path == null){
                 if(!pickProjectDialog.dialog.isShowing())
                     pickProjectDialog.show();
             }
             else{
                 DataProjectSingleton.getInstance().readProject(path);
+                if(dataProject.readProject(path)){
 
                 startActivity(new Intent(this, LoadProject.class));
 
-                finish();
+                finish();}
+                else {
+                    new PickProjectDialog(this).show();
+                }
             }
         });
 
@@ -239,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
                                 img_connect.setImageResource(R.drawable.btn_gpsoff);
                                // textCoord.setText("\tDISCONNECTED");
                                 textCoord.setTextColor(Color.RED);
-                                txtSat.setText("--");
+                                txtSat.setText("\t" + Nmea_In.ggaSat);
                                 txtFix.setText("---");
                                 txtCq.setText("H:---.-- V:---.--");
                                 txtHdt.setText("---.--");

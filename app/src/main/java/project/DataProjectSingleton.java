@@ -2,6 +2,7 @@ package project;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
@@ -104,7 +105,12 @@ public class DataProjectSingleton {
         GPS a =getPoints().get("A");
 
         GPS b = getPoints().get("B");
-        return My_LocationCalc.calcBearingXY(a.getX(),a.getY(),b.getX(),b.getY());
+        try {
+            return My_LocationCalc.calcBearingXY(a.getX(),a.getY(),b.getX(),b.getY());
+
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     public String getDistanceID() {

@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -182,7 +183,7 @@ public class LoadProject extends AppCompatActivity {
             dataProject.setOffsetX(0);
             dataProject.setOffsetY(0);
             dataProject.setRotate(0f);
-            //dataProject.setmScaleFactor(1f);
+            //dataProject.setmScaleFactor(0.5f);
             canvas.invalidate();
         });
 
@@ -272,16 +273,17 @@ public class LoadProject extends AppCompatActivity {
     private void updateUI() {
         handler = new Handler();
         updateRunnable = () -> {
+            Log.d("DataScale", String.valueOf(dataProject.mScaleFactor));
             if (zommaOut) {
                 zommaIn = false;
-                if (dataProject.mScaleFactor > 0.005f) {
-                    dataProject.mScaleFactor -= 0.05f;
+                if (dataProject.mScaleFactor > 0.05f) {
+                    dataProject.mScaleFactor -= 0.01f;
 
                 }
             }
             if (zommaIn) {
                 zommaOut = false;
-                dataProject.mScaleFactor += 0.05f;
+                dataProject.mScaleFactor += 0.01f;
 
             }
             if (rotRight) {
@@ -445,7 +447,7 @@ public class LoadProject extends AppCompatActivity {
                 imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
                 imgConnect.setImageResource(R.drawable.btn_gpsoff);
                 textCoord.setTextColor(Color.RED);
-                txtSat.setText("--");
+                txtSat.setText("\t" + Nmea_In.ggaSat);
                 txtFix.setText("---");
                 txtCq.setText("H:---.-- V:---.--");
                 txtHdt.setText("---.--");

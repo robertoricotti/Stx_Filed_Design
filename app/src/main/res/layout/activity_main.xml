@@ -157,7 +157,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="20dp"
-        android:rotation="45"
         android:src="@drawable/btn_usb_stick"
         app:layout_constraintBottom_toTopOf="@id/g_stop"
         app:layout_constraintLeft_toLeftOf="parent"

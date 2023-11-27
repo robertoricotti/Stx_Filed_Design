@@ -98,7 +98,7 @@
             android:layout_height="match_parent"
             android:paddingVertical="10dp"
             android:rotation="0"
-            android:src="@drawable/load_progect"
+            android:src="@drawable/btn_load_project"
             app:tint="@color/_____cancel_text" />
 
     </LinearLayout>
