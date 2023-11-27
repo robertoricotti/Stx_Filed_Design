@@ -428,7 +428,7 @@
             android:layout_weight="1"
             android:paddingVertical="10dp"
             android:rotation="0"
-            app:tint="@color/white"
+            app:tint="@color/_____cancel_text"
             android:src="@drawable/btn_to_antennameasurei" />
         <ImageView
 
@@ -445,7 +445,7 @@
             android:layout_weight="1"
             android:rotation="180"
             android:paddingVertical="10dp"
-            app:tint="@color/white"
+            app:tint="@color/_____cancel_text"
             android:src="@drawable/btn_calcola" />
 
     </LinearLayout>

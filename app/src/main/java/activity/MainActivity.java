@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                             }else{
                                 txt_tilt.setText(String.valueOf("CAN DISCONNECTED"));
 
-                                btn_to_can.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                                btn_to_can.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
                                 btn_to_can.setImageResource(R.drawable.btn_can_disconn);
                             }
 
@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
                                         case "0":
                                         case "1":
                                             txtFix.setText("\tAUTONOMOUS");
-                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
                                             break;
                                         case "2":
                                             txtFix.setText("\tDGNSS");
@@ -221,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
                                             break;
                                         default:
                                             txtFix.setText("\tAUTONOMOUS");
-                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
                                             break;
                                     }
                                 }
@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
                                 textCoord.setTextColor(Color.BLACK);
 
                             } else {
-                                img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                                img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
                                 img_connect.setImageResource(R.drawable.btn_gpsoff);
                                // textCoord.setText("\tDISCONNECTED");
                                 textCoord.setTextColor(Color.RED);

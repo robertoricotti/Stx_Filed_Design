@@ -28,14 +28,14 @@ public class MachineBearing_from_POSITIONS {
 
 
             double distance = calculateDistance(secondLastPosition.lat, secondLastPosition.lon, newLat, newLon);
-            if (distance > 0.3) {//dist 30cm
+            if (distance > ((float)DataSaved.rmcSize/100)) {//dist 30cm
 
                 double bearing = calculateBearing(secondLastPosition.lat, secondLastPosition.lon, newLat, newLon);
 
 
                 bearingQueue.offer(bearing);
 
-                if (bearingQueue.size() > DataSaved.rmcSize) {
+                if (bearingQueue.size() > 20) {
                     bearingQueue.poll();
                 }
             }

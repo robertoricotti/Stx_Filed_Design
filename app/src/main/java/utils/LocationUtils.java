@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.LocationManager;
+import android.os.Build;
 import android.provider.Settings;
+import android.widget.Toast;
 
 public class LocationUtils {
 
@@ -15,8 +17,31 @@ public class LocationUtils {
     }
 
     public static void requestLocationSettings(Context context) {
-        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        context.startActivity(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // Versione Android 6.0 e successiva
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            context.startActivity(intent);
+        } else {
+            // Versione Android precedente a 6.0
+            Toast.makeText(context, "Impossibile aprire le impostazioni di localizzazione direttamente", Toast.LENGTH_SHORT).show();
+        }
     }
 
+    public static class LocationStateReceiver extends BroadcastReceiver {
+        private final Context context;
+
+        public LocationStateReceiver(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (isLocationEnabled(context)) {
+                context.unregisterReceiver(this);
+            } else {
+                requestLocationSettings(context);
+            }
+        }
+    }
 }
+

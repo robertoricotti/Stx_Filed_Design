@@ -138,7 +138,7 @@ public class MchMeaureActivity extends AppCompatActivity {
                                         case "0":
                                         case "1":
                                             txtFix.setText("\tAUTONOMOUS");
-                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
                                             break;
                                         case "2":
                                             txtFix.setText("\tDGNSS");
@@ -158,7 +158,7 @@ public class MchMeaureActivity extends AppCompatActivity {
                                             break;
                                         default:
                                             txtFix.setText("\tAUTONOMOUS");
-                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
                                             break;
                                     }
                                 }
@@ -171,7 +171,7 @@ public class MchMeaureActivity extends AppCompatActivity {
                                 txtRtk.setText("\t" + Nmea_In.ggaRtk);
 
                             } else {
-                                img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                                img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
                                 img_connect.setImageResource(R.drawable.btn_gpsoff);
 
                                 textCoord.setText("\tDISCONNECTED");

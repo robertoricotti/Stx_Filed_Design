@@ -428,7 +428,7 @@ public class LoadProject extends AppCompatActivity {
                             break;
                         default:
                             txtFix.setText("\tAUTONOMOUS");
-                            imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                            imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
                             break;
                     }
                 }
@@ -442,7 +442,7 @@ public class LoadProject extends AppCompatActivity {
                 txtRtk.setText("\t" + Nmea_In.ggaRtk);
                 textCoord.setTextColor(Color.BLACK);
             } else {
-                imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
                 imgConnect.setImageResource(R.drawable.btn_gpsoff);
                 textCoord.setTextColor(Color.RED);
                 txtSat.setText("--");

@@ -139,7 +139,6 @@ public class SettingsActivity extends AppCompatActivity {
         });
         btn_exit.setOnClickListener(view -> {
             startActivity(new Intent(SettingsActivity.this, MainActivity.class));
-
             finish();
         });
         usetilt.setOnClickListener(view -> {
@@ -234,7 +233,7 @@ public class SettingsActivity extends AppCompatActivity {
                                         + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + " Z: "
                                         + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
                             }
-                            txtsmootRmc.setText("Bearing Average: \t\t" + DataSaved.rmcSize);
+                            txtsmootRmc.setText("Bearing min Dist: \t\t" + String.format("%.1f",(float)DataSaved.rmcSize/100));
                             txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",", "."));
                             if (Bluetooth_GNSS_Service.gpsIsConnected) {
                                 img_connect.setImageResource(R.drawable.btn_positionpage);
@@ -325,6 +324,8 @@ public class SettingsActivity extends AppCompatActivity {
         }
         startService(new Intent(SettingsActivity.this, UpdateValues.class));
         Toast.makeText(this, "SAVED!", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this,MainActivity.class));
+        finish();
 
     }
 

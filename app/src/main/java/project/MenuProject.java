@@ -142,7 +142,7 @@ private boolean showCoord=false;
                             break;
                         default:
                             txtFix.setText("\tAUTONOMOUS");
-                            imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                            imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
                             break;
                     }
                 }
@@ -156,7 +156,7 @@ private boolean showCoord=false;
                 txtRtk.setText("\t" + Nmea_In.ggaRtk);
             }
             else {
-                imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
                 imgConnect.setImageResource(R.drawable.btn_gpsoff);
 
                 textCoord.setText("\tDISCONNECTED");

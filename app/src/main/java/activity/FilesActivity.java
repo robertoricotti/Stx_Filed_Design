@@ -96,7 +96,7 @@ public class FilesActivity extends AppCompatActivity {
                                         case "0":
                                         case "1":
                                             txtFix.setText("\tAUTONOMOUS");
-                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
                                             break;
                                         case "2":
                                             txtFix.setText("\tDGNSS");
@@ -115,7 +115,7 @@ public class FilesActivity extends AppCompatActivity {
                                             img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
                                             break;
                                         default:txtFix.setText("\tAUTONOMOUS");
-                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
                                             break;
                                     }}
                                 if(Nmea_In.VRMS_ !=null){
@@ -125,7 +125,7 @@ public class FilesActivity extends AppCompatActivity {
                                 txtRtk.setText("\t"+ Nmea_In.ggaRtk);
                                 textCoord.setTextColor(Color.BLACK);
                             } else {
-                                img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                                img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
                                 img_connect.setImageResource(R.drawable.btn_gpsoff);
 
                                 textCoord.setTextColor(Color.RED);

@@ -12,6 +12,7 @@ import android.location.OnNmeaMessageListener;
 
 import android.content.Intent;
 
+import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -40,8 +41,8 @@ public class AutoConnectionService extends Service {
 
     private Executor mExecutor;
     private static final int THREAD_POOL_SIZE = 4;
-    Timer timer_6000, timer_3000;
-    TimerTask timertask_6000, timertask_3000;
+    Timer timer_6000, timer_100;
+    TimerTask timertask_6000, timertask_100;
 
     private LocationManager locationManager;
     private LocationListener locationListener;
@@ -61,13 +62,25 @@ public class AutoConnectionService extends Service {
                 double longitude = location.getLongitude();
                 double altitude = location.getAltitude();
 
-                // Ora puoi utilizzare latitude, longitude, altitude come necessario
             }
 
-            // Altri metodi di LocationListener rimossi per brevità
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
         };
 
-        // Aggiungi il listener per le stringhe NMEA
+
         nmeaMessageListener = new OnNmeaMessageListener() {
             @Override
             public void onNmeaMessage(String message, long timestamp) {
@@ -126,11 +139,11 @@ public class AutoConnectionService extends Service {
             timertask_6000.cancel();
             timertask_6000 = null;
 
-            timer_3000.cancel();
-            timer_3000 = null;
+            timer_100.cancel();
+            timer_100 = null;
 
-            timertask_3000.cancel();
-            timertask_3000 = null;
+            timertask_100.cancel();
+            timertask_100 = null;
 
         } catch (Exception e) {
         }
@@ -148,7 +161,7 @@ public class AutoConnectionService extends Service {
                 @Override
                 public void run() {
                     if (!LocationUtils.isLocationEnabled(MyApp.visibleActivity)) {
-                        // Se la localizzazione è disabilitata, richiedi all'utente di attivarla
+                        // Se la localizzazione è disabilitata apre la pag per attivazione
                         LocationUtils.requestLocationSettings(MyApp.visibleActivity);
                     }
 
@@ -194,18 +207,18 @@ public class AutoConnectionService extends Service {
 
             timer_6000.scheduleAtFixedRate(timertask_6000, 3000, 3000);
 
-            timer_3000 = new Timer();
+            timer_100 = new Timer();
 
-            timertask_3000 = new
+            timertask_100 = new
 
                     TimerTask() {
                         @Override
                         public void run() {
                             if (!Bluetooth_GNSS_Service.gpsIsConnected) {
 
-                                //Bluetooth_GNSS_Service.sendGNSSata("Sample Message\r\n");
+                                //Bluetooth_GNSS_Service.sendGNSSata("Sample Message\r\n"); //Usare questo codice per scrivere su seriale da bluetooth
                                 new Nmea_In(androidNmea);
-                                //Usare questo codice per scrivere su seriale da bluetooth
+
 
                             }
 
@@ -224,7 +237,7 @@ public class AutoConnectionService extends Service {
 
                         }
                     };
-            timer_3000.scheduleAtFixedRate(timertask_3000, 100, 100);
+            timer_100.scheduleAtFixedRate(timertask_100, 100, 100);
 
 
         }

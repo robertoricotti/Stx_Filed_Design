@@ -554,7 +554,7 @@ public class ABProject extends AppCompatActivity {
                     default:
 
                         txtFix.setText("\tAUTONOMOUS");
-                        imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                        imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
                         break;
                 }
             }
@@ -570,7 +570,7 @@ public class ABProject extends AppCompatActivity {
 
         } else {
 
-            imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+            imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
             imgConnect.setImageResource(R.drawable.btn_gpsoff);
             textCoord.setTextColor(Color.RED);
             txtSat.setText("--");
