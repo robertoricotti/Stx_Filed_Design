@@ -44,6 +44,7 @@ import utils.FullscreenActivity;
 import utils.MyRW_IntMem;
 
 public class LoadProject extends AppCompatActivity {
+    private boolean mRunning=true;
     boolean showCoord = false;
     public static boolean auto;
     Guideline guideline;
@@ -271,41 +272,50 @@ public class LoadProject extends AppCompatActivity {
 
     @SuppressLint({"SetTextI18n", "DefaultLocale"})
     private void updateUI() {
+
         handler = new Handler();
-        updateRunnable = () -> {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (mRunning) {
+                    if (zommaOut) {
+                        zommaIn = false;
+                        if (dataProject.mScaleFactor > 0.05f) {
+                            dataProject.mScaleFactor -= 0.01f;
+
+                        }
+                    }
+                    if (zommaIn) {
+                        zommaOut = false;
+                        dataProject.mScaleFactor += 0.01f;
+
+                    }
+                    if (rotRight) {
+                        rotLeft = false;
+                        if (dataProject.rotate <= 360f) {
+                            dataProject.rotate += 2f;
+
+                        } else {
+                            dataProject.rotate = 0f;
+                        }
+                    }
+                    if (rotLeft) {
+                        rotRight = false;
+                        if (dataProject.rotate >= 1f) {
+                            dataProject.rotate -= 2f;
+
+                        } else {
+                            dataProject.rotate = 360f;
+
+                        }
+
+                    }
+
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
             Log.d("DataScale", String.valueOf(dataProject.mScaleFactor));
-            if (zommaOut) {
-                zommaIn = false;
-                if (dataProject.mScaleFactor > 0.05f) {
-                    dataProject.mScaleFactor -= 0.01f;
 
-                }
-            }
-            if (zommaIn) {
-                zommaOut = false;
-                dataProject.mScaleFactor += 0.01f;
-
-            }
-            if (rotRight) {
-                rotLeft = false;
-                if (dataProject.rotate <= 360f) {
-                    dataProject.rotate += 2f;
-
-                } else {
-                    dataProject.rotate = 0f;
-                }
-            }
-            if (rotLeft) {
-                rotRight = false;
-                if (dataProject.rotate >= 1f) {
-                    dataProject.rotate -= 2f;
-
-                } else {
-                    dataProject.rotate = 360f;
-
-                }
-
-            }
 
             if (auto) {
                 rotateLeft.setEnabled(false);
@@ -356,7 +366,7 @@ public class LoadProject extends AppCompatActivity {
 
             } else {
                 txt_incl.setText(String.valueOf("CAN DISCONNECTED"));
-                canconnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                canconnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
                 canconnect.setImageResource(R.drawable.btn_can_disconn);
                 txt_incl.setTextColor(Color.RED);
             }
@@ -456,10 +466,19 @@ public class LoadProject extends AppCompatActivity {
 
             canvas.invalidate();
 
-            handler.postDelayed(updateRunnable, 100);
+            handler.postDelayed(updateRunnable, 60);
 
-        };
-        handler.post(updateRunnable);
+                        }
+                    });
+                    // sleep per intervallo update UI
+                    try {
+                        Thread.sleep(60);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 
     @Override
@@ -500,6 +519,7 @@ public class LoadProject extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        mRunning=false;
         page = 0;
         super.onDestroy();
         if (updateRunnable != null) {

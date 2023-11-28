@@ -18,18 +18,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.stx_field_design.R;
 
 import java.io.File;
-import java.nio.file.attribute.UserPrincipal;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 
 import activity.MainActivity;
-import activity.MyApp;
+
 import project.DataProjectSingleton;
 import project.LoadProject;
 import project.PickProjectAdapter;
-import services_and_bluetooth.UpdateValues;
+
 import utils.FullscreenActivity;
-import utils.MyRW_IntMem;
+
 
 public class PickProjectDialog {
 

@@ -1,16 +1,20 @@
 package project;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,12 +22,15 @@ import activity.MyApp;
 import coords_calc.CoordsConverter;
 import coords_calc.GPS;
 import gnss.My_LocationCalc;
+import services_and_bluetooth.DataSaved;
 import services_and_bluetooth.UpdateValues;
 import utils.MyRW_IntMem;
 
-public class DataProjectSingleton {
-    private Context context;
 
+public class DataProjectSingleton {
+
+
+    @SuppressLint("StaticFieldLeak")
     private static volatile DataProjectSingleton INSTANCE = null;
 
     public LinkedHashMap<String, GPS> points;
@@ -57,7 +64,7 @@ public class DataProjectSingleton {
         mScaleFactor = 1f;
         scale = 100;
         radius = 10;
-        rotate=0;
+        rotate = 0;
         rtLength = 20;
         rtSlope = 0;
         ltLength = 20;
@@ -69,7 +76,7 @@ public class DataProjectSingleton {
     }
 
     public static DataProjectSingleton getInstance() {
-        if(INSTANCE == null) {
+        if (INSTANCE == null) {
             synchronized (DataProjectSingleton.class) {
                 if (INSTANCE == null) {
                     INSTANCE = new DataProjectSingleton();
@@ -78,7 +85,8 @@ public class DataProjectSingleton {
         }
         return INSTANCE;
     }
-    public int getSize(){
+
+    public int getSize() {
         return points.size();
     }
 
@@ -86,27 +94,28 @@ public class DataProjectSingleton {
         return points;
     }
 
-    public void setEpsgCode(String epsgCode,Context context) {
-        this.context=context;
+    public void setEpsgCode(String epsgCode, Context context) {
+
         this.epsgCode = epsgCode;
-       new MyRW_IntMem().MyWrite("_crs",epsgCode.toString(),context);
+        new MyRW_IntMem().MyWrite("_crs", epsgCode.toString(), context);
+        DataSaved.S_CRS = epsgCode;
 
 
         Pattern pattern = Pattern.compile("\\+units=([^,\\s]+)");
 
         Matcher matcher = pattern.matcher(CoordsConverter.getInfoParams(this.epsgCode));
 
-        MyApp.visibleActivity.startService(new Intent(MyApp.visibleActivity,UpdateValues.class));
+        MyApp.visibleActivity.startService(new Intent(MyApp.visibleActivity, UpdateValues.class));
         if (matcher.find())
             this.units = matcher.group(1);
     }
 
-    public double abOrient(){
-        GPS a =getPoints().get("A");
+    public double abOrient() {
+        GPS a = getPoints().get("A");
 
         GPS b = getPoints().get("B");
         try {
-            return My_LocationCalc.calcBearingXY(a.getX(),a.getY(),b.getX(),b.getY());
+            return My_LocationCalc.calcBearingXY(a.getX(), a.getY(), b.getX(), b.getY());
 
         } catch (Exception e) {
             return 0;
@@ -212,6 +221,7 @@ public class DataProjectSingleton {
     public void setLtSlope(double ltSlope) {
         this.ltSlope = ltSlope;
     }
+
     public String getProjectName() {
         return projectName;
     }
@@ -224,7 +234,9 @@ public class DataProjectSingleton {
         return epsgCode;
     }
 
-    public double getzB() { return zB;}
+    public double getzB() {
+        return zB;
+    }
 
     public void setzB(double zB) {
         this.zB = zB;
@@ -247,47 +259,52 @@ public class DataProjectSingleton {
     }
 
     public void toggleDelaunay() {
-        if(getSize() >= 3)
+        if (getSize() >= 3)
             delaunay = !delaunay;
     }
-    public GPS getSinglePoint(){
-        if(!points.containsKey(distanceID))
+
+    public GPS getSinglePoint() {
+        if (!points.containsKey(distanceID))
             return null;
         return points.get(distanceID);
     }
-    public boolean addCoordinate(String id, GPS gps){
-        if(points.containsKey(id))
+
+    public boolean addCoordinate(String id, GPS gps) {
+        if (points.containsKey(id))
             return false;
         points.put(id, gps);
         return true;
     }
-    public boolean updateCoordinate(String id, GPS gps){
-        if(points.containsKey(id)){
+
+    public boolean updateCoordinate(String id, GPS gps) {
+        if (points.containsKey(id)) {
             points.put(id, gps);
             return true;
         }
         return false;
     }
-    public boolean deleteCoordinate(String id){
-        if(points.containsKey(id)){
+
+    public boolean deleteCoordinate(String id) {
+        if (points.containsKey(id)) {
             points.remove(id);
             return true;
         }
         return false;
     }
-    public boolean deleteAllCoordinate(){
-        if(!points.isEmpty()){
+
+    public boolean deleteAllCoordinate() {
+        if (!points.isEmpty()) {
             points.clear();
             return true;
         }
         return false;
     }
 
-    public boolean readProject(String path){
+    public boolean readProject(String path) {
 
-        clearData();
-
+       clearData();
         try {
+
             CSVReader reader = new CSVReader(new FileReader(path));
 
             String[] info = reader.readNext();
@@ -295,11 +312,8 @@ public class DataProjectSingleton {
             this.projectName = info[0];
             this.epsgCode = info[1];
             new MyRW_IntMem().MyWrite("projectPath", path, MyApp.visibleActivity);
-            new MyRW_IntMem().MyWrite("_crs",this.epsgCode,MyApp.visibleActivity);
-            MyApp.visibleActivity.startService(new Intent(MyApp.visibleActivity,UpdateValues.class));
-
-
-
+            new MyRW_IntMem().MyWrite("_crs", this.epsgCode, MyApp.visibleActivity);
+            MyApp.visibleActivity.startService(new Intent(MyApp.visibleActivity, UpdateValues.class));
             String[] row;
 
             while ((row = reader.readNext()) != null) {
@@ -307,13 +321,17 @@ public class DataProjectSingleton {
                 addCoordinate(id, new GPS(info[1], Double.parseDouble(row[1]), Double.parseDouble(row[2]), Double.parseDouble(row[3])));
             }
             return true;
-        }
-        catch (Exception e){
+
+        } catch (Exception e) {
             return false;
+
         }
+
+
     }
 
-    public boolean saveProject(String path, String fileName){
+
+    public boolean saveProject(String path, String fileName) {
         try {
             File f = new File(path, fileName);
 
@@ -330,19 +348,20 @@ public class DataProjectSingleton {
             }
             writer.close();
             return true;
-        }
-        catch (Exception ignored){
+        } catch (Exception ignored) {
             return false;
         }
     }
 
-    public boolean clearData(){
-        if(INSTANCE != null){
+
+    public boolean clearData() {
+        if (INSTANCE != null) {
             initializeDefaults();
             epsgCode = null;
             units = null;
             projectName = null;
             distanceID = null;
+
             return true;
         }
         return false;

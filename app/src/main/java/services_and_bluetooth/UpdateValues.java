@@ -203,6 +203,6 @@ public class UpdateValues extends Service {
     public void onDestroy() {
         super.onDestroy();
         ((ExecutorService) mExecutor).shutdown();
-        Log.d("TEST_ROB","Servizio stoppato con successo");
+
     }
 }

@@ -12,6 +12,8 @@ import android.location.Location;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.example.stx_field_design.R;
+
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -28,7 +30,7 @@ import services_and_bluetooth.DataSaved;
 public class ProjectCanvas extends View {
     Paint paint;
     Canvas canvas;
-    float half_width ;
+    float half_width;
     float half_height;
     float size;
     private final DataProjectSingleton dataProject;
@@ -43,28 +45,27 @@ public class ProjectCanvas extends View {
     @SuppressLint("DrawAllocation")
     @Override
     protected void onDraw(Canvas canvas) {
-        this.canvas=canvas;
+        this.canvas = canvas;
         super.onDraw(canvas);
 
         paint.setAntiAlias(true);
 
-         half_width = getWidth() / 2f;
-         half_height = getHeight() / 2f;
+        half_width = getWidth() / 2f;
+        half_height = getHeight() / 2f;
 
         canvas.save();
         canvas.scale(dataProject.getmScaleFactor(), dataProject.getmScaleFactor(), half_width, half_height);
         canvas.translate(dataProject.getOffsetX(), dataProject.offsetY);
 
-       // paint.setColor(Color.BLACK);
-       // canvas.drawCircle(half_width, half_height, 10 / dataProject.getmScaleFactor(), paint);
+        // paint.setColor(Color.BLACK);
+        // canvas.drawCircle(half_width, half_height, 10 / dataProject.getmScaleFactor(), paint);
 
         size = 50;
-        if(DataSaved.imgMode==0){
+        if (DataSaved.imgMode == 0) {
             drawPalina();
-        }else {
+        } else {
             drawNavigator();
         }
-
 
 
         double myLat = Nmea_In.mLat_1;
@@ -119,7 +120,7 @@ public class ProjectCanvas extends View {
             canvas.drawCircle(endX, endY, size / 2.5f, paint);
 
             paint.setColor(Color.BLACK);
-            paint.setTextSize(50);
+            paint.setTextSize(60);
             canvas.drawText(id, endX + 25f, endY - 25f, paint);
 
             coordinates[counter] = new Coordinate(endX, endY, 0);
@@ -183,20 +184,31 @@ public class ProjectCanvas extends View {
             paint.setColor(Color.GREEN);
 
             canvas.drawCircle((float) coordinates[indexLine].x, (float) coordinates[indexLine].y, size / 2.5f, paint);
-        }else {
-
-            paint.setColor(Color.YELLOW);
-            paint.setStrokeWidth(8f);
-            canvas.drawLine((float) coordinates[0].x, (float) coordinates[0].y, (float) coordinates[1].x, (float) coordinates[1].y, paint);
 
         }
 
+        paint.setColor(Color.YELLOW);
+        paint.setStrokeWidth(9f);
+        canvas.drawLine((float) coordinates[0].x, (float) coordinates[0].y, (float) coordinates[1].x, (float) coordinates[1].y, paint);
 
 
         canvas.restore();
     }
-    private void drawPalina(){
-        paint.setColor(Color.BLUE);
+
+    private void drawPalina() {
+        float size=30;
+        if (dataProject.mScaleFactor > 1) {
+            size = 30;
+        } else {
+            size = size / dataProject.mScaleFactor;
+        }
+
+        paint.setColor(getResources().getColor(R.color.black));
+        paint.setStyle(Paint.Style.STROKE);
+        RectF rover1 = new RectF(half_width - size, half_height - size, half_width + size, half_height + size);
+        canvas.drawArc(rover1, 0, 360, true, paint);
+        paint.setColor(getResources().getColor(R.color.green));
+        paint.setStyle(Paint.Style.FILL);
         RectF rover = new RectF(half_width - size, half_height - size, half_width + size, half_height + size);
         canvas.drawArc(rover, 0, 360, true, paint);
 
@@ -213,23 +225,38 @@ public class ProjectCanvas extends View {
         paint.setStyle(Paint.Style.FILL);
 
     }
-    private void drawNavigator(){
+
+    private void drawNavigator() {
         // Disegna il triangolo
         float centerX = getWidth() / 2f;
         float centerY = getHeight() / 2f;
-        float triangleSize = 150; //
+        float triangleSize = 50; //
+        if (dataProject.mScaleFactor > 1) {
+            triangleSize = 50;
+        } else {
+            triangleSize = triangleSize / dataProject.mScaleFactor;
+        }
 
         float x1 = centerX - triangleSize / 2;
         float y1 = centerY + triangleSize / (2 * (float) Math.tan(Math.toRadians(30)));
         float x2 = centerX + triangleSize / 2;
         float y2 = y1;
         float x3 = centerX;
-        float y3 = centerY ;
+        float y3 = centerY;
 
 
-        paint.setColor(Color.BLUE);
-        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        paint.setColor(getResources().getColor(R.color.black));
+        paint.setStyle(Paint.Style.STROKE);
         Path trianglePath1 = new Path();
+        trianglePath1.moveTo(x1, y1);
+        trianglePath1.lineTo(x2, y2);
+        trianglePath1.lineTo(x3, y3);
+        trianglePath1.close();
+        canvas.drawPath(trianglePath1, paint);
+
+        paint.setColor(getResources().getColor(R.color.green));
+        paint.setStyle(Paint.Style.FILL);
+
         trianglePath1.moveTo(x1, y1);
         trianglePath1.lineTo(x2, y2);
         trianglePath1.lineTo(x3, y3);
@@ -239,7 +266,7 @@ public class ProjectCanvas extends View {
 
     }
 
-    private void translateTouch(){
+    private void translateTouch() {
         dataProject.setOffsetX(0);
         dataProject.setOffsetY(0);
         setOnTouchListener(new OnTouchListener() {
