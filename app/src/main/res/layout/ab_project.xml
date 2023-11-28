@@ -90,7 +90,14 @@
             android:paddingVertical="5dp"
             android:src="@drawable/btn_pick"
             app:tint="@color/_____cancel_text" />
-
+        <ImageView
+            android:id="@+id/calcola"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingVertical="5dp"
+            android:src="@drawable/btn_calcola"
+            app:tint="@color/_____cancel_text" />
         <ImageView
             android:id="@+id/save"
             android:layout_width="wrap_content"
@@ -99,6 +106,8 @@
             android:paddingVertical="5dp"
             android:src="@drawable/btn_save"
             app:tint="@color/_____cancel_text" />
+
+
 
     </LinearLayout>
 
@@ -300,20 +309,11 @@
         android:textAlignment="center"
         android:inputType="numberDecimal|numberSigned"
         android:imeOptions="actionDone"
-        app:layout_constraintRight_toLeftOf="@id/btn_zb"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@id/tit_zb"
         app:layout_constraintTop_toTopOf="@id/tit_zb"
         app:layout_constraintBottom_toBottomOf="@id/tit_zb"/>
-    <ImageView
-        android:id="@+id/btn_zb"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/custom_background_light"
-        android:src="@drawable/btn_calcola"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tit_zb"
-        app:layout_constraintBottom_toBottomOf="@id/tit_zb"
-        app:layout_constraintLeft_toRightOf="@id/V2"/>
+
 
     <TextView
         android:id="@+id/tit_len"
@@ -340,20 +340,11 @@
         android:selectAllOnFocus="true"
         app:layout_constraintBottom_toBottomOf="@id/tit_len"
         app:layout_constraintLeft_toRightOf="@id/tit_len"
-        app:layout_constraintRight_toLeftOf="@id/btn_dst"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/tit_len"
         app:layout_constraintVertical_bias="1.0" />
 
-    <ImageView
-        android:id="@+id/btn_dst"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/btn_calcola"
-        android:background="@drawable/custom_background_light"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tit_len"
-        app:layout_constraintBottom_toBottomOf="@id/tit_len"
-        app:layout_constraintLeft_toRightOf="@id/V2"/>
+
 
     <TextView
         android:id="@+id/tit_slope"
@@ -377,20 +368,11 @@
         android:textAlignment="center"
         android:imeOptions="actionDone"
         android:selectAllOnFocus="true"
-        app:layout_constraintRight_toLeftOf="@id/btn_slope"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@id/tit_slope"
         app:layout_constraintTop_toTopOf="@id/tit_slope"
         app:layout_constraintBottom_toBottomOf="@id/tit_slope"/>
-    <ImageView
-        android:id="@+id/btn_slope"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/btn_calcola"
-        android:background="@drawable/custom_background_light"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tit_slope"
-        app:layout_constraintBottom_toBottomOf="@id/tit_slope"
-        app:layout_constraintLeft_toRightOf="@id/V2"/>
+
 
     <TextView
         android:id="@+id/left_dis"
@@ -414,20 +396,11 @@
         android:textAlignment="center"
         android:imeOptions="actionDone"
         android:selectAllOnFocus="true"
-        app:layout_constraintRight_toLeftOf="@id/btn_ltdst"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@id/left_dis"
         app:layout_constraintTop_toTopOf="@id/left_dis"
         app:layout_constraintBottom_toBottomOf="@id/left_dis"/>
-    <ImageView
-        android:id="@+id/btn_ltdst"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/btn_calcola"
-        android:background="@drawable/custom_background_light"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/left_dis"
-        app:layout_constraintBottom_toBottomOf="@id/left_dis"
-        app:layout_constraintLeft_toRightOf="@id/V2"/>
+
 
     <TextView
         android:id="@+id/left_slop"
@@ -451,20 +424,11 @@
         android:textAlignment="center"
         android:imeOptions="actionDone"
         android:selectAllOnFocus="true"
-        app:layout_constraintRight_toLeftOf="@id/btn_ltslope"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@id/left_slop"
         app:layout_constraintTop_toTopOf="@id/left_slop"
         app:layout_constraintBottom_toBottomOf="@id/left_slop"/>
-    <ImageView
-        android:id="@+id/btn_ltslope"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/btn_calcola"
-        android:background="@drawable/custom_background_light"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/left_slop"
-        app:layout_constraintBottom_toBottomOf="@id/left_slop"
-        app:layout_constraintLeft_toRightOf="@id/V2"/>
+
 
 
     <TextView
@@ -489,21 +453,11 @@
         android:textAlignment="center"
         android:imeOptions="actionDone"
         android:selectAllOnFocus="true"
-        app:layout_constraintRight_toLeftOf="@id/btn_rtdst"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@id/right_dis"
         app:layout_constraintTop_toTopOf="@id/right_dis"
         app:layout_constraintBottom_toBottomOf="@id/right_dis"/>
-    <ImageView
-        android:id="@+id/btn_rtdst"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/btn_calcola"
-        android:textSize="10sp"
-        android:background="@drawable/custom_background_light"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/right_dis"
-        app:layout_constraintBottom_toBottomOf="@id/right_dis"
-        app:layout_constraintLeft_toRightOf="@id/V2"/>
+
 
     <TextView
         android:id="@+id/right_slop"
@@ -528,21 +482,11 @@
         android:textAlignment="center"
         android:imeOptions="actionDone"
         android:selectAllOnFocus="true"
-        app:layout_constraintRight_toLeftOf="@id/btn_rtslope"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@id/right_slop"
         app:layout_constraintTop_toTopOf="@id/right_slop"
         app:layout_constraintBottom_toBottomOf="@id/right_slop"/>
-    <ImageView
-        android:id="@+id/btn_rtslope"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/btn_calcola"
-        android:textSize="10sp"
-        android:background="@drawable/custom_background_light"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/right_slop"
-        app:layout_constraintBottom_toBottomOf="@id/right_slop"
-        app:layout_constraintLeft_toRightOf="@id/V2"/>
+
 
     <!--end of BUTTONS-->
 
@@ -622,5 +566,18 @@
         app:layout_constraintTop_toTopOf="@+id/crs"
         app:srcCompat="@drawable/zoomout"
         app:tint="@color/white" />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/CustomProgressBar"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:visibility="visible"
+        android:background="@color/_____cancel_text"
+        android:alpha="0.7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

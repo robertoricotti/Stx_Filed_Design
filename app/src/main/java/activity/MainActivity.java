@@ -8,8 +8,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -17,12 +15,7 @@ import android.widget.TextView;
 
 import com.example.stx_field_design.BuildConfig;
 import com.example.stx_field_design.R;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import can.Can_Decoder;
-import dialogs.PickProjectDialog;
 import gnss.My_LocationCalc;
 import gnss.Nmea_In;
 import project.DataProjectSingleton;
@@ -39,11 +32,12 @@ import utils.FullscreenActivity;
 import utils.MyRW_IntMem;
 
 public class MainActivity extends AppCompatActivity {
+    int countProgress=0;
     boolean showCoord = false;
     ProgressBar progressBar;
     ImageView btn_exit, btn_to_can, to_bt, openProject, to_new, to_settings, to_stakeout, img_connect, to_mch, to_palina, to_info, toPairCan;
     TextView textCoord, txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk, txt_tilt;
-    PickProjectDialog pickProjectDialog;
+
     MyRW_IntMem myRWIntMem;
     DataProjectSingleton dataProject;
     private Handler handler;
@@ -88,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        pickProjectDialog = new PickProjectDialog(this);
+
         myRWIntMem = new MyRW_IntMem();
         dataProject = DataProjectSingleton.getInstance();
     }
@@ -127,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         openProject.setOnClickListener(view -> {
             progressBar.setVisibility(View.VISIBLE);
             if(progressBar.getVisibility()==View.VISIBLE) {
-                (new Handler()).postDelayed(this::openProj, 800);
+                (new Handler()).postDelayed(this::openProj, 500);
             }
         });
 
@@ -169,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             if(progressBar.getVisibility()==View.VISIBLE){
+                                countProgress++;
                             btn_exit.setEnabled(false);
                             btn_to_can.setEnabled(false);
                             to_bt.setEnabled(false);
@@ -194,6 +189,10 @@ public class MainActivity extends AppCompatActivity {
                                 to_palina.setEnabled(true);
                                 to_info.setEnabled(true);
                                 toPairCan.setEnabled(true);
+                            }
+                            if(countProgress>100){
+                                progressBar.setVisibility(View.INVISIBLE);
+                                countProgress=0;
                             }
                             txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",", "."));
                             if (Bluetooth_CAN_Service.canIsConnected) {
@@ -290,24 +289,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void openProj() {
 
-    String path = myRWIntMem.MyRead("projectPath", this);
+    String path = myRWIntMem.MyRead("projectPath", MainActivity.this);
     if (path == null) {
-        if (!pickProjectDialog.dialog.isShowing())
-            pickProjectDialog.show();
+
+        new CustomToast(this,"No Project Selected\nPlease Choose One").show();
+
     } else {
         DataProjectSingleton.getInstance().readProject(path);
+
         if (dataProject.readProject(path)) {
-
-            startActivity(new Intent(this, LoadProject.class));
-
+            startActivity(new Intent(MainActivity.this, LoadProject.class));
             finish();
-        } else {
-            progressBar.setVisibility(View.INVISIBLE);
-            new PickProjectDialog(this).show();
         }
     }
 
     }
+
+
 
 
     @Override

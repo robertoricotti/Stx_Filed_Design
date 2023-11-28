@@ -3,6 +3,7 @@ package dialogs;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.os.Environment;
 import android.view.Gravity;
 import android.view.View;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 import com.example.stx_field_design.R;
 
 import java.io.File;
+import java.util.Date;
+import java.util.Locale;
 
 import project.ABProject;
 import project.DataProjectSingleton;
@@ -58,10 +61,11 @@ public class SaveFileDialog {
         save.setOnClickListener((View vw) -> {
 
             if(!fileName.getText().toString().equals("")){
-
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
+                String currentDateTime = sdf.format(new Date());
                 DataProjectSingleton dataProject = DataProjectSingleton.getInstance();
 
-                dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/CSV/", fileName.getText().toString() + ".csv");
+                dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/CSV/", fileName.getText().toString()+"_"+currentDateTime + ".csv");
 
                 Toast.makeText(activity, "File Saved!", Toast.LENGTH_SHORT).show();
                 activity.startActivity(new Intent(activity, MenuProject.class));

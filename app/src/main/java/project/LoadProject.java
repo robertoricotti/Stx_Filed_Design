@@ -44,7 +44,7 @@ import utils.FullscreenActivity;
 import utils.MyRW_IntMem;
 
 public class LoadProject extends AppCompatActivity {
-    private boolean mRunning=true;
+    private boolean mRunning = true;
     boolean showCoord = false;
     public static boolean auto;
     Guideline guideline;
@@ -53,14 +53,15 @@ public class LoadProject extends AppCompatActivity {
     TextView textCoord, txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk, txt_incl;
     ImageView back, openList, imgConnect, lineID, canconnect, imgPick, imgSign, imgSat, imgHdt;
     TextView altitude, distance, fileName;
-    Button loadProject;
+
     ConstraintLayout container;
     ProjectCanvas canvas;
     ImageButton center, zoomIn, zoomOut, rotateLeft, rotateRight, autorotate;
     Button crs, delaunay, surfaceStatus, surfaceOK;
     DataProjectSingleton dataProject;
     CoordsGNSSInfo coordsGNSSInfo;
-    PickProjectDialog pickProjectDialog;
+
+
     Handler handler;
     Runnable updateRunnable;
     Surface_Selector surfaceSelector;
@@ -108,7 +109,7 @@ public class LoadProject extends AppCompatActivity {
         imgConnect = findViewById(R.id.img_connetti);
         surfaceOK = findViewById(R.id.surfaceOK);
         fileName = findViewById(R.id.fileName);
-        loadProject = findViewById(R.id.loadProject);
+
         rotateLeft = findViewById(R.id.rotateLeft);
         rotateRight = findViewById(R.id.rotateRight);
         autorotate = findViewById(R.id.autorotate);
@@ -129,7 +130,6 @@ public class LoadProject extends AppCompatActivity {
 
         surfaceSelector = new Surface_Selector(dataProject.getSize());
 
-        pickProjectDialog = new PickProjectDialog(this);
 
         canvas = new ProjectCanvas(this);
         container.addView(canvas);
@@ -260,10 +260,6 @@ public class LoadProject extends AppCompatActivity {
             dataProject.toggleDelaunay();
         });
 
-        loadProject.setOnClickListener((View v) -> {
-            if (!pickProjectDialog.dialog.isShowing())
-                pickProjectDialog.show();
-        });
 
         textCoord.setOnClickListener(view -> {
             showCoord = !showCoord;
@@ -278,9 +274,10 @@ public class LoadProject extends AppCompatActivity {
             @Override
             public void run() {
                 while (mRunning) {
+                    Log.d("ZOMMA", String.valueOf(dataProject.mScaleFactor));
                     if (zommaOut) {
                         zommaIn = false;
-                        if (dataProject.mScaleFactor > 0.05f) {
+                        if (dataProject.mScaleFactor > 0.04f) {
                             dataProject.mScaleFactor -= 0.01f;
 
                         }
@@ -311,162 +308,166 @@ public class LoadProject extends AppCompatActivity {
 
                     }
 
+
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-            Log.d("DataScale", String.valueOf(dataProject.mScaleFactor));
+
+//////////////////////////////////
 
 
-            if (auto) {
-                rotateLeft.setEnabled(false);
-                rotateRight.setEnabled(false);
-                rotateLeft.setAlpha(0.4f);
-                rotateRight.setAlpha(0.4f);
-                autorotate.setAlpha(1.0f);
-            } else {
-                rotateLeft.setEnabled(true);
-                rotateRight.setEnabled(true);
-                rotateLeft.setAlpha(1f);
-                rotateRight.setAlpha(1f);
-                autorotate.setAlpha(0.4f);
-            }
-            try {
-                fileName.setText(dataProject.getProjectName().replace(".csv", ""));
-
-            } catch (Exception e) {
-                fileName.setText(" ");
-            }
+                            Log.d("DataScale", String.valueOf(dataProject.mScaleFactor));
 
 
-            surfaceStatus.setText(surfaceSelector.isPointInsideSurface() ? "IN" : "OUT");
-            surfaceOK.setText(surfaceSelector.isSurfaceOK() ? "YES" : "NO");
-            crs.setText(dataProject.getEpsgCode());
+                            if (auto) {
+                                rotateLeft.setEnabled(false);
+                                rotateRight.setEnabled(false);
+                                rotateLeft.setAlpha(0.4f);
+                                rotateRight.setAlpha(0.4f);
+                                autorotate.setAlpha(1.0f);
+                            } else {
+                                rotateLeft.setEnabled(true);
+                                rotateRight.setEnabled(true);
+                                rotateLeft.setAlpha(1f);
+                                rotateRight.setAlpha(1f);
+                                autorotate.setAlpha(0.4f);
+                            }
+                            try {
+                                fileName.setText(dataProject.getProjectName().replace(".csv", ""));
+
+                            } catch (Exception e) {
+                                fileName.setText(" ");
+                            }
 
 
-            delaunay.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), dataProject.isDelaunay() ? R.color.pure_green : R.color._____cancel_text));
-            surfaceStatus.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), surfaceSelector.isPointInsideSurface() ? R.color.pure_green : R.color.red));
-            surfaceOK.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), surfaceSelector.isSurfaceOK() ? R.color.pure_green : R.color.red));
-            double v = 0;
-            v = surfaceSelector.getAltitudeDifference(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1);
-            if (Double.isNaN(v)) v = 0;
-            if (Bluetooth_CAN_Service.canIsConnected) {
-                int dataOut = (int) (v * 1000);
-                byte[] data = PLC_DataTypes_BigEndian.S32_to_bytes_be(dataOut);
-                AutoConnectionService.data_6FA = data;
-                page = 1;
-
-                txt_incl.setText(String.valueOf("Pitch: " + String.format("%.2f", Can_Decoder.correctPitch).replace(",", ".") + "°       Roll: " + String.format("%.2f", Can_Decoder.correctRoll).replace(",", ".") + "°"));
-                canconnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
-                canconnect.setImageResource(R.drawable.btn_ecu_connect);
-                if (Math.abs(Can_Decoder.correctPitch) <= DataSaved.tilt_Tol && Math.abs(Can_Decoder.correctRoll) <= DataSaved.tilt_Tol) {
-                    txt_incl.setTextColor(Color.parseColor("#008000"));
-                } else {
-                    txt_incl.setTextColor(Color.BLACK);
-                }
-
-            } else {
-                txt_incl.setText(String.valueOf("CAN DISCONNECTED"));
-                canconnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
-                canconnect.setImageResource(R.drawable.btn_can_disconn);
-                txt_incl.setTextColor(Color.RED);
-            }
+                            surfaceStatus.setText(surfaceSelector.isPointInsideSurface() ? "IN" : "OUT");
+                            surfaceOK.setText(surfaceSelector.isSurfaceOK() ? "YES" : "NO");
+                            crs.setText(dataProject.getEpsgCode());
 
 
-            String strDistance = "DIST: " + String.format("%.3f", surfaceSelector.getDistance()).replace(",", ".") + " m";
-            if(Math.abs(surfaceSelector.getDistance())<=DataSaved.xy_tol){
-                distance.setBackgroundColor(getColor(R.color.green));
-                distance.setTextColor(getColor(R.color._____cancel_text));
-            }else {
-                distance.setBackgroundColor(getColor(R.color._____cancel_text));
-                distance.setTextColor(getColor(R.color.white));
-            }
+                            delaunay.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), dataProject.isDelaunay() ? R.color.pure_green : R.color._____cancel_text));
+                            surfaceStatus.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), surfaceSelector.isPointInsideSurface() ? R.color.pure_green : R.color.red));
+                            surfaceOK.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), surfaceSelector.isSurfaceOK() ? R.color.pure_green : R.color.red));
+                            double v = 0;
+                            v = surfaceSelector.getAltitudeDifference(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1);
+                            if (Double.isNaN(v)) v = 0;
+                            if (Bluetooth_CAN_Service.canIsConnected) {
+                                int dataOut = (int) (v * 1000);
+                                byte[] data = PLC_DataTypes_BigEndian.S32_to_bytes_be(dataOut);
+                                AutoConnectionService.data_6FA = data;
+                                page = 1;
 
-            if (surfaceSelector.isPointInsideSurface()) {
-                if (Math.abs(v) <= DataSaved.z_tol) {
-                    altitude.setText("⧗ " + String.format("%.3f", v).replace(",", "."));
-                    altitude.setBackgroundColor(getColor(R.color.green));
-                    altitude.setTextColor(getColor(R.color._____cancel_text));
-                } else if (v < -(DataSaved.z_tol + 0.001)) {
-                    altitude.setText("▲ " + String.format("%.3f", v).replace(",", "."));
-                    altitude.setBackgroundColor(getColor(R.color.red));
-                    altitude.setTextColor(getColor(R.color.white));
-                } else if (v > DataSaved.z_tol + 0.001) {
-                    altitude.setText("▼ " + String.format("%.3f", v).replace(",", "."));
-                    altitude.setBackgroundColor(getColor(R.color.blue));
-                    altitude.setTextColor(getColor(R.color.white));
-                }
-            } else {
-                altitude.setText("OFF GRID");
-                altitude.setTextColor(getColor(R.color.white));
-                altitude.setBackgroundColor(getColor(R.color._____cancel_text));
-            }
+                                txt_incl.setText(String.valueOf("Pitch: " + String.format("%.2f", Can_Decoder.correctPitch).replace(",", ".") + "°       Roll: " + String.format("%.2f", Can_Decoder.correctRoll).replace(",", ".") + "°"));
+                                canconnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
+                                canconnect.setImageResource(R.drawable.btn_ecu_connect);
+                                if (Math.abs(Can_Decoder.correctPitch) <= DataSaved.tilt_Tol && Math.abs(Can_Decoder.correctRoll) <= DataSaved.tilt_Tol) {
+                                    txt_incl.setTextColor(Color.parseColor("#008000"));
+                                } else {
+                                    txt_incl.setTextColor(Color.BLACK);
+                                }
 
-            distance.setText(strDistance);
-
-            txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",", "."));
-            if (showCoord) {
-                textCoord.setText("Lat: " + My_LocationCalc.decimalToDMS(Nmea_In.mLat_1) + "\tLon: "
-                        + My_LocationCalc.decimalToDMS(Nmea_In.mLon_1) + " Z: "
-                        + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
-            } else {
-                textCoord.setText("E: " + String.format("%.3f", Nmea_In.Crs_Est).replace(",", ".") + "\t\tN: "
-                        + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + " Z: "
-                        + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
-            }
-
-            if (Bluetooth_GNSS_Service.gpsIsConnected) {
-                imgConnect.setImageResource(R.drawable.btn_positionpage);
+                            } else {
+                                txt_incl.setText(String.valueOf("CAN DISCONNECTED"));
+                                canconnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
+                                canconnect.setImageResource(R.drawable.btn_can_disconn);
+                                txt_incl.setTextColor(Color.RED);
+                            }
 
 
-                txtSat.setText("\t" + Nmea_In.ggaSat);
+                            String strDistance = "DIST: " + String.format("%.3f", surfaceSelector.getDistance()).replace(",", ".") + " m";
+                            if (Math.abs(surfaceSelector.getDistance()) <= DataSaved.xy_tol) {
+                                distance.setBackgroundColor(getColor(R.color.green));
+                                distance.setTextColor(getColor(R.color._____cancel_text));
+                            } else {
+                                distance.setBackgroundColor(getColor(R.color._____cancel_text));
+                                distance.setTextColor(getColor(R.color.white));
+                            }
 
-                if (Nmea_In.ggaQuality != null) {
-                    switch (Nmea_In.ggaQuality) {
-                        case "2":
-                            txtFix.setText("\tDGNSS");
-                            imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
-                            break;
-                        case "4":
-                            txtFix.setText("\tFIX");
-                            imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
-                            break;
-                        case "5":
-                            txtFix.setText("\tFLOAT");
-                            imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
-                            break;
-                        case "6":
-                            txtFix.setText("\tINS");
-                            imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
-                            break;
-                        default:
-                            txtFix.setText("\tAUTONOMOUS");
-                            imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
-                            break;
-                    }
-                }
+                            if (surfaceSelector.isPointInsideSurface()) {
+                                if (Math.abs(v) <= DataSaved.z_tol) {
+                                    altitude.setText("⧗ " + String.format("%.3f", v).replace(",", "."));
+                                    altitude.setBackgroundColor(getColor(R.color.green));
+                                    altitude.setTextColor(getColor(R.color._____cancel_text));
+                                } else if (v < -(DataSaved.z_tol + 0.001)) {
+                                    altitude.setText("▲ " + String.format("%.3f", v).replace(",", "."));
+                                    altitude.setBackgroundColor(getColor(R.color.red));
+                                    altitude.setTextColor(getColor(R.color.white));
+                                } else if (v > DataSaved.z_tol + 0.001) {
+                                    altitude.setText("▼ " + String.format("%.3f", v).replace(",", "."));
+                                    altitude.setBackgroundColor(getColor(R.color.blue));
+                                    altitude.setTextColor(getColor(R.color.white));
+                                }
+                            } else {
+                                altitude.setText("OFF GRID");
+                                altitude.setTextColor(getColor(R.color.white));
+                                altitude.setBackgroundColor(getColor(R.color._____cancel_text));
+                            }
 
-                if (Nmea_In.VRMS_ != null) {
-                    txtCq.setText("\tH: " + Nmea_In.HRMS_.replace(",", ".") + "\tV: " + Nmea_In.VRMS_.replace(",", "."));
-                } else {
-                    txtCq.setText("H:---.-- V:---.--");
-                }
-                txtHdt.setText("\t" + String.format("%.2f", Nmea_In.tractorBearing).replace(",", "."));
-                txtRtk.setText("\t" + Nmea_In.ggaRtk);
-                textCoord.setTextColor(Color.BLACK);
-            } else {
-                imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
-                imgConnect.setImageResource(R.drawable.btn_gpsoff);
-                textCoord.setTextColor(Color.RED);
-                txtSat.setText("\t" + Nmea_In.ggaSat);
-                txtFix.setText("---");
-                txtCq.setText("H:---.-- V:---.--");
-                txtHdt.setText("---.--");
-                txtRtk.setText("----");
-            }
+                            distance.setText(strDistance);
 
-            canvas.invalidate();
+                            txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",", "."));
+                            if (showCoord) {
+                                textCoord.setText("Lat: " + My_LocationCalc.decimalToDMS(Nmea_In.mLat_1) + "\tLon: "
+                                        + My_LocationCalc.decimalToDMS(Nmea_In.mLon_1) + " Z: "
+                                        + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
+                            } else {
+                                textCoord.setText("E: " + String.format("%.3f", Nmea_In.Crs_Est).replace(",", ".") + "\t\tN: "
+                                        + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + " Z: "
+                                        + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
+                            }
 
-            handler.postDelayed(updateRunnable, 60);
+                            if (Bluetooth_GNSS_Service.gpsIsConnected) {
+                                imgConnect.setImageResource(R.drawable.btn_positionpage);
+
+
+                                txtSat.setText("\t" + Nmea_In.ggaSat);
+
+                                if (Nmea_In.ggaQuality != null) {
+                                    switch (Nmea_In.ggaQuality) {
+                                        case "2":
+                                            txtFix.setText("\tDGNSS");
+                                            imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
+                                            break;
+                                        case "4":
+                                            txtFix.setText("\tFIX");
+                                            imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
+                                            break;
+                                        case "5":
+                                            txtFix.setText("\tFLOAT");
+                                            imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
+                                            break;
+                                        case "6":
+                                            txtFix.setText("\tINS");
+                                            imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
+                                            break;
+                                        default:
+                                            txtFix.setText("\tAUTONOMOUS");
+                                            imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
+                                            break;
+                                    }
+                                }
+
+                                if (Nmea_In.VRMS_ != null) {
+                                    txtCq.setText("\tH: " + Nmea_In.HRMS_.replace(",", ".") + "\tV: " + Nmea_In.VRMS_.replace(",", "."));
+                                } else {
+                                    txtCq.setText("H:---.-- V:---.--");
+                                }
+                                txtHdt.setText("\t" + String.format("%.2f", Nmea_In.tractorBearing).replace(",", "."));
+                                txtRtk.setText("\t" + Nmea_In.ggaRtk);
+                                textCoord.setTextColor(Color.BLACK);
+                            } else {
+                                imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
+                                imgConnect.setImageResource(R.drawable.btn_gpsoff);
+                                textCoord.setTextColor(Color.RED);
+                                txtSat.setText("\t" + Nmea_In.ggaSat);
+                                txtFix.setText("---");
+                                txtCq.setText("H:---.-- V:---.--");
+                                txtHdt.setText("---.--");
+                                txtRtk.setText("----");
+                            }
+
+                            canvas.invalidate();
+
 
                         }
                     });
@@ -479,7 +480,9 @@ public class LoadProject extends AppCompatActivity {
                 }
             }
         }).start();
+
     }
+
 
     @Override
     public void onBackPressed() {
@@ -519,7 +522,7 @@ public class LoadProject extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        mRunning=false;
+        mRunning = false;
         page = 0;
         super.onDestroy();
         if (updateRunnable != null) {

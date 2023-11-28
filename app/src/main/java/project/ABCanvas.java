@@ -34,6 +34,12 @@ public class ABCanvas extends View {
         paint.setAntiAlias(true);
 
         float size = 50;
+        float sizedot=20;
+        if(dataProject.mScaleFactor>1){
+            sizedot=20;
+        }else {
+            sizedot = sizedot / dataProject.mScaleFactor;
+        }
 
         float half_width = getWidth() / 2f;
 
@@ -49,7 +55,7 @@ public class ABCanvas extends View {
         if(dataProject.getSize() == 1){
             paint.setColor(Color.RED);
 
-            canvas.drawCircle(half_width, half_height, size / 2.5f, paint);
+            canvas.drawCircle(half_width, half_height, sizedot, paint);
 
         }
 
@@ -63,7 +69,7 @@ public class ABCanvas extends View {
 
             double distance =  new DistToPoint(a.getX(), a.getY(), 0, b.getX(), b.getY(), 0).getDist_to_point() * dataProject.getScale();
             A_coord=new float[]{half_width, half_height + (float)(distance / 2f)};
-            canvas.drawCircle(half_width, half_height + (float)(distance / 2f), size / 2.5f, paint);
+            canvas.drawCircle(half_width, half_height + (float)(distance / 2f), sizedot, paint);
 
 
 
@@ -72,7 +78,7 @@ public class ABCanvas extends View {
             canvas.drawLine(half_width, half_height + (float)(distance / 2f), half_width, half_height - (float)(distance / 2f), paint);
 
             B_coord=new float[]{half_width, half_height - (float)(distance / 2f)};
-            canvas.drawCircle(B_coord[0],B_coord[1],size / 2.5f, paint);
+            canvas.drawCircle(B_coord[0],B_coord[1],sizedot, paint);
             paint.setColor(Color.BLACK);
             paint.setTextSize(50);
             canvas.drawText("A", half_width, half_height + (float)(distance / 2f) + 75, paint);
@@ -94,10 +100,10 @@ public class ABCanvas extends View {
             float [] F_coord=new float[]{(float) (A_coord[0]-sideBLeft*dataProject.getScale()),A_coord[1]};
             paint.setColor(Color.RED);
 
-            canvas.drawCircle(C_coord[0], C_coord[1], size / 2.5f, paint);
-            canvas.drawCircle(D_coord[0], D_coord[1], size / 2.5f, paint);
-            canvas.drawCircle(E_coord[0], E_coord[1], size / 2.5f, paint);
-            canvas.drawCircle(F_coord[0], F_coord[1], size / 2.5f, paint);
+            canvas.drawCircle(C_coord[0], C_coord[1], sizedot, paint);
+            canvas.drawCircle(D_coord[0], D_coord[1], sizedot, paint);
+            canvas.drawCircle(E_coord[0], E_coord[1], sizedot, paint);
+            canvas.drawCircle(F_coord[0], F_coord[1], sizedot, paint);
 
             paint.setColor(Color.BLACK);
             canvas.drawText("C", C_coord[0]+25f, C_coord[1] - 25f, paint);

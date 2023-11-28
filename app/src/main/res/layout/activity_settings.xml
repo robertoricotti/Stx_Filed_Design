@@ -279,14 +279,14 @@
 
     <ImageView
         android:id="@+id/imgTest"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:padding="0dp"
         android:rotation="270"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ckPalina"
-        app:tint="@color/green" />
+        app:tint="@color/bg_sfsred" />
 
     <TextView
         android:id="@+id/txtimagemode"

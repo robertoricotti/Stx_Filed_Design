@@ -1,7 +1,6 @@
 package activity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,15 +26,17 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
+import dialogs.Confirm_Dialog;
 import dialogs.CustomToast;
 import project.PickProjectAdapter;
 import utils.FullscreenActivity;
 
 
 public class UsbActivity extends AppCompatActivity {
+
     PickProjectAdapter adapter;
 
-    ImageView exit, export, inport, readusb;
+    ImageView exit, export, inport, readusb,delete;
 
     RecyclerView recyclerViewIN, recyclerViewOUT,recyclerViewProj;
 
@@ -60,10 +60,17 @@ public class UsbActivity extends AppCompatActivity {
         export = findViewById(R.id.copyToOUT);
         inport = findViewById(R.id.loadFromIN);
         readusb = findViewById(R.id.read);
+        delete=findViewById(R.id.deletSelection);
+        loadFilesToRecyclerView();
 
     }
 
+
     private void onclick() {
+        delete.setOnClickListener(view -> {
+           new Confirm_Dialog(UsbActivity.this,255).show();
+
+        });
         exit.setOnClickListener(view -> {
             startActivity(new Intent(this, MainActivity.class));
             finish();
@@ -97,6 +104,30 @@ public class UsbActivity extends AppCompatActivity {
             exportFilesToUsb();
         });
 
+    }
+    public void confirmDelete(boolean del){
+        if(del) {
+            if (adapter.getSelectedItem() > -1) {
+                String appCsvFolder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Stx Field/Projects/CSV/";
+
+                File appCsvDir = new File(appCsvFolder);
+                Log.d("file selezionato del", appCsvDir + "/" + adapter.getSelectedFilePath());
+                try {
+                    deleteFile(appCsvDir + "/" + adapter.getSelectedFilePath());
+
+
+                } catch (Exception e) {
+                    new CustomToast(UsbActivity.this, "IMPOSSIBLE TO DELETE").show();
+                }
+                adapter.removeItem(adapter.getSelectedItem());
+                adapter.notifyDataSetChanged();
+            } else {
+                new CustomToast(UsbActivity.this, "Select a File to Delete").show();
+            }
+            del=false;
+        }else {
+            adapter.removeItem(-1);
+        }
     }
 
 
@@ -350,6 +381,17 @@ public class UsbActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
+    }
+    public boolean deleteFile(String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            if (file.delete()) {
+                new CustomToast(UsbActivity.this,adapter.getSelectedFilePath()+"\n DELETED").show();
+            } else {
+                new CustomToast(UsbActivity.this,"IMPOSSIBLE TO DELETE").show();
+            }
+        }
+        return false;
     }
 
 

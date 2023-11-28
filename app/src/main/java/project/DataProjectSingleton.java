@@ -3,6 +3,7 @@ package project;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
@@ -21,6 +22,7 @@ import java.util.regex.Pattern;
 import activity.MyApp;
 import coords_calc.CoordsConverter;
 import coords_calc.GPS;
+import dialogs.CustomToast;
 import gnss.My_LocationCalc;
 import services_and_bluetooth.DataSaved;
 import services_and_bluetooth.UpdateValues;
@@ -301,8 +303,10 @@ public class DataProjectSingleton {
     }
 
     public boolean readProject(String path) {
+        Log.d("PATTY_single",path);
+        clearData();
+        new MyRW_IntMem().MyWrite("projectPath", path, MyApp.visibleActivity);
 
-       clearData();
         try {
 
             CSVReader reader = new CSVReader(new FileReader(path));
@@ -311,7 +315,8 @@ public class DataProjectSingleton {
 
             this.projectName = info[0];
             this.epsgCode = info[1];
-            new MyRW_IntMem().MyWrite("projectPath", path, MyApp.visibleActivity);
+
+
             new MyRW_IntMem().MyWrite("_crs", this.epsgCode, MyApp.visibleActivity);
             MyApp.visibleActivity.startService(new Intent(MyApp.visibleActivity, UpdateValues.class));
             String[] row;
@@ -323,6 +328,7 @@ public class DataProjectSingleton {
             return true;
 
         } catch (Exception e) {
+            new CustomToast(MyApp.visibleActivity,"Error Reading File...").show();
             return false;
 
         }

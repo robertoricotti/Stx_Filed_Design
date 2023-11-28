@@ -3,6 +3,8 @@ package project;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,7 @@ public class PickProjectAdapter extends RecyclerView.Adapter<PickProjectAdapter.
     private ArrayList<String> files;
     private int selectedItem = -1;
 
+
     public PickProjectAdapter(ArrayList<String> filesName) {
         files = filesName;
     }
@@ -37,24 +40,30 @@ public class PickProjectAdapter extends RecyclerView.Adapter<PickProjectAdapter.
 
         // Inflate the custom layout
         View contactView = inflater.inflate(R.layout.pick_project_row, parent, false);
-// Return a new holder instance
+        // Return a new holder instance
         ViewHolder viewHolder = new ViewHolder(contactView);
 
         // Aggiungi il codice per il clic lungo qui
+
         viewHolder.nameTextView.setOnLongClickListener((View v) -> {
-            String fileExtension = getFileExtension(files.get(viewHolder.getAdapterPosition()));
 
-            // Verifica se l'estensione del file è diversa da "csv"
-            if (fileExtension != null && !fileExtension.equalsIgnoreCase("csv")) {
-                // Mostra un Toast indicando che la selezione non è consentita
-                new CustomToast(MyApp.visibleActivity,"Invalid File Selected").show();
+            if(String.valueOf(context).contains("activity.UsbActivity")) {
 
-            } else {
-                // Imposta la selezione solo se l'estensione è "csv"
                 selectedItem = viewHolder.getAdapterPosition();
                 notifyDataSetChanged();
-            }
+                Log.d("file selezionato", String.valueOf(selectedItem));
 
+            }else {
+                String fileExtension = getFileExtension(files.get(viewHolder.getAdapterPosition()));
+
+                if (fileExtension != null && (fileExtension.equals("csv") || fileExtension.equals("dxf") || fileExtension.equals("txt") || fileExtension.equals("xls") || fileExtension.equals("xlsx"))) {
+                    selectedItem = viewHolder.getAdapterPosition();
+                    notifyDataSetChanged();
+
+                } else {
+                    new CustomToast(MyApp.visibleActivity, "Invalid File Selected").show();
+                }
+            }
             return true;
         });
 
@@ -87,6 +96,7 @@ public class PickProjectAdapter extends RecyclerView.Adapter<PickProjectAdapter.
                 case "dxf":
                 case "xml":
                 case "landxml":
+                case "dwg":
                     imageView.setImageResource(R.drawable.generic_file);
                     imageView.setImageTintList(ContextCompat.getColorStateList(MyApp.visibleActivity, R.color.red));
                     break;
@@ -97,7 +107,7 @@ public class PickProjectAdapter extends RecyclerView.Adapter<PickProjectAdapter.
                 default:
                     // Imposta un'immagine di default o lasciala vuota
                     imageView.setImageResource(R.drawable.img_folder_96);
-                    imageView.setImageTintList(ContextCompat.getColorStateList(MyApp.visibleActivity, R.color.orange));
+                    imageView.setImageTintList(ContextCompat.getColorStateList(MyApp.visibleActivity, R.color.pure_green));
                     break;
             }
         }
@@ -148,6 +158,23 @@ public class PickProjectAdapter extends RecyclerView.Adapter<PickProjectAdapter.
         }
 
     }
+    public String getSelectedFilePath() {
+        if (selectedItem != RecyclerView.NO_POSITION) {
+            return files.get(selectedItem);
+        }
+        return null;
+    }
+    public void removeItem(int position) {
+        if(position>-1) {
+            files.remove(position);
+            selectedItem = -1;
+            notifyItemRemoved(position);
+        }else {
+            selectedItem=-1;
+            notifyItemRemoved(position);
+        }
+    }
+
 
 }
 

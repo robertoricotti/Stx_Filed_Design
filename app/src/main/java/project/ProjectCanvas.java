@@ -57,15 +57,10 @@ public class ProjectCanvas extends View {
         canvas.scale(dataProject.getmScaleFactor(), dataProject.getmScaleFactor(), half_width, half_height);
         canvas.translate(dataProject.getOffsetX(), dataProject.offsetY);
 
-        // paint.setColor(Color.BLACK);
-        // canvas.drawCircle(half_width, half_height, 10 / dataProject.getmScaleFactor(), paint);
 
         size = 50;
-        if (DataSaved.imgMode == 0) {
-            drawPalina();
-        } else {
-            drawNavigator();
-        }
+
+
 
 
         double myLat = Nmea_In.mLat_1;
@@ -190,15 +185,20 @@ public class ProjectCanvas extends View {
         paint.setColor(Color.YELLOW);
         paint.setStrokeWidth(9f);
         canvas.drawLine((float) coordinates[0].x, (float) coordinates[0].y, (float) coordinates[1].x, (float) coordinates[1].y, paint);
-
-
+       //  paint.setColor(Color.BLACK);
+       // canvas.drawCircle(half_width, half_height, 10 / dataProject.getmScaleFactor(), paint);
+        if (DataSaved.imgMode == 0) {
+            drawPalina();
+        } else {
+            drawNavigator();
+        }
         canvas.restore();
     }
 
     private void drawPalina() {
-        float size=30;
+        float size=40;
         if (dataProject.mScaleFactor > 1) {
-            size = 30;
+            size = 40;
         } else {
             size = size / dataProject.mScaleFactor;
         }
@@ -207,18 +207,18 @@ public class ProjectCanvas extends View {
         paint.setStyle(Paint.Style.STROKE);
         RectF rover1 = new RectF(half_width - size, half_height - size, half_width + size, half_height + size);
         canvas.drawArc(rover1, 0, 360, true, paint);
-        paint.setColor(getResources().getColor(R.color.green));
+        paint.setColor(getResources().getColor(R.color.bg_sfsred));
         paint.setStyle(Paint.Style.FILL);
         RectF rover = new RectF(half_width - size, half_height - size, half_width + size, half_height + size);
         canvas.drawArc(rover, 0, 360, true, paint);
 
-        paint.setColor(Color.WHITE);
+        paint.setColor(Color.parseColor("#A0FFFFFF"));
         rover = new RectF(half_width - (size / 2f), half_height - (size / 2f), half_width + (size / 2f), half_height + (size / 2f));
         canvas.drawArc(rover, 0, 360, true, paint);
 
         paint.setColor(Color.BLUE);
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(2 / dataProject.getmScaleFactor());
+        paint.setStrokeWidth(3 / dataProject.getmScaleFactor());
         RectF rectF = new RectF(half_width - dataProject.getRadius(), half_height - dataProject.getRadius(), half_width + dataProject.getRadius(), half_height + dataProject.getRadius());
         canvas.drawArc(rectF, 0, 360, true, paint);
 
@@ -227,12 +227,11 @@ public class ProjectCanvas extends View {
     }
 
     private void drawNavigator() {
-        // Disegna il triangolo
         float centerX = getWidth() / 2f;
         float centerY = getHeight() / 2f;
-        float triangleSize = 50; //
+        float triangleSize = 100; //
         if (dataProject.mScaleFactor > 1) {
-            triangleSize = 50;
+            triangleSize = 100;
         } else {
             triangleSize = triangleSize / dataProject.mScaleFactor;
         }
@@ -254,7 +253,7 @@ public class ProjectCanvas extends View {
         trianglePath1.close();
         canvas.drawPath(trianglePath1, paint);
 
-        paint.setColor(getResources().getColor(R.color.green));
+        paint.setColor(getResources().getColor(R.color.bg_sfsred));
         paint.setStyle(Paint.Style.FILL);
 
         trianglePath1.moveTo(x1, y1);

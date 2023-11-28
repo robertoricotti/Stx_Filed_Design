@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Environment;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -26,6 +27,7 @@ import activity.MainActivity;
 
 import project.DataProjectSingleton;
 import project.LoadProject;
+import project.MenuProject;
 import project.PickProjectAdapter;
 
 import utils.FullscreenActivity;
@@ -95,12 +97,16 @@ public class PickProjectDialog {
 
                 dataProject.readProject(path);
 
-                if(!(activity instanceof LoadProject)){
+
+                if((activity instanceof MenuProject)){
 
                     activity.startActivity(new Intent(activity, MainActivity.class));
 
                     activity.finish();
                 }
+
+
+
                 dialog.dismiss();
 
             }

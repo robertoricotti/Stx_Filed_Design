@@ -8,23 +8,24 @@
     android:keepScreenOn="true"
     tools:context="activity.UsbActivity">
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/h1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.08"/>
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/v_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6"/>
+        app:layout_constraintGuide_percent="0.68"/>
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/v_mid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3"/>
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/v_low"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.92"/>
+        app:layout_constraintGuide_percent="0.38"/>
+
     <TextView
         android:id="@+id/txt1"
         android:layout_width="match_parent"
@@ -32,7 +33,7 @@
         android:gravity="center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/h1"
         android:background="@color/_____cancel_text"
         android:textColor="@color/white"
         android:textSize="18sp"
@@ -89,15 +90,15 @@
         app:layout_constraintVertical_bias="0.8"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/linearLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txt3"/>
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/colorStonexBlue"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/v_low">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/h1">
         <ImageView
             android:id="@+id/back"
             android:layout_width="wrap_content"
@@ -133,6 +134,14 @@
             android:layout_weight="1"
             android:paddingVertical="5dp"
             android:src="@drawable/btn_copy_to_usb"
+            app:tint="@color/_____cancel_text" />
+        <ImageView
+            android:id="@+id/deletSelection"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingVertical="5dp"
+            android:src="@drawable/btn_delete"
             app:tint="@color/_____cancel_text" />
 
     </LinearLayout>

@@ -84,7 +84,7 @@ public class AutoConnectionService extends Service {
         nmeaMessageListener = new OnNmeaMessageListener() {
             @Override
             public void onNmeaMessage(String message, long timestamp) {
-                Log.d("NMEA", message);
+
                 androidNmea = message;
                 // Ora puoi gestire la stringa NMEA come necessario
             }
@@ -113,7 +113,7 @@ public class AutoConnectionService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         mExecutor.execute(new MyAsync_Excecutor());
-        Log.d("AUTOCONNECTION", "AUTOCONNECTION STARTED");
+
 
         return START_STICKY;
     }
@@ -172,7 +172,7 @@ public class AutoConnectionService extends Service {
                         try {
                             if (!DataSaved.S_macAddres.equals("00:00:00:00:00:00")) {
                                 startService(new Intent(AutoConnectionService.this, Bluetooth_GNSS_Service.class));
-                                Log.d("BT SERVICE", "PROVO A CONNETTERMI AL GPS");
+
                             }
                         } catch (Exception e) {
                             //do nothing
@@ -188,7 +188,7 @@ public class AutoConnectionService extends Service {
                         try {
                             if (!DataSaved.S_macAddress_CAN.equals("00:00:00:00:00:00")) {
                                 startService(new Intent(AutoConnectionService.this, Bluetooth_CAN_Service.class));
-                                Log.d("BT SERVICE", "PROVO A CONNETTERMI AL CAN");
+
                             }
                         } catch (
                                 Exception e) {
@@ -199,8 +199,6 @@ public class AutoConnectionService extends Service {
                     if (Bluetooth_CAN_Service.canIsConnected) {
                         countCan = 0;
                     }
-
-                    Log.d("AUTOCONNECTION", "CountG: " + countG + "  CountCan: " + countCan);
 
                 }
             };

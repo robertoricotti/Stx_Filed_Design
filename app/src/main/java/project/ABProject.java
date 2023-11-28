@@ -1,15 +1,22 @@
 package project;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,12 +43,16 @@ import utils.MyRW_IntMem;
 import utils.Utils;
 
 public class ABProject extends AppCompatActivity {
+    private boolean zommaIn = false;
+    private boolean zommaOut = false;
+    public ProgressBar progressBar;
+    private static int passCode = -1;
     private boolean showCoord = false;
     TextView txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk;
-    ImageView imgConnect, calc1, calc2, calc3, calc4, calc5, calc7, calc6;
+    ImageView imgConnect;
     EditText et_zb, et_dst, et_slope, et_ltdst, et_ltslope, et_rtdst, et_rtslope;
     ConstraintLayout container_draw;
-    ImageView back, pick, save;
+    public ImageView back, pick, save, calcola;
 
     ImageButton center, zoomIn, zoomOut;
     ImageButton clear;
@@ -88,13 +99,7 @@ public class ABProject extends AppCompatActivity {
         txtAltezzaAnt = findViewById(R.id.txt_speed);
         txtRtk = findViewById(R.id.txt_rtk);
         imgConnect = findViewById(R.id.img_connetti);
-        calc1 = findViewById(R.id.btn_zb);
-        calc2 = findViewById(R.id.btn_dst);
-        calc3 = findViewById(R.id.btn_slope);
-        calc4 = findViewById(R.id.btn_ltdst);
-        calc5 = findViewById(R.id.btn_ltslope);
-        calc6 = findViewById(R.id.btn_rtdst);
-        calc7 = findViewById(R.id.btn_rtslope);
+
         et_zb = findViewById(R.id.et_zb);
         et_dst = findViewById(R.id.et_dst);
         et_slope = findViewById(R.id.et_slope);
@@ -102,11 +107,15 @@ public class ABProject extends AppCompatActivity {
         et_ltslope = findViewById(R.id.et_ltslope);
         et_rtdst = findViewById(R.id.et_rtdst);
         et_rtslope = findViewById(R.id.et_rtslope);
+        calcola = findViewById(R.id.calcola);
+        progressBar = findViewById(R.id.progressBar);
+
 
     }
 
     private void init() {
         save.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
         dataProject = DataProjectSingleton.getInstance();
         myEpsgDialog = new MyEpsgDialog(this);
         saveFileDialog = new SaveFileDialog(this);
@@ -116,52 +125,102 @@ public class ABProject extends AppCompatActivity {
         dataProject.mScaleFactor = Float.parseFloat(new MyRW_IntMem().MyRead("zoomF", this));
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void onClick() {
-        calc1.setOnClickListener(view -> {
-            new Confirm_Dialog(this,1).show();
+        calcola.setOnClickListener(view -> {
+            new Confirm_Dialog(ABProject.this, -1).show();
+
         });
-        calc2.setOnClickListener(view -> {
-            new Confirm_Dialog(this,2).show();
+        et_zb.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                passCode = 1;
+                InputMethodManager inputManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                calcZ();
+                return true;
+            }
+            return false;
         });
-        calc3.setOnClickListener(view -> {
-            new Confirm_Dialog(this,3).show();
+        et_dst.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                passCode = 2;
+                InputMethodManager inputManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                calc2();
+                return true;
+            }
+            return false;
         });
-        calc4.setOnClickListener(view -> {
-            new Confirm_Dialog(this,4).show();
+        et_slope.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                passCode = 3;
+                InputMethodManager inputManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                calc3();
+                return true;
+            }
+            return false;
         });
-        calc5.setOnClickListener(view -> {
-            new Confirm_Dialog(this,5).show();
+        et_ltdst.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                passCode = 4;
+                InputMethodManager inputManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                calc4();
+                return true;
+            }
+            return false;
         });
-        calc6.setOnClickListener(view -> {
-            new Confirm_Dialog(this,6).show();
+        et_ltslope.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                passCode = 5;
+                InputMethodManager inputManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                calc5();
+                return true;
+            }
+            return false;
         });
-        calc7.setOnClickListener(view -> {
-            new Confirm_Dialog(this,7).show();
+        et_rtdst.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                passCode = 6;
+                InputMethodManager inputManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                calc6();
+                return true;
+            }
+            return false;
         });
+        et_rtslope.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                passCode = 7;
+                InputMethodManager inputManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                calc7();
+                return true;
+            }
+            return false;
+        });
+
+
         imgConnect.setOnClickListener(view -> {
-            new ConnectDialog(this,1).show();
+            new ConnectDialog(this, 1).show();
 
         });
         textCoord.setOnClickListener(view -> {
             showCoord = !showCoord;
         });
         back.setOnClickListener((View v) -> {
+            new MyRW_IntMem().MyWrite("zoomF", String.valueOf(dataProject.mScaleFactor), this);
             startActivity(new Intent(this, MenuProject.class));
 
             finish();
         });
 
         save.setOnClickListener((View v) -> {
-            new MyRW_IntMem().MyWrite("zoomF", String.valueOf(dataProject.mScaleFactor),this);
 
             if (dataProject.getSize() == 4 || dataProject.getSize() == 6) {
-                calcZ();
-                calc2();
-                calc3();
-                calc4();
-                calc5();
-                calc6();
-                calc7();
+
                 if (!saveFileDialog.dialog.isShowing())
                     saveFileDialog.show();
             } else {
@@ -267,21 +326,28 @@ public class ABProject extends AppCompatActivity {
         center.setOnClickListener((View v) -> {
             dataProject.setOffsetX(0);
             dataProject.setOffsetY(0);
-           // dataProject.setmScaleFactor(0.5f);
             canvas.invalidate();
         });
-
-        zoomIn.setOnClickListener((View v) -> {
-            dataProject.mScaleFactor += 0.05f;
-            canvas.invalidate();
-        });
-
-        zoomOut.setOnClickListener((View v) -> {
-            if (dataProject.mScaleFactor > 0.05f) {
-                dataProject.mScaleFactor -= 0.05f;
-                canvas.invalidate();
+        zoomIn.setOnTouchListener((view, motionEvent) -> {
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                zommaIn = true;
             }
+            if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                zommaIn = false;
+            }
+            return true;
         });
+        zoomOut.setOnTouchListener((view, motionEvent) -> {
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                zommaOut = true;
+            }
+            if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                zommaOut = false;
+            }
+            return true;
+        });
+
+
 
         textCoord.setOnClickListener((View v) -> {
             showCoord = !showCoord;
@@ -293,13 +359,23 @@ public class ABProject extends AppCompatActivity {
     private void updateUI() {
         handler = new Handler();
         updateRunnable = () -> {
-            if (pickIndex >= 2) {
-                pick.setVisibility(View.INVISIBLE);
-                save.setVisibility(View.VISIBLE);
-            } else {
-                pick.setVisibility(View.VISIBLE);
-            }
+            Log.d("ZOMMA", String.valueOf(dataProject.mScaleFactor));
+            if (zommaOut) {
+                zommaIn = false;
+                if (dataProject.mScaleFactor > 0.04f) {
+                    dataProject.mScaleFactor -= 0.01f;
 
+                }
+            }
+            if (zommaIn) {
+                zommaOut = false;
+                dataProject.mScaleFactor += 0.01f;
+
+            }
+            if (pickIndex < 2) {
+                pick.setVisibility(View.VISIBLE);
+                save.setVisibility(View.INVISIBLE);
+            }
             crs.setText(dataProject.getEpsgCode() != null ? dataProject.getEpsgCode() : DataSaved.S_CRS);
 
 
@@ -322,7 +398,7 @@ public class ABProject extends AppCompatActivity {
     }
 
 
-    public  void calcZ() {
+    public void calcZ() {
         String s = "0";
         double d = 0;
         if (!(et_zb.getText().toString() == null) && !et_zb.getText().toString().equals("")) {
@@ -524,7 +600,6 @@ public class ABProject extends AppCompatActivity {
         }
         if (Bluetooth_GNSS_Service.gpsIsConnected) {
             imgConnect.setImageResource(R.drawable.btn_positionpage);
-
 
 
             txtSat.setText("\t" + Nmea_In.ggaSat);
