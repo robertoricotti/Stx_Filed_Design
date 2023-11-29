@@ -19,12 +19,10 @@ import can.Can_Decoder;
 import gnss.My_LocationCalc;
 import gnss.Nmea_In;
 import project.DataProjectSingleton;
-import project.MenuProject;
 import dialogs.CloseAppDialog;
 import dialogs.ConnectDialog;
 import dialogs.CustomToast;
 import dialogs.DialogOffset;
-import project.LoadProject;
 import services_and_bluetooth.Bluetooth_CAN_Service;
 import services_and_bluetooth.Bluetooth_GNSS_Service;
 import services_and_bluetooth.DataSaved;
@@ -298,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
         DataProjectSingleton.getInstance().readProject(path);
 
         if (dataProject.readProject(path)) {
-            startActivity(new Intent(MainActivity.this, LoadProject.class));
+            startActivity(new Intent(MainActivity.this, AB_WorkActivity.class));
             finish();
         }
     }

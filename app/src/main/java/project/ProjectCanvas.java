@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PointF;
 import android.graphics.RectF;
 import android.location.Location;
 import android.view.MotionEvent;
@@ -23,6 +22,7 @@ import org.locationtech.jts.triangulate.quadedge.QuadEdgeSubdivision;
 import java.util.ArrayList;
 import java.util.Map;
 
+import activity.AB_WorkActivity;
 import coords_calc.GPS;
 import gnss.Nmea_In;
 import services_and_bluetooth.DataSaved;
@@ -95,7 +95,7 @@ public class ProjectCanvas extends View {
             Location.distanceBetween(myLat, myLong, pointLat, pointLong, result);
             meters = result[0] * dataProject.getScale();
             double resultAngolo = 0;
-            if (LoadProject.auto) {
+            if (AB_WorkActivity.auto) {
                 resultAngolo = result[1] - (Nmea_In.tractorBearing);
                 resultAngolo = resultAngolo - 90;
             } else {
@@ -173,7 +173,7 @@ public class ProjectCanvas extends View {
         }
 
         if (indexLine != -1) {
-            paint.setColor(Color.BLUE);
+            paint.setColor(Color.RED);
             canvas.drawLine(half_width, half_height, (float) coordinates[indexLine].x, (float) coordinates[indexLine].y, paint);
 
             paint.setColor(Color.GREEN);

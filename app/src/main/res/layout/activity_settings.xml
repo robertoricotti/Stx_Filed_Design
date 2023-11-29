@@ -338,7 +338,7 @@
             android:paddingVertical="10dp"
             android:rotation="0"
             android:src="@drawable/btn_to_antennameasurei"
-            app:tint="@color/white" />
+            app:tint="@color/_____cancel_text" />
 
         <ImageView
 
@@ -356,7 +356,7 @@
             android:layout_weight="1"
             android:paddingVertical="10dp"
             android:src="@drawable/btn_save"
-            app:tint="@color/white" />
+            app:tint="@color/_____cancel_text" />
 
 
     </LinearLayout>
@@ -383,19 +383,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/sat_24"
-                app:tint="@color/white" />
+                app:tint="@color/_____cancel_text" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/gps_fixed_24"
-                app:tint="@color/white" />
+                app:tint="@color/_____cancel_text" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/location_on_24"
-                app:tint="@color/white" />
+                app:tint="@color/_____cancel_text" />
         </LinearLayout>
 
         <LinearLayout
@@ -413,7 +413,7 @@
                 android:ems="10"
                 android:gravity="center|left"
                 android:text="\t24"
-                android:textColor="@color/white"
+                android:textColor="@color/_____cancel_text"
                 android:textStyle="bold" />
 
             <TextView
@@ -423,7 +423,7 @@
                 android:ems="10"
                 android:gravity="center|left"
                 android:text="\tFix"
-                android:textColor="@color/white"
+                android:textColor="@color/_____cancel_text"
                 android:textStyle="bold" />
 
             <TextView
@@ -433,7 +433,7 @@
                 android:ems="10"
                 android:gravity="center|left"
                 android:text="\tH: 0.005\t\tV:0.025"
-                android:textColor="@color/white"
+                android:textColor="@color/_____cancel_text"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -450,20 +450,20 @@
                 android:layout_height="wrap_content"
                 android:rotationX="180"
                 android:src="@drawable/baseline_360"
-                app:tint="@color/white" />
+                app:tint="@color/_____cancel_text" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:rotation="270"
                 android:src="@drawable/arrow_right_alt_24"
-                app:tint="@color/white" />
+                app:tint="@color/_____cancel_text" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/rtk_24"
-                app:tint="@color/white" />
+                app:tint="@color/_____cancel_text" />
 
 
         </LinearLayout>
@@ -482,7 +482,7 @@
                 android:ems="5"
                 android:gravity="center|left"
                 android:text="\t000.00°"
-                android:textColor="@color/white"
+                android:textColor="@color/_____cancel_text"
                 android:textStyle="bold" />
 
             <TextView
@@ -492,7 +492,7 @@
                 android:ems="5"
                 android:gravity="center|left"
                 android:text="\t1.0 m"
-                android:textColor="@color/white"
+                android:textColor="@color/_____cancel_text"
                 android:textStyle="bold" />
 
             <TextView
@@ -502,7 +502,7 @@
                 android:ems="5"
                 android:gravity="center|left"
                 android:text="\t000.00 s"
-                android:textColor="@color/white"
+                android:textColor="@color/_____cancel_text"
                 android:textStyle="bold" />
         </LinearLayout>
 

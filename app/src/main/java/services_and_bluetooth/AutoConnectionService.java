@@ -1,6 +1,6 @@
 package services_and_bluetooth;
 
-import static project.LoadProject.page;
+import static activity.AB_WorkActivity.page;
 
 import android.app.Service;
 import android.content.Context;
@@ -86,6 +86,7 @@ public class AutoConnectionService extends Service {
             public void onNmeaMessage(String message, long timestamp) {
 
                 androidNmea = message;
+                Log.d("TEABLET_NMEA",androidNmea);
                 // Ora puoi gestire la stringa NMEA come necessario
             }
         };

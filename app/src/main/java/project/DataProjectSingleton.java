@@ -343,7 +343,11 @@ public class DataProjectSingleton {
 
             CSVWriter writer = new CSVWriter(new FileWriter(f));
 
-            String[] info = {fileName, epsgCode, String.valueOf(getSize())};
+            String[] info = {fileName, epsgCode, String.valueOf(getSize())};//TAG in last pos
+            //PLAN "P"
+            //AB "P"
+            //TRIANGLES "PE"  "P"
+            //PATH  "PL" "P"
 
             writer.writeNext(info);
 

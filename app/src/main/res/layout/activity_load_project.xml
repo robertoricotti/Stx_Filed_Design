@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true"
-    tools:context="project.LoadProject">
+    tools:context="project.AB_WorkActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/H_top_10"

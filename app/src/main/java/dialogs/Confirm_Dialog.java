@@ -12,7 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.example.stx_field_design.R;
 
 import activity.UsbActivity;
-import project.ABProject;
+import activity.ABProject;
 import utils.FullscreenActivity;
 
 public class Confirm_Dialog {

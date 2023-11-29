@@ -59,19 +59,15 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
-            android:name="project.DelaunayProject"
+            android:name="activity.AB_WorkActivity"
             android:autoRemoveFromRecents="true"
+            android:configChanges="orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <activity
-            android:name="project.PlaneProject"
-            android:autoRemoveFromRecents="true"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name="project.ABProject"
+            android:name="activity.ABProject"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
@@ -83,18 +79,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="project.MenuProject"
+            android:name="activity.MenuProject"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name="project.LoadProject"
-            android:autoRemoveFromRecents="true"
-            android:configChanges="orientation|screenSize"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <activity
             android:name="activity.AntennaMeasure"
             android:autoRemoveFromRecents="true"

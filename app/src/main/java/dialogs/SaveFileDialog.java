@@ -20,9 +20,8 @@ import java.io.File;
 import java.util.Date;
 import java.util.Locale;
 
-import project.ABProject;
 import project.DataProjectSingleton;
-import project.MenuProject;
+import activity.MenuProject;
 import utils.FullscreenActivity;
 
 public class SaveFileDialog {

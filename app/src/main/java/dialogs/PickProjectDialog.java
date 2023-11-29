@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Environment;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -26,8 +25,7 @@ import java.util.Comparator;
 import activity.MainActivity;
 
 import project.DataProjectSingleton;
-import project.LoadProject;
-import project.MenuProject;
+import activity.MenuProject;
 import project.PickProjectAdapter;
 
 import utils.FullscreenActivity;
