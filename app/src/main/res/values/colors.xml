@@ -86,7 +86,7 @@
     <color name="colorStonexBlueLight2">#FF3395D9</color>
     <color name="colorStonexBlueLight1">#FF2385C9</color>
     <!--color name="colorStonexBlue">#FF1375B9</color-->
-    <color name="colorStonexBlue">#FF9800</color> <!-- RS 22/07/2021: Blue Stonex from marketing office-->
+    <color name="colorStonexBlue">#FFFCBA00</color> <!-- RS 22/07/2021: Blue Stonex from marketing office-->
     <color name="colorStonexBlueDark1">#FF0365A9</color>
     <color name="colorStonexBlueDark2">#FF035599</color>
     <color name="colorStonexBlueDark3">#FF034589</color>

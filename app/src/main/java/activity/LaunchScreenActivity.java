@@ -99,6 +99,7 @@ public class LaunchScreenActivity extends AppCompatActivity {
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_NETWORK_STATE,
 
+
             };
 
         }

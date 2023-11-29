@@ -109,7 +109,6 @@ public class UsbActivity extends AppCompatActivity {
         if(del) {
             if (adapter.getSelectedItem() > -1) {
                 String appCsvFolder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Stx Field/Projects/CSV/";
-
                 File appCsvDir = new File(appCsvFolder);
                 Log.d("file selezionato del", appCsvDir + "/" + adapter.getSelectedFilePath());
                 try {
@@ -362,9 +361,11 @@ public class UsbActivity extends AppCompatActivity {
         }
     }
 
+
     // Metodo per copiare il contenuto di un file in un altro file
     private void copyFile(File source, File destination) throws IOException {
-        try (FileChannel sourceChannel = new FileInputStream(source).getChannel();
+
+       try (FileChannel sourceChannel = new FileInputStream(source).getChannel();
              FileChannel destinationChannel = new FileOutputStream(destination).getChannel()) {
             destinationChannel.transferFrom(sourceChannel, 0, sourceChannel.size());
             destinationChannel.force(true);  // Flush dei dati

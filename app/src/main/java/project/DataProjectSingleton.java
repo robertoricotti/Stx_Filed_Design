@@ -303,7 +303,7 @@ public class DataProjectSingleton {
     }
 
     public boolean readProject(String path) {
-        Log.d("PATTY_single",path);
+
         clearData();
         new MyRW_IntMem().MyWrite("projectPath", path, MyApp.visibleActivity);
 

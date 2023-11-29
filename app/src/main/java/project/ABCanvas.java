@@ -80,9 +80,9 @@ public class ABCanvas extends View {
             B_coord=new float[]{half_width, half_height - (float)(distance / 2f)};
             canvas.drawCircle(B_coord[0],B_coord[1],sizedot, paint);
             paint.setColor(Color.BLACK);
-            paint.setTextSize(50);
-            canvas.drawText("A", half_width, half_height + (float)(distance / 2f) + 75, paint);
-            canvas.drawText("B", half_width, half_height - (float)(distance / 2f) - 35, paint);
+            paint.setTextSize(50/dataProject.mScaleFactor);
+            canvas.drawText("A", half_width+50, half_height + (float)(distance / 2f) + 350, paint);
+            canvas.drawText("B", half_width+50, half_height - (float)(distance / 2f) - 150, paint);
         }
 
 
@@ -106,10 +106,10 @@ public class ABCanvas extends View {
             canvas.drawCircle(F_coord[0], F_coord[1], sizedot, paint);
 
             paint.setColor(Color.BLACK);
-            canvas.drawText("C", C_coord[0]+25f, C_coord[1] - 25f, paint);
-            canvas.drawText("D", D_coord[0]+25f, D_coord[1] + 25f, paint);
-            canvas.drawText("E", E_coord[0]-25f, E_coord[1] - 25f, paint);
-            canvas.drawText("F", F_coord[0]-25f, F_coord[1] + 25f, paint);
+            canvas.drawText("C", C_coord[0]+50f, C_coord[1] - 150f, paint);
+            canvas.drawText("D", D_coord[0]+50f, D_coord[1] + 350f, paint);
+            canvas.drawText("E", E_coord[0]-250f, E_coord[1] - 150f, paint);
+            canvas.drawText("F", F_coord[0]-250f, F_coord[1] + 350f, paint);
 
 
 
