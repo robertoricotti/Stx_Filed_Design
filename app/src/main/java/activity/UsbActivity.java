@@ -3,6 +3,7 @@ package activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.storage.StorageManager;
@@ -129,24 +130,39 @@ public class UsbActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("NewApi")
     private String getUsbFolderPath() {
         StorageManager storageManager = (StorageManager) getSystemService(Context.STORAGE_SERVICE);
 
         if (storageManager != null) {
-            List<StorageVolume> storageVolumes = storageManager.getStorageVolumes();
-            for (StorageVolume storageVolume : storageVolumes) {
-                // Verifica se il volume è montato e se è rimovibile (USB, SD, ecc.)
-                if (Environment.MEDIA_MOUNTED.equals(storageVolume.getState()) && storageVolume.isRemovable()) {
-                    // Ottieni il percorso del volume
-                    @SuppressLint({"NewApi", "LocalSuppress"}) File storageFile = storageVolume.getDirectory();
-                    // Restituisci il percorso della cartella "IN" sulla USB stick
-                    return new File(storageFile.getPath()).toString();
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    // Utilizza il nuovo metodo getDirectory() disponibile da Android 11 in poi
+                    List<StorageVolume> storageVolumes = storageManager.getStorageVolumes();
+                    for (StorageVolume storageVolume : storageVolumes) {
+                        if (Environment.MEDIA_MOUNTED.equals(storageVolume.getState()) && storageVolume.isRemovable()) {
+                            File directory = storageVolume.getDirectory();
+                            if (directory != null) {
+                                return directory.getAbsolutePath();
+                            } else {
+                                new CustomToast(UsbActivity.this,"No USB Found").show();
+                                return null;
+                            }
+                        }
+                    }
+                } else {
+                    // Utilizza il metodo deprecato getExternalStorageDirectory() su versioni precedenti
+                    File externalStorageDirectory = Environment.getExternalStorageDirectory();
+                    return externalStorageDirectory.getAbsolutePath();
                 }
+            } catch (NoSuchMethodError e) {
+                // Gestisci l'eccezione NoSuchMethodError
+                e.printStackTrace();
             }
         }
 
+        // Gestisci il caso in cui non è possibile ottenere il percorso della memoria USB
         return null;
-
     }
 
     private void readFromUSB_IN(String usbFolderPath) {

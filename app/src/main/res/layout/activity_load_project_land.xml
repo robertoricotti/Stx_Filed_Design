@@ -29,7 +29,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.89" />
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/H_94"
+        android:id="@+id/H_91"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -76,7 +76,7 @@
         android:layout_height="0dp"
         android:background="@color/colorStonexBlue"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/H_94">
+        app:layout_constraintTop_toBottomOf="@id/H_91">
 
         <ImageView
             android:id="@+id/btn_exit"
@@ -483,7 +483,7 @@
         android:textColor="@color/black"
         android:textSize="16dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/H_94"
+        app:layout_constraintBottom_toTopOf="@id/H_91"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

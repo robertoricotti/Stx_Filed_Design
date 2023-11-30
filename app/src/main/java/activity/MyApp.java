@@ -7,29 +7,21 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.icu.text.DecimalFormat;
 import android.icu.text.DecimalFormatSymbols;
-import android.icu.text.NumberFormat;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 
 import com.example.stx_field_design.R;
 
-import java.math.RoundingMode;
 import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -73,154 +65,33 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
 
         switch (activity.toString().substring(0, (activity.toString().indexOf("@")))) {
-            case "activity.UOM_Activity":
-                activity.setContentView(R.layout.activity_uom);//setta il layout di riferimento dell'activity
-                whoLaunch = activity;
-                updateUI(whoLaunch, true);
-                btn1.setImageResource(R.drawable.btn_to_indietro);
-                btn2.setVisibility(View.INVISIBLE);
-                btn3.setVisibility(View.INVISIBLE);
-                btn4.setVisibility(View.INVISIBLE);
-                btn5.setVisibility(View.INVISIBLE);
-                btn1.setOnClickListener(view -> {
-                    activity.startActivity(new Intent(activity, MainActivity.class));//gestisce gli eventi
-                    activity.finish();
-                });
-                break;
-
             case "activity.MainActivity":
-                activity.setContentView(R.layout.activity_main);//setta il layout di riferimento dell'activity
-                whoLaunch = activity;
-                updateUI(whoLaunch, true);
-
-                btn2.setVisibility(View.INVISIBLE);
-                btn3.setVisibility(View.INVISIBLE);
-                btn4.setVisibility(View.INVISIBLE);
-                btn1.setImageResource(R.drawable.btn_poweroff);
-                btn5.setImageResource(R.drawable.btn_ecu_connect);
-
-
-                btn1.setOnClickListener(view -> {
-                    new CloseAppDialog(activity).show();
-                });
-                btn5.setOnClickListener(view -> {
-                    new ConnectDialog(activity, 2).show();
-                });
+                m_MainActivity(activity);//method to manage components in activity...see below
+                break;
+            case "activity.UOM_Activity":
+                m_UOM_Activity(activity);
                 break;
             case "activity.ABProject":
-                activity.setContentView(R.layout.ab_project);
-                whoLaunch = activity;
-                updateUI(whoLaunch, true);
-                btn1.setImageResource(R.drawable.btn_to_indietro);
-                btn2.setImageResource(R.drawable.btn_selectfakepos);
-                btn3.setImageResource(R.drawable.btn_calcola);
-                btn4.setImageResource(R.drawable.btn_save);
-                btn5.setVisibility(View.GONE);
-                btn1.setOnClickListener(view -> {
-                    ((ABProject)activity).metodoBack();
-                    activity.startActivity(new Intent(activity, MenuProject.class));
-                    activity.finish();
-                });
-                btn2.setOnClickListener(view -> {
-                    ((ABProject) activity).metodoPick();
-                });
-                btn3.setOnClickListener(view -> {
-                    ((ABProject) activity).metodoCalcola();
-                });
-                btn4.setOnClickListener(view -> {
-                    ((ABProject) activity).metodoSave();
-                });
-
+                m_ABProject(activity);
                 break;
             case "activity.AntennaMeasure":
-                activity.setContentView(R.layout.activity_antenna_measure);
-                whoLaunch = activity;
+                m_AntennaMeasure(activity);
                 break;
             case "activity.BT_DevicesActivity":
-                activity.setContentView(R.layout.activity_bt_devices);
-                whoLaunch = activity;
-                updateUI(whoLaunch, true);
-                btn1.setImageResource(R.drawable.btn_to_indietro);
-                btn2.setVisibility(View.INVISIBLE);
-                btn3.setVisibility(View.INVISIBLE);
-                btn4.setVisibility(View.INVISIBLE);
-                btn5.setVisibility(View.INVISIBLE);
-                btn1.setOnClickListener(view -> {
-                    activity.startActivity(new Intent(activity, MainActivity.class));
-                    activity.finish();
-                });
+                m_BT_DevicesActivity(activity);
                 break;
-            case "activity.ExcavatorMeasureXYZ":
-                activity.setContentView(R.layout.activity_excavator_measure_xyz);
-                whoLaunch = activity;
-                break;
-            case "activity.FilesActivity":
-                activity.setContentView(R.layout.activity_files);
-                whoLaunch = activity;
-                break;
+
             case "activity.MchMeaureActivity":
-                activity.setContentView(R.layout.activity_mch_meaure);
-                whoLaunch = activity;
+                m_MchMeasureActivity(activity);
                 break;
             case "activity.AB_WorkActivity":
-                activity.setContentView(R.layout.activity_load_project);
-                whoLaunch = activity;
-                updateUI(whoLaunch, true);
-                btn5.setVisibility(View.GONE);
-                btn1.setImageResource(R.drawable.btn_to_indietro);
-                btn2.setImageResource(R.drawable.btn_coordinate_list);
-                btn3.setImageResource(R.drawable.btn_infoapp);
-                btn4.setImageResource(R.drawable.btn_ecu_connect);
-                btn1.setOnClickListener(view -> {
-                    ((AB_WorkActivity) activity).metodoBack();
-                    activity.startActivity(new Intent(activity, MainActivity.class));
-                    activity.finish();
-                });
-                btn2.setOnClickListener(view -> {
-                    ((AB_WorkActivity) activity).metodoLineId();
-                });
-                btn3.setOnClickListener(view -> {
-                    ((AB_WorkActivity) activity).metodoOpenList();
-                });
-                btn4.setOnClickListener(view -> {
-                    new ConnectDialog(activity,2).show();
-                });
+                m_AB_WorkingActivity(activity);
                 break;
             case "activity.MenuProject":
-                activity.setContentView(R.layout.activity_menu_project);
-                whoLaunch = activity;
-                updateUI(whoLaunch, true);
-                btn2.setVisibility(View.INVISIBLE);
-                btn3.setVisibility(View.INVISIBLE);
-                btn4.setVisibility(View.INVISIBLE);
-                btn1.setImageResource(R.drawable.btn_to_indietro);
-                btn5.setImageResource(R.drawable.btn_load_project);
-                btn1.setOnClickListener(view -> {
-                    activity.startActivity(new Intent(activity,MainActivity.class));
-                    activity.finish();
-                });
-
-                btn5.setOnClickListener(view -> {
-                    ((MenuProject)activity).metodoLoadProject();
-                });
-
+                m_MenuProject(activity);
                 break;
             case "activity.SettingsActivity":
-                activity.setContentView(R.layout.activity_settings);
-                whoLaunch = activity;
-                updateUI(whoLaunch, true);
-                btn2.setVisibility(View.INVISIBLE);
-                btn3.setVisibility(View.INVISIBLE);
-                btn4.setVisibility(View.INVISIBLE);
-                btn1.setImageResource(R.drawable.btn_to_indietro);
-                btn5.setImageResource(R.drawable.btn_save);
-                btn1.setOnClickListener(view -> {
-                    activity.startActivity(new Intent(activity,MainActivity.class));
-                    activity.finish();
-                });
-                btn5.setOnClickListener(view -> {
-                    ((SettingsActivity)activity).metodoSave();
-                });
+                m_SettingsActivity(activity);
                 break;
             case "activity.UsbActivity":
                 //questa activity viene gestita dalla classe UsbActivity.class
@@ -228,7 +99,8 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                 FullscreenActivity.setFullScreen(activity);
                 break;
             case "activity.LaunchScreenActivity":
-                printDisplayDimensions(activity);
+                //questa activity viene gestita dalla classe LaunchScreenActivity.class
+                printDisplayDimensions(activity);//prendo i dati del display
                 break;
 
 
@@ -270,11 +142,157 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     @Override
     public void onActivityDestroyed(@NonNull Activity activity) {
 
-        updateUI(activity, false);
+        m_updateUI(activity, false);
     }
 
-    public void findViewUPDW(Activity activity) {
+    public void m_MainActivity(Activity activity) {
+        activity.setContentView(R.layout.activity_main);//setta il layout di riferimento dell'activity
+        whoLaunch = activity;
+        m_updateUI(whoLaunch, true);
 
+        btn2.setVisibility(View.INVISIBLE);
+        btn3.setVisibility(View.INVISIBLE);
+        btn4.setVisibility(View.INVISIBLE);
+        btn1.setImageResource(R.drawable.btn_poweroff);
+        btn5.setImageResource(R.drawable.btn_ecu_connect);
+
+
+        btn1.setOnClickListener(view -> {
+            new CloseAppDialog(activity).show();
+        });
+        btn5.setOnClickListener(view -> {
+            new ConnectDialog(activity, 2).show();
+        });
+
+    }
+
+    public void m_UOM_Activity(Activity activity) {
+        activity.setContentView(R.layout.activity_uom);//setta il layout di riferimento dell'activity
+        whoLaunch = activity;
+        m_updateUI(whoLaunch, true);
+        btn1.setImageResource(R.drawable.btn_to_indietro);
+        btn2.setVisibility(View.INVISIBLE);
+        btn3.setVisibility(View.INVISIBLE);
+        btn4.setVisibility(View.INVISIBLE);
+        btn5.setVisibility(View.INVISIBLE);
+        btn1.setOnClickListener(view -> {
+            activity.startActivity(new Intent(activity, MainActivity.class));//gestisce gli eventi
+            activity.finish();
+        });
+    }
+
+    public void m_ABProject(Activity activity) {
+        activity.setContentView(R.layout.ab_project);
+        whoLaunch = activity;
+        m_updateUI(whoLaunch, true);
+        btn1.setImageResource(R.drawable.btn_to_indietro);
+        btn2.setImageResource(R.drawable.btn_selectfakepos);
+        btn3.setImageResource(R.drawable.btn_calcola);
+        btn4.setImageResource(R.drawable.btn_save);
+        btn5.setVisibility(View.GONE);
+        btn1.setOnClickListener(view -> {
+            ((ABProject) activity).metodoBack();
+            activity.startActivity(new Intent(activity, MenuProject.class));
+            activity.finish();
+        });
+        btn2.setOnClickListener(view -> {
+            ((ABProject) activity).metodoPick();
+        });
+        btn3.setOnClickListener(view -> {
+            ((ABProject) activity).metodoCalcola();
+        });
+        btn4.setOnClickListener(view -> {
+            ((ABProject) activity).metodoSave();
+        });
+    }
+
+    public void m_AntennaMeasure(Activity activity) {
+        activity.setContentView(R.layout.activity_antenna_measure);
+        whoLaunch = activity;
+    }
+
+    public void m_BT_DevicesActivity(Activity activity) {
+        activity.setContentView(R.layout.activity_bt_devices);
+        whoLaunch = activity;
+        m_updateUI(whoLaunch, true);
+        btn1.setImageResource(R.drawable.btn_to_indietro);
+        btn2.setVisibility(View.INVISIBLE);
+        btn3.setVisibility(View.INVISIBLE);
+        btn4.setVisibility(View.INVISIBLE);
+        btn5.setVisibility(View.INVISIBLE);
+        btn1.setOnClickListener(view -> {
+            activity.startActivity(new Intent(activity, MainActivity.class));
+            activity.finish();
+        });
+    }
+
+    public void m_MchMeasureActivity(Activity activity) {
+        activity.setContentView(R.layout.activity_mch_meaure);
+        whoLaunch = activity;
+    }
+
+    public void m_AB_WorkingActivity(Activity activity) {
+        activity.setContentView(R.layout.activity_load_project);
+        whoLaunch = activity;
+        m_updateUI(whoLaunch, true);
+        btn5.setVisibility(View.GONE);
+        btn1.setImageResource(R.drawable.btn_to_indietro);
+        btn2.setImageResource(R.drawable.btn_coordinate_list);
+        btn3.setImageResource(R.drawable.btn_infoapp);
+        btn4.setImageResource(R.drawable.btn_ecu_connect);
+        btn1.setOnClickListener(view -> {
+            ((AB_WorkActivity) activity).metodoBack();
+            activity.startActivity(new Intent(activity, MainActivity.class));
+            activity.finish();
+        });
+        btn2.setOnClickListener(view -> {
+            ((AB_WorkActivity) activity).metodoLineId();
+        });
+        btn3.setOnClickListener(view -> {
+            ((AB_WorkActivity) activity).metodoOpenList();
+        });
+        btn4.setOnClickListener(view -> {
+            new ConnectDialog(activity, 2).show();
+        });
+    }
+    public void m_MenuProject(Activity activity){
+        activity.setContentView(R.layout.activity_menu_project);
+        whoLaunch = activity;
+        m_updateUI(whoLaunch, true);
+        btn2.setVisibility(View.INVISIBLE);
+        btn3.setVisibility(View.INVISIBLE);
+        btn4.setVisibility(View.INVISIBLE);
+        btn1.setImageResource(R.drawable.btn_to_indietro);
+        btn5.setImageResource(R.drawable.btn_load_project);
+        btn1.setOnClickListener(view -> {
+            activity.startActivity(new Intent(activity, MainActivity.class));
+            activity.finish();
+        });
+
+        btn5.setOnClickListener(view -> {
+            ((MenuProject) activity).metodoLoadProject();
+        });
+
+    }
+    public void m_SettingsActivity(Activity activity){
+        activity.setContentView(R.layout.activity_settings);
+        whoLaunch = activity;
+        m_updateUI(whoLaunch, true);
+        btn2.setVisibility(View.INVISIBLE);
+        btn3.setVisibility(View.INVISIBLE);
+        btn4.setVisibility(View.INVISIBLE);
+        btn1.setImageResource(R.drawable.btn_to_indietro);
+        btn5.setImageResource(R.drawable.btn_save);
+        btn1.setOnClickListener(view -> {
+            activity.startActivity(new Intent(activity, MainActivity.class));
+            activity.finish();
+        });
+        btn5.setOnClickListener(view -> {
+            ((SettingsActivity) activity).metodoSave();
+        });
+    }
+
+    public void m_findView(Activity activity) {
         //inizializza i componenti
         topLayout = activity.findViewById(R.id.topLayout);
         btn1 = activity.findViewById(R.id.btn_1);
@@ -289,10 +307,10 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         txt5 = activity.findViewById(R.id.txt_5);
         txt_coord = activity.findViewById(R.id.txt_coord);
         txt_canstat = activity.findViewById(R.id.txt_canstat);
-        if(screenWidth<400f){
+        if (screenWidth < 400f) {
             txt_coord.setTextSize(12f);
             txt_canstat.setTextSize(12f);
-        }else {
+        } else {
             txt_coord.setTextSize(16f);
             txt_canstat.setTextSize(16f);
         }
@@ -304,38 +322,11 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             new ConnectDialog(activity, 1).show();
         });
     }
-    public String setQuality(String s) {
-        String out = "";
-        switch (s) {
 
-            case "0":
-            case "1":
-                out = "SINGLE";
-                break;
-            case "2":
-                out = "DGNSS";
-                break;
-            case "4":
-                out = "FIX";
-                break;
-            case "5":
-                out = "FLOAT";
-                break;
-            case "6":
-                out = "INS";
-                break;
-            default:
-                out = "DISCONNECTED";
-                break;
-
-
-        }
-        return out;
-    }
-    public void updateUI(Activity activity, boolean mRunning) {
+    public void m_updateUI(Activity activity, boolean mRunning) {
         if (activity.equals(whoLaunch)) {
             FullscreenActivity.setFullScreen(activity);
-            findViewUPDW(activity);
+            m_findView(activity);
             if (mRunning && executorService == null) {
 
                 this.mRunning = true;
@@ -362,17 +353,17 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                                             + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + "  Z: "
                                             + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
                                 }
-                                if(!Bluetooth_CAN_Service.canIsConnected){
+                                if (!Bluetooth_CAN_Service.canIsConnected) {
                                     txt_canstat.setTextColor(Color.RED);
                                     txt_canstat.setText("CAN DISCONNECTED");
-                                }else{
+                                } else {
                                     txt_canstat.setTextColor(Color.BLUE);
                                     txt_canstat.setText(String.valueOf("Pitch: " + String.format("%.2f", Can_Decoder.correctPitch).replace(",", ".") + "°       Roll: " + String.format("%.2f", Can_Decoder.correctRoll).replace(",", ".") + "°"));
 
                                 }
-                                if(!Bluetooth_GNSS_Service.gpsIsConnected){
+                                if (!Bluetooth_GNSS_Service.gpsIsConnected) {
                                     txt_coord.setTextColor(Color.RED);
-                                }else {
+                                } else {
                                     txt_coord.setTextColor(Color.BLUE);
                                 }
                                 System.out.println("DIOCANEEEEEEEEEEEEEEEE");
@@ -388,6 +379,37 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                 executorService = null;
             }
         }
+    }
+
+    public String setQuality(String s) {
+        String out = "DISCONNECTED";
+        if(s!=null) {
+            switch (s) {
+
+                case "0":
+                case "1":
+                    out = "SINGLE";
+                    break;
+                case "2":
+                    out = "DGNSS";
+                    break;
+                case "4":
+                    out = "FIX";
+                    break;
+                case "5":
+                    out = "FLOAT";
+                    break;
+                case "6":
+                    out = "INS";
+                    break;
+                default:
+                    out = "DISCONNECTED";
+                    break;
+
+
+            }
+        }
+        return out;
     }
 
     public static void setLocale(Activity activity, String languageCode) {
@@ -408,7 +430,6 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
     }
 
-
     public static void printDisplayDimensions(Context context) {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 
@@ -425,13 +446,13 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
             float widthDp = widthPixels / density;
             float heightDp = heightPixels / density;
-            screenWidth=widthDp;
-            Log.d("mYdISPLAY","Width pixels: " + String.valueOf(widthPixels));
-            Log.d("mYdISPLAY","Height pixels: "+ String.valueOf(heightPixels));
-            Log.d("mYdISPLAY","Density : "+ String.valueOf(+ density));
-            Log.d("mYdISPLAY","densityDpi : "+ String.valueOf(+ densityDpi));
-            Log.d("mYdISPLAY","widthDp : "+ String.valueOf(+ widthDp));
-            Log.d("mYdISPLAY","heightDp : "+ String.valueOf(+ heightDp));
+            screenWidth = widthDp;
+            Log.d("mYdISPLAY", "Width pixels: " + String.valueOf(widthPixels));
+            Log.d("mYdISPLAY", "Height pixels: " + String.valueOf(heightPixels));
+            Log.d("mYdISPLAY", "Density : " + String.valueOf(+density));
+            Log.d("mYdISPLAY", "densityDpi : " + String.valueOf(+densityDpi));
+            Log.d("mYdISPLAY", "widthDp : " + String.valueOf(+widthDp));
+            Log.d("mYdISPLAY", "heightDp : " + String.valueOf(+heightDp));
         }
     }
 }
