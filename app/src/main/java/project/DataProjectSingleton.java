@@ -38,6 +38,7 @@ public class DataProjectSingleton {
     public LinkedHashMap<String, GPS> points;
     public String projectName;
     public String epsgCode;
+    public String projectTag;
     public String units;
     public String distanceID;
     public boolean delaunay;
@@ -235,6 +236,7 @@ public class DataProjectSingleton {
     public String getEpsgCode() {
         return epsgCode;
     }
+    public String getProjectTag(){return projectTag;}
 
     public double getzB() {
         return zB;
@@ -315,6 +317,7 @@ public class DataProjectSingleton {
 
             this.projectName = info[0];
             this.epsgCode = info[1];
+            this.projectTag=info[3];
 
 
             new MyRW_IntMem().MyWrite("_crs", this.epsgCode, MyApp.visibleActivity);
@@ -337,13 +340,13 @@ public class DataProjectSingleton {
     }
 
 
-    public boolean saveProject(String path, String fileName) {
+    public boolean saveProject(String path, String fileName,String tag) {
         try {
             File f = new File(path, fileName);
 
             CSVWriter writer = new CSVWriter(new FileWriter(f));
 
-            String[] info = {fileName, epsgCode, String.valueOf(getSize())};//TAG in last pos
+            String[] info = {fileName, epsgCode, String.valueOf(getSize()),tag};//TAG in last pos
             //PLAN "P"
             //AB "P"
             //TRIANGLES "PE"  "P"

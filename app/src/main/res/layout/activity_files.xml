@@ -81,7 +81,7 @@
             android:paddingVertical="10dp"
             android:rotation="0"
             app:tint="@color/_____cancel_text"
-            android:src="@drawable/btn_to_antennameasurei" />
+            android:src="@drawable/btn_to_indietro" />
 
         <ImageView
 

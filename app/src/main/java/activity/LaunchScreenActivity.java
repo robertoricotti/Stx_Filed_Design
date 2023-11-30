@@ -156,12 +156,10 @@ public class LaunchScreenActivity extends AppCompatActivity {
             if (directory.mkdir()) {
 
                 File projectsDirectory = new File(directory + "/Projects");
-                File csvDirectory = new File(projectsDirectory + "/CSV");
-                File xmlDirectory = new File(projectsDirectory + "/LandXML");
-                File dxfDirectory = new File(projectsDirectory + "/DXF");
-                File devicesDirectory = new File(projectsDirectory + "/Devices");
 
-                if (projectsDirectory.mkdir() && csvDirectory.mkdir() && xmlDirectory.mkdir() && devicesDirectory.mkdir()&& dxfDirectory.mkdir()) {
+                File devicesDirectory = new File(directory + "/Devices");
+
+                if (projectsDirectory.mkdir() && devicesDirectory.mkdir()) {
                     Log.e("CreateFolders", "Folder created OK");
                 } else {
                     Log.e("CreateFolders", "Failed to create subdirectories.");
@@ -169,11 +167,13 @@ public class LaunchScreenActivity extends AppCompatActivity {
             } else {
                 Log.e("CreateFolders", "Failed to create directory Stx Field.");
             }
-        }{
             Log.e("CreateFolders", "Salvataggio Dati");
-            saveBTdevices(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field/Devices").getPath().toString());
 
         }
+
+
+
+
     }
 
     private boolean checkPermissions() {
@@ -207,39 +207,7 @@ public class LaunchScreenActivity extends AppCompatActivity {
         finish();
 
     }
-    private void saveBTdevices(String path){
 
-
-        File devicesDirectory = new File(path);
-
-
-        if (!devicesDirectory.exists()) {
-            devicesDirectory.mkdirs();
-        }
-
-        // Creare un oggetto File per il file .txt nella cartella
-        File txtFile = new File(devicesDirectory, "bt_devices.txt");
-
-        try {
-            // Creare un oggetto FileWriter per scrivere nel file .txt
-            FileWriter writer = new FileWriter(txtFile);
-
-            // Scrivere le due stringhe nel file (puoi sostituire con le tue stringhe)
-            writer.write("GPS MACADDRESS: "+new MyRW_IntMem().MyRead("_macaddress",LaunchScreenActivity.this)+"\n");
-            writer.write("GPS NAME      : "+new MyRW_IntMem().MyRead("_gpsname",LaunchScreenActivity.this)+"\n");
-            writer.write("CAN MACADDRESS: "+new MyRW_IntMem().MyRead("_macaddress_can",LaunchScreenActivity.this)+"\n");
-            writer.write("CAN NAME      : "+new MyRW_IntMem().MyRead("_canname",LaunchScreenActivity.this)+"\n");
-
-            // Chiudere il writer per salvare le modifiche
-            writer.close();
-
-            System.out.println("File scritto con successo!");
-
-        } catch (IOException e) {
-            // Gestire l'eccezione in modo appropriato
-            e.printStackTrace();
-        }
-    }
 
 
     @Override

@@ -47,16 +47,16 @@ public class PickProjectAdapter extends RecyclerView.Adapter<PickProjectAdapter.
 
         viewHolder.nameTextView.setOnLongClickListener((View v) -> {
 
-            if(String.valueOf(context).contains("activity.UsbActivity")) {
+            if (String.valueOf(context).contains("activity.UsbActivity")) {
 
                 selectedItem = viewHolder.getAdapterPosition();
                 notifyDataSetChanged();
                 Log.d("file selezionato", String.valueOf(selectedItem));
 
-            }else {
+            } else {
                 String fileExtension = getFileExtension(files.get(viewHolder.getAdapterPosition()));
 
-                if (fileExtension != null && (fileExtension.equals("csv") || fileExtension.equals("dxf") || fileExtension.equals("txt") || fileExtension.equals("xls") || fileExtension.equals("xlsx"))) {
+                if (fileExtension != null && (fileExtension.equals("pstx"))) {
                     selectedItem = viewHolder.getAdapterPosition();
                     notifyDataSetChanged();
 
@@ -83,24 +83,23 @@ public class PickProjectAdapter extends RecyclerView.Adapter<PickProjectAdapter.
         String fileExtension = getFileExtension(nameFile);
         if (fileExtension != null) {
             switch (fileExtension.toLowerCase()) {
+
+
                 case "pdf":
                 case "doc":
                 case "docx":
                 case "xls":
                 case "xlsx":
-                case "stx":
                 case "txt":
-                    imageView.setImageResource(R.drawable.generic_file);
-                    imageView.setImageTintList(ContextCompat.getColorStateList(MyApp.visibleActivity, R.color.black));
-                    break;
                 case "dxf":
                 case "xml":
                 case "landxml":
                 case "dwg":
+                case "csv":
                     imageView.setImageResource(R.drawable.generic_file);
                     imageView.setImageTintList(ContextCompat.getColorStateList(MyApp.visibleActivity, R.color.red));
                     break;
-                case "csv":
+                case "pstx":
                     imageView.setImageResource(R.drawable.generic_file);
                     imageView.setImageTintList(ContextCompat.getColorStateList(MyApp.visibleActivity, R.color.blue));
                     break;
@@ -158,19 +157,21 @@ public class PickProjectAdapter extends RecyclerView.Adapter<PickProjectAdapter.
         }
 
     }
+
     public String getSelectedFilePath() {
         if (selectedItem != RecyclerView.NO_POSITION) {
             return files.get(selectedItem);
         }
         return null;
     }
+
     public void removeItem(int position) {
-        if(position>-1) {
+        if (position > -1) {
             files.remove(position);
             selectedItem = -1;
             notifyItemRemoved(position);
-        }else {
-            selectedItem=-1;
+        } else {
+            selectedItem = -1;
             notifyItemRemoved(position);
         }
     }

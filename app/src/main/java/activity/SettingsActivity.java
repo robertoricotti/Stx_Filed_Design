@@ -35,9 +35,9 @@ import utils.FullscreenActivity;
 import utils.MyRW_IntMem;
 
 public class SettingsActivity extends AppCompatActivity {
-    private boolean showCoord = false;
-    ImageView btn_exit, img_connect, imgTest, imgSave;
-    TextView textCoord, txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk, txtsmootRmc, txt_tilt;
+
+    ImageView img_connect, imgTest;
+    TextView  txtsmootRmc, txt_tilt;
     private Handler handler;
     EditText xyTol, zTol, tiltTol;
     private boolean mRunning = true;
@@ -49,8 +49,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
-        FullscreenActivity.setFullScreen(this);
+
         findView();
         init();
         onClick();
@@ -58,14 +57,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void findView() {
-        btn_exit = findViewById(R.id.btn_exit);
-        textCoord = findViewById(R.id.txt_coord);
-        txtSat = findViewById(R.id.txt_satnr);
-        txtFix = findViewById(R.id.txt_quality);
-        txtCq = findViewById(R.id.txt_precision);
-        txtHdt = findViewById(R.id.txt_hdt);
-        txtAltezzaAnt = findViewById(R.id.txt_speed);
-        txtRtk = findViewById(R.id.txt_rtk);
+
         img_connect = findViewById(R.id.img_connetti);
         seekRmc = findViewById(R.id.seekRmc);
         txtsmootRmc = findViewById(R.id.txtOrSmooth);
@@ -73,7 +65,6 @@ public class SettingsActivity extends AppCompatActivity {
         ckrmc = findViewById(R.id.ckRMC);
         ckpos = findViewById(R.id.ckPos);
         imgTest = findViewById(R.id.imgTest);
-        imgSave = findViewById(R.id.btn_tognss);
         xyTol = findViewById(R.id.xy_tol);
         zTol = findViewById(R.id.z_tol);
         ckhdt = findViewById(R.id.ckhdt);
@@ -127,20 +118,7 @@ public class SettingsActivity extends AppCompatActivity {
             new MyRW_IntMem().MyWrite("_offsetroll", String.valueOf(DataSaved.offsetRoll), SettingsActivity.this);
             Log.d("calibraz", "offp: " + DataSaved.offsetPitch + "  offroll:  " + DataSaved.offsetRoll);
         });
-        textCoord.setOnClickListener(view -> {
-            showCoord = !showCoord;
-        });
-        imgSave.setOnClickListener(view -> {
-            save();
-        });
-        img_connect.setOnClickListener(view -> {
-            new ConnectDialog(this, 1).show();
 
-        });
-        btn_exit.setOnClickListener(view -> {
-            startActivity(new Intent(SettingsActivity.this, MainActivity.class));
-            finish();
-        });
         usetilt.setOnClickListener(view -> {
             if (usetilt.isChecked()) {
                 DataSaved.useTilt = 1;
@@ -224,70 +202,9 @@ public class SettingsActivity extends AppCompatActivity {
                             } else {
                                 txt_tilt.setText(String.valueOf("CAN DISCONNECTED"));
                             }
-                            if (showCoord) {
-                                textCoord.setText("Lat: " + My_LocationCalc.decimalToDMS(Nmea_In.mLat_1) + "\tLon: "
-                                        + My_LocationCalc.decimalToDMS(Nmea_In.mLon_1) + " Z: "
-                                        + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
-                            } else {
-                                textCoord.setText("E: " + String.format("%.3f", Nmea_In.Crs_Est).replace(",", ".") + "\t\tN: "
-                                        + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + " Z: "
-                                        + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
-                            }
+
                             txtsmootRmc.setText("Bearing min Dist: \t\t" + String.format("%.1f",(float)DataSaved.rmcSize/100));
-                            txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",", "."));
-                            if (Bluetooth_GNSS_Service.gpsIsConnected) {
-                                img_connect.setImageResource(R.drawable.btn_positionpage);
 
-
-                                txtSat.setText("\t" + Nmea_In.ggaSat);
-                                if (Nmea_In.ggaQuality != null) {
-                                    switch (Nmea_In.ggaQuality) {
-                                        case "":
-                                        case "0":
-                                        case "1":
-                                            txtFix.setText("\tAUTONOMOUS");
-                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
-                                            break;
-                                        case "2":
-                                            txtFix.setText("\tDGNSS");
-                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
-                                            break;
-                                        case "4":
-                                            txtFix.setText("\tFIX");
-                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
-                                            break;
-                                        case "5":
-                                            txtFix.setText("\tFLOAT");
-                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
-                                            break;
-                                        case "6":
-                                            txtFix.setText("\tINS");
-                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
-                                            break;
-                                        default:
-                                            txtFix.setText("\tAUTONOMOUS");
-                                            img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
-                                            break;
-                                    }
-                                }
-                                if (Nmea_In.VRMS_ != null) {
-                                    txtCq.setText("\tH: " + Nmea_In.HRMS_.replace(",", ".") + "\tV: " + Nmea_In.VRMS_.replace(",", "."));
-                                } else {
-                                    txtCq.setText("H:---.-- V:---.--");
-                                }
-                                txtHdt.setText("\t" + String.format("%.2f", Nmea_In.tractorBearing).replace(",", "."));
-                                txtRtk.setText("\t" + Nmea_In.ggaRtk);
-                                textCoord.setTextColor(Color.BLACK);
-                            } else {
-                                img_connect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
-                                img_connect.setImageResource(R.drawable.btn_gpsoff);
-                                textCoord.setTextColor(Color.RED);
-                                txtSat.setText("\t" + Nmea_In.ggaSat);
-                                txtFix.setText("---");
-                                txtCq.setText("H:---.-- V:---.--");
-                                txtHdt.setText("---.--");
-                                txtRtk.setText("----");
-                            }
 
                             if (DataSaved.imgMode == 0) {
                                 imgTest.setImageResource(R.drawable.circle_96);
@@ -310,9 +227,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
-    private void save() {
-
-
+    public void metodoSave() {
         if (!xyTol.getText().toString().equals("")) {
             new MyRW_IntMem().MyWrite("xy_tol", xyTol.getText().toString(), this);
         }
@@ -326,7 +241,6 @@ public class SettingsActivity extends AppCompatActivity {
         Toast.makeText(this, "SAVED!", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this,MainActivity.class));
         finish();
-
     }
 
     @Override

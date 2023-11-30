@@ -48,12 +48,12 @@ public class ABProject extends AppCompatActivity {
     private boolean zommaOut = false;
     public ProgressBar progressBar;
     private static int passCode = -1;
-    private boolean showCoord = false;
+
     TextView txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk;
-    ImageView imgConnect;
+
     EditText et_zb, et_dst, et_slope, et_ltdst, et_ltslope, et_rtdst, et_rtslope;
     ConstraintLayout container_draw;
-    public ImageView back, pick, save, calcola;
+
 
     ImageButton center, zoomIn, zoomOut;
     ImageButton clear;
@@ -74,8 +74,7 @@ public class ABProject extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ab_project);
-        FullscreenActivity.setFullScreen(this);
+
         findView();
         init();
         onClick();
@@ -83,12 +82,11 @@ public class ABProject extends AppCompatActivity {
     }
 
     private void findView() {
-        back = findViewById(R.id.back);
-        pick = findViewById(R.id.pickPoint);
+
         crs = findViewById(R.id.crs);
         textCoord = findViewById(R.id.txt_coord);
         container_draw = findViewById(R.id.container_draw);
-        save = findViewById(R.id.save);
+
         center = findViewById(R.id.centerNavigator);
         zoomIn = findViewById(R.id.zoomIn);
         zoomOut = findViewById(R.id.zoomOut);
@@ -99,7 +97,6 @@ public class ABProject extends AppCompatActivity {
         txtHdt = findViewById(R.id.txt_hdt);
         txtAltezzaAnt = findViewById(R.id.txt_speed);
         txtRtk = findViewById(R.id.txt_rtk);
-        imgConnect = findViewById(R.id.img_connetti);
 
         et_zb = findViewById(R.id.et_zb);
         et_dst = findViewById(R.id.et_dst);
@@ -108,18 +105,18 @@ public class ABProject extends AppCompatActivity {
         et_ltslope = findViewById(R.id.et_ltslope);
         et_rtdst = findViewById(R.id.et_rtdst);
         et_rtslope = findViewById(R.id.et_rtslope);
-        calcola = findViewById(R.id.calcola);
+
         progressBar = findViewById(R.id.progressBar);
 
 
     }
 
     private void init() {
-        save.setVisibility(View.INVISIBLE);
+
         progressBar.setVisibility(View.INVISIBLE);
         dataProject = DataProjectSingleton.getInstance();
         myEpsgDialog = new MyEpsgDialog(this);
-        saveFileDialog = new SaveFileDialog(this);
+        saveFileDialog = new SaveFileDialog(this,"AB");
         canvas = new ABCanvas(this);
         container_draw.addView(canvas);
         pickIndex = 0;
@@ -128,10 +125,7 @@ public class ABProject extends AppCompatActivity {
 
     @SuppressLint("ClickableViewAccessibility")
     private void onClick() {
-        calcola.setOnClickListener(view -> {
-            new Confirm_Dialog(ABProject.this, -1).show();
 
-        });
         et_zb.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 passCode = 1;
@@ -204,94 +198,12 @@ public class ABProject extends AppCompatActivity {
         });
 
 
-        imgConnect.setOnClickListener(view -> {
-            new ConnectDialog(this, 1).show();
-
-        });
-        textCoord.setOnClickListener(view -> {
-            showCoord = !showCoord;
-        });
-        back.setOnClickListener((View v) -> {
-            new MyRW_IntMem().MyWrite("zoomF", String.valueOf(dataProject.mScaleFactor), this);
-            startActivity(new Intent(this, MenuProject.class));
-            finish();
-        });
-
-        save.setOnClickListener((View v) -> {
-
-            if (dataProject.getSize() == 4 || dataProject.getSize() == 6) {
-
-                if (!saveFileDialog.dialog.isShowing())
-                    saveFileDialog.show();
-            } else {
-                Toast.makeText(this, "Points not available!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        pick.setOnClickListener((View v) -> {
-
-            pickIndex++;
-
-            dataProject.setEpsgCode(DataSaved.S_CRS, ABProject.this);
 
 
-            if (dataProject.getSize() == 0 && pickIndex == 1) {
-                GPS gps = new GPS(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1, DataSaved.S_CRS);
-                dataProject.addCoordinate("A", gps);
-
-            }
-
-            if (dataProject.getSize() == 1 && pickIndex == 2) {
-                GPS gps = new GPS(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1, DataSaved.S_CRS);
-                dataProject.addCoordinate("B", gps);
-
-                GPS a = dataProject.getPoints().get("A");
-
-                GPS b = dataProject.getPoints().get("B");
-                dataProject.setDistanceAB(new DistToPoint(a.getX(), a.getY(), a.getZ(), b.getX(), b.getY(), b.getZ()).getDist_to_point());
-                double orientamento = My_LocationCalc.calcBearingXY(a.getX(), a.getY(), b.getX(), b.getY());
-
-                double orRight = orientamento + 90;
-
-                if (orRight < -180) {
-                    orRight += 360;
-                } else if (orRight > 180) {
-                    orRight -= 360;
-                }
-                double orLeft = orientamento - 90;
-                if (orLeft < -180) {
-                    orLeft += 360;
-                } else if (orLeft > 180) {
-                    orLeft -= 360;
-                }
-                double slopeAB = Utils.slopeCalculator(a, b);
-                double[] c = new EasyPointCalculator(new double[]{b.getX(), b.getY(), b.getZ()}).calculateEndPoint(dataProject.getRtSlope(), orRight, dataProject.getRtLength());
-
-                double[] d = new EasyPointCalculator(new double[]{a.getX(), a.getY(), a.getZ()}).calculateEndPoint(dataProject.getRtSlope(), orRight, dataProject.getRtLength());
-
-                double[] e = new EasyPointCalculator(new double[]{b.getX(), b.getY(), b.getZ()}).calculateEndPoint(dataProject.getLtSlope(), orLeft, dataProject.getLtLength());
-
-                double[] f = new EasyPointCalculator(new double[]{a.getX(), a.getY(), a.getZ()}).calculateEndPoint(dataProject.getLtSlope(), orLeft, dataProject.getLtLength());
-
-                dataProject.addCoordinate("C", new GPS(dataProject.getEpsgCode(), c[0], c[1], c[2]));
-                dataProject.addCoordinate("D", new GPS(dataProject.getEpsgCode(), d[0], d[1], d[2]));
-                dataProject.addCoordinate("E", new GPS(dataProject.getEpsgCode(), e[0], e[1], e[2]));
-                dataProject.addCoordinate("F", new GPS(dataProject.getEpsgCode(), f[0], f[1], f[2]));
-                dataProject.setzB(b.getZ());
-                dataProject.setSlopeAB(slopeAB);
-
-                updateAll();
 
 
-            }
-
-            if (pickIndex >= 3) {
-                Toast.makeText(this, "Limit Exceed!", Toast.LENGTH_SHORT).show();
-                pickIndex--;
-            }
 
 
-        });
 
         clear.setOnLongClickListener((View v) -> {
             if (dataProject.getSize() > 0) {
@@ -349,9 +261,7 @@ public class ABProject extends AppCompatActivity {
 
 
 
-        textCoord.setOnClickListener((View v) -> {
-            showCoord = !showCoord;
-        });
+
     }
 
 
@@ -372,15 +282,11 @@ public class ABProject extends AppCompatActivity {
                 dataProject.mScaleFactor += 0.01f;
 
             }
-            if (pickIndex < 2) {
-                pick.setVisibility(View.VISIBLE);
-                save.setVisibility(View.INVISIBLE);
-            }
+
             crs.setText(dataProject.getEpsgCode() != null ? dataProject.getEpsgCode() : DataSaved.S_CRS);
 
 
             canvas.invalidate();
-            aggiornaCoordinate();
 
             handler.postDelayed(updateRunnable, 100);
 
@@ -396,6 +302,85 @@ public class ABProject extends AppCompatActivity {
             handler.removeCallbacks(updateRunnable);
 
         }
+    }
+
+    public void metodoCalcola(){
+        new Confirm_Dialog(ABProject.this, -1).show();
+    }
+    public void metodoSave(){
+        if (dataProject.getSize() == 4 || dataProject.getSize() == 6) {
+
+            if (!saveFileDialog.dialog.isShowing())
+                saveFileDialog.show();
+        } else {
+            Toast.makeText(this, "Points not available!", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void metodoBack(){
+        new MyRW_IntMem().MyWrite("zoomF", String.valueOf(dataProject.mScaleFactor), this);
+    }
+    public void metodoPick(){
+
+        pickIndex++;
+
+        dataProject.setEpsgCode(DataSaved.S_CRS, ABProject.this);
+
+
+        if (dataProject.getSize() == 0 && pickIndex == 1) {
+            GPS gps = new GPS(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1, DataSaved.S_CRS);
+            dataProject.addCoordinate("A", gps);
+
+        }
+
+        if (dataProject.getSize() == 1 && pickIndex == 2) {
+            GPS gps = new GPS(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1, DataSaved.S_CRS);
+            dataProject.addCoordinate("B", gps);
+
+            GPS a = dataProject.getPoints().get("A");
+
+            GPS b = dataProject.getPoints().get("B");
+            dataProject.setDistanceAB(new DistToPoint(a.getX(), a.getY(), a.getZ(), b.getX(), b.getY(), b.getZ()).getDist_to_point());
+            double orientamento = My_LocationCalc.calcBearingXY(a.getX(), a.getY(), b.getX(), b.getY());
+
+            double orRight = orientamento + 90;
+
+            if (orRight < -180) {
+                orRight += 360;
+            } else if (orRight > 180) {
+                orRight -= 360;
+            }
+            double orLeft = orientamento - 90;
+            if (orLeft < -180) {
+                orLeft += 360;
+            } else if (orLeft > 180) {
+                orLeft -= 360;
+            }
+            double slopeAB = Utils.slopeCalculator(a, b);
+            double[] c = new EasyPointCalculator(new double[]{b.getX(), b.getY(), b.getZ()}).calculateEndPoint(dataProject.getRtSlope(), orRight, dataProject.getRtLength());
+
+            double[] d = new EasyPointCalculator(new double[]{a.getX(), a.getY(), a.getZ()}).calculateEndPoint(dataProject.getRtSlope(), orRight, dataProject.getRtLength());
+
+            double[] e = new EasyPointCalculator(new double[]{b.getX(), b.getY(), b.getZ()}).calculateEndPoint(dataProject.getLtSlope(), orLeft, dataProject.getLtLength());
+
+            double[] f = new EasyPointCalculator(new double[]{a.getX(), a.getY(), a.getZ()}).calculateEndPoint(dataProject.getLtSlope(), orLeft, dataProject.getLtLength());
+
+            dataProject.addCoordinate("C", new GPS(dataProject.getEpsgCode(), c[0], c[1], c[2]));
+            dataProject.addCoordinate("D", new GPS(dataProject.getEpsgCode(), d[0], d[1], d[2]));
+            dataProject.addCoordinate("E", new GPS(dataProject.getEpsgCode(), e[0], e[1], e[2]));
+            dataProject.addCoordinate("F", new GPS(dataProject.getEpsgCode(), f[0], f[1], f[2]));
+            dataProject.setzB(b.getZ());
+            dataProject.setSlopeAB(slopeAB);
+
+            updateAll();
+
+
+        }
+
+        if (pickIndex >= 3) {
+            Toast.makeText(this, "Limit Exceed!", Toast.LENGTH_SHORT).show();
+            pickIndex--;
+        }
+
     }
 
 
@@ -588,72 +573,5 @@ public class ABProject extends AppCompatActivity {
         et_rtslope.setText(String.format("%.1f", dataProject.getRtSlope()));
     }
 
-    private void aggiornaCoordinate() {
-        txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",", "."));
-        if (showCoord) {
-            textCoord.setText("Lat: " + My_LocationCalc.decimalToDMS(Nmea_In.mLat_1) + "\tLon: "
-                    + My_LocationCalc.decimalToDMS(Nmea_In.mLon_1) + " Z: "
-                    + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
-        } else {
-            textCoord.setText("E: " + String.format("%.3f", Nmea_In.Crs_Est).replace(",", ".") + "\t\tN: "
-                    + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + " Z: "
-                    + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
-        }
-        if (Bluetooth_GNSS_Service.gpsIsConnected) {
-            imgConnect.setImageResource(R.drawable.btn_positionpage);
 
-
-            txtSat.setText("\t" + Nmea_In.ggaSat);
-
-            if (Nmea_In.ggaQuality != null) {
-                switch (Nmea_In.ggaQuality) {
-                    case "2":
-
-                        txtFix.setText("\tDGNSS");
-                        imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
-                        break;
-                    case "4":
-
-                        txtFix.setText("\tFIX");
-                        imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
-                        break;
-                    case "5":
-
-                        txtFix.setText("\tFLOAT");
-                        imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
-                        break;
-                    case "6":
-
-                        txtFix.setText("\tINS");
-                        imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
-                        break;
-                    default:
-
-                        txtFix.setText("\tAUTONOMOUS");
-                        imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
-                        break;
-                }
-            }
-
-            if (Nmea_In.VRMS_ != null) {
-                txtCq.setText("\tH: " + Nmea_In.HRMS_.replace(",", ".") + "\tV: " + Nmea_In.VRMS_.replace(",", "."));
-            } else {
-                txtCq.setText("H:---.-- V:---.--");
-            }
-            txtHdt.setText("\t" + String.format("%.2f", Nmea_In.tractorBearing).replace(",", "."));
-            txtRtk.setText("\t" + Nmea_In.ggaRtk);
-            textCoord.setTextColor(Color.BLACK);
-
-        } else {
-
-            imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
-            imgConnect.setImageResource(R.drawable.btn_gpsoff);
-            textCoord.setTextColor(Color.RED);
-            txtSat.setText("\t" + Nmea_In.ggaSat);
-            txtFix.setText("---");
-            txtCq.setText("H:---.-- V:---.--");
-            txtHdt.setText("---.--");
-            txtRtk.setText("----");
-        }
-    }
 }

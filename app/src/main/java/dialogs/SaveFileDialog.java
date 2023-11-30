@@ -29,9 +29,11 @@ public class SaveFileDialog {
     public Dialog dialog;
     Button save, exit;
     EditText fileName;
+    String tag;
 
-    public SaveFileDialog(Activity activity) {
+    public SaveFileDialog(Activity activity,String tag) {
         this.activity = activity;
+        this.tag=tag;
         dialog = new Dialog(activity);
         dialog.setContentView(R.layout.save_file_dialog);
 
@@ -64,7 +66,7 @@ public class SaveFileDialog {
                 String currentDateTime = sdf.format(new Date());
                 DataProjectSingleton dataProject = DataProjectSingleton.getInstance();
 
-                dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/CSV/", fileName.getText().toString()+"_"+currentDateTime + ".csv");
+                dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag);
 
                 Toast.makeText(activity, "File Saved!", Toast.LENGTH_SHORT).show();
                 activity.startActivity(new Intent(activity, MenuProject.class));

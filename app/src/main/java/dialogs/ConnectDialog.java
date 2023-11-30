@@ -55,7 +55,7 @@ public class ConnectDialog {
 
                 textView.setText("GPS\nDisconnect From\n" + DataSaved.S_gpsname + "\n" + DataSaved.S_macAddres);
             } else {
-                yes.setBackgroundTintList(ContextCompat.getColorStateList(activity.getApplicationContext(), R.color.colorStonexBlue));
+                yes.setBackgroundTintList(ContextCompat.getColorStateList(activity.getApplicationContext(), R.color.colorStonexBlueLight1));
 
                 textView.setText("GPS\nConnect To\n" + DataSaved.S_gpsname + "\n" + DataSaved.S_macAddres);
             }
@@ -65,7 +65,7 @@ public class ConnectDialog {
 
                 textView.setText("CAN\nDisconnect From\n" + DataSaved.S_can_name + "\n" + DataSaved.S_macAddress_CAN);
             } else {
-                yes.setBackgroundTintList(ContextCompat.getColorStateList(activity.getApplicationContext(), R.color.colorStonexBlue));
+                yes.setBackgroundTintList(ContextCompat.getColorStateList(activity.getApplicationContext(), R.color.colorStonexBlueLight1));
 
                 textView.setText("CAN\nConnect To\n" + DataSaved.S_can_name + "\n" + DataSaved.S_macAddress_CAN);
             }

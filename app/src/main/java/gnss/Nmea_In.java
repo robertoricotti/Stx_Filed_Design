@@ -124,8 +124,8 @@ public class Nmea_In {
 
                             break;
                         } catch (Exception e) {
-                            VRMS_ = "-0";
-                            HRMS_ = "-0";
+                            VRMS_ = "?";
+                            HRMS_ = "?";
 
                         }
                     case "$GPRMC":

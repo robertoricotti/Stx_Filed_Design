@@ -28,8 +28,7 @@ public class AntennaMeasure extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_antenna_measure);
-        FullscreenActivity.setFullScreen(this);
+
         findView();
         onClick();
         updateUI();

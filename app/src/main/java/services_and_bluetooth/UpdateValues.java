@@ -2,6 +2,7 @@ package services_and_bluetooth;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Environment;
 import android.os.IBinder;
 
 import android.util.Log;
@@ -18,11 +19,15 @@ import org.locationtech.proj4j.datum.Datum;
 import org.locationtech.proj4j.datum.Ellipsoid;
 
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import activity.LaunchScreenActivity;
 import utils.MyRW_IntMem;
 
 public class UpdateValues extends Service {
@@ -202,7 +207,41 @@ public class UpdateValues extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        saveBTdevices( new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field/Devices").toString());
         ((ExecutorService) mExecutor).shutdown();
 
+    }
+    private void saveBTdevices(String path){
+
+
+        File devicesDirectory = new File(path);
+
+
+        if (!devicesDirectory.exists()) {
+            devicesDirectory.mkdirs();
+        }
+
+        // Creare un oggetto File per il file .txt nella cartella
+        File txtFile = new File(devicesDirectory, "bt_devices.txt");
+
+        try {
+            // Creare un oggetto FileWriter per scrivere nel file .txt
+            FileWriter writer = new FileWriter(txtFile);
+
+            // Scrivere le due stringhe nel file (puoi sostituire con le tue stringhe)
+            writer.write("GPS MACADDRESS: "+new MyRW_IntMem().MyRead("_macaddress", UpdateValues.this)+"\n");
+            writer.write("GPS NAME      : "+new MyRW_IntMem().MyRead("_gpsname",UpdateValues.this)+"\n");
+            writer.write("CAN MACADDRESS: "+new MyRW_IntMem().MyRead("_macaddress_can",UpdateValues.this)+"\n");
+            writer.write("CAN NAME      : "+new MyRW_IntMem().MyRead("_canname",UpdateValues.this)+"\n");
+
+            // Chiudere il writer per salvare le modifiche
+            writer.close();
+
+            System.out.println("File scritto con successo!");
+
+        } catch (IOException e) {
+            // Gestire l'eccezione in modo appropriato
+            e.printStackTrace();
+        }
     }
 }

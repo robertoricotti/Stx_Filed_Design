@@ -32,8 +32,7 @@ public class ExcavatorMeasureXYZ extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_excavator_measure_xyz);
-        FullscreenActivity.setFullScreen(this);
+
         findView();
         init();
         onClick();

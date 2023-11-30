@@ -44,8 +44,7 @@ public class UsbActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_usb_inout);
-        FullscreenActivity.setFullScreen(this);
+
         findview();
         onclick();
 
@@ -108,7 +107,7 @@ public class UsbActivity extends AppCompatActivity {
     public void confirmDelete(boolean del){
         if(del) {
             if (adapter.getSelectedItem() > -1) {
-                String appCsvFolder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Stx Field/Projects/CSV/";
+                String appCsvFolder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Stx Field/Projects/";
                 File appCsvDir = new File(appCsvFolder);
                 Log.d("file selezionato del", appCsvDir + "/" + adapter.getSelectedFilePath());
                 try {
@@ -213,7 +212,7 @@ public class UsbActivity extends AppCompatActivity {
 
     private void loadFilesToRecyclerView() {
         File dir1 = new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field");
-        String path = dir1.getAbsolutePath() + "/Projects/CSV/";
+        String path = dir1.getAbsolutePath() + "/Projects/";
         // Verifica se la cartella specificata esiste
         File dir = new File(path);
         if (dir.exists() && dir.isDirectory()) {
@@ -261,7 +260,7 @@ public class UsbActivity extends AppCompatActivity {
             // Verifica se ci sono file da importare
             if (filesToImport != null && filesToImport.length > 0) {
                 // Percorso della cartella "CSV" dell'app
-                String appCsvFolder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Stx Field/Projects/CSV/";
+                String appCsvFolder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Stx Field/Projects/";
 
                 // Verifica se la cartella "CSV" dell'app esiste, altrimenti creala
                 File appCsvDir = new File(appCsvFolder);
@@ -325,7 +324,7 @@ public class UsbActivity extends AppCompatActivity {
             }
 
             // Percorso della cartella CSV interna dell'app
-            String S_internalCsvFoldes = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Stx Field/Projects/CSV/";
+            String S_internalCsvFoldes = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Stx Field/Projects/";
             File internalCsvFolder = new File(S_internalCsvFoldes);
 
             // Verifica se la cartella CSV interna dell'app esiste

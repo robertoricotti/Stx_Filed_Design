@@ -70,8 +70,7 @@ public class Confirm_Dialog {
                             (new Handler()).postDelayed(this:: calc6, 100);
                             (new Handler()).postDelayed(this:: calc7, 100);
                             (new Handler()).postDelayed(this:: invisu, 100);
-                            if( ((ABProject)activity).save.getVisibility()==View.INVISIBLE)
-                                ((ABProject)activity).save.setVisibility(View.VISIBLE);
+
 
                         }
 

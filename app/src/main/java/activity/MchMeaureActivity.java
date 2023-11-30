@@ -36,8 +36,7 @@ public class MchMeaureActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mch_meaure);
-        FullscreenActivity.setFullScreen(this);
+
         findView();
         init();
         onClick();

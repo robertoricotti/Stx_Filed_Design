@@ -49,7 +49,7 @@ public class PickProjectDialog {
 
         arrayFiles = new ArrayList<>();
         File dir = new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field");
-        String path = dir.getAbsolutePath() + "/Projects/CSV/";
+        String path = dir.getAbsolutePath() + "/Projects/";
 
 
         File directory = new File(path);
@@ -91,7 +91,7 @@ public class PickProjectDialog {
             else {
                 DataProjectSingleton dataProject = DataProjectSingleton.getInstance();
 
-                String path = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Stx Field").getAbsolutePath() + "/Projects/CSV/" + arrayFiles.get(pickProjectAdapter.getSelectedItem());
+                String path = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Stx Field").getAbsolutePath() + "/Projects/" + arrayFiles.get(pickProjectAdapter.getSelectedItem());
 
                 dataProject.readProject(path);
 

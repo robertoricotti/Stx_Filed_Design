@@ -6,20 +6,18 @@
     android:layout_height="match_parent"
     android:keepScreenOn="true"
     tools:context="activity.BT_DevicesActivity">
+    <include layout="@layout/shared_layout_top" />
+    <include layout="@layout/shared_layout_low"/>
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/H_top_10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.19" />
+        app:layout_constraintGuide_begin="100dp" />
 
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/H_top_37"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/H_top_63"
@@ -51,16 +49,16 @@
     <TextView
         android:id="@+id/titlo"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="80dp"
         android:textStyle="bold"
         android:gravity="center"
+        android:textSize="20dp"
         android:text="GNSS DEVICE LIST"
         android:background="@color/_____cancel_text"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/H_top_37"
+        app:layout_constraintTop_toBottomOf="@id/H_top_10"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/V1"
-        app:layout_constraintTop_toTopOf="parent"
         />
 
     <ListView
@@ -73,85 +71,46 @@
         android:layout_margin="2dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/H_top_10"
+        app:layout_constraintTop_toBottomOf="@id/img3"
         app:layout_constraintBottom_toBottomOf="@id/H_90" />
 
     <ImageView
         android:id="@+id/img1"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="60dp"
         android:padding="10dp"
         android:src="@drawable/btn_search"
-
         app:tint="@color/_____cancel_text"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/img2"
-        app:layout_constraintTop_toBottomOf="@id/titlo"
-        app:layout_constraintBottom_toBottomOf="@id/H_top_10"/>
+        app:layout_constraintTop_toBottomOf="@id/titlo"/>
 
     <ImageView
         app:tint="@color/_____cancel_text"
         android:id="@+id/img2"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="60dp"
         android:padding="10dp"
         android:src="@drawable/btn_stopsearch"
-        app:layout_constraintBottom_toTopOf="@id/H_top_10"
-        app:layout_constraintLeft_toRightOf="@id/V1"
-        app:layout_constraintRight_toLeftOf="@id/V2"
+        app:layout_constraintRight_toLeftOf="@id/img3"
+        app:layout_constraintLeft_toRightOf="@id/img1"
         app:layout_constraintTop_toBottomOf="@id/titlo" />
 
     <ImageView
         app:tint="@color/_____cancel_text"
         android:id="@+id/img3"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="60dp"
         android:padding="10dp"
         android:src="@drawable/btn_connetti"
-        app:layout_constraintBottom_toTopOf="@id/H_top_10"
-        app:layout_constraintLeft_toRightOf="@id/V2"
+        app:layout_constraintLeft_toRightOf="@id/img2"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titlo" />
 
 
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/colorStonexBlue"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/H_90">
 
-        <ImageView
-            android:id="@+id/btn_exit"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingVertical="10dp"
-            android:rotation="0"
-            app:tint="@color/_____cancel_text"
-            android:src="@drawable/btn_to_antennameasurei" />
-
-        <ImageView
-
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingVertical="10dp"
-            app:tint="@color/transparent"
-            android:src="@drawable/btn_positionpage" />
-        <ImageView
-            android:id="@+id/btn_tognss"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingVertical="10dp"
-            app:tint="@color/transparent"
-            android:src="@drawable/btn_setting_tech" />
-
-
-    </LinearLayout>
 
 
 

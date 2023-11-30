@@ -45,13 +45,13 @@ import utils.MyRW_IntMem;
 
 public class AB_WorkActivity extends AppCompatActivity {
     private boolean mRunning = true;
-    boolean showCoord = false;
+
     public static boolean auto;
     Guideline guideline;
     public static byte page = 0;
     public static byte[] quota;
-    TextView textCoord, txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk, txt_incl;
-    ImageView back, openList, imgConnect, lineID, canconnect, imgPick, imgSign, imgSat, imgHdt;
+
+    ImageView  lineID;
     TextView altitude, distance, fileName;
 
     ConstraintLayout container;
@@ -63,7 +63,7 @@ public class AB_WorkActivity extends AppCompatActivity {
 
 
     Handler handler;
-    Runnable updateRunnable;
+
     Surface_Selector surfaceSelector;
     boolean rotLeft = false;
     boolean rotRight = false;
@@ -75,9 +75,6 @@ public class AB_WorkActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_load_project);
-        FullscreenActivity.setFullScreen(this);
         findView();
         init();
         onClick();
@@ -87,8 +84,8 @@ public class AB_WorkActivity extends AppCompatActivity {
 
     private void findView() {
 
-        back = findViewById(R.id.btn_exit);
-        openList = findViewById(R.id.go_to_list);
+
+
         container = findViewById(R.id.container_draw);
         center = findViewById(R.id.centerNavigator);
         zoomIn = findViewById(R.id.zoomIn);
@@ -99,26 +96,15 @@ public class AB_WorkActivity extends AppCompatActivity {
         lineID = findViewById(R.id.pickPoint);
         altitude = findViewById(R.id.quota);
         distance = findViewById(R.id.distance);
-        textCoord = findViewById(R.id.txt_coord);
-        txtSat = findViewById(R.id.txt_satnr);
-        txtFix = findViewById(R.id.txt_quality);
-        txtCq = findViewById(R.id.txt_precision);
-        txtHdt = findViewById(R.id.txt_hdt);
-        txtAltezzaAnt = findViewById(R.id.txt_speed);
-        txtRtk = findViewById(R.id.txt_rtk);
-        imgConnect = findViewById(R.id.img_connetti);
+
         surfaceOK = findViewById(R.id.surfaceOK);
         fileName = findViewById(R.id.fileName);
 
         rotateLeft = findViewById(R.id.rotateLeft);
         rotateRight = findViewById(R.id.rotateRight);
         autorotate = findViewById(R.id.autorotate);
-        txt_incl = findViewById(R.id.txt_incl);
-        canconnect = findViewById(R.id.canconnect);
-        imgPick = findViewById(R.id.imgPick);
-        imgSign = findViewById(R.id.imgsign);
-        imgSat = findViewById(R.id.imgSat);
-        imgHdt = findViewById(R.id.imgHdt);
+
+
         guideline = findViewById(R.id.H_top_10);
 
     }
@@ -150,35 +136,10 @@ public class AB_WorkActivity extends AppCompatActivity {
 
     @SuppressLint("ClickableViewAccessibility")
     private void onClick() {
-        canconnect.setOnClickListener(view -> {
-            new ConnectDialog(this, 2).show();
-        });
+
         autorotate.setOnClickListener(v -> {
             auto = !auto;
         });
-        imgConnect.setOnClickListener(view -> {
-            new ConnectDialog(this, 1).show();
-
-        });
-        back.setOnClickListener((View v) -> {
-            new MyRW_IntMem().MyWrite("zoomF", String.valueOf(dataProject.mScaleFactor), this);
-            new MyRW_IntMem().MyWrite("rot", String.valueOf(dataProject.rotate), this);
-            if (auto) {
-                new MyRW_IntMem().MyWrite("_maprotmode", "1", this);
-            } else {
-                new MyRW_IntMem().MyWrite("_maprotmode", "0", this);
-            }
-            startActivity(new Intent(this, MainActivity.class));
-
-            finish();
-        });
-
-
-        openList.setOnClickListener((View v) -> {
-            if (!coordsGNSSInfo.dialog.isShowing())
-                coordsGNSSInfo.show();
-        });
-
 
         center.setOnClickListener((View v) -> {
             dataProject.setOffsetX(0);
@@ -187,7 +148,6 @@ public class AB_WorkActivity extends AppCompatActivity {
             //dataProject.setmScaleFactor(0.5f);
             canvas.invalidate();
         });
-
 
         zoomIn.setOnTouchListener((view, motionEvent) -> {
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
@@ -232,38 +192,50 @@ public class AB_WorkActivity extends AppCompatActivity {
             return false;
         });
 
-        lineID.setOnClickListener((View v) -> {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-            alertDialog.setTitle("Choose ID");
 
-            String[] items = new String[dataProject.getSize() + 1];
-            items[0] = "AB Line";
-
-            int counter = 1;
-            for (Map.Entry<String, GPS> entry : dataProject.getPoints().entrySet()) {
-                items[counter++] = entry.getKey();
-            }
-
-            alertDialog.setSingleChoiceItems(items, -1, (dialog, which) -> {
-                dataProject.setDistanceID(which <= 0 ? null : items[which]);
-                dialog.dismiss();
-            });
-
-            alertDialog.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
-
-            AlertDialog alert = alertDialog.create();
-            alert.setCanceledOnTouchOutside(true);
-            alert.show();
-        });
 
         delaunay.setOnClickListener((View v) -> {
             dataProject.toggleDelaunay();
         });
 
 
-        textCoord.setOnClickListener(view -> {
-            showCoord = !showCoord;
+
+    }
+    public void metodoLineId(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle("Choose ID");
+
+        String[] items = new String[dataProject.getSize() + 1];
+        items[0] = "AB Line";
+
+        int counter = 1;
+        for (Map.Entry<String, GPS> entry : dataProject.getPoints().entrySet()) {
+            items[counter++] = entry.getKey();
+        }
+
+        alertDialog.setSingleChoiceItems(items, -1, (dialog, which) -> {
+            dataProject.setDistanceID(which <= 0 ? null : items[which]);
+            dialog.dismiss();
         });
+
+        alertDialog.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+        AlertDialog alert = alertDialog.create();
+        alert.setCanceledOnTouchOutside(true);
+        alert.show();
+    }
+    public void metodoOpenList(){
+        if (!coordsGNSSInfo.dialog.isShowing())
+            coordsGNSSInfo.show();
+    }
+    public void metodoBack(){
+        new MyRW_IntMem().MyWrite("zoomF", String.valueOf(dataProject.mScaleFactor), this);
+        new MyRW_IntMem().MyWrite("rot", String.valueOf(dataProject.rotate), this);
+        if (auto) {
+            new MyRW_IntMem().MyWrite("_maprotmode", "1", this);
+        } else {
+            new MyRW_IntMem().MyWrite("_maprotmode", "0", this);
+        }
     }
 
     @SuppressLint({"SetTextI18n", "DefaultLocale"})
@@ -274,7 +246,7 @@ public class AB_WorkActivity extends AppCompatActivity {
             @Override
             public void run() {
                 while (mRunning) {
-                    Log.d("ZOMMA", String.valueOf(dataProject.mScaleFactor));
+
                     if (zommaOut) {
                         zommaIn = false;
                         if (dataProject.mScaleFactor > 0.04f) {
@@ -313,7 +285,7 @@ public class AB_WorkActivity extends AppCompatActivity {
                         @Override
                         public void run() {
 
-//////////////////////////////////
+
 
 
                             Log.d("DataScale", String.valueOf(dataProject.mScaleFactor));
@@ -357,20 +329,9 @@ public class AB_WorkActivity extends AppCompatActivity {
                                 AutoConnectionService.data_6FA = data;
                                 page = 1;
 
-                                txt_incl.setText(String.valueOf("Pitch: " + String.format("%.2f", Can_Decoder.correctPitch).replace(",", ".") + "°       Roll: " + String.format("%.2f", Can_Decoder.correctRoll).replace(",", ".") + "°"));
-                                canconnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
-                                canconnect.setImageResource(R.drawable.btn_ecu_connect);
-                                if (Math.abs(Can_Decoder.correctPitch) <= DataSaved.tilt_Tol && Math.abs(Can_Decoder.correctRoll) <= DataSaved.tilt_Tol) {
-                                    txt_incl.setTextColor(Color.parseColor("#008000"));
-                                } else {
-                                    txt_incl.setTextColor(Color.BLACK);
-                                }
 
-                            } else {
-                                txt_incl.setText(String.valueOf("CAN DISCONNECTED"));
-                                canconnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
-                                canconnect.setImageResource(R.drawable.btn_can_disconn);
-                                txt_incl.setTextColor(Color.RED);
+
+
                             }
 
 
@@ -405,66 +366,7 @@ public class AB_WorkActivity extends AppCompatActivity {
 
                             distance.setText(strDistance);
 
-                            txtAltezzaAnt.setText(String.format("%.3f", DataSaved.D_AltezzaAnt).replace(",", "."));
-                            if (showCoord) {
-                                textCoord.setText("Lat: " + My_LocationCalc.decimalToDMS(Nmea_In.mLat_1) + "\tLon: "
-                                        + My_LocationCalc.decimalToDMS(Nmea_In.mLon_1) + " Z: "
-                                        + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
-                            } else {
-                                textCoord.setText("E: " + String.format("%.3f", Nmea_In.Crs_Est).replace(",", ".") + "\t\tN: "
-                                        + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + " Z: "
-                                        + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
-                            }
 
-                            if (Bluetooth_GNSS_Service.gpsIsConnected) {
-                                imgConnect.setImageResource(R.drawable.btn_positionpage);
-
-
-                                txtSat.setText("\t" + Nmea_In.ggaSat);
-
-                                if (Nmea_In.ggaQuality != null) {
-                                    switch (Nmea_In.ggaQuality) {
-                                        case "2":
-                                            txtFix.setText("\tDGNSS");
-                                            imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
-                                            break;
-                                        case "4":
-                                            txtFix.setText("\tFIX");
-                                            imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
-                                            break;
-                                        case "5":
-                                            txtFix.setText("\tFLOAT");
-                                            imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
-                                            break;
-                                        case "6":
-                                            txtFix.setText("\tINS");
-                                            imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.yellow));
-                                            break;
-                                        default:
-                                            txtFix.setText("\tAUTONOMOUS");
-                                            imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
-                                            break;
-                                    }
-                                }
-
-                                if (Nmea_In.VRMS_ != null) {
-                                    txtCq.setText("\tH: " + Nmea_In.HRMS_.replace(",", ".") + "\tV: " + Nmea_In.VRMS_.replace(",", "."));
-                                } else {
-                                    txtCq.setText("H:---.-- V:---.--");
-                                }
-                                txtHdt.setText("\t" + String.format("%.2f", Nmea_In.tractorBearing).replace(",", "."));
-                                txtRtk.setText("\t" + Nmea_In.ggaRtk);
-                                textCoord.setTextColor(Color.BLACK);
-                            } else {
-                                imgConnect.setImageTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color._____cancel_text));
-                                imgConnect.setImageResource(R.drawable.btn_gpsoff);
-                                textCoord.setTextColor(Color.RED);
-                                txtSat.setText("\t" + Nmea_In.ggaSat);
-                                txtFix.setText("---");
-                                txtCq.setText("H:---.-- V:---.--");
-                                txtHdt.setText("---.--");
-                                txtRtk.setText("----");
-                            }
 
                             canvas.invalidate();
 
@@ -488,37 +390,8 @@ public class AB_WorkActivity extends AppCompatActivity {
     public void onBackPressed() {
     }
 
-    public void onConfigurationChanged(@NonNull Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
 
-        // Qui puoi eseguire le azioni necessarie quando avviene una rotazione
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            imgConnect.setPadding(0, 15, 0, 15);
-            txtRtk.setVisibility(View.GONE);
-            txtCq.setVisibility(View.GONE);
-            imgSign.setVisibility(View.GONE);
-            imgPick.setVisibility(View.GONE);
-            imgSat.setVisibility(View.GONE);
-            imgHdt.setVisibility(View.GONE);
-            txtSat.setVisibility(View.GONE);
-            txtHdt.setVisibility(View.GONE);
-            guideline.setGuidelinePercent(0.08f);
-            // Esegui azioni per l'orientamento orizzontale
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            // Esegui azioni per l'orientamento verticale
-            imgConnect.setPadding(0, 35, 0, 35);
-            txtRtk.setVisibility(View.VISIBLE);
-            txtCq.setVisibility(View.VISIBLE);
-            imgSign.setVisibility(View.VISIBLE);
-            imgPick.setVisibility(View.VISIBLE);
-            imgSat.setVisibility(View.VISIBLE);
-            imgHdt.setVisibility(View.VISIBLE);
-            txtSat.setVisibility(View.VISIBLE);
-            txtHdt.setVisibility(View.VISIBLE);
-            guideline.setGuidelinePercent(0.11f);
 
-        }
-    }
 
     @Override
     protected void onDestroy() {

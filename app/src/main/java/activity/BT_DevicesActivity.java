@@ -33,7 +33,7 @@ import utils.FullscreenActivity;
 import utils.MyRW_IntMem;
 
 public class BT_DevicesActivity extends AppCompatActivity {
-    ImageView btn_exit, btn_search, btn_stop, img_cbt;
+    ImageView  btn_search, btn_stop, img_cbt;
     TextView titolo;
 
     public static String flag = "";
@@ -48,8 +48,7 @@ public class BT_DevicesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bt_devices);
-        FullscreenActivity.setFullScreen(this);
+
         findView();
         onClick();
         try {
@@ -65,7 +64,7 @@ public class BT_DevicesActivity extends AppCompatActivity {
     }
 
     private void findView() {
-        btn_exit = findViewById(R.id.btn_exit);
+
         btn_search = findViewById(R.id.img1);
         btn_stop = findViewById(R.id.img2);
         titolo = findViewById(R.id.titlo);
@@ -101,11 +100,7 @@ public class BT_DevicesActivity extends AppCompatActivity {
         img_cbt.setOnClickListener(view -> {
             new ConnectDialog(this,who).show();
         });
-        btn_exit.setOnClickListener(view -> {
-            startActivity(new Intent(BT_DevicesActivity.this, MainActivity.class));
 
-            finish();
-        });
         btn_search.setOnClickListener(view -> {
 
             new CustomToast(BT_DevicesActivity.this, flag+" SEARCH STARTED...").show();
