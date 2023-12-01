@@ -1,5 +1,6 @@
 package activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
@@ -38,6 +39,7 @@ import services_and_bluetooth.DataSaved;
 import utils.FullscreenActivity;
 
 
+@SuppressLint("NewApi")
 public class MyApp extends Application implements Application.ActivityLifecycleCallbacks {
     static boolean showCoord;
     static float screenWidth;
@@ -51,6 +53,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     public static Activity visibleActivity;
 
 
+    @SuppressLint("NewApi")
     @Override
     public void onCreate() {
         super.onCreate();
@@ -341,7 +344,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
                                 txt1.setText(Nmea_In.ggaSat);
                                 txt2.setText(setQuality(Nmea_In.ggaQuality));
-                                txt3.setText("CQ: " + Nmea_In.VRMS_);
+                                txt3.setText("CQ: " + Nmea_In.CQ_Tot);
                                 txt4.setText(Nmea_In.ggaRtk);
                                 txt5.setText(String.format("%.3f", DataSaved.D_AltezzaAnt));
                                 if (showCoord) {
@@ -387,6 +390,8 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             switch (s) {
 
                 case "0":
+                    out="";
+                    break;
                 case "1":
                     out = "SINGLE";
                     break;
@@ -412,13 +417,14 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         return out;
     }
 
+    @SuppressLint("NewApi")
     public static void setLocale(Activity activity, String languageCode) {
         // Imposta la lingua
         Locale locale = new Locale(languageCode);
         Locale.setDefault(locale);
 
         // Imposta il separatore decimale come punto
-        DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols(locale);
+         DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols(locale);
         decimalFormatSymbols.setDecimalSeparator('.');
 
         // Applica le configurazioni alla risorsa

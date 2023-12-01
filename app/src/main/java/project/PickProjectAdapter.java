@@ -70,6 +70,7 @@ public class PickProjectAdapter extends RecyclerView.Adapter<PickProjectAdapter.
         return viewHolder;
     }
 
+    @SuppressLint("NewApi")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Get the data model based on position
@@ -105,8 +106,8 @@ public class PickProjectAdapter extends RecyclerView.Adapter<PickProjectAdapter.
                     break;
                 default:
                     // Imposta un'immagine di default o lasciala vuota
-                    imageView.setImageResource(R.drawable.img_folder_96);
-                    imageView.setImageTintList(ContextCompat.getColorStateList(MyApp.visibleActivity, R.color.pure_green));
+                    imageView.setImageResource(R.drawable.file_alet_96);
+                    imageView.setImageTintList(ContextCompat.getColorStateList(MyApp.visibleActivity, R.color.black));
                     break;
             }
         }

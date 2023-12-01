@@ -137,9 +137,18 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver
+            android:name="utils.UsbReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.stx_field_design.USB_PERMISSION" />
+            </intent-filter>
+        </receiver>
 
         <receiver
             android:name="utils.LocationUtils$LocationStateReceiver"
@@ -148,7 +157,7 @@
             tools:ignore="Instantiatable">
             <intent-filter>
                 <action android:name="android.location.PROVIDERS_CHANGED" />
-                <action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" />
+
 
             </intent-filter>
         </receiver>

@@ -1,6 +1,8 @@
 package gnss;
 
 
+import android.annotation.SuppressLint;
+
 import org.locationtech.proj4j.ProjCoordinate;
 
 import java.nio.charset.StandardCharsets;
@@ -18,11 +20,12 @@ public class Nmea_In {
     String mNmea1, mNmea2;
     private double lat1,lon1,tempq;
 
-    public static String VRMS_, HRMS_;
+    public static String VRMS_, HRMS_,CQ_Tot;
     public static double Nord1, Est1, Quota1, mLat_1, mLon_1, mSpeed_rmc, mBearing_rmc, tractorBearing,Crs_Nord,Crs_Est,mch_Hdt;
     public static String ggaNord, ggaEast, ggaNoS, ggaWoE, ggaZ1, ggaZ2, ggaSat, ggaDop, ggaQuality, ggaRtk;//String data from  GPS1
 
 
+    @SuppressLint("NewApi")
     public Nmea_In(String NmeaGGAH) {
 
         try {
@@ -121,11 +124,12 @@ public class Nmea_In {
                             String HgtCQ = NmeaInput[8].substring(0, NmeaInput[8].indexOf("*"));
                             VRMS_ = String.format("%.3f", Float.parseFloat(HgtCQ));
                             HRMS_ = String.format("%.3f", 2 * Math.sqrt(0.5 * ((Math.pow(Double.parseDouble(LatCQ), 2) + Math.pow(Double.parseDouble(LonCQ), 2)) / 2)));
-
+                            CQ_Tot= String.format("%.3f",Math.abs(Double.parseDouble(VRMS_)+Double.parseDouble(HRMS_)/2));
                             break;
                         } catch (Exception e) {
-                            VRMS_ = "?";
-                            HRMS_ = "?";
+                            VRMS_ = "_";
+                            HRMS_ = "_";
+                            CQ_Tot="_";
 
                         }
                     case "$GPRMC":

@@ -77,6 +77,8 @@ public class UsbActivity extends AppCompatActivity {
         });
 
         readusb.setOnClickListener(view -> {
+            getUSB();
+            Log.e("mUSB", getUSB()+"    0xFF");
             try {
                 readFromUSB_IN(getUsbFolderPath());
             } catch (Exception e) {
@@ -151,17 +153,17 @@ public class UsbActivity extends AppCompatActivity {
                         }
                     }
                 } else {
-                    // Utilizza il metodo deprecato getExternalStorageDirectory() su versioni precedenti
-                    File externalStorageDirectory = Environment.getExternalStorageDirectory();
-                    return externalStorageDirectory.getAbsolutePath();
+
+                    return getUSB();
                 }
             } catch (NoSuchMethodError e) {
-                // Gestisci l'eccezione NoSuchMethodError
+
                 e.printStackTrace();
+                new CustomToast(UsbActivity.this,"No USB Found").show();
             }
         }
 
-        // Gestisci il caso in cui non è possibile ottenere il percorso della memoria USB
+
         return null;
     }
 
@@ -408,6 +410,46 @@ public class UsbActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+
+
+    //metodo funzionante per Android 9,10,11 https://stackoverflow.com/questions/51855429/how-to-get-external-usb-mass-storage-path-in-android
+    public static String getUSB(){
+        File storageDirectory = new File("/storage");
+        if(!storageDirectory.exists()) {
+            Log.e("mUSB", "getUSB: '/storage' does not exist on this device");
+            return "";
+        }
+
+        File[] files = storageDirectory.listFiles();
+        if(files == null) {
+            Log.e("mUSB", "getUSB: Null when requesting directories inside '/storage'");
+            return "";
+        }
+
+        List<String> possibleUSBStorageMounts = new ArrayList<>();
+        for (File file : files) {
+            String path = file.getPath();
+            if (path.contains("emulated") ||
+                    path.contains("sdcard") ||
+                    path.contains("self")) {
+                Log.d("mUSB", "getUSB: Found '" + path + "' - not USB");
+            } else {
+                possibleUSBStorageMounts.add(path);
+            }
+        }
+
+        if (possibleUSBStorageMounts.size() == 0) {
+            Log.e("mUSB", "getUSB: Did not find any possible USB mounts");
+            return "";
+        }
+        if(possibleUSBStorageMounts.size() > 1) {
+            Log.d("mUSB", "getUSB: Found multiple possible USB mount points, choosing the first one");
+        }
+
+        return possibleUSBStorageMounts.get(0);
+
     }
 
 
