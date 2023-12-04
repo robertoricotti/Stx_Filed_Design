@@ -22,10 +22,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import activity.MainActivity;
+import activity_portrait.MainActivity;
 
 import project.DataProjectSingleton;
-import activity.MenuProject;
+import activity_portrait.MenuProject;
 import project.PickProjectAdapter;
 
 import utils.FullscreenActivity;

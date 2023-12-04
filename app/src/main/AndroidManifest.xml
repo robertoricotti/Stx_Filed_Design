@@ -6,7 +6,7 @@
         android:name="android.hardware.telephony"
         android:required="false" />
     <uses-feature android:name="android.hardware.usb.host" />
-    <uses-sdk android:minSdkVersion="12" />
+
     <uses-feature android:name="android.hardware.usb.accessory" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -26,6 +26,7 @@
 
     <uses-permission
         android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        android:minSdkVersion="31"
         tools:ignore="ScopedStorage" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -35,7 +36,7 @@
         android:maxSdkVersion="29" />
 
     <application
-        android:name="activity.MyApp"
+        android:name="activity_portrait.MyApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -45,9 +46,10 @@
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.Stx_Field_Design"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        tools:ignore="RtlEnabled">
         <activity
-            android:name="activity.UOM_Activity"
+            android:name="activity_portrait.UOM_Activity"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
@@ -63,45 +65,45 @@
             android:exported="false" />
 
         <activity
-            android:name="activity.UsbActivity"
+            android:name="activity_portrait.UsbActivity"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="activity.AB_WorkActivity"
+            android:name="activity_portrait.AB_WorkActivity"
             android:autoRemoveFromRecents="true"
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="activity.ABProject"
+            android:name="activity_portrait.ABProject"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="activity.MenuProject"
+            android:name="activity_portrait.MenuProject"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="activity.AntennaMeasure"
+            android:name="activity_portrait.AntennaMeasure"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="activity.MchMeaureActivity"
+            android:name="activity_portrait.MchMeaureActivity"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
-            android:name="activity.BT_DevicesActivity"
+            android:name="activity_portrait.BT_DevicesActivity"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
@@ -117,22 +119,22 @@
             android:exported="false" />
 
         <activity
-            android:name="activity.MainActivity"
+            android:name="activity_portrait.MainActivity"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="activity.SettingsActivity"
+            android:name="activity_portrait.SettingsActivity"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="activity.LaunchScreenActivity"
+            android:name="activity_portrait.LaunchScreenActivity"
             android:exported="true"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
+            android:screenOrientation="sensor"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

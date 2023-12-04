@@ -6,26 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true"
-    tools:context="activity.AB_WorkActivity">
-    <include layout="@layout/shared_layout_top"/>
-    <include layout="@layout/shared_layout_low"/>
+    tools:context="activity_portrait.AB_WorkActivity">
+    <include
+        android:id="@+id/topView"
+        layout="@layout/shared_layout_top" />
 
-
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
-
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/H_91"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.905" />
+    <include
+        android:id="@+id/lowerView"
+        layout="@layout/shared_layout_low" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/V1"
@@ -48,11 +36,6 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.666666" />
 
-
-
-
-
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
         android:layout_width="wrap_content"
@@ -69,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline_top"
+        app:layout_constraintTop_toBottomOf="@id/topView"
         app:layout_constraintVertical_bias="0.0">
 
 
@@ -242,7 +225,7 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/H_91"
+        app:layout_constraintBottom_toTopOf="@+id/lowerView"
         app:layout_constraintEnd_toStartOf="@+id/v"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline5" />
@@ -261,7 +244,7 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/H_91"
+        app:layout_constraintBottom_toTopOf="@+id/lowerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/v"
         app:layout_constraintTop_toTopOf="@+id/guideline5" />

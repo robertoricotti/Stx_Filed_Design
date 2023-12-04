@@ -6,23 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true"
-    tools:context="activity.ABProject">
-    <include layout="@layout/shared_layout_top" />
-    <include layout="@layout/shared_layout_low"/>
+    tools:context="activity_portrait.ABProject">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/H_top_10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.08" />
+    <include
+        android:id="@+id/topView"
+        layout="@layout/shared_layout_top" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.12" />
+    <include
+        android:id="@+id/lowerView"
+        layout="@layout/shared_layout_low" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/H_90"
@@ -53,11 +45,6 @@
         app:layout_constraintGuide_percent="0.666666" />
 
 
-
-
-
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container_draw"
         android:layout_width="0dp"
@@ -68,7 +55,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline_top"
+        app:layout_constraintTop_toBottomOf="@id/topView"
         app:layout_constraintVertical_bias="0.0">
 
 
@@ -84,37 +71,38 @@
         android:text="Z B: "
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintRight_toLeftOf="@id/V1"
         app:layout_constraintBottom_toTopOf="@id/tit_len"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/V1"
         app:layout_constraintTop_toBottomOf="@id/container_draw" />
+
     <EditText
         android:id="@+id/et_zb"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:selectAllOnFocus="true"
         android:background="@drawable/custom_background_light"
-        android:textAlignment="center"
-        android:inputType="numberDecimal|numberSigned"
         android:imeOptions="actionDone"
-        app:layout_constraintRight_toRightOf="parent"
+        android:inputType="numberDecimal|numberSigned"
+        android:selectAllOnFocus="true"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@id/tit_zb"
         app:layout_constraintLeft_toRightOf="@id/tit_zb"
-        app:layout_constraintTop_toTopOf="@id/tit_zb"
-        app:layout_constraintBottom_toBottomOf="@id/tit_zb"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tit_zb" />
 
 
     <TextView
         android:id="@+id/tit_len"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/custom_background_light"
         android:gravity="center"
         android:text="A>>B:"
-        android:background="@drawable/custom_background_light"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintRight_toLeftOf="@id/V1"
         app:layout_constraintBottom_toTopOf="@id/tit_slope"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/V1"
         app:layout_constraintTop_toBottomOf="@id/tit_zb" />
 
     <EditText
@@ -124,8 +112,8 @@
         android:background="@drawable/custom_background_light"
         android:imeOptions="actionDone"
         android:inputType="numberDecimal|numberSigned"
-        android:textAlignment="center"
         android:selectAllOnFocus="true"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@id/tit_len"
         app:layout_constraintLeft_toRightOf="@id/tit_len"
         app:layout_constraintRight_toRightOf="parent"
@@ -133,147 +121,149 @@
         app:layout_constraintVertical_bias="1.0" />
 
 
-
     <TextView
         android:id="@+id/tit_slope"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/custom_background_light"
         android:gravity="center"
         android:text="A>B SLOPE: "
         android:textColor="@color/black"
-        android:background="@drawable/custom_background_light"
         android:textStyle="bold"
-        app:layout_constraintRight_toLeftOf="@id/V1"
         app:layout_constraintBottom_toTopOf="@id/left_dis"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/V1"
         app:layout_constraintTop_toBottomOf="@id/tit_len" />
+
     <EditText
         android:id="@+id/et_slope"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:inputType="numberDecimal|numberSigned"
         android:background="@drawable/custom_background_light"
-        android:textAlignment="center"
         android:imeOptions="actionDone"
+        android:inputType="numberDecimal|numberSigned"
         android:selectAllOnFocus="true"
-        app:layout_constraintRight_toRightOf="parent"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@id/tit_slope"
         app:layout_constraintLeft_toRightOf="@id/tit_slope"
-        app:layout_constraintTop_toTopOf="@id/tit_slope"
-        app:layout_constraintBottom_toBottomOf="@id/tit_slope"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tit_slope" />
 
 
     <TextView
         android:id="@+id/left_dis"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintRight_toLeftOf="@id/V1"
+        android:background="@drawable/custom_background_light"
         android:gravity="center"
         android:text="LEFT LEN: "
-        android:background="@drawable/custom_background_light"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/left_slop"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/V1"
         app:layout_constraintTop_toBottomOf="@id/tit_slope" />
+
     <EditText
         android:id="@+id/et_ltdst"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:inputType="numberDecimal|numberSigned"
         android:background="@drawable/custom_background_light"
-        android:textAlignment="center"
         android:imeOptions="actionDone"
+        android:inputType="numberDecimal|numberSigned"
         android:selectAllOnFocus="true"
-        app:layout_constraintRight_toRightOf="parent"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@id/left_dis"
         app:layout_constraintLeft_toRightOf="@id/left_dis"
-        app:layout_constraintTop_toTopOf="@id/left_dis"
-        app:layout_constraintBottom_toBottomOf="@id/left_dis"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/left_dis" />
 
 
     <TextView
         android:id="@+id/left_slop"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintRight_toLeftOf="@id/V1"
+        android:background="@drawable/custom_background_light"
         android:gravity="center"
         android:text="LEFT SLOPE: "
-        android:background="@drawable/custom_background_light"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/right_dis"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/V1"
         app:layout_constraintTop_toBottomOf="@id/left_dis" />
+
     <EditText
         android:id="@+id/et_ltslope"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:inputType="numberDecimal|numberSigned"
         android:background="@drawable/custom_background_light"
-        android:textAlignment="center"
         android:imeOptions="actionDone"
+        android:inputType="numberDecimal|numberSigned"
         android:selectAllOnFocus="true"
-        app:layout_constraintRight_toRightOf="parent"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@id/left_slop"
         app:layout_constraintLeft_toRightOf="@id/left_slop"
-        app:layout_constraintTop_toTopOf="@id/left_slop"
-        app:layout_constraintBottom_toBottomOf="@id/left_slop"/>
-
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/left_slop" />
 
 
     <TextView
         android:id="@+id/right_dis"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintRight_toLeftOf="@id/V1"
+        android:background="@drawable/custom_background_light"
         android:gravity="center"
         android:text="RIGHT LEN: "
-        android:background="@drawable/custom_background_light"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/right_slop"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/V1"
         app:layout_constraintTop_toBottomOf="@id/left_slop" />
+
     <EditText
         android:id="@+id/et_rtdst"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:inputType="numberDecimal|numberSigned"
         android:background="@drawable/custom_background_light"
-        android:textAlignment="center"
         android:imeOptions="actionDone"
+        android:inputType="numberDecimal|numberSigned"
         android:selectAllOnFocus="true"
-        app:layout_constraintRight_toRightOf="parent"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@id/right_dis"
         app:layout_constraintLeft_toRightOf="@id/right_dis"
-        app:layout_constraintTop_toTopOf="@id/right_dis"
-        app:layout_constraintBottom_toBottomOf="@id/right_dis"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/right_dis" />
 
 
     <TextView
         android:id="@+id/right_slop"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintRight_toLeftOf="@id/V1"
+        android:background="@drawable/custom_background_light"
         android:gravity="center"
         android:text="RIGHT SLOPE: "
-        android:background="@drawable/custom_background_light"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/H_90"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/V1"
         app:layout_constraintTop_toBottomOf="@id/right_dis" />
 
     <EditText
         android:id="@+id/et_rtslope"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:inputType="numberDecimal|numberSigned"
         android:background="@drawable/custom_background_light"
-        android:textAlignment="center"
         android:imeOptions="actionDone"
+        android:inputType="numberDecimal|numberSigned"
         android:selectAllOnFocus="true"
-        app:layout_constraintRight_toRightOf="parent"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@id/right_slop"
         app:layout_constraintLeft_toRightOf="@id/right_slop"
-        app:layout_constraintTop_toTopOf="@id/right_slop"
-        app:layout_constraintBottom_toBottomOf="@id/right_slop"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/right_slop" />
 
 
     <!--end of BUTTONS-->
@@ -354,15 +344,16 @@
         app:layout_constraintTop_toTopOf="@+id/crs"
         app:srcCompat="@drawable/zoomout"
         app:tint="@color/white" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="@style/CustomProgressBar"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_gravity="center"
-        android:visibility="visible"
-        android:background="@color/_____cancel_text"
         android:alpha="0.7"
+        android:background="@color/_____cancel_text"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

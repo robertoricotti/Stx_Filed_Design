@@ -1,9 +1,7 @@
 package project;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +18,7 @@ import com.example.stx_field_design.R;
 
 import java.util.ArrayList;
 
-import activity.MyApp;
+import activity_portrait.MyApp;
 import dialogs.CustomToast;
 
 public class PickProjectAdapter extends RecyclerView.Adapter<PickProjectAdapter.ViewHolder> {

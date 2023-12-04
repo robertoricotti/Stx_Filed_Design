@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true"
-    tools:context="activity.AntennaMeasure">
+    tools:context="activity_portrait.AntennaMeasure">
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/H1"
         android:layout_width="wrap_content"

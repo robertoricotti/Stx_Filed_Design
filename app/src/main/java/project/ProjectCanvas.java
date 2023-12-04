@@ -22,7 +22,7 @@ import org.locationtech.jts.triangulate.quadedge.QuadEdgeSubdivision;
 import java.util.ArrayList;
 import java.util.Map;
 
-import activity.AB_WorkActivity;
+import activity_portrait.AB_WorkActivity;
 import coords_calc.GPS;
 import gnss.Nmea_In;
 import services_and_bluetooth.DataSaved;

@@ -11,8 +11,8 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.example.stx_field_design.R;
 
-import activity.UsbActivity;
-import activity.ABProject;
+import activity_portrait.UsbActivity;
+import activity_portrait.ABProject;
 import utils.FullscreenActivity;
 
 public class Confirm_Dialog {

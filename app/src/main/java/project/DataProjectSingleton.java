@@ -3,7 +3,6 @@ package project;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
@@ -14,12 +13,10 @@ import java.io.FileWriter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import activity.MyApp;
+import activity_portrait.MyApp;
 import coords_calc.CoordsConverter;
 import coords_calc.GPS;
 import dialogs.CustomToast;

@@ -1,6 +1,6 @@
 package services_and_bluetooth;
 
-import static activity.AB_WorkActivity.page;
+import static activity_portrait.AB_WorkActivity.page;
 
 import android.app.Service;
 import android.content.Context;
@@ -25,7 +25,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import activity.MyApp;
+import activity_portrait.MyApp;
 import gnss.Nmea_In;
 import utils.LocationUtils;
 

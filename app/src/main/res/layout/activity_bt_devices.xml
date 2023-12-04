@@ -5,33 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true"
-    tools:context="activity.BT_DevicesActivity">
-    <include layout="@layout/shared_layout_top" />
-    <include layout="@layout/shared_layout_low"/>
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/H_top_10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="100dp" />
+    tools:context="activity_portrait.BT_DevicesActivity">
+    <include layout="@layout/shared_layout_top"
+        android:id="@+id/topView"/>
+    <include layout="@layout/shared_layout_low"
+        android:id="@+id/lowerView"/>
 
 
 
 
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/H_top_63"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.45" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/H_90"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.90" />
+
+
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/V1"
@@ -56,7 +43,7 @@
         android:text="GNSS DEVICE LIST"
         android:background="@color/_____cancel_text"
         android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/H_top_10"
+        app:layout_constraintTop_toBottomOf="@id/topView"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/V1"
         />
@@ -72,7 +59,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/img3"
-        app:layout_constraintBottom_toBottomOf="@id/H_90" />
+
+        app:layout_constraintBottom_toTopOf="@id/lowerView" />
 
     <ImageView
         android:id="@+id/img1"

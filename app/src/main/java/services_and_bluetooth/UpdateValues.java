@@ -15,8 +15,6 @@ import org.locationtech.proj4j.InvalidValueException;
 import org.locationtech.proj4j.ProjCoordinate;
 import org.locationtech.proj4j.UnknownAuthorityCodeException;
 import org.locationtech.proj4j.UnsupportedParameterException;
-import org.locationtech.proj4j.datum.Datum;
-import org.locationtech.proj4j.datum.Ellipsoid;
 
 
 import java.io.File;
@@ -27,7 +25,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import activity.LaunchScreenActivity;
 import utils.MyRW_IntMem;
 
 public class UpdateValues extends Service {

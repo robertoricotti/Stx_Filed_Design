@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import project.DataProjectSingleton;
-import activity.MenuProject;
+import activity_portrait.MenuProject;
 import utils.FullscreenActivity;
 
 public class SaveFileDialog {

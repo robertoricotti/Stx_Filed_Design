@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true"
-    tools:context="activity.MenuProject">
+    tools:context="activity_portrait.MenuProject">
     <include layout="@layout/shared_layout_top" />
     <include layout="@layout/shared_layout_low"/>
 
