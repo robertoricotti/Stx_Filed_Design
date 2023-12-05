@@ -36,27 +36,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center">
                 <CheckBox
                     android:id="@+id/ckRMC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
+
                     android:text="Use RMC" />
 
                 <CheckBox
                     android:id="@+id/ckPos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
+
                     android:text="Use POSITIONS" />
 
                 <CheckBox
                     android:id="@+id/ckhdt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:text="DUAL HEAD"
+
+                    android:text="DUAL GNSS"
                     />
             </LinearLayout>
             <TextView
@@ -103,7 +104,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Z:"
-                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -114,15 +116,37 @@
                     android:gravity="center"
                     android:hint="0.000"
                     android:inputType="numberDecimal"
-                    android:maxLength="5"
+                    android:maxLength="6"
                     android:selectAllOnFocus="true"
-                    android:textSize="24sp" />
+                    android:textSize="22sp" />
+
+
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="XY:"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/xy_tol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:hint="0.000"
+                    android:inputType="numberDecimal"
+                    android:maxLength="6"
+                    android:selectAllOnFocus="true"
+                    android:textSize="22sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="Tilt: "
-                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -135,26 +159,7 @@
                     android:inputType="numberDecimal"
                     android:maxLength="3"
                     android:selectAllOnFocus="true"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="XY:"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/xy_tol"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="4"
-                    android:gravity="center"
-                    android:hint="0.000"
-                    android:inputType="numberDecimal"
-                    android:maxLength="5"
-                    android:selectAllOnFocus="true"
-                    android:textSize="24sp" />
+                    android:textSize="22sp" />
             </LinearLayout>
             <TextView
                 android:id="@+id/txtslopeSet"

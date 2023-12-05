@@ -15,179 +15,165 @@
         android:id="@+id/lowerView"
         layout="@layout/shared_layout_low" />
 
-
-
-
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/H_top_37"
-        android:layout_width="wrap_content"
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    app:layout_constraintTop_toBottomOf="@id/topView"
+    app:layout_constraintBottom_toTopOf="@id/lowerView">
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3" />
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_marginVertical="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/img1"
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/btn_bluetooth_devices"
+                app:tint="@color/_____cancel_text" />
+            <ImageView
+                android:id="@+id/img8"
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/btn_canconn"
+                app:tint="@color/_____cancel_text"
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/H_top_63"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.45" />
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/g_stop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6"/>
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/h_75"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.75"/>
+                />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/H_90"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.90" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/V1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.333333" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/V2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.666666" />
+            <ImageView
+                android:id="@+id/img3"
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/btn_files"
+                app:tint="@color/_____cancel_text" />
 
 
-    <ImageView
-        android:id="@+id/img1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:padding="20dp"
-        android:src="@drawable/btn_bluetooth_devices"
-        app:layout_constraintBottom_toTopOf="@id/H_top_37"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/V1"
-        app:layout_constraintTop_toBottomOf="@id/topView"
-        app:tint="@color/_____cancel_text" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginVertical="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                app:tint="@color/_____cancel_text"
+                android:id="@+id/img4"
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/btn_setting_tech"
+                />
 
-    <ImageView
-        android:id="@+id/img3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:padding="20dp"
-        android:src="@drawable/btn_files"
-        app:layout_constraintBottom_toTopOf="@id/H_top_37"
-        app:layout_constraintEnd_toStartOf="@+id/V2"
-        app:layout_constraintLeft_toRightOf="@id/V2"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/V1"
-        app:layout_constraintTop_toBottomOf="@id/topView"
-        app:tint="@color/_____cancel_text" />
+            <ImageView
+                android:id="@+id/img5"
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/btn_mch_measure"
+                app:tint="@color/_____cancel_text" />
+            <ImageView
+                android:id="@+id/openProject"
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:srcCompat="@drawable/create_surf_btn"
+                app:tint="@color/_____cancel_text" />
 
-    <ImageView
-        android:id="@+id/openProject"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:padding="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/H_top_37"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/V2"
-app:layout_constraintTop_toBottomOf="@id/topView"        app:srcCompat="@drawable/create_surf_btn"
-        app:tint="@color/_____cancel_text" />
 
-    <ImageView
-        app:tint="@color/_____cancel_text"
-        android:id="@+id/img4"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:padding="20dp"
-        android:src="@drawable/btn_setting_tech"
-        app:layout_constraintBottom_toTopOf="@id/g_stop"
-        app:layout_constraintLeft_toRightOf="@id/V1"
-        app:layout_constraintRight_toLeftOf="@id/V2"
-        app:layout_constraintTop_toBottomOf="@id/H_top_63"
-         />
 
-    <ImageView
-        android:id="@+id/img5"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:padding="20dp"
-        android:src="@drawable/btn_mch_measure"
-        app:layout_constraintBottom_toTopOf="@id/H_top_63"
-        app:layout_constraintLeft_toRightOf="@id/V1"
-        app:layout_constraintRight_toLeftOf="@id/V2"
-        app:layout_constraintTop_toBottomOf="@id/H_top_37"
-        app:tint="@color/_____cancel_text" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginVertical="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/img10"
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/btn_unitsofmeasure"
+                app:tint="@color/_____cancel_text"
+                />
 
-    <ImageView
-        android:id="@+id/img6"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:padding="20dp"
-        android:src="@drawable/btn_elevation"
-        app:tint="@color/_____cancel_text"
-        app:layout_constraintBottom_toTopOf="@id/H_top_63"
-        app:layout_constraintLeft_toRightOf="@id/V2"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/H_top_37" />
+            <ImageView
+                android:id="@+id/img6"
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/btn_elevation"
+                app:tint="@color/_____cancel_text"
+                />
 
-    <ImageView
-        app:tint="@color/_____cancel_text"
-        android:id="@+id/img7"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:padding="20dp"
-        android:src="@drawable/btn_usb_stick"
-        app:layout_constraintBottom_toTopOf="@id/g_stop"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/V1"
-        app:layout_constraintTop_toBottomOf="@id/H_top_63" />
+            <ImageView
+                android:id="@+id/img9"
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/btn_infoapp"
+                app:tint="@color/_____cancel_text"
+                />
 
-    <ImageView
-        android:id="@+id/img8"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:padding="20dp"
-        android:src="@drawable/btn_canconn"
-        app:tint="@color/_____cancel_text"
-        app:layout_constraintBottom_toTopOf="@id/H_top_63"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/V1"
-        app:layout_constraintTop_toBottomOf="@id/H_top_37"
-         />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginVertical="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                app:tint="@color/_____cancel_text"
+                android:id="@+id/img7"
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/btn_usb_stick"
+                />
 
-    <ImageView
-        android:id="@+id/img9"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:padding="20dp"
-        android:src="@drawable/btn_infoapp"
-        app:tint="@color/_____cancel_text"
-        app:layout_constraintBottom_toTopOf="@id/g_stop"
-        app:layout_constraintLeft_toRightOf="@id/V2"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/H_top_63" />
-    <ImageView
-        android:id="@+id/img10"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:padding="15dp"
-        android:src="@drawable/btn_unitsofmeasure"
-        app:tint="@color/_____cancel_text"
-        app:layout_constraintBottom_toTopOf="@id/h_75"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/V1"
-        app:layout_constraintTop_toBottomOf="@id/g_stop"/>
+            <ImageView
+                android:id="@+id/img11"
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/btn_unitsofmeasure"
+                app:tint="@color/transparent"
+                />
+            <ImageView
+                android:id="@+id/img12"
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/btn_unitsofmeasure"
+                app:tint="@color/transparent"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

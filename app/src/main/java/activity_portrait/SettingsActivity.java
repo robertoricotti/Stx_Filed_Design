@@ -25,6 +25,7 @@ import com.example.stx_field_design.R;
 import services_and_bluetooth.DataSaved;
 import services_and_bluetooth.UpdateValues;
 import utils.MyRW_IntMem;
+import utils.Utils;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -97,8 +98,8 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void init() {
-        xyTol.setText(String.format("%.3f", DataSaved.xy_tol).replace(",", "."));
-        zTol.setText(String.format("%.3f", DataSaved.z_tol).replace(",", "."));
+        xyTol.setText(Utils.readUnitOfMeasure(String.valueOf(DataSaved.xy_tol),SettingsActivity.this).replace(",", "."));
+        zTol.setText(Utils.readUnitOfMeasure(String.valueOf(DataSaved.z_tol),SettingsActivity.this).replace(",", "."));
         tiltTol.setText(String.format("%.1f", DataSaved.tilt_Tol).replace(",", "."));
     }
 
@@ -217,10 +218,10 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void metodoSave() {
         if (!xyTol.getText().toString().equals("")) {
-            new MyRW_IntMem().MyWrite("xy_tol", xyTol.getText().toString(), this);
+            new MyRW_IntMem().MyWrite("xy_tol",Utils.writeMetri(xyTol.getText().toString(),this), this);
         }
         if (!zTol.getText().toString().equals("")) {
-            new MyRW_IntMem().MyWrite("z_tol", zTol.getText().toString(), this);
+            new MyRW_IntMem().MyWrite("z_tol", Utils.writeMetri(zTol.getText().toString(),this), this);
         }
         if (!tiltTol.getText().toString().equals("")) {
             new MyRW_IntMem().MyWrite("tilt_tol", tiltTol.getText().toString(), this);

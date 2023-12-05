@@ -5,6 +5,7 @@ import static utils.Utils.isNumeric;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import com.example.stx_field_design.R;
 
 import services_and_bluetooth.DataSaved;
+import services_and_bluetooth.UpdateValues;
 import utils.FullscreenActivity;
 import utils.MyRW_IntMem;
 import utils.Utils;
@@ -35,7 +37,7 @@ public class DialogOffset {
     MyRW_IntMem myRW_intMem;
 
     int indexMeasure;
-    int indexFtIn;
+    int indexFtIn=0;
 
 
     public DialogOffset(Activity activity) {
@@ -56,15 +58,14 @@ public class DialogOffset {
 
     private void init(){
         myRW_intMem = new MyRW_IntMem();
-        indexMeasure = DataSaved.I_UnitOfMeasure;
-        if(indexMeasure >0){
+        indexMeasure = Integer.parseInt(new MyRW_IntMem().MyRead("_unitofmeasure",activity));
+        if(indexMeasure >1){
             measure.setVisibility(View.GONE);
             value.setVisibility(View.GONE);
-
             value_ft.setVisibility(View.VISIBLE);
-            measure_ft.setVisibility(View.VISIBLE);
+            measure_ft.setVisibility(View.GONE);
             indexFtIn = 0;
-            value_ft.setBackgroundColor(ContextCompat.getColor(activity, R.color.light_yellow));
+            value_ft.setBackgroundColor(ContextCompat.getColor(activity, R.color.white));
             String depth = Utils.readUnitOfMeasure(String.valueOf(DataSaved.D_AltezzaAnt), activity);
 
             value_ft.setText(depth.split("'")[0].trim());
@@ -75,9 +76,10 @@ public class DialogOffset {
             value.setVisibility(View.VISIBLE);
             value_ft.setVisibility(View.GONE);
             measure_ft.setVisibility(View.GONE);
-
             value.setText(Utils.readUnitOfMeasure(String.valueOf(DataSaved.D_AltezzaAnt),activity));
             measure.setText(Utils.getMetriSimbol(activity));
+            String depth = Utils.readUnitOfMeasure(String.valueOf(DataSaved.D_AltezzaAnt), activity);
+
         }
 
     }
@@ -112,25 +114,31 @@ public class DialogOffset {
 
     private void onClick() {
         save.setOnClickListener((View v) -> {
-            if(indexMeasure >0){
-                if(isNumeric(value_ft.getText().toString()) ){
-                    DataSaved.D_AltezzaAnt = Double.parseDouble(myRW_intMem.MyRead("_altezzaantenna", activity)) ;
-                    dialog.cancel();
-                }
-                else{
-                    new CustomToast(activity, "Error INPUT!").show();
-                }
-            }
-            else{
+
+           if(indexMeasure>1){
                 if(isNumeric(value.getText().toString())){
-                    myRW_intMem.MyWrite("_altezzaantenna", Utils.writeMetri(value.getText().toString(), activity), activity);
+
+                    myRW_intMem.MyWrite("_altezzaantenna", Utils.writeMetri(value_ft.getText().toString(), activity), activity);
                     DataSaved.D_AltezzaAnt = Double.parseDouble(myRW_intMem.MyRead("_altezzaantenna", activity)) ;
                     dialog.cancel();
                 }
                 else{
                     new CustomToast(activity, "Error INPUT!").show();
                 }
-            }
+            activity.startService(new Intent(activity, UpdateValues.class));}
+           if(indexMeasure<=1){
+               if(isNumeric(value.getText().toString())){
+
+                   myRW_intMem.MyWrite("_altezzaantenna", Utils.writeMetri(value.getText().toString(), activity), activity);
+                   DataSaved.D_AltezzaAnt = Double.parseDouble(myRW_intMem.MyRead("_altezzaantenna", activity)) ;
+                   dialog.cancel();
+               }
+               else{
+                   new CustomToast(activity, "Error INPUT!").show();
+               }
+               activity.startService(new Intent(activity, UpdateValues.class));
+
+           }
         });
 
 
@@ -143,7 +151,7 @@ public class DialogOffset {
 
 
         reverse.setOnClickListener((View v) -> {
-            if(indexMeasure >0){
+            if(indexMeasure >1){
                 if(!value_ft.getText().toString().equals("")){
                     if(!value_ft.getText().toString().contains("-")){
                         value_ft.setText(value_ft.getText().insert(0, "-"));
@@ -176,7 +184,7 @@ public class DialogOffset {
 
 
         b1.setOnClickListener((View v) -> {
-            if(indexMeasure >0){
+            if(indexMeasure >1){
                 if(c){
                     if(indexFtIn == 0){
                         value_ft.setText("");
@@ -201,7 +209,7 @@ public class DialogOffset {
         });
 
         b2.setOnClickListener((View v) -> {
-            if(indexMeasure>0){
+            if(indexMeasure>1){
                 if(c){
                     if(indexFtIn == 0){
                         value_ft.setText("");
@@ -226,7 +234,7 @@ public class DialogOffset {
         });
 
         b3.setOnClickListener((View v) -> {
-            if(indexMeasure >0){
+            if(indexMeasure >1){
                 if(c){
                     if(indexFtIn == 0){
                         value_ft.setText("");
@@ -251,7 +259,7 @@ public class DialogOffset {
         });
 
         b4.setOnClickListener((View v) -> {
-            if(indexMeasure>0){
+            if(indexMeasure>1){
                 if(c){
                     if(indexFtIn == 0){
                         value_ft.setText("");
@@ -276,7 +284,7 @@ public class DialogOffset {
         });
 
         b5.setOnClickListener((View v) -> {
-            if(indexMeasure>0){
+            if(indexMeasure>1){
                 if(c){
                     if(indexFtIn == 0){
                         value_ft.setText("");
@@ -301,7 +309,7 @@ public class DialogOffset {
         });
 
         b6.setOnClickListener((View v) -> {
-            if(indexMeasure>0){
+            if(indexMeasure>1){
                 if(c){
                     if(indexFtIn == 0){
                         value_ft.setText("");
@@ -326,7 +334,7 @@ public class DialogOffset {
         });
 
         b7.setOnClickListener((View v) -> {
-            if(indexMeasure >0){
+            if(indexMeasure >1){
                 if(c){
                     if(indexFtIn == 0){
                         value_ft.setText("");
@@ -352,7 +360,7 @@ public class DialogOffset {
         });
 
         b8.setOnClickListener((View v) -> {
-            if(indexMeasure >0){
+            if(indexMeasure >1){
                 if(c){
                     if(indexFtIn == 0){
                         value_ft.setText("");
@@ -378,7 +386,7 @@ public class DialogOffset {
         });
 
         b9.setOnClickListener((View v) -> {
-            if(indexMeasure >0){
+            if(indexMeasure >1){
                 if(c){
                     if(indexFtIn == 0){
                         value_ft.setText("");
@@ -404,7 +412,7 @@ public class DialogOffset {
         });
 
         b0.setOnClickListener((View v) -> {
-            if(indexMeasure >0){
+            if(indexMeasure >1){
                 if(c){
                     if(indexFtIn == 0){
                         value_ft.setText("");
@@ -430,7 +438,7 @@ public class DialogOffset {
         });
 
         bdot.setOnClickListener((View v) -> {
-            if(indexMeasure >0){
+            if(indexMeasure >1){
                 if(c){
                     if(indexFtIn == 0){
                         value_ft.setText("");
@@ -456,7 +464,7 @@ public class DialogOffset {
         });
 
         bcanc.setOnClickListener((View v) -> {
-            if(indexMeasure >0){
+            if(indexMeasure >1){
                 if(indexFtIn == 0){
                     value_ft.setText("0");
                 }
@@ -471,7 +479,7 @@ public class DialogOffset {
         });
 
         bdel.setOnClickListener((View v) -> {
-            if(indexMeasure >0){
+            if(indexMeasure >1){
                 if(indexFtIn == 0){
                     if(value_ft.getText().toString().length() > 0)
                         value_ft.setText(value_ft.getText().toString().substring(0, value_ft.getText().toString().length() - 1));

@@ -96,7 +96,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/colorStonexBlue"
+        android:background="@drawable/custom_background_yellow"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/h1">
         <ImageView

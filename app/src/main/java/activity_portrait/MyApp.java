@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ import services_and_bluetooth.Bluetooth_CAN_Service;
 import services_and_bluetooth.Bluetooth_GNSS_Service;
 import services_and_bluetooth.DataSaved;
 import utils.FullscreenActivity;
+import utils.Utils;
 
 
 @SuppressLint("NewApi")
@@ -50,7 +52,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     Activity whoLaunch;
     ImageView btn1, btn2, btn3, btn4, btn5;
     TextView txt1, txt2, txt3, txt4, txt5, txt_coord, txt_canstat;
-    LinearLayout topLayout;
+    ImageView imgConnetti;
 
     public static Activity visibleActivity;
 
@@ -308,7 +310,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
     public void m_findView(Activity activity) {
         //inizializza i componenti
-        topLayout = activity.findViewById(R.id.topLayout);
+        imgConnetti = activity.findViewById(R.id.imgConnect);
         btn1 = activity.findViewById(R.id.btn_1);
         btn2 = activity.findViewById(R.id.btn_2);
         btn3 = activity.findViewById(R.id.btn_3);
@@ -325,14 +327,14 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             txt_coord.setTextSize(14f);
             txt_canstat.setTextSize(14f);
         } else {
-            txt_coord.setTextSize(18f);
-            txt_canstat.setTextSize(18f);
+            txt_coord.setTextSize(16f);
+            txt_canstat.setTextSize(16f);
         }
 
         txt_coord.setOnClickListener(view -> {
             showCoord = !showCoord;
         });
-        topLayout.setOnClickListener(view -> {
+        imgConnetti.setOnClickListener(view -> {
             new ConnectDialog(activity, 1).show();
         });
     }
@@ -352,12 +354,11 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-
                                 txt1.setText(Nmea_In.ggaSat);
                                 txt2.setText(setQuality(Nmea_In.ggaQuality));
                                 txt3.setText("CQ: " + Nmea_In.CQ_Tot);
                                 txt4.setText(Nmea_In.ggaRtk);
-                                txt5.setText(String.format("%.3f", DataSaved.D_AltezzaAnt));
+                                txt5.setText(Utils.readUnitOfMeasure(String.valueOf(DataSaved.D_AltezzaAnt),visibleActivity));
                                 if (showCoord) {
                                     txt_coord.setText("Lat:" + My_LocationCalc.decimalToDMS(Nmea_In.mLat_1) + "\tLon:"
                                             + My_LocationCalc.decimalToDMS(Nmea_In.mLon_1) + "  Z:"

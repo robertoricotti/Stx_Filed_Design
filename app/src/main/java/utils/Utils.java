@@ -1,9 +1,13 @@
 package utils;
 
+
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 
-import java.security.SecureRandom;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.util.Log;
 
 import coords_calc.DistToPoint;
 import coords_calc.GPS;
@@ -26,7 +30,7 @@ public class Utils {
     public static String readSensorCalibration(String str, Context ctx){
         double v = Double.parseDouble(str);
         int index = Integer.parseInt(new MyRW_IntMem().MyRead("_unitofmeasure", ctx));
-        if(index == 1){
+        if(index == 2 || index == 3){
             return String.format("%.4f", v / 0.3048).replace(",", ".");
         }
         else if(index == 4 || index == 5){
@@ -47,7 +51,7 @@ public class Utils {
     @SuppressLint("DefaultLocale")
     public static String writeMetri(String str, Context ctx){
         int index = Integer.parseInt(new MyRW_IntMem().MyRead("_unitofmeasure", ctx));
-        if(index == 1){
+        if(index == 2 || index == 3){
             double v = Double.parseDouble(str);
             return String.format("%.4f", v * 0.3048).replace(",", ".");
         }
@@ -67,15 +71,15 @@ public class Utils {
     public static String readUnitOfMeasure(String str, Context ctx){
         double v = Double.parseDouble(str);
         int index = Integer.parseInt(new MyRW_IntMem().MyRead("_unitofmeasure", ctx));
-        if(index == 1){
-            return String.format("%.3f", v / 0.3048).replace(",", ".");
+        if(index == 2 || index == 3){
+            return String.format("%.4f", v / 0.3048).replace(",", ".");
         }
         else if(index == 4 || index == 5){
             double inches = v / 0.0254;
             double feet =  (inches / 12);
             double leftover = inches % 12;
             if(feet<0){
-            return ("-"+(Math.abs((int) feet)) + "' " + String.format("%.2f", Math.abs(leftover)));}
+                return ("-"+(Math.abs((int) feet)) + "' " + String.format("%.2f", Math.abs(leftover)));}
             else{
                 return ((int) feet + "' " + String.format("%.2f", Math.abs(leftover)));
             }
@@ -90,7 +94,7 @@ public class Utils {
     public static String readUnitOfMeasure_2(String str, Context ctx){
         double v = Double.parseDouble(str);
         int index = Integer.parseInt(new MyRW_IntMem().MyRead("_unitofmeasure", ctx));
-        if(index ==1){
+        if(index == 2 || index == 3){
             return String.format("%.2f", v / 0.3048).replace(",", ".");
         }
         else if(index == 4 || index == 5){
@@ -98,14 +102,39 @@ public class Utils {
             double feet =  (inches / 12);
             double leftover = inches % 12;
             if(feet<0){
-                return ("-"+(Math.abs((int) feet)) + "' " + String.format("%.2f", Math.abs(leftover)));}
+                return ("-"+(Math.abs((int) feet)) + "' " + String.format("%.1f", Math.abs(leftover)));}
             else{
-                return ((int) feet + "' " + String.format("%.2f", Math.abs(leftover)));
+                return ((int) feet + "' " + String.format("%.1f", Math.abs(leftover)));
             }
             //return String.format("%.2f", v / 0.0254).replace(",", ".");
         }
         else {
             return String.format("%.2f", v).replace(",", ".");
+        }
+    }
+    @SuppressLint("DefaultLocale")
+    public static String readUnitOfMeasureDeltaGPS(String str, Context ctx){
+        double v = Double.parseDouble(str);
+        int index = Integer.parseInt(new MyRW_IntMem().MyRead("_unitofmeasure", ctx));
+        if(index == 2 || index == 3||index==4||index==5){
+            return String.format("%.4f", v / 0.3048).replace(",", ".");
+        }
+
+        else {
+            return String.format("%.3f", v).replace(",", ".");
+        }
+    }
+    @SuppressLint("DefaultLocale")
+    public static String writeMetriDeltaGPS(String str, Context ctx){
+        int index = Integer.parseInt(new MyRW_IntMem().MyRead("_unitofmeasure", ctx));
+        if(index == 2 || index == 3||index == 4 || index == 5){
+            double v = Double.parseDouble(str);
+            return String.format("%.4f", v * 0.3048).replace(",", ".");
+        }
+
+        else {
+            double v = Double.parseDouble(str);
+            return String.format("%.3f", v).replace(",", ".");
         }
     }
 
@@ -149,20 +178,12 @@ public class Utils {
     }
     public static String getMetriSimbol(Context ctx){
         int index = Integer.parseInt(new MyRW_IntMem().MyRead("_unitofmeasure", ctx));
-        if(index == 0 )
+        if(index == 0 || index == 1)
             return "(m)";
-        else if(index == 1)
+        else if(index == 2 || index == 3)
             return "(ft)";
         else
             return "(in)";
-    }
-
-    public static String randomString(int lunghezza) {
-        String caratteriPermesse = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        return new SecureRandom().ints(lunghezza, 0, caratteriPermesse.length())
-                .mapToObj(caratteriPermesse::charAt)
-                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
-                .toString();
     }
 
     public static double slopeCalculator(GPS pA, GPS pB){
@@ -179,7 +200,6 @@ public class Utils {
         }
         return 0;
     }
-
 }
 
 

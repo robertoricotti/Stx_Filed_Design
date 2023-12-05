@@ -33,6 +33,7 @@ import services_and_bluetooth.AutoConnectionService;
 import services_and_bluetooth.Bluetooth_CAN_Service;
 import services_and_bluetooth.DataSaved;
 import utils.MyRW_IntMem;
+import utils.Utils;
 
 public class AB_WorkActivity extends AppCompatActivity {
     private boolean mRunning = true;
@@ -280,7 +281,7 @@ public class AB_WorkActivity extends AppCompatActivity {
 
 
 
-                            Log.d("DataScale", String.valueOf(dataProject.mScaleFactor));
+
 
 
                             if (auto) {
@@ -327,7 +328,7 @@ public class AB_WorkActivity extends AppCompatActivity {
                             }
 
 
-                            String strDistance = "DIST: " + String.format("%.3f", surfaceSelector.getDistance()).replace(",", ".") + " m";
+                            String strDistance = "DIST: " + Utils.readUnitOfMeasure(String.valueOf(surfaceSelector.getDistance()),AB_WorkActivity.this).replace(",", ".") +" "+Utils.getMetriSimbol(AB_WorkActivity.this);
                             if (Math.abs(surfaceSelector.getDistance()) <= DataSaved.xy_tol) {
                                 distance.setBackgroundColor(getColor(R.color.green));
                                 distance.setTextColor(getColor(R.color._____cancel_text));
@@ -338,15 +339,15 @@ public class AB_WorkActivity extends AppCompatActivity {
 
                             if (surfaceSelector.isPointInsideSurface()) {
                                 if (Math.abs(v) <= DataSaved.z_tol) {
-                                    altitude.setText("⧗ " + String.format("%.3f", v).replace(",", "."));
+                                    altitude.setText("⧗ " + Utils.readUnitOfMeasure(String.valueOf(v),AB_WorkActivity.this).replace(",", ".")+" "+Utils.getMetriSimbol(AB_WorkActivity.this));
                                     altitude.setBackgroundColor(getColor(R.color.green));
                                     altitude.setTextColor(getColor(R.color._____cancel_text));
                                 } else if (v < -(DataSaved.z_tol + 0.001)) {
-                                    altitude.setText("▲ " + String.format("%.3f", v).replace(",", "."));
+                                    altitude.setText("▲ " + Utils.readUnitOfMeasure(String.valueOf(v),AB_WorkActivity.this).replace(",", ".")+" "+Utils.getMetriSimbol(AB_WorkActivity.this));
                                     altitude.setBackgroundColor(getColor(R.color.red));
                                     altitude.setTextColor(getColor(R.color.white));
                                 } else if (v > DataSaved.z_tol + 0.001) {
-                                    altitude.setText("▼ " + String.format("%.3f", v).replace(",", "."));
+                                    altitude.setText("▼ " + Utils.readUnitOfMeasure(String.valueOf(v),AB_WorkActivity.this).replace(",", ".")+" "+Utils.getMetriSimbol(AB_WorkActivity.this));
                                     altitude.setBackgroundColor(getColor(R.color.blue));
                                     altitude.setTextColor(getColor(R.color.white));
                                 }
