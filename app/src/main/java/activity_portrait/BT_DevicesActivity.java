@@ -88,9 +88,9 @@ public class BT_DevicesActivity extends AppCompatActivity {
         registerReceiver(bluetoothReceiver, filter);
 
         if(flag.contains("GPS")){who=1;
-            titolo.setText(flag+" DEVICE LIST\n"+ DataSaved.S_gpsname+"   "+DataSaved.S_macAddres);
+            titolo.setText(flag+" PAIRED DEVICE\n"+ DataSaved.S_gpsname+"   "+DataSaved.S_macAddres);
         }else if(flag.contains("CAN")){who=2;
-            titolo.setText(flag+" DEVICE LIST\n"+ DataSaved.S_can_name+"   "+DataSaved.S_macAddress_CAN);}
+            titolo.setText(flag+" PAIRED DEVICE\n"+ DataSaved.S_can_name+"   "+DataSaved.S_macAddress_CAN);}
 
     }
 

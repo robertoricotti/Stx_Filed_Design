@@ -7,9 +7,9 @@
 
 
     <gradient
-        android:startColor="@color/bg"
+        android:startColor="@color/colorStonexBlue"
         android:centerColor="@color/colorStonexBlue"
-        android:endColor="@color/light_yellow"
+        android:endColor="@color/colorStonexBlue"
         android:angle="0">
     </gradient>
 

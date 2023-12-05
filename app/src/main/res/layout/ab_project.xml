@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.666666" />
+        app:layout_constraintGuide_percent="0.85" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -87,8 +87,20 @@
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@id/tit_zb"
         app:layout_constraintLeft_toRightOf="@id/tit_zb"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toRightOf="@id/V2"
         app:layout_constraintTop_toTopOf="@id/tit_zb" />
+    <TextView
+        android:id="@+id/um_1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@drawable/custom_background_light"
+        app:layout_constraintLeft_toRightOf="@id/et_zb"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/et_zb"
+        app:layout_constraintBottom_toBottomOf="@id/et_zb"/>
 
 
     <TextView
@@ -116,9 +128,21 @@
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@id/tit_len"
         app:layout_constraintLeft_toRightOf="@id/tit_len"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toRightOf="@id/V2"
         app:layout_constraintTop_toTopOf="@id/tit_len"
         app:layout_constraintVertical_bias="1.0" />
+    <TextView
+        android:id="@+id/um_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@drawable/custom_background_light"
+        app:layout_constraintLeft_toRightOf="@id/et_dst"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/et_dst"
+        app:layout_constraintBottom_toBottomOf="@id/et_dst"/>
 
 
     <TextView
@@ -146,8 +170,20 @@
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@id/tit_slope"
         app:layout_constraintLeft_toRightOf="@id/tit_slope"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toRightOf="@id/V2"
         app:layout_constraintTop_toTopOf="@id/tit_slope" />
+    <TextView
+        android:id="@+id/um_3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@drawable/custom_background_light"
+        app:layout_constraintLeft_toRightOf="@id/et_slope"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/et_slope"
+        app:layout_constraintBottom_toBottomOf="@id/et_slope"/>
 
 
     <TextView
@@ -175,8 +211,20 @@
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@id/left_dis"
         app:layout_constraintLeft_toRightOf="@id/left_dis"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toRightOf="@id/V2"
         app:layout_constraintTop_toTopOf="@id/left_dis" />
+    <TextView
+        android:id="@+id/um_4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@drawable/custom_background_light"
+        app:layout_constraintLeft_toRightOf="@id/et_ltdst"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/et_ltdst"
+        app:layout_constraintBottom_toBottomOf="@id/et_ltdst"/>
 
 
     <TextView
@@ -204,8 +252,20 @@
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@id/left_slop"
         app:layout_constraintLeft_toRightOf="@id/left_slop"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toRightOf="@id/V2"
         app:layout_constraintTop_toTopOf="@id/left_slop" />
+    <TextView
+        android:id="@+id/um_5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@drawable/custom_background_light"
+        app:layout_constraintLeft_toRightOf="@id/et_ltslope"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/et_ltslope"
+        app:layout_constraintBottom_toBottomOf="@id/et_ltslope"/>
 
 
     <TextView
@@ -233,8 +293,20 @@
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@id/right_dis"
         app:layout_constraintLeft_toRightOf="@id/right_dis"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toRightOf="@id/V2"
         app:layout_constraintTop_toTopOf="@id/right_dis" />
+    <TextView
+        android:id="@+id/um_6"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@drawable/custom_background_light"
+        app:layout_constraintLeft_toRightOf="@id/et_rtdst"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/et_rtdst"
+        app:layout_constraintBottom_toBottomOf="@id/et_rtdst"/>
 
 
     <TextView
@@ -262,8 +334,22 @@
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@id/right_slop"
         app:layout_constraintLeft_toRightOf="@id/right_slop"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toRightOf="@id/V2"
         app:layout_constraintTop_toTopOf="@id/right_slop" />
+    <TextView
+        android:id="@+id/um_7"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@drawable/custom_background_light"
+        app:layout_constraintLeft_toRightOf="@id/et_rtslope"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/et_rtslope"
+        app:layout_constraintBottom_toBottomOf="@id/et_rtslope"/>
+
+
 
 
     <!--end of BUTTONS-->
@@ -301,14 +387,14 @@
         app:tint="@color/white" />
 
     <ImageButton
-        android:id="@+id/centerNavigator"
+        android:id="@+id/myCenterNav"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="0dp"
         android:backgroundTint="@color/black"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/crs"
-        app:layout_constraintEnd_toStartOf="@+id/zoomIn"
+        app:layout_constraintEnd_toStartOf="@+id/myZoomIn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/container_draw"
         app:layout_constraintTop_toTopOf="@+id/crs"
@@ -316,22 +402,22 @@
         app:tint="@color/white" />
 
     <ImageButton
-        android:id="@+id/zoomIn"
+        android:id="@+id/myZoomIn"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="0dp"
         android:backgroundTint="@color/black"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/crs"
-        app:layout_constraintEnd_toStartOf="@+id/zoomOut"
+        app:layout_constraintEnd_toStartOf="@+id/myZoomOut"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/centerNavigator"
+        app:layout_constraintStart_toEndOf="@+id/myCenterNav"
         app:layout_constraintTop_toTopOf="@+id/crs"
         app:srcCompat="@drawable/zoomin"
         app:tint="@color/white" />
 
     <ImageButton
-        android:id="@+id/zoomOut"
+        android:id="@+id/myZoomOut"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="0dp"
@@ -340,7 +426,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/crs"
         app:layout_constraintEnd_toStartOf="@+id/crs"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/zoomIn"
+        app:layout_constraintStart_toEndOf="@+id/myZoomIn"
         app:layout_constraintTop_toTopOf="@+id/crs"
         app:srcCompat="@drawable/zoomout"
         app:tint="@color/white" />

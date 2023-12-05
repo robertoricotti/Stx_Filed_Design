@@ -99,43 +99,43 @@
         app:layout_constraintTop_toBottomOf="@+id/surfaceStatus" />
 
     <ImageButton
-        android:id="@+id/centerNavigator"
+        android:id="@+id/myCenterNav"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="1dp"
         android:backgroundTint="@color/black"
         android:scaleType="fitCenter"
         app:layout_constraintLeft_toLeftOf="@id/container_draw"
-        app:layout_constraintRight_toLeftOf="@+id/zoomIn"
+        app:layout_constraintRight_toLeftOf="@+id/myZoomIn"
         app:layout_constraintTop_toTopOf="@+id/container_draw"
         app:srcCompat="@drawable/centerview"
         app:tint="@color/white" />
 
     <ImageButton
-        android:id="@+id/zoomIn"
+        android:id="@+id/myZoomIn"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="1dp"
         android:backgroundTint="@color/black"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/centerNavigator"
-        app:layout_constraintLeft_toRightOf="@id/centerNavigator"
-        app:layout_constraintRight_toLeftOf="@id/zoomOut"
-        app:layout_constraintTop_toTopOf="@+id/centerNavigator"
+        app:layout_constraintBottom_toBottomOf="@+id/myCenterNav"
+        app:layout_constraintLeft_toRightOf="@id/myCenterNav"
+        app:layout_constraintRight_toLeftOf="@id/myZoomOut"
+        app:layout_constraintTop_toTopOf="@+id/myCenterNav"
         app:srcCompat="@drawable/zoomin"
         app:tint="@color/white" />
 
     <ImageButton
-        android:id="@+id/zoomOut"
+        android:id="@+id/myZoomOut"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="1dp"
         android:backgroundTint="@color/black"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/centerNavigator"
-        app:layout_constraintLeft_toRightOf="@id/zoomIn"
+        app:layout_constraintBottom_toBottomOf="@+id/myCenterNav"
+        app:layout_constraintLeft_toRightOf="@id/myZoomIn"
         app:layout_constraintRight_toLeftOf="@id/rotateLeft"
-        app:layout_constraintTop_toTopOf="@+id/centerNavigator"
+        app:layout_constraintTop_toTopOf="@+id/myCenterNav"
         app:srcCompat="@drawable/zoomout"
         app:tint="@color/white" />
 
@@ -146,10 +146,10 @@
         android:layout_margin="1dp"
         android:backgroundTint="@color/black"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/centerNavigator"
-        app:layout_constraintLeft_toRightOf="@id/zoomOut"
+        app:layout_constraintBottom_toBottomOf="@+id/myCenterNav"
+        app:layout_constraintLeft_toRightOf="@id/myZoomOut"
         app:layout_constraintRight_toLeftOf="@id/rotateRight"
-        app:layout_constraintTop_toTopOf="@+id/centerNavigator"
+        app:layout_constraintTop_toTopOf="@+id/myCenterNav"
         app:srcCompat="@drawable/rotate_left"
         app:tint="@color/white" />
 
@@ -160,10 +160,10 @@
         android:layout_margin="1dp"
         android:backgroundTint="@color/black"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/centerNavigator"
+        app:layout_constraintBottom_toBottomOf="@+id/myCenterNav"
         app:layout_constraintLeft_toRightOf="@id/rotateLeft"
         app:layout_constraintRight_toLeftOf="@id/autorotate"
-        app:layout_constraintTop_toTopOf="@+id/centerNavigator"
+        app:layout_constraintTop_toTopOf="@+id/myCenterNav"
         app:srcCompat="@drawable/rotate_right"
         app:tint="@color/white" />
 
@@ -175,10 +175,10 @@
         android:layout_margin="1dp"
         android:backgroundTint="@color/black"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/centerNavigator"
+        app:layout_constraintBottom_toBottomOf="@+id/myCenterNav"
         app:layout_constraintLeft_toRightOf="@id/rotateRight"
         app:layout_constraintRight_toRightOf="@id/container_draw"
-        app:layout_constraintTop_toTopOf="@+id/centerNavigator"
+        app:layout_constraintTop_toTopOf="@+id/myCenterNav"
         app:srcCompat="@drawable/baseline_360"
         app:tint="@color/white" />
 
@@ -211,7 +211,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/container_draw"
-        app:layout_constraintTop_toBottomOf="@+id/centerNavigator" />
+        app:layout_constraintTop_toBottomOf="@+id/myCenterNav" />
 
     <TextView
         android:id="@+id/quota"

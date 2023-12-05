@@ -77,7 +77,7 @@ public class UsbActivity extends AppCompatActivity {
         });
 
         readusb.setOnClickListener(view -> {
-new CustomToast(this,getUSB()).show_long();
+
             try {
                 readFromUSB_IN(getUsbFolderPath());
             } catch (Exception e) {
@@ -120,7 +120,7 @@ new CustomToast(this,getUSB()).show_long();
             if (adapter.getSelectedItem() > -1) {
                 String appCsvFolder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Stx Field/Projects/";
                 File appCsvDir = new File(appCsvFolder);
-                Log.d("file selezionato del", appCsvDir + "/" + adapter.getSelectedFilePath());
+
                 try {
                     deleteFile(appCsvDir + "/" + adapter.getSelectedFilePath());
 
@@ -431,7 +431,7 @@ new CustomToast(this,getUSB()).show_long();
 
     //metodo funzionante per Android 9,10,11 https://stackoverflow.com/questions/51855429/how-to-get-external-usb-mass-storage-path-in-android
     public static String getUSB() {
-        File storageDirectory = new File("/mnt");
+        File storageDirectory = new File("/storage");
         if (!storageDirectory.exists()) {
             Log.e("mUSB", "getUSB: '/storage' does not exist on this device");
             return "";

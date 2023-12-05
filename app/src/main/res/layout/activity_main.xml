@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <LinearLayout
-            android:layout_marginVertical="10dp"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -42,6 +42,7 @@
                 android:layout_weight="1"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+
                 android:src="@drawable/btn_canconn"
                 app:tint="@color/_____cancel_text"
 
@@ -57,8 +58,45 @@
 
 
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginVertical="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:textStyle="bold"
+                android:textColor="@color/_____cancel_text"
+                android:text="GPS BT Config"
+                android:gravity="center|top"/>
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="CAN BT Config"
+                android:textStyle="bold"
+                android:textColor="@color/_____cancel_text"
+                android:gravity="center|top"
+
+                />
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="Projects"
+                android:textStyle="bold"
+                android:textColor="@color/_____cancel_text"
+                android:gravity="center|top"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -69,7 +107,7 @@
                 android:layout_weight="1"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/btn_setting_tech"
+                android:src="@drawable/btn_setting"
                 />
 
             <ImageView
@@ -91,7 +129,42 @@
 
         </LinearLayout>
         <LinearLayout
-            android:layout_marginVertical="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:textStyle="bold"
+                android:textColor="@color/_____cancel_text"
+                android:text="Settings"
+                android:gravity="center|top"/>
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="Machine Measurements"
+                android:textStyle="bold"
+                android:textColor="@color/_____cancel_text"
+                android:gravity="center|top"
+
+                />
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="On Grade"
+                android:textStyle="bold"
+                android:textColor="@color/_____cancel_text"
+                android:gravity="center|top"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -125,7 +198,42 @@
 
         </LinearLayout>
         <LinearLayout
-            android:layout_marginVertical="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:textStyle="bold"
+                android:textColor="@color/_____cancel_text"
+                android:text="Units Of Measure"
+                android:gravity="center|top"/>
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="Antenna Height"
+                android:textStyle="bold"
+                android:textColor="@color/_____cancel_text"
+                android:gravity="center|top"
+
+                />
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="Info App"
+                android:textStyle="bold"
+                android:textColor="@color/_____cancel_text"
+                android:gravity="center|top"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -155,6 +263,44 @@
                 android:src="@drawable/btn_unitsofmeasure"
                 app:tint="@color/transparent"
                 />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:textStyle="bold"
+                android:textColor="@color/_____cancel_text"
+                android:text="USB Files Transfer"
+
+                android:gravity="center|top"/>
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="Machine Measurements"
+                android:textStyle="bold"
+                android:textColor="@color/_____cancel_text"
+                android:visibility="invisible"
+                android:gravity="center|top"
+
+                />
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="On Grade"
+                android:textStyle="bold"
+                android:textColor="@color/_____cancel_text"
+                android:visibility="invisible"
+                android:gravity="center|top"/>
+
 
         </LinearLayout>
     </LinearLayout>

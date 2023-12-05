@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         to_info.setOnClickListener(view -> {
-            new CustomToast(this, "STX Field Design\n" + BuildConfig.VERSION_NAME.toString()).show();
+            new CustomToast(this, "STX Field Design\nv " + BuildConfig.VERSION_NAME.toString()).show();
         });
         to_palina.setOnClickListener(view -> {
             new DialogOffset(MainActivity.this).show();

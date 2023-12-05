@@ -3,7 +3,6 @@ package activity_portrait;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -79,9 +78,9 @@ public class AB_WorkActivity extends AppCompatActivity {
 
 
         container = findViewById(R.id.container_draw);
-        center = findViewById(R.id.centerNavigator);
-        zoomIn = findViewById(R.id.zoomIn);
-        zoomOut = findViewById(R.id.zoomOut);
+        center = findViewById(R.id.myCenterNav);
+        zoomIn = findViewById(R.id.myZoomIn);
+        zoomOut = findViewById(R.id.myZoomOut);
         surfaceStatus = findViewById(R.id.surfaceStatus);
         crs = findViewById(R.id.crs);
         delaunay = findViewById(R.id.delunay);

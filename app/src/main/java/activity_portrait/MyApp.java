@@ -45,6 +45,7 @@ import utils.Utils;
 
 @SuppressLint("NewApi")
 public class MyApp extends Application implements Application.ActivityLifecycleCallbacks {
+
     static boolean showCoord;
     static float screenWidth;
     private volatile boolean mRunning = false;
@@ -179,6 +180,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         m_updateUI(whoLaunch, true);
         btn1.setImageResource(R.drawable.btn_to_indietro);
         btn3.setImageResource(R.drawable.misura_punto);
+
         btn2.setVisibility(View.INVISIBLE);
         btn3.setVisibility(View.VISIBLE);
         btn4.setVisibility(View.INVISIBLE);
@@ -189,7 +191,20 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         });
         btn3.setOnClickListener(view -> {
             //implementare logica misura punto
-            Toast.makeText(activity, "To Do MisuraPunto", Toast.LENGTH_SHORT).show();
+
+            if( ((UOM_Activity) activity).size<2){
+                ((UOM_Activity) activity).size+=1;}
+            if(((UOM_Activity) activity).size==1){
+                ((UOM_Activity) activity).A_coord=new double[]{Nmea_In.Crs_Est,Nmea_In.Crs_Nord,Nmea_In.Quota1};
+
+                new CustomToast(visibleActivity,"P1").show();
+            }
+            if(((UOM_Activity) activity).size==2){
+
+                ((UOM_Activity) activity).B_coord=new double[]{Nmea_In.Crs_Est,Nmea_In.Crs_Nord,Nmea_In.Quota1};
+
+                new CustomToast(visibleActivity,"P2").show();
+            }
 
         });
     }

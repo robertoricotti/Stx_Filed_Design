@@ -54,7 +54,7 @@ public class PickProjectAdapter extends RecyclerView.Adapter<PickProjectAdapter.
             } else {
                 String fileExtension = getFileExtension(files.get(viewHolder.getAdapterPosition()));
 
-                if (fileExtension != null && (fileExtension.equals("pstx"))) {
+                if (fileExtension != null) {//&& (fileExtension.equals("pstx"))
                     selectedItem = viewHolder.getAdapterPosition();
                     notifyDataSetChanged();
 
@@ -111,6 +111,7 @@ public class PickProjectAdapter extends RecyclerView.Adapter<PickProjectAdapter.
         }
 
         constraintLayout.setBackgroundColor(selectedItem == position ? ContextCompat.getColor(constraintLayout.getContext(), R.color.orange) : ContextCompat.getColor(constraintLayout.getContext(), R.color.transparent));
+
     }
 
     private String getFileExtension(String fileName) {

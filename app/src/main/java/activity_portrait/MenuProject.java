@@ -15,7 +15,7 @@ import dialogs.PickProjectDialog;
 
 public class MenuProject extends AppCompatActivity {
 
-    ImageButton plane, ab, delaunay;
+    ImageButton plane, ab, delaunay,path;
     PickProjectDialog pickProjectDialog;
 
     @Override
@@ -31,6 +31,7 @@ public class MenuProject extends AppCompatActivity {
         plane = findViewById(R.id.plane);
         ab = findViewById(R.id.ab);
         delaunay = findViewById(R.id.delaunay);
+        path=findViewById(R.id.imagepathfollower);
 
 
     }
@@ -52,6 +53,9 @@ public class MenuProject extends AppCompatActivity {
         });
 
         delaunay.setOnClickListener((View v) -> {
+            new CustomToast(this,"Not Implemented").show();
+        });
+        path.setOnClickListener(view -> {
             new CustomToast(this,"Not Implemented").show();
         });
 
