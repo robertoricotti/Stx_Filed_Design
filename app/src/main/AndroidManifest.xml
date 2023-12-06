@@ -8,6 +8,7 @@
     <uses-feature android:name="android.hardware.usb.host" />
 
     <uses-feature android:name="android.hardware.usb.accessory" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -34,7 +35,8 @@
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="29" />
-    <uses-permission android:name="android.permission.WRITE_MEDIA_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_MEDIA_STORAGE"
         tools:ignore="ProtectedPermissions" />
 
     <application
@@ -48,8 +50,8 @@
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.Stx_Field_Design"
-        tools:targetApi="31"
-        tools:ignore="RtlEnabled">
+        tools:ignore="RtlEnabled"
+        tools:targetApi="31">
         <activity
             android:name="activity_portrait.UOM_Activity"
             android:autoRemoveFromRecents="true"
@@ -134,17 +136,21 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="activity_portrait.LaunchScreenActivity"
+            android:autoRemoveFromRecents="true"
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-            <intent-filter>
+            <intent-filter android:priority="100">
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
                 <action android:name="android.intent.action.MAIN" />
 
-
+                <category android:name="android.intent.action.HOME" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <receiver
             android:name="utils.UsbReceiver"
             android:enabled="true"
@@ -164,6 +170,22 @@
 
 
             </intent-filter>
+        </receiver>
+        <receiver
+            android:name="activity_portrait.StartActivityOnBootReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter android:priority="100">
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
         </receiver>
     </application>
 

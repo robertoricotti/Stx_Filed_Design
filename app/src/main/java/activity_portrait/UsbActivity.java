@@ -10,6 +10,7 @@ import android.os.storage.StorageManager;
 import android.os.storage.StorageVolume;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +24,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -34,7 +36,8 @@ import project.PickProjectAdapter;
 
 
 public class UsbActivity extends AppCompatActivity {
-
+    static String usbPath;
+    TextView txt1, txt2;
     PickProjectAdapter adapter;
 
     ImageView exit, export, prendi, readusb, delete;
@@ -61,6 +64,8 @@ public class UsbActivity extends AppCompatActivity {
         prendi = findViewById(R.id.loadFromIN);
         readusb = findViewById(R.id.read);
         delete = findViewById(R.id.deletSelection);
+        txt1 = findViewById(R.id.txt1);
+        txt2 = findViewById(R.id.txt2);
         loadFilesToRecyclerView();
 
     }
@@ -79,12 +84,22 @@ public class UsbActivity extends AppCompatActivity {
         readusb.setOnClickListener(view -> {
 
             try {
-                readFromUSB_IN(getUsbFolderPath());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                usbPath=getUsbFolderPath();
+                }else {
+                usbPath = getStoragePath(UsbActivity.this, true).toString();}
+            } catch (Exception e) {
+                new CustomToast(UsbActivity.this, e.toString()).show();
+            }
+
+            try {
+
+                readFromUSB_IN(usbPath);
             } catch (Exception e) {
                 new CustomToast(UsbActivity.this, "USB:\nIN Folder Not Found").show();
             }
             try {
-                readFromUSB_OUT(getUsbFolderPath());
+                readFromUSB_OUT(usbPath);
             } catch (Exception e) {
                 new CustomToast(UsbActivity.this, "USB:\nOUT Folder Not Found").show();
             }
@@ -93,6 +108,7 @@ public class UsbActivity extends AppCompatActivity {
             } catch (Exception e) {
                 new CustomToast(UsbActivity.this, "No Projects Available").show();
             }
+
         });
 
         prendi.setOnClickListener(view -> {
@@ -112,7 +128,6 @@ public class UsbActivity extends AppCompatActivity {
         });
 
     }
-
 
 
     public void confirmDelete(boolean del) {
@@ -140,43 +155,6 @@ public class UsbActivity extends AppCompatActivity {
     }
 
 
-    @SuppressLint("NewApi")
-    private String getUsbFolderPath() {
-        StorageManager storageManager = (StorageManager) getSystemService(Context.STORAGE_SERVICE);
-
-        if (storageManager != null) {
-            try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    // Utilizza il nuovo metodo getDirectory() disponibile da Android 11 in poi
-                    List<StorageVolume> storageVolumes = storageManager.getStorageVolumes();
-                    for (StorageVolume storageVolume : storageVolumes) {
-                        if (Environment.MEDIA_MOUNTED.equals(storageVolume.getState()) && storageVolume.isRemovable()) {
-                            File directory = storageVolume.getDirectory();
-                            if (directory != null) {
-                                //new CustomToast(UsbActivity.this, directory.getAbsolutePath()).show();
-                                return directory.getAbsolutePath();
-                            } else {
-                                //new CustomToast(UsbActivity.this, "No USB Found").show();
-                                return null;
-                            }
-                        }
-                    }
-                } else {
-
-                    return getUSB();
-
-                }
-            } catch (NoSuchMethodError e) {
-
-                e.printStackTrace();
-                new CustomToast(UsbActivity.this, "No USB Found").show();
-            }
-        }
-
-
-        return null;
-    }
-
     private void readFromUSB_IN(String usbFolderPath) {
         // Verifica se la cartella USB esiste
         File usbFolder = new File(usbFolderPath);
@@ -187,6 +165,7 @@ public class UsbActivity extends AppCompatActivity {
 
             // Verifica se la cartella "IN" esiste
             if (inFolder.exists() && inFolder.isDirectory()) {
+                txt1.setText(inFolder.getAbsolutePath());
                 // Ottieni la lista di file nella cartella "IN"
                 File[] files = inFolder.listFiles();
                 if (files != null) {
@@ -206,6 +185,7 @@ public class UsbActivity extends AppCompatActivity {
         }
     }
 
+
     private void readFromUSB_OUT(String usbFolderPath) {
         // Verifica se la cartella USB esiste
         File usbFolder = new File(usbFolderPath);
@@ -216,6 +196,7 @@ public class UsbActivity extends AppCompatActivity {
 
             // Verifica se la cartella "IN" esiste
             if (inFolder.exists() && inFolder.isDirectory()) {
+                txt2.setText(inFolder.getAbsolutePath());
                 // Ottieni la lista di file nella cartella "OUT"
                 File[] files = inFolder.listFiles();
                 if (files != null) {
@@ -276,7 +257,7 @@ public class UsbActivity extends AppCompatActivity {
 
     private void importFilesFromUsb() {
         // Ottieni la cartella "IN" sulla USB
-        File usbInFolder = new File(getUsbFolderPath(), "IN");
+        File usbInFolder = new File(getStoragePath(this, true), "IN");
 
         // Verifica se la cartella "IN" esiste
         if (usbInFolder.exists() && usbInFolder.isDirectory()) {
@@ -332,7 +313,7 @@ public class UsbActivity extends AppCompatActivity {
 
     private void exportFilesToUsb() {
         // Verifica se la cartella USB è disponibile
-        String usbFolderPath = getUsbFolderPath();
+        String usbFolderPath = getStoragePath(this, true);
         if (usbFolderPath != null) {
             // Percorso della cartella "OUT" sulla USB stick
             File outFolder = new File(usbFolderPath, "OUT");
@@ -390,7 +371,7 @@ public class UsbActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
             // Utilizza Files.copy per Android 11 e successive
-            Files.copy(source.toPath(),destination.toPath());
+            Files.copy(source.toPath(), destination.toPath());
 
         } else {
             // Utilizza FileChannel per versioni precedenti ad Android 11
@@ -429,48 +410,107 @@ public class UsbActivity extends AppCompatActivity {
     }
 
 
-    //metodo funzionante per Android 9,10,11 https://stackoverflow.com/questions/51855429/how-to-get-external-usb-mass-storage-path-in-android
-    public static String getUSB() {
-        File storageDirectory = new File("/storage");
-        if (!storageDirectory.exists()) {
-            Log.e("mUSB", "getUSB: '/storage' does not exist on this device");
-            return "";
-        }
+    @SuppressLint("PrivateApi")
+    private String getStoragePath(Context context, boolean isUsb) {
 
-        File[] files = storageDirectory.listFiles();
-        if (files == null) {
-            Log.e("mUSB", "getUSB: Null when requesting directories inside '/storage'");
-            return "";
-        }
+        String path = "";
 
-        List<String> possibleUSBStorageMounts = new ArrayList<>();
-        for (File file : files) {
-            String path = file.getPath();
-            if (path.contains("emulated") ||
-                    path.contains("sdcard") ||
-                    path.contains("self")) {
-                Log.d("mUSB", "getUSB: Found '" + path + "' - not USB");
-            } else {
-                possibleUSBStorageMounts.add(path);
+        StorageManager mStorageManager = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
+
+        Class<?> volumeInfoClazz;
+
+        Class<?> diskInfoClaszz;
+
+        try {
+
+            volumeInfoClazz = Class.forName("android.os.storage.VolumeInfo");
+
+            diskInfoClaszz = Class.forName("android.os.storage.DiskInfo");
+
+            Method StorageManager_getVolumes = Class.forName("android.os.storage.StorageManager").getMethod("getVolumes");
+
+            Method VolumeInfo_GetDisk = volumeInfoClazz.getMethod("getDisk");
+
+            Method VolumeInfo_GetPath = volumeInfoClazz.getMethod("getPath");
+
+            Method DiskInfo_IsUsb = diskInfoClaszz.getMethod("isUsb");
+
+            Method DiskInfo_IsSd = diskInfoClaszz.getMethod("isSd");
+
+            List<Object> List_VolumeInfo = (List<Object>) StorageManager_getVolumes.invoke(mStorageManager);
+
+            assert List_VolumeInfo != null;
+
+            for (int i = 0; i < List_VolumeInfo.size(); i++) {
+
+                Object volumeInfo = List_VolumeInfo.get(i);
+
+                Object diskInfo = VolumeInfo_GetDisk.invoke(volumeInfo);
+
+                if (diskInfo == null) continue;
+
+                boolean sd = (boolean) DiskInfo_IsSd.invoke(diskInfo);
+
+                boolean usb = (boolean) DiskInfo_IsUsb.invoke(diskInfo);
+
+                File file = (File) VolumeInfo_GetPath.invoke(volumeInfo);
+
+                if (isUsb == usb) {//usb
+
+                    if( file != null){
+
+                    path = file.getAbsolutePath();}
+
+                } else if (!isUsb == sd) {//sd
+
+                    if(file != null){
+
+                    path = file.getAbsolutePath();}
+
+                }
+
+            }
+
+        } catch (Exception e) {
+
+           new CustomToast(UsbActivity.this,e.toString());
+
+        }
+        return path;
+    }
+
+    @SuppressLint("NewApi")
+    private String getUsbFolderPath() {
+        StorageManager storageManager = (StorageManager) getSystemService(Context.STORAGE_SERVICE);
+
+        if (storageManager != null) {
+            try {
+
+                    // Utilizza il nuovo metodo getDirectory() disponibile da Android 11 in poi
+                    List<StorageVolume> storageVolumes = storageManager.getStorageVolumes();
+                    for (StorageVolume storageVolume : storageVolumes) {
+                        if (Environment.MEDIA_MOUNTED.equals(storageVolume.getState()) && storageVolume.isRemovable()) {
+                            File directory = storageVolume.getDirectory();
+                            if (directory != null) {
+                                //new CustomToast(UsbActivity.this, directory.getAbsolutePath()).show();
+                                return directory.getAbsolutePath();
+                            } else {
+                                //new CustomToast(UsbActivity.this, "No USB Found").show();
+                                return null;
+                            }
+                        }
+                    }
+
+            } catch (NoSuchMethodError e) {
+
+                e.printStackTrace();
+                new CustomToast(UsbActivity.this, "No USB Found").show();
             }
         }
 
-        if (possibleUSBStorageMounts.size() == 0) {
-            Log.e("mUSB", "getUSB: Did not find any possible USB mounts");
-            return "";
-        }
-        if (possibleUSBStorageMounts.size() > 1) {
-            Log.d("mUSB", "getUSB: Found multiple possible USB mount points, choosing the first one");
-        }
 
-        return possibleUSBStorageMounts.get(0);
-
+        return null;
     }
-
-
-
-
-
 
 
 }

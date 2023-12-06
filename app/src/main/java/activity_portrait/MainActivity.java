@@ -4,15 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.example.stx_field_design.BuildConfig;
 import com.example.stx_field_design.R;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 import project.DataProjectSingleton;
 import dialogs.CustomToast;
@@ -22,7 +29,6 @@ import utils.MyRW_IntMem;
 
 public class MainActivity extends AppCompatActivity {
     int countProgress=0;
-    boolean showCoord = false;
     ProgressBar progressBar;
     ImageView btn_units, to_bt, openProject, to_new, to_settings, to_usbStick, to_mch, to_palina, to_info, toPairCan;
 
@@ -35,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         findView();
         init();
@@ -68,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("NewApi")
     private void onClick() {
+
         btn_units.setOnClickListener(view -> {
             startActivity(new Intent(this,UOM_Activity.class));
             finish();

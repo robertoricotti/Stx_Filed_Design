@@ -24,16 +24,18 @@ import androidx.core.content.ContextCompat;
 
 
 import com.example.stx_field_design.R;
+import com.van.jni.VanCmd;
 
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
 
 
 import dialogs.CustomToast;
 import services_and_bluetooth.AutoConnectionService;
 import services_and_bluetooth.UpdateValues;
 import utils.FullscreenActivity;
-
 
 
 @SuppressLint("CustomSplashScreen")
@@ -71,19 +73,21 @@ public class LaunchScreenActivity extends AppCompatActivity {
         init();
 
 
+
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.R)
-    private void checkExternalEnviroment(){
+    private void checkExternalEnviroment() {
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager()){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
             startActivity(new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION));
         }
     }
 
 
     @RequiresApi(api = Build.VERSION_CODES.R)
-    private void init(){
+    private void init() {
         Log.d("VersioneAnd", String.valueOf(Build.VERSION.SDK_INT));
         if (Build.VERSION.SDK_INT >= 33) {
             PERMISSIONS = new String[]{
@@ -92,6 +96,7 @@ public class LaunchScreenActivity extends AppCompatActivity {
                     Manifest.permission.BLUETOOTH_CONNECT,
                     Manifest.permission.BLUETOOTH_SCAN,
                     Manifest.permission.INTERNET,
+
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_NETWORK_STATE,
@@ -100,7 +105,7 @@ public class LaunchScreenActivity extends AppCompatActivity {
             };
 
         }
-        if(Build.VERSION.SDK_INT<33&&Build.VERSION.SDK_INT>29){
+        if (Build.VERSION.SDK_INT < 33 && Build.VERSION.SDK_INT > 29) {
             PERMISSIONS = new String[]{
                     Manifest.permission.BLUETOOTH,
                     Manifest.permission.BLUETOOTH_ADMIN,
@@ -108,6 +113,7 @@ public class LaunchScreenActivity extends AppCompatActivity {
                     Manifest.permission.READ_EXTERNAL_STORAGE,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.INTERNET,
+
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.MANAGE_EXTERNAL_STORAGE,
@@ -115,21 +121,21 @@ public class LaunchScreenActivity extends AppCompatActivity {
             };
 
         }
-        if(Build.VERSION.SDK_INT <= 29){
+        if (Build.VERSION.SDK_INT <= 29) {
             PERMISSIONS = new String[]{
                     Manifest.permission.BLUETOOTH,
                     Manifest.permission.READ_EXTERNAL_STORAGE,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    //Manifest.permission.MANAGE_EXTERNAL_STORAGE,
+
                     Manifest.permission.INTERNET,
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_NETWORK_STATE};
-            new CustomToast(LaunchScreenActivity.this,"Limitated USB Features").show();
+            new CustomToast(LaunchScreenActivity.this, "Limitated USB Features").show();
 
         }
 
-        if(checkPermissions()){
+        if (checkPermissions()) {
             count.start();
             try {
 
@@ -140,18 +146,16 @@ public class LaunchScreenActivity extends AppCompatActivity {
                 //
             }
 
-        }
-        else{
+        } else {
             requestPermissions(PERMISSIONS, PERMISSION_REQUEST_CODE);
         }
 
     }
 
 
-
     private void createSystemFolders() {
         File directory = new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field");
-        Log.d("MyPath",directory.getPath().toString());
+        Log.d("MyPath", directory.getPath().toString());
         if (!directory.exists()) {
             if (directory.mkdir()) {
 
@@ -172,11 +176,10 @@ public class LaunchScreenActivity extends AppCompatActivity {
         }
 
 
-
-
     }
 
     private boolean checkPermissions() {
+        requestOverlayPermission();
         for (String permission : PERMISSIONS) {
             if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
                 return false;
@@ -184,17 +187,23 @@ public class LaunchScreenActivity extends AppCompatActivity {
         }
         return true;
     }
+
     @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSION_REQUEST_CODE) {
-            if(checkPermissions()){
+            if (checkPermissions()) {
                 count.start();
-            }
-            else {
+            } else {
                 Toast.makeText(this, "Until you grant the permission, we cannot proceed further", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+    private void requestOverlayPermission() {
+        if (!Settings.canDrawOverlays(this)) {
+            Intent a = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+            startActivity(a);
         }
     }
 
@@ -207,8 +216,19 @@ public class LaunchScreenActivity extends AppCompatActivity {
     }
 
 
-
-
     @Override
-    public void onBackPressed() {}
+    public void onBackPressed() {
+    }
+
+    public static void executeAdbCommand(String command) {
+        try {
+
+            Log.d("TestADB", "1: " + command);
+            Runtime.getRuntime().exec(command);
+            Log.d("TestADB", "2: " + command);
+        } catch (Exception e) {
+            Log.d("TestADB", e.toString());
+
+        }
+    }
 }

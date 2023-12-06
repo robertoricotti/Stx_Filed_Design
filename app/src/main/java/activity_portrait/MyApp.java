@@ -5,10 +5,12 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.icu.text.DecimalFormatSymbols;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -54,6 +56,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     ImageView btn1, btn2, btn3, btn4, btn5;
     TextView txt1, txt2, txt3, txt4, txt5, txt_coord, txt_canstat;
     ImageView imgConnetti;
+    static int SCREEN_ORIENTATION,previous_SCREEN_ORIENTATION;
 
     public static Activity visibleActivity;
 
@@ -63,6 +66,14 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     public void onCreate() {
         super.onCreate();
         registerActivityLifecycleCallbacks(this);
+        if(Build.DEVICE.equals("UT56")){
+
+            SCREEN_ORIENTATION=(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        } else {
+
+            SCREEN_ORIENTATION=(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+
 
 
     }
@@ -71,34 +82,42 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
 
-
         switch (activity.toString().substring(0, (activity.toString().indexOf("@")))) {
             case "activity_portrait.MainActivity":
+
                 m_MainActivity(activity);//method to manage components in activity...see below
                 break;
             case "activity_portrait.UOM_Activity":
+
                 m_UOM_Activity(activity);
                 break;
             case "activity_portrait.ABProject":
+
                 m_ABProject(activity);
                 break;
             case "activity_portrait.AntennaMeasure":
+
                 m_AntennaMeasure(activity);
                 break;
             case "activity_portrait.BT_DevicesActivity":
+
                 m_BT_DevicesActivity(activity);
                 break;
 
             case "activity_portrait.MchMeaureActivity":
+
                 m_MchMeasureActivity(activity);
                 break;
             case "activity_portrait.AB_WorkActivity":
+
                 m_AB_WorkingActivity(activity);
                 break;
             case "activity_portrait.MenuProject":
+
                 m_MenuProject(activity);
                 break;
             case "activity_portrait.SettingsActivity":
+
                 m_SettingsActivity(activity);
                 break;
             case "activity_portrait.UsbActivity":
@@ -108,6 +127,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                 break;
             case "activity_portrait.LaunchScreenActivity":
                 //questa activity viene gestita dalla classe LaunchScreenActivity.class
+
                 printDisplayDimensions(activity);//prendo i dati del display
                 break;
 
@@ -119,9 +139,11 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     @Override
     public void onActivityStarted(Activity activity) {
         if (activity != null) {
+            Log.d("MYPAD","onActivityStarted");
             visibleActivity = activity;
             DataSaved.Actualactivity = String.valueOf(activity);
             setLocale(visibleActivity, "en");
+
 
 
         }
@@ -145,6 +167,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
     @Override
     public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle bundle) {
+
     }
 
     @Override
@@ -155,6 +178,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
     public void m_MainActivity(Activity activity) {
         activity.setContentView(R.layout.activity_main);//setta il layout di riferimento dell'activity
+
         whoLaunch = activity;
         m_updateUI(whoLaunch, true);
 
@@ -243,6 +267,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
     public void m_BT_DevicesActivity(Activity activity) {
         activity.setContentView(R.layout.activity_bt_devices);
+
         whoLaunch = activity;
         m_updateUI(whoLaunch, true);
         btn1.setImageResource(R.drawable.btn_to_indietro);
@@ -258,12 +283,14 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
     public void m_MchMeasureActivity(Activity activity) {
         activity.setContentView(R.layout.activity_mch_meaure);
+
         whoLaunch = activity;
         FullscreenActivity.setFullScreen(activity);
     }
 
     public void m_AB_WorkingActivity(Activity activity) {
         activity.setContentView(R.layout.activity_load_project);
+
         whoLaunch = activity;
         m_updateUI(whoLaunch, true);
         btn5.setVisibility(View.GONE);
@@ -288,6 +315,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     }
     public void m_MenuProject(Activity activity){
         activity.setContentView(R.layout.activity_menu_project);
+
         whoLaunch = activity;
         m_updateUI(whoLaunch, true);
         btn2.setVisibility(View.INVISIBLE);
@@ -307,6 +335,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     }
     public void m_SettingsActivity(Activity activity){
         activity.setContentView(R.layout.activity_settings);
+
         whoLaunch = activity;
         m_updateUI(whoLaunch, true);
         btn2.setVisibility(View.INVISIBLE);

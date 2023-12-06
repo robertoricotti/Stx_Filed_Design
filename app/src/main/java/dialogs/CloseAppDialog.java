@@ -2,6 +2,8 @@ package dialogs;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +11,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.stx_field_design.R;
+import com.van.jni.VanCmd;
 
 import services_and_bluetooth.AutoConnectionService;
 import services_and_bluetooth.Bluetooth_CAN_Service;
@@ -58,6 +61,7 @@ public class CloseAppDialog {
             alertDialog.dismiss();
 
             activity.finishAndRemoveTask();
+
             System.exit(0);
         });
 
@@ -65,4 +69,5 @@ public class CloseAppDialog {
             alertDialog.dismiss();
         });
     }
+
 }
