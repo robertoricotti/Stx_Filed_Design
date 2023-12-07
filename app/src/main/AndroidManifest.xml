@@ -56,7 +56,7 @@
             android:name="activity_portrait.UOM_Activity"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
+            android:screenOrientation="locked"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <service
@@ -72,45 +72,45 @@
             android:name="activity_portrait.UsbActivity"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
+            android:screenOrientation="locked"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="activity_portrait.AB_WorkActivity"
             android:autoRemoveFromRecents="true"
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
+            android:screenOrientation="locked"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="activity_portrait.ABProject"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
+            android:screenOrientation="locked"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="activity_portrait.MenuProject"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
+            android:screenOrientation="locked"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="activity_portrait.AntennaMeasure"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
+            android:screenOrientation="locked"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="activity_portrait.MchMeaureActivity"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
+            android:screenOrientation="locked"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
             android:name="activity_portrait.BT_DevicesActivity"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
+            android:screenOrientation="locked"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <service
@@ -121,25 +121,27 @@
             android:name="services_and_bluetooth.AutoConnectionService"
             android:enabled="true"
             android:exported="false" />
+        <activity
+            android:name="activity_portrait.SettingsActivity"
+            android:autoRemoveFromRecents="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="locked"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
             android:name="activity_portrait.MainActivity"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
+            android:screenOrientation="locked"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name="activity_portrait.SettingsActivity"
-            android:autoRemoveFromRecents="true"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+
         <activity
             android:name="activity_portrait.LaunchScreenActivity"
             android:autoRemoveFromRecents="true"
             android:exported="true"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
+            android:screenOrientation="locked"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter android:priority="100">
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
@@ -150,6 +152,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
 
         <receiver
             android:name="utils.UsbReceiver"

@@ -43,13 +43,14 @@
                     android:id="@+id/ckRMC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+android:layout_marginHorizontal="10dp"
                     android:text="Use RMC" />
 
                 <CheckBox
                     android:id="@+id/ckPos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
 
                     android:text="Use POSITIONS" />
 
@@ -57,6 +58,7 @@
                     android:id="@+id/ckhdt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
 
                     android:text="DUAL GNSS"
                     />

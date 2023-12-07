@@ -24,12 +24,9 @@ import androidx.core.content.ContextCompat;
 
 
 import com.example.stx_field_design.R;
-import com.van.jni.VanCmd;
 
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStreamReader;
 
 
 import dialogs.CustomToast;
@@ -96,7 +93,6 @@ public class LaunchScreenActivity extends AppCompatActivity {
                     Manifest.permission.BLUETOOTH_CONNECT,
                     Manifest.permission.BLUETOOTH_SCAN,
                     Manifest.permission.INTERNET,
-
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_NETWORK_STATE,
@@ -113,7 +109,6 @@ public class LaunchScreenActivity extends AppCompatActivity {
                     Manifest.permission.READ_EXTERNAL_STORAGE,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.INTERNET,
-
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.MANAGE_EXTERNAL_STORAGE,
@@ -126,7 +121,6 @@ public class LaunchScreenActivity extends AppCompatActivity {
                     Manifest.permission.BLUETOOTH,
                     Manifest.permission.READ_EXTERNAL_STORAGE,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
-
                     Manifest.permission.INTERNET,
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -209,9 +203,7 @@ public class LaunchScreenActivity extends AppCompatActivity {
 
     protected void goMain() {
         startService(new Intent(LaunchScreenActivity.this, UpdateValues.class));
-        Intent intent;
-        intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(LaunchScreenActivity.this,MainActivity.class));
         finish();
     }
 

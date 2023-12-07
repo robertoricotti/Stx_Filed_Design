@@ -69,6 +69,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:textStyle="bold"
+                android:textSize="16sp"
                 android:textColor="@color/_____cancel_text"
                 android:text="GPS BT Config"
                 android:gravity="center|top"/>
@@ -78,6 +79,7 @@
                 android:layout_height="60dp"
                 android:text="CAN BT Config"
                 android:textStyle="bold"
+                android:textSize="16sp"
                 android:textColor="@color/_____cancel_text"
                 android:gravity="center|top"
 
@@ -89,6 +91,7 @@
                 android:layout_height="60dp"
                 android:text="Projects"
                 android:textStyle="bold"
+                android:textSize="16sp"
                 android:textColor="@color/_____cancel_text"
                 android:gravity="center|top"/>
 
@@ -138,6 +141,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:textStyle="bold"
+                android:textSize="16sp"
                 android:textColor="@color/_____cancel_text"
                 android:text="Settings"
                 android:gravity="center|top"/>
@@ -147,6 +151,7 @@
                 android:layout_height="60dp"
                 android:text="Machine Measurements"
                 android:textStyle="bold"
+                android:textSize="16sp"
                 android:textColor="@color/_____cancel_text"
                 android:gravity="center|top"
 
@@ -158,6 +163,7 @@
                 android:layout_height="60dp"
                 android:text="On Grade"
                 android:textStyle="bold"
+                android:textSize="16sp"
                 android:textColor="@color/_____cancel_text"
                 android:gravity="center|top"/>
 
@@ -207,6 +213,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:textStyle="bold"
+                android:textSize="16sp"
                 android:textColor="@color/_____cancel_text"
                 android:text="Units Of Measure"
                 android:gravity="center|top"/>
@@ -216,6 +223,7 @@
                 android:layout_height="60dp"
                 android:text="Antenna Height"
                 android:textStyle="bold"
+                android:textSize="16sp"
                 android:textColor="@color/_____cancel_text"
                 android:gravity="center|top"
 
@@ -227,6 +235,7 @@
                 android:layout_height="60dp"
                 android:text="Info App"
                 android:textStyle="bold"
+                android:textSize="16sp"
                 android:textColor="@color/_____cancel_text"
                 android:gravity="center|top"/>
 
@@ -275,6 +284,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:textStyle="bold"
+                android:textSize="16sp"
                 android:textColor="@color/_____cancel_text"
                 android:text="USB Files Transfer"
 
@@ -285,6 +295,7 @@
                 android:layout_height="60dp"
                 android:text="Machine Measurements"
                 android:textStyle="bold"
+                android:textSize="16sp"
                 android:textColor="@color/_____cancel_text"
                 android:visibility="invisible"
                 android:gravity="center|top"
@@ -297,6 +308,7 @@
                 android:layout_height="60dp"
                 android:text="On Grade"
                 android:textStyle="bold"
+                android:textSize="16sp"
                 android:textColor="@color/_____cancel_text"
                 android:visibility="invisible"
                 android:gravity="center|top"/>

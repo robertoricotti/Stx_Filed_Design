@@ -56,7 +56,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     ImageView btn1, btn2, btn3, btn4, btn5;
     TextView txt1, txt2, txt3, txt4, txt5, txt_coord, txt_canstat;
     ImageView imgConnetti;
-    static int SCREEN_ORIENTATION,previous_SCREEN_ORIENTATION;
+    static  int SCREEN_ORIENTATION;
 
     public static Activity visibleActivity;
 
@@ -70,7 +70,6 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
             SCREEN_ORIENTATION=(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         } else {
-
             SCREEN_ORIENTATION=(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
@@ -81,9 +80,10 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-
+        activity.setRequestedOrientation(SCREEN_ORIENTATION);
         switch (activity.toString().substring(0, (activity.toString().indexOf("@")))) {
             case "activity_portrait.MainActivity":
+
 
                 m_MainActivity(activity);//method to manage components in activity...see below
                 break;
@@ -139,7 +139,6 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     @Override
     public void onActivityStarted(Activity activity) {
         if (activity != null) {
-            Log.d("MYPAD","onActivityStarted");
             visibleActivity = activity;
             DataSaved.Actualactivity = String.valueOf(activity);
             setLocale(visibleActivity, "en");
@@ -370,9 +369,18 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         if (screenWidth < 400f) {
             txt_coord.setTextSize(14f);
             txt_canstat.setTextSize(14f);
-        } else {
+        } else if(screenWidth < 750f&&screenWidth>400f) {
             txt_coord.setTextSize(16f);
             txt_canstat.setTextSize(16f);
+        }
+        else if(screenWidth > 750f){
+            txt_coord.setTextSize(22f);
+            txt_canstat.setTextSize(22f);
+            txt1.setTextSize(18f);
+            txt2.setTextSize(18f);
+            txt3.setTextSize(18f);
+            txt4.setTextSize(18f);
+            txt5.setTextSize(18f);
         }
 
         txt_coord.setOnClickListener(view -> {

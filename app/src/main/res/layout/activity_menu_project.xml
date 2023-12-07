@@ -7,171 +7,200 @@
     android:layout_height="match_parent"
     android:keepScreenOn="true"
     tools:context="activity_portrait.MenuProject">
-    <include layout="@layout/shared_layout_top" />
-    <include layout="@layout/shared_layout_low"/>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/H_top_10"
-        android:layout_width="wrap_content"
+    <include
+        android:id="@+id/topView"
+        layout="@layout/shared_layout_top" />
+    <include
+        android:id="@+id/lowView"
+        layout="@layout/shared_layout_low" />
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_marginTop="10dp"
+    app:layout_constraintTop_toBottomOf="@id/topView"
+    app:layout_constraintBottom_toTopOf="@id/lowView"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent">
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.11" />
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+            <ImageButton
+                android:id="@+id/ab"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:backgroundTint="@color/bg_sfsgreen"
+                app:srcCompat="@drawable/create_surf_btn"
+                app:tint="@color/_____cancel_text" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <ImageButton
+                android:id="@+id/plane"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:alpha="0.3"
+                android:backgroundTint="@color/purple_200"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/btn_profili_trasp" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_top2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.4" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_top3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.65" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:text="Surfae From\nA>>B"
+                android:gravity="center|top"
+                android:textColor="@color/_____cancel_text"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/H_90"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.90" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:text="Cross Section"
+                android:gravity="center|top"
+                android:textColor="@color/_____cancel_text"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/V1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.333333" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/V2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.666666" />
-
-
-
-
-
-
-
-    <ImageButton
-        android:id="@+id/plane"
-        android:alpha="0.3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/bg_gray"
-        android:scaleType="centerInside"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_top2"
-        app:layout_constraintEnd_toStartOf="@+id/ab"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline_top"
-        app:srcCompat="@drawable/btn_profili_trasp" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
 
 
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cross Section"
-        android:textStyle="bold"
-        android:textColor="@color/_____cancel_text"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_top2"
-        app:layout_constraintEnd_toEndOf="@+id/plane"
-        app:layout_constraintStart_toStartOf="@+id/plane"
-        app:layout_constraintTop_toBottomOf="@+id/plane" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">,
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <ImageButton
+                android:id="@+id/delaunay"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:alpha="0.3"
+                android:backgroundTint="@color/purple_200"
+                app:srcCompat="@drawable/btn_define_area"
+                app:tint="@color/_____cancel_text" />
 
-    <ImageButton
-        android:id="@+id/ab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/bg_gray"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_top2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/plane"
-        app:layout_constraintTop_toTopOf="@+id/guideline_top"
-        app:srcCompat="@drawable/create_surf_btn"
-        app:tint="@color/_____cancel_text" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <ImageButton
+                android:id="@+id/imagepathfollower"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:alpha="0.3"
+                android:backgroundTint="@color/purple_200"
+                android:visibility="visible"
+                app:srcCompat="@drawable/btn_gpspath" />
 
-    <ImageButton
-        android:id="@+id/delaunay"
-        android:alpha="0.3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/bg_gray"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_top3"
-        app:layout_constraintEnd_toStartOf="@+id/imagepathfollower"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline_top2"
-        app:srcCompat="@drawable/btn_define_area"
-        app:tint="@color/_____cancel_text" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
 
-    <ImageButton
-        android:id="@+id/imagepathfollower"
-        android:alpha="0.3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:backgroundTint="@color/bg_gray"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_top3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/delaunay"
-        app:layout_constraintTop_toTopOf="@+id/guideline_top2"
-        app:srcCompat="@drawable/btn_gpspath" />
-    <TextView
-        android:id="@+id/txtpathfollower"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Multipoint Path"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:textColor="@color/_____cancel_text"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_top3"
-        app:layout_constraintEnd_toEndOf="@+id/imagepathfollower"
-        app:layout_constraintStart_toStartOf="@+id/imagepathfollower"
-        app:layout_constraintTop_toBottomOf="@+id/imagepathfollower" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:text="Define Surface"
+                android:gravity="center|top"
+                android:textColor="@color/_____cancel_text"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Surfae From\nA>>B"
-        android:textStyle="bold"
-        android:textColor="@color/_____cancel_text"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_top2"
-        app:layout_constraintEnd_toEndOf="@+id/ab"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="@+id/ab"
-        app:layout_constraintTop_toBottomOf="@+id/ab" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Define Surface"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:textColor="@color/_____cancel_text"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_top3"
-        app:layout_constraintEnd_toEndOf="@+id/delaunay"
-        app:layout_constraintStart_toStartOf="@+id/delaunay"
-        app:layout_constraintTop_toBottomOf="@+id/delaunay" />
+            <TextView
+                android:id="@+id/txtpathfollower"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:text="Multipoint Path"
+                android:gravity="center|top"
+                android:textColor="@color/_____cancel_text"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</ScrollView>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

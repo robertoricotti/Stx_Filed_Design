@@ -87,13 +87,12 @@ public class UsbActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 usbPath=getUsbFolderPath();
                 }else {
-                usbPath = getStoragePath(UsbActivity.this, true).toString();}
+                usbPath = getStoragePath(UsbActivity.this, true).toString();
+                }
             } catch (Exception e) {
                 new CustomToast(UsbActivity.this, e.toString()).show();
             }
-
             try {
-
                 readFromUSB_IN(usbPath);
             } catch (Exception e) {
                 new CustomToast(UsbActivity.this, "USB:\nIN Folder Not Found").show();

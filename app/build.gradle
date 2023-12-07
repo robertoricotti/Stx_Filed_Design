@@ -3,6 +3,8 @@ plugins {
 }
 
 android {
+
+
     namespace 'com.example.stx_field_design'
     compileSdk 33
 
@@ -30,8 +32,10 @@ android {
             storePassword '123456'
             keyAlias 'platform'
             keyPassword '123456'
+
         }
         buildTypes {
+
             release {
 
             }
