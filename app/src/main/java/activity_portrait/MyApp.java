@@ -83,8 +83,6 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         activity.setRequestedOrientation(SCREEN_ORIENTATION);
         switch (activity.toString().substring(0, (activity.toString().indexOf("@")))) {
             case "activity_portrait.MainActivity":
-
-
                 m_MainActivity(activity);//method to manage components in activity...see below
                 break;
             case "activity_portrait.UOM_Activity":
@@ -124,6 +122,9 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                 //questa activity viene gestita dalla classe UsbActivity.class
                 activity.setContentView(R.layout.activity_usb_inout);
                 FullscreenActivity.setFullScreen(activity);
+                break;
+            case "activity_portrait.Antennas_Blade_Activity":
+                m_Antennas_Blade_Activity(activity);
                 break;
             case "activity_portrait.LaunchScreenActivity":
                 //questa activity viene gestita dalla classe LaunchScreenActivity.class
@@ -175,9 +176,28 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         m_updateUI(activity, false);
     }
 
+    public void m_Antennas_Blade_Activity(Activity activity){
+        activity.setContentView(R.layout.activity_antennas_blade);//setta il layout di riferimento dell'activity
+        whoLaunch = activity;
+        m_updateUI(whoLaunch, true);
+        btn2.setVisibility(View.INVISIBLE);
+        btn3.setVisibility(View.INVISIBLE);
+        btn4.setVisibility(View.INVISIBLE);
+        btn1.setImageResource(R.drawable.btn_to_indietro);
+        btn5.setImageResource(R.drawable.btn_save);
+        btn1.setOnClickListener(view -> {
+            activity.startActivity(new Intent(activity, MainActivity.class));
+            activity.finish();
+        });
+        btn5.setOnClickListener(view -> {
+            ((Antennas_Blade_Activity) activity).saveData();
+            activity.startActivity(new Intent(activity, MainActivity.class));
+            activity.finish();
+        });
+    }
+
     public void m_MainActivity(Activity activity) {
         activity.setContentView(R.layout.activity_main);//setta il layout di riferimento dell'activity
-
         whoLaunch = activity;
         m_updateUI(whoLaunch, true);
 
@@ -423,15 +443,23 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                                 if (!Bluetooth_CAN_Service.canIsConnected) {
                                     txt_canstat.setTextColor(Color.RED);
                                     txt_canstat.setText("CAN DISCONNECTED");
+                                    txt_canstat.setBackgroundColor(getResources().getColor(R.color.white));
                                 } else {
                                     txt_canstat.setTextColor(Color.BLUE);
                                     txt_canstat.setText(String.valueOf("Pitch: " + String.format("%.2f", Can_Decoder.correctPitch).replace(",", ".") + "°       Roll: " + String.format("%.2f", Can_Decoder.correctRoll).replace(",", ".") + "°"));
-
+                                    txt_canstat.setBackgroundColor(getResources().getColor(R.color.green));
                                 }
                                 if (!Bluetooth_GNSS_Service.gpsIsConnected) {
                                     txt_coord.setTextColor(Color.RED);
+                                    txt_coord.setBackgroundColor(getResources().getColor(R.color.white));
+
                                 } else {
                                     txt_coord.setTextColor(Color.BLUE);
+                                    if(txt2.getText().toString().equals("FIX")){
+                                        txt_coord.setBackgroundColor(getResources().getColor(R.color.green));
+                                    }else {
+                                        txt_coord.setBackgroundColor(getResources().getColor(R.color.white));
+                                    }
                                 }
 
                             }

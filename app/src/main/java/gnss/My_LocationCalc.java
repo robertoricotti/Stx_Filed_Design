@@ -88,7 +88,7 @@ public class My_LocationCalc {
 
         String formattedSeconds = String.format("%.6f", Math.abs(seconds));
 
-        return String.format("%d° %d' %s\"", degrees, Math.abs(minutes), formattedSeconds).replace(",",".");
+        return String.format("%d°%d'%s\"", degrees, Math.abs(minutes), formattedSeconds).replace(",",".");
     }
 
 }

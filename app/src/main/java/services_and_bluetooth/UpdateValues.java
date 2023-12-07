@@ -69,6 +69,8 @@ public class UpdateValues extends Service {
             String canname = myRW_intMem.MyRead("_canname", UpdateValues.this);
             String crs = myRW_intMem.MyRead("_crs", UpdateValues.this);
             String altezzaAnt=myRW_intMem.MyRead("_altezzaantenna",UpdateValues.this);
+            String leftEdge=myRW_intMem.MyRead("_leftedge",UpdateValues.this);
+            String rightEdge=myRW_intMem.MyRead("_rightedge",UpdateValues.this);
             String unitOfMeasure = myRW_intMem.MyRead("_unitofmeasure", UpdateValues.this);
             String points=myRW_intMem.MyRead("pointssaved", UpdateValues.this);
             String boomresult=myRW_intMem.MyRead("boomresult", UpdateValues.this);
@@ -104,6 +106,12 @@ public class UpdateValues extends Service {
             }
             if(altezzaAnt==null){
                 myRW_intMem.MyWrite("_altezzaantenna","2",UpdateValues.this);
+            }
+            if(leftEdge==null){
+                myRW_intMem.MyWrite("_leftedge","1.5",UpdateValues.this);
+            }
+            if(rightEdge==null){
+                myRW_intMem.MyWrite("_rightedge","1.5",UpdateValues.this);
             }
             if (unitOfMeasure == null) {
                 myRW_intMem.MyWrite("_unitofmeasure", "0", UpdateValues.this);
@@ -161,6 +169,8 @@ public class UpdateValues extends Service {
             DataSaved.S_can_name=myRW_intMem.MyRead("_canname",UpdateValues.this);
             DataSaved.S_CRS=myRW_intMem.MyRead("_crs",UpdateValues.this);
             DataSaved.D_AltezzaAnt=Double.parseDouble(myRW_intMem.MyRead("_altezzaantenna",UpdateValues.this).replace(",","."));
+            DataSaved.D_Leftedge=Double.parseDouble(myRW_intMem.MyRead("_leftedge",UpdateValues.this).replace(",","."));
+            DataSaved.D_Rightedge=Double.parseDouble(myRW_intMem.MyRead("_rightedge",UpdateValues.this).replace(",","."));
             DataSaved.I_UnitOfMeasure=Integer.parseInt(myRW_intMem.MyRead("_unitofmeasure",UpdateValues.this));
             DataSaved.rmcSize=Integer.parseInt(myRW_intMem.MyRead("rmcSize",UpdateValues.this));
             DataSaved.useRmc=Integer.parseInt(myRW_intMem.MyRead("useRmc",UpdateValues.this));

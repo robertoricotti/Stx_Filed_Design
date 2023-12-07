@@ -23,7 +23,7 @@ import java.io.InputStreamReader;
 
 import project.DataProjectSingleton;
 import dialogs.CustomToast;
-import dialogs.DialogOffset;
+
 import services_and_bluetooth.Bluetooth_CAN_Service;
 import utils.MyRW_IntMem;
 
@@ -98,7 +98,9 @@ public class MainActivity extends AppCompatActivity {
             new CustomToast(this, "STX Field Design\nv " + BuildConfig.VERSION_NAME.toString()).show();
         });
         to_palina.setOnClickListener(view -> {
-            new DialogOffset(MainActivity.this).show();
+
+            startActivity(new Intent(MainActivity.this, Antennas_Blade_Activity.class));
+            finish();
         });
 
         to_bt.setOnClickListener(view -> {
@@ -122,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
 
         to_new.setOnClickListener(view -> {
             startActivity(new Intent(MainActivity.this, MenuProject.class));
-
             finish();
         });
         to_settings.setOnClickListener(view -> {

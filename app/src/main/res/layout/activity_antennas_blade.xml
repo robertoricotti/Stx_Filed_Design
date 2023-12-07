@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true"
+    tools:context="activity_portrait.Antennas_Blade_Activity">
+
+    <include
+        android:id="@+id/topView"
+        layout="@layout/shared_layout_top" />
+
+    <include
+        android:id="@+id/lowerView"
+        layout="@layout/shared_layout_low" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toTopOf="@id/lowerView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/_____cancel_text"
+                android:gravity="center"
+                android:text="Antenna Height"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_z_h"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="6"
+                    android:gravity="center"
+                    android:hint="0.000"
+                    android:inputType="numberDecimal"
+                    android:maxLength="8"
+                    android:selectAllOnFocus="true"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/txt_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="2"
+                    android:gravity="center"
+                    android:text="(m)"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alpha="0.3"
+                android:background="@color/_____cancel_text"
+                android:gravity="center"
+                android:text="Left Side Edge"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_left_edge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="6"
+                    android:gravity="center"
+                    android:hint="0.000"
+                    android:inputType="numberDecimal"
+                    android:maxLength="8"
+                    android:selectAllOnFocus="true"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/txt_unit2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="2"
+                    android:gravity="center"
+                    android:text="(m)"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alpha="0.3"
+                android:background="@color/_____cancel_text"
+                android:gravity="center"
+                android:text="Right Side Edge"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_right_edge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="6"
+                    android:gravity="center"
+                    android:hint="0.000"
+                    android:inputType="numberDecimal"
+                    android:maxLength="8"
+                    android:selectAllOnFocus="true"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/txt_unit3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="2"
+                    android:gravity="center"
+                    android:text="(m)"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -100,6 +100,12 @@
             android:screenOrientation="locked"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
+            android:name="activity_portrait.Antennas_Blade_Activity"
+            android:autoRemoveFromRecents="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="locked"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
             android:name="activity_portrait.MchMeaureActivity"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
