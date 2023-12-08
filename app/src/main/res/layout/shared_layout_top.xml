@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/custom_background_yellow"
+    android:background="@color/light_blue_900"
     android:orientation="vertical">
 
     <LinearLayout
@@ -19,7 +19,7 @@
             android:layout_weight="1"
             android:paddingVertical="2dp"
             android:src="@drawable/sat_24"
-            app:tint="@color/_____cancel_text" />
+            app:tint="@color/white" />
 
         <ImageView
 
@@ -28,7 +28,7 @@
             android:layout_weight="1"
             android:paddingVertical="2dp"
             android:src="@drawable/gps_fixed_24"
-            app:tint="@color/_____cancel_text" />
+            app:tint="@color/white" />
 
         <ImageView
             android:id="@+id/imgConnect"
@@ -37,7 +37,7 @@
             android:layout_weight="1"
             android:paddingVertical="2dp"
             android:src="@drawable/location_on_24"
-            app:tint="@color/_____cancel_text" />
+            app:tint="@color/white" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
             android:layout_weight="1"
             android:paddingVertical="2dp"
             android:src="@drawable/rtk_24"
-            app:tint="@color/_____cancel_text" />
+            app:tint="@color/white" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
             android:paddingVertical="2dp"
             android:rotation="-90"
             android:src="@drawable/arrow_right_alt_24"
-            app:tint="@color/_____cancel_text" />
+            app:tint="@color/white" />
 
     </LinearLayout>
 
@@ -72,7 +72,7 @@
             android:ems="2"
             android:gravity="center"
             android:text="0"
-            android:textColor="@color/_____cancel_text"
+            android:textColor="@color/white"
             android:textStyle="bold" />
 
         <TextView
@@ -83,7 +83,7 @@
             android:ems="2"
             android:gravity="center"
             android:text=""
-            android:textColor="@color/_____cancel_text"
+            android:textColor="@color/white"
             android:textStyle="bold" />
 
         <TextView
@@ -94,7 +94,7 @@
             android:ems="2"
             android:gravity="center"
             android:text="CQ:"
-            android:textColor="@color/_____cancel_text"
+            android:textColor="@color/white"
             android:textStyle="bold" />
 
         <TextView
@@ -105,7 +105,7 @@
             android:ems="2"
             android:gravity="center"
             android:text="-.-"
-            android:textColor="@color/_____cancel_text"
+            android:textColor="@color/white"
             android:textStyle="bold" />
 
         <TextView
@@ -116,7 +116,7 @@
             android:ems="2"
             android:gravity="center"
             android:text=""
-            android:textColor="@color/_____cancel_text"
+            android:textColor="@color/white"
             android:textStyle="bold" />
 
     </LinearLayout>

@@ -16,40 +16,19 @@
         android:id="@+id/lowerView"
         layout="@layout/shared_layout_low" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/H_90"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.92" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/V1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.333333" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/v"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/V2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.85" />
+
+
+
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container_draw"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:background="@color/light_gray"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,294 +39,314 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
     <!--starts of BUTTONS-->
-    <TextView
-        android:id="@+id/tit_zb"
-        android:layout_width="0dp"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/custom_background_light"
-        android:gravity="center"
-        android:text="Z B: "
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/tit_len"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/V1"
-        app:layout_constraintTop_toBottomOf="@id/container_draw" />
-
-    <EditText
-        android:id="@+id/et_zb"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/custom_background_light"
-        android:imeOptions="actionDone"
-        android:inputType="numberDecimal|numberSigned"
-        android:selectAllOnFocus="true"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@id/tit_zb"
-        app:layout_constraintLeft_toRightOf="@id/tit_zb"
-        app:layout_constraintRight_toRightOf="@id/V2"
-        app:layout_constraintTop_toTopOf="@id/tit_zb" />
-    <TextView
-        android:id="@+id/um_1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:background="@drawable/custom_background_light"
-        app:layout_constraintLeft_toRightOf="@id/et_zb"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/et_zb"
-        app:layout_constraintBottom_toBottomOf="@id/et_zb"/>
+        app:layout_constraintTop_toBottomOf="@id/container_draw"
+        app:layout_constraintBottom_toTopOf="@id/lowerView">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tit_zb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/custom_background_light"
+                    android:gravity="center"
+                    android:text="Z B "
+                    android:ems="6"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    />
+
+                <EditText
+                    android:layout_weight="2"
+                    android:id="@+id/et_zb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/custom_background_light"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:selectAllOnFocus="true"
+                    android:textAlignment="center"
+                    />
+                <TextView
+                    android:ems="4"
+                    android:id="@+id/um_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:background="@drawable/custom_background_light"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:ems="6"
+                    android:id="@+id/tit_len"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/custom_background_light"
+                    android:gravity="center"
+                    android:text="A>>B"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    />
+
+                <EditText
+                    android:layout_weight="2"
+                    android:id="@+id/et_dst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/custom_background_light"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:selectAllOnFocus="true"
+                    android:textAlignment="center"
+                    />
+                <TextView
+                    android:ems="4"
+                    android:id="@+id/um_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:background="@drawable/custom_background_light"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:ems="6"
+                    android:id="@+id/tit_slope"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/custom_background_light"
+                    android:gravity="center"
+                    android:text="A>B SLOPE"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    />
+
+                <EditText
+                    android:layout_weight="2"
+                    android:id="@+id/et_slope"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/custom_background_light"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:selectAllOnFocus="true"
+                    android:textAlignment="center"
+                    />
+                <TextView
+                    android:ems="4"
+                    android:id="@+id/um_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:background="@drawable/custom_background_light"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:ems="6"
+                    android:id="@+id/left_dis"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/custom_background_light"
+                    android:gravity="center"
+                    android:text="LEFT LEN "
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    />
+
+                <EditText
+                    android:layout_weight="2"
+                    android:id="@+id/et_ltdst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/custom_background_light"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:selectAllOnFocus="true"
+                    android:textAlignment="center"
+                    />
+                <TextView
+                    android:ems="4"
+                    android:id="@+id/um_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:background="@drawable/custom_background_light"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:ems="6"
+                    android:id="@+id/left_slop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/custom_background_light"
+                    android:gravity="center"
+                    android:text="LEFT SLOPE "
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    />
+
+                <EditText
+                    android:layout_weight="2"
+                    android:id="@+id/et_ltslope"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/custom_background_light"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:selectAllOnFocus="true"
+                    android:textAlignment="center"
+                    />
+                <TextView
+                    android:ems="4"
+                    android:id="@+id/um_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:background="@drawable/custom_background_light"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:ems="6"
+                    android:id="@+id/right_dis"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/custom_background_light"
+                    android:gravity="center"
+                    android:text="RIGHT LEN"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    />
+
+                <EditText
+                    android:layout_weight="2"
+                    android:id="@+id/et_rtdst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/custom_background_light"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:selectAllOnFocus="true"
+                    android:textAlignment="center"
+                    />
+                <TextView
+                    android:ems="4"
+                    android:id="@+id/um_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:background="@drawable/custom_background_light"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:ems="6"
+                    android:id="@+id/right_slop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/custom_background_light"
+                    android:gravity="center"
+                    android:text="RIGHT SLOPE "
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    />
+
+                <EditText
+                    android:layout_weight="2"
+                    android:id="@+id/et_rtslope"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/custom_background_light"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:selectAllOnFocus="true"
+                    android:textAlignment="center"
+                    />
+                <TextView
+                    android:ems="4"
+                    android:id="@+id/um_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:background="@drawable/custom_background_light"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 
-    <TextView
-        android:id="@+id/tit_len"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/custom_background_light"
-        android:gravity="center"
-        android:text="A>>B:"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/tit_slope"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/V1"
-        app:layout_constraintTop_toBottomOf="@id/tit_zb" />
-
-    <EditText
-        android:id="@+id/et_dst"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/custom_background_light"
-        android:imeOptions="actionDone"
-        android:inputType="numberDecimal|numberSigned"
-        android:selectAllOnFocus="true"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@id/tit_len"
-        app:layout_constraintLeft_toRightOf="@id/tit_len"
-        app:layout_constraintRight_toRightOf="@id/V2"
-        app:layout_constraintTop_toTopOf="@id/tit_len"
-        app:layout_constraintVertical_bias="1.0" />
-    <TextView
-        android:id="@+id/um_2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:background="@drawable/custom_background_light"
-        app:layout_constraintLeft_toRightOf="@id/et_dst"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/et_dst"
-        app:layout_constraintBottom_toBottomOf="@id/et_dst"/>
 
 
-    <TextView
-        android:id="@+id/tit_slope"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/custom_background_light"
-        android:gravity="center"
-        android:text="A>B SLOPE: "
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/left_dis"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/V1"
-        app:layout_constraintTop_toBottomOf="@id/tit_len" />
-
-    <EditText
-        android:id="@+id/et_slope"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/custom_background_light"
-        android:imeOptions="actionDone"
-        android:inputType="numberDecimal|numberSigned"
-        android:selectAllOnFocus="true"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@id/tit_slope"
-        app:layout_constraintLeft_toRightOf="@id/tit_slope"
-        app:layout_constraintRight_toRightOf="@id/V2"
-        app:layout_constraintTop_toTopOf="@id/tit_slope" />
-    <TextView
-        android:id="@+id/um_3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:background="@drawable/custom_background_light"
-        app:layout_constraintLeft_toRightOf="@id/et_slope"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/et_slope"
-        app:layout_constraintBottom_toBottomOf="@id/et_slope"/>
 
 
-    <TextView
-        android:id="@+id/left_dis"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/custom_background_light"
-        android:gravity="center"
-        android:text="LEFT LEN: "
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/left_slop"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/V1"
-        app:layout_constraintTop_toBottomOf="@id/tit_slope" />
-
-    <EditText
-        android:id="@+id/et_ltdst"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/custom_background_light"
-        android:imeOptions="actionDone"
-        android:inputType="numberDecimal|numberSigned"
-        android:selectAllOnFocus="true"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@id/left_dis"
-        app:layout_constraintLeft_toRightOf="@id/left_dis"
-        app:layout_constraintRight_toRightOf="@id/V2"
-        app:layout_constraintTop_toTopOf="@id/left_dis" />
-    <TextView
-        android:id="@+id/um_4"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:background="@drawable/custom_background_light"
-        app:layout_constraintLeft_toRightOf="@id/et_ltdst"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/et_ltdst"
-        app:layout_constraintBottom_toBottomOf="@id/et_ltdst"/>
 
 
-    <TextView
-        android:id="@+id/left_slop"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/custom_background_light"
-        android:gravity="center"
-        android:text="LEFT SLOPE: "
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/right_dis"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/V1"
-        app:layout_constraintTop_toBottomOf="@id/left_dis" />
-
-    <EditText
-        android:id="@+id/et_ltslope"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/custom_background_light"
-        android:imeOptions="actionDone"
-        android:inputType="numberDecimal|numberSigned"
-        android:selectAllOnFocus="true"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@id/left_slop"
-        app:layout_constraintLeft_toRightOf="@id/left_slop"
-        app:layout_constraintRight_toRightOf="@id/V2"
-        app:layout_constraintTop_toTopOf="@id/left_slop" />
-    <TextView
-        android:id="@+id/um_5"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:background="@drawable/custom_background_light"
-        app:layout_constraintLeft_toRightOf="@id/et_ltslope"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/et_ltslope"
-        app:layout_constraintBottom_toBottomOf="@id/et_ltslope"/>
 
 
-    <TextView
-        android:id="@+id/right_dis"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/custom_background_light"
-        android:gravity="center"
-        android:text="RIGHT LEN: "
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/right_slop"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/V1"
-        app:layout_constraintTop_toBottomOf="@id/left_slop" />
-
-    <EditText
-        android:id="@+id/et_rtdst"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/custom_background_light"
-        android:imeOptions="actionDone"
-        android:inputType="numberDecimal|numberSigned"
-        android:selectAllOnFocus="true"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@id/right_dis"
-        app:layout_constraintLeft_toRightOf="@id/right_dis"
-        app:layout_constraintRight_toRightOf="@id/V2"
-        app:layout_constraintTop_toTopOf="@id/right_dis" />
-    <TextView
-        android:id="@+id/um_6"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:background="@drawable/custom_background_light"
-        app:layout_constraintLeft_toRightOf="@id/et_rtdst"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/et_rtdst"
-        app:layout_constraintBottom_toBottomOf="@id/et_rtdst"/>
 
 
-    <TextView
-        android:id="@+id/right_slop"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/custom_background_light"
-        android:gravity="center"
-        android:text="RIGHT SLOPE: "
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/H_90"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/V1"
-        app:layout_constraintTop_toBottomOf="@id/right_dis" />
 
-    <EditText
-        android:id="@+id/et_rtslope"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/custom_background_light"
-        android:imeOptions="actionDone"
-        android:inputType="numberDecimal|numberSigned"
-        android:selectAllOnFocus="true"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@id/right_slop"
-        app:layout_constraintLeft_toRightOf="@id/right_slop"
-        app:layout_constraintRight_toRightOf="@id/V2"
-        app:layout_constraintTop_toTopOf="@id/right_slop" />
-    <TextView
-        android:id="@+id/um_7"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:background="@drawable/custom_background_light"
-        app:layout_constraintLeft_toRightOf="@id/et_rtslope"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/et_rtslope"
-        app:layout_constraintBottom_toBottomOf="@id/et_rtslope"/>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -360,7 +359,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.55" />
+        app:layout_constraintGuide_percent="0.65" />
 
 
     <Button

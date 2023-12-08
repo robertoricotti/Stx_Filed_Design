@@ -93,6 +93,7 @@ public class UsbActivity extends AppCompatActivity {
                 new CustomToast(UsbActivity.this, e.toString()).show();
             }
             try {
+                printUSBContents(usbPath);
                 readFromUSB_IN(usbPath);
             } catch (Exception e) {
                 new CustomToast(UsbActivity.this, "USB:\nIN Folder Not Found").show();
@@ -117,7 +118,7 @@ public class UsbActivity extends AppCompatActivity {
 
         export.setOnClickListener(view -> {
             if (Build.VERSION.SDK_INT <= 29) {
-                new CustomToast(this, "Can't COPY TO USB Stick\nOn This Device").show();
+                //new CustomToast(this, "Can't COPY TO USB Stick\nOn This Device").show();
                 exportFilesToUsb();
             } else {
                 exportFilesToUsb();
@@ -157,14 +158,12 @@ public class UsbActivity extends AppCompatActivity {
     private void readFromUSB_IN(String usbFolderPath) {
         // Verifica se la cartella USB esiste
         File usbFolder = new File(usbFolderPath);
-
         if (usbFolder.exists() && usbFolder.isDirectory()) {
             // Percorso della cartella "IN" sulla USB stick
             File inFolder = new File(usbFolder, "IN");
-
             // Verifica se la cartella "IN" esiste
             if (inFolder.exists() && inFolder.isDirectory()) {
-                txt1.setText(inFolder.getAbsolutePath());
+                txt1.setText("USB: "+inFolder.getAbsolutePath());
                 // Ottieni la lista di file nella cartella "IN"
                 File[] files = inFolder.listFiles();
                 if (files != null) {
@@ -195,7 +194,7 @@ public class UsbActivity extends AppCompatActivity {
 
             // Verifica se la cartella "IN" esiste
             if (inFolder.exists() && inFolder.isDirectory()) {
-                txt2.setText(inFolder.getAbsolutePath());
+                txt2.setText("USB: "+inFolder.getAbsolutePath());
                 // Ottieni la lista di file nella cartella "OUT"
                 File[] files = inFolder.listFiles();
                 if (files != null) {
@@ -509,6 +508,32 @@ public class UsbActivity extends AppCompatActivity {
 
 
         return null;
+    }
+
+    private static void printUSBContents(String usbPath) {
+        // Creazione dell'oggetto File per il percorso della chiavetta USB
+        File usbFolder = new File(usbPath);
+
+        // Verifica se la cartella USB esiste
+        if (usbFolder.exists() && usbFolder.isDirectory()) {
+            // Ottieni la lista dei file nella cartella USB
+            File[] files = usbFolder.listFiles();
+
+            // Stampa il contenuto della cartella USB
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isFile()) {
+                      Log.e("MyUSB","File: " + file.getName());
+                    } else if (file.isDirectory()) {
+                        Log.e("MyUSB","Directory: " + file.getName());
+                    }
+                }
+            } else {
+                Log.e("MyUSB","Nessun file nella cartella USB.");
+            }
+        } else {
+            Log.e("MyUSB","La cartella USB non esiste.");
+        }
     }
 
 

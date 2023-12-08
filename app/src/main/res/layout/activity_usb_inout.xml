@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.07"/>
+        app:layout_constraintGuide_percent="0.065"/>
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/v_top"
         android:layout_width="match_parent"
@@ -96,7 +96,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/custom_background_yellow"
+        android:background="@color/light_blue_900"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/h1">
         <ImageView
@@ -107,7 +107,7 @@
             android:paddingVertical="5dp"
             android:rotation="0"
             android:src="@drawable/btn_to_indietro"
-            app:tint="@color/_____cancel_text" />
+            app:tint="@color/white" />
         <ImageView
             android:id="@+id/read"
             android:layout_width="wrap_content"
@@ -116,7 +116,7 @@
             android:paddingVertical="5dp"
             android:rotation="0"
             android:src="@drawable/btn_read_usb"
-            app:tint="@color/_____cancel_text" />
+            app:tint="@color/white" />
 
         <ImageView
             android:id="@+id/loadFromIN"
@@ -125,7 +125,7 @@
             android:layout_weight="1"
             android:paddingVertical="5dp"
             android:src="@drawable/btn_copy_from_usb"
-            app:tint="@color/_____cancel_text" />
+            app:tint="@color/white" />
 
         <ImageView
             android:id="@+id/copyToOUT"
@@ -134,7 +134,7 @@
             android:layout_weight="1"
             android:paddingVertical="5dp"
             android:src="@drawable/btn_copy_to_usb"
-            app:tint="@color/_____cancel_text" />
+            app:tint="@color/white" />
         <ImageView
             android:id="@+id/deletSelection"
             android:layout_width="wrap_content"
@@ -142,7 +142,7 @@
             android:layout_weight="1"
             android:paddingVertical="5dp"
             android:src="@drawable/btn_delete"
-            app:tint="@color/_____cancel_text" />
+            app:tint="@color/white" />
 
     </LinearLayout>
 

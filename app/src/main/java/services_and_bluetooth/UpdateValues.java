@@ -87,6 +87,7 @@ public class UpdateValues extends Service {
             String useTilt=myRW_intMem.MyRead("_usetilt",UpdateValues.this);
             String projectName=myRW_intMem.MyRead("projectName", UpdateValues.this);
             String imgMode=myRW_intMem.MyRead("imgMode", UpdateValues.this);
+            String display=myRW_intMem.MyRead("display", UpdateValues.this);
 
             if(macaddress==null){
                 myRW_intMem.MyWrite("_macaddress","00:00:00:00:00:00",UpdateValues.this);
@@ -161,6 +162,9 @@ public class UpdateValues extends Service {
             if(imgMode==null){
                 myRW_intMem.MyWrite("imgMode","0",UpdateValues.this);
             }
+            if(display==null){
+                myRW_intMem.MyWrite("display","0",UpdateValues.this);
+            }
 
 
             DataSaved.S_macAddres=myRW_intMem.MyRead("_macaddress",UpdateValues.this);
@@ -183,6 +187,7 @@ public class UpdateValues extends Service {
             DataSaved.useTilt=Integer.parseInt(myRW_intMem.MyRead("_usetilt",UpdateValues.this));
             DataSaved.S_projectName=myRW_intMem.MyRead("projectName",UpdateValues.this);
             DataSaved.imgMode=Integer.parseInt(myRW_intMem.MyRead("imgMode",UpdateValues.this));
+            DataSaved.DisplayOrient=Integer.parseInt(myRW_intMem.MyRead("display",UpdateValues.this));
 
 
             try {

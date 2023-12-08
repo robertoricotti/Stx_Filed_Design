@@ -261,8 +261,8 @@
                 android:layout_weight="1"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/btn_unitsofmeasure"
-                app:tint="@color/transparent"
+                android:src="@drawable/btn_screen_rot"
+                app:tint="@color/_____cancel_text"
                 />
             <ImageView
                 android:id="@+id/img12"
@@ -287,17 +287,15 @@
                 android:textSize="16sp"
                 android:textColor="@color/_____cancel_text"
                 android:text="USB Files Transfer"
-
                 android:gravity="center|top"/>
             <TextView
                 android:layout_weight="1"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:text="Machine Measurements"
+                android:text="Rotate Screen"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="@color/_____cancel_text"
-                android:visibility="invisible"
                 android:gravity="center|top"
 
                 />

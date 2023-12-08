@@ -25,12 +25,13 @@ import project.DataProjectSingleton;
 import dialogs.CustomToast;
 
 import services_and_bluetooth.Bluetooth_CAN_Service;
+import services_and_bluetooth.DataSaved;
 import utils.MyRW_IntMem;
 
 public class MainActivity extends AppCompatActivity {
     int countProgress=0;
     ProgressBar progressBar;
-    ImageView btn_units, to_bt, openProject, to_new, to_settings, to_usbStick, to_mch, to_palina, to_info, toPairCan;
+    ImageView btn_units, to_bt, openProject, to_new, to_settings, to_usbStick, to_mch, to_palina, to_info, toPairCan,btn_screenR;
 
 
     MyRW_IntMem myRWIntMem;
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         toPairCan = findViewById(R.id.img8);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
+        btn_screenR=findViewById(R.id.img11);
 
     }
 
@@ -114,6 +116,11 @@ public class MainActivity extends AppCompatActivity {
             BT_DevicesActivity.flag = "CAN";
             startActivity(intent);
             finish();
+        });
+        btn_screenR.setOnClickListener(view -> {
+            DataSaved.DisplayOrient=(DataSaved.DisplayOrient+1)%2;
+            myRWIntMem.MyWrite("display", String.valueOf(DataSaved.DisplayOrient),MainActivity.this);
+            recreate();
         });
         openProject.setOnClickListener(view -> {
             progressBar.setVisibility(View.VISIBLE);

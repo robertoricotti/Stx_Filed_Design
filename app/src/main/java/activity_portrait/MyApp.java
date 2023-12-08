@@ -56,7 +56,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     ImageView btn1, btn2, btn3, btn4, btn5;
     TextView txt1, txt2, txt3, txt4, txt5, txt_coord, txt_canstat;
     ImageView imgConnetti;
-    static  int SCREEN_ORIENTATION;
+    public  int SCREEN_ORIENTATION;
 
     public static Activity visibleActivity;
 
@@ -66,7 +66,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     public void onCreate() {
         super.onCreate();
         registerActivityLifecycleCallbacks(this);
-        if(Build.DEVICE.equals("UT56")){
+        if(DataSaved.DisplayOrient==1){
 
             SCREEN_ORIENTATION=(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         } else {
@@ -80,6 +80,12 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        if(DataSaved.DisplayOrient==1){
+
+            SCREEN_ORIENTATION=(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        } else {
+            SCREEN_ORIENTATION=(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
         activity.setRequestedOrientation(SCREEN_ORIENTATION);
         switch (activity.toString().substring(0, (activity.toString().indexOf("@")))) {
             case "activity_portrait.MainActivity":
@@ -128,7 +134,6 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                 break;
             case "activity_portrait.LaunchScreenActivity":
                 //questa activity viene gestita dalla classe LaunchScreenActivity.class
-
                 printDisplayDimensions(activity);//prendo i dati del display
                 break;
 
@@ -424,6 +429,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                     @Override
                     public void run() {
                         activity.runOnUiThread(new Runnable() {
+                            @SuppressLint({"SetTextI18n", "DefaultLocale"})
                             @Override
                             public void run() {
                                 txt1.setText(Nmea_In.ggaSat);
@@ -447,7 +453,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                                 } else {
                                     txt_canstat.setTextColor(Color.BLUE);
                                     txt_canstat.setText(String.valueOf("Pitch: " + String.format("%.2f", Can_Decoder.correctPitch).replace(",", ".") + "°       Roll: " + String.format("%.2f", Can_Decoder.correctRoll).replace(",", ".") + "°"));
-                                    txt_canstat.setBackgroundColor(getResources().getColor(R.color.green));
+                                    txt_canstat.setBackgroundColor(getResources().getColor(R.color.white));
                                 }
                                 if (!Bluetooth_GNSS_Service.gpsIsConnected) {
                                     txt_coord.setTextColor(Color.RED);
@@ -457,6 +463,8 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                                     txt_coord.setTextColor(Color.BLUE);
                                     if(txt2.getText().toString().equals("FIX")){
                                         txt_coord.setBackgroundColor(getResources().getColor(R.color.green));
+                                    }else if(txt2.getText().toString().equals("DGNSS")||txt2.getText().toString().equals("FLOAT")) {
+                                        txt_coord.setBackgroundColor(getResources().getColor(R.color.light_yellow));
                                     }else {
                                         txt_coord.setBackgroundColor(getResources().getColor(R.color.white));
                                     }

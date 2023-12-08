@@ -3,14 +3,17 @@ package activity_portrait;
 import android.Manifest;
 import android.annotation.SuppressLint;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 import android.widget.ProgressBar;
@@ -37,7 +40,7 @@ import utils.FullscreenActivity;
 
 @SuppressLint("CustomSplashScreen")
 public class LaunchScreenActivity extends AppCompatActivity {
-
+    private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
     String[] PERMISSIONS = null;
     final int PERMISSION_REQUEST_CODE = 1;
     private ProgressBar pgBar;
@@ -68,8 +71,6 @@ public class LaunchScreenActivity extends AppCompatActivity {
 
         checkExternalEnviroment();
         init();
-
-
 
 
     }
@@ -104,8 +105,6 @@ public class LaunchScreenActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT < 33 && Build.VERSION.SDK_INT > 29) {
             PERMISSIONS = new String[]{
                     Manifest.permission.BLUETOOTH,
-                    Manifest.permission.BLUETOOTH_ADMIN,
-                    Manifest.permission.BLUETOOTH_PRIVILEGED,
                     Manifest.permission.READ_EXTERNAL_STORAGE,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.INTERNET,
@@ -173,13 +172,16 @@ public class LaunchScreenActivity extends AppCompatActivity {
     }
 
     private boolean checkPermissions() {
-        requestOverlayPermission();
+        if (requestOverlayPermission()) {
+            requestOverlayPermission();
+        }
         for (String permission : PERMISSIONS) {
             if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }
         }
         return true;
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.R)
@@ -191,19 +193,29 @@ public class LaunchScreenActivity extends AppCompatActivity {
                 count.start();
             } else {
                 Toast.makeText(this, "Until you grant the permission, we cannot proceed further", Toast.LENGTH_SHORT).show();
+
+                (new Handler()).postDelayed(this::finish, 3000);
+
             }
         }
     }
-    private void requestOverlayPermission() {
+
+
+
+    private boolean requestOverlayPermission() {
         if (!Settings.canDrawOverlays(this)) {
             Intent a = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
             startActivity(a);
+            return false;
+        } else {
+            return true;
         }
     }
 
     protected void goMain() {
+        //Toast.makeText(LaunchScreenActivity.this, String.valueOf(Build.VERSION.SDK_INT), Toast.LENGTH_SHORT).show();
         startService(new Intent(LaunchScreenActivity.this, UpdateValues.class));
-        startActivity(new Intent(LaunchScreenActivity.this,MainActivity.class));
+        startActivity(new Intent(LaunchScreenActivity.this, MainActivity.class));
         finish();
     }
 

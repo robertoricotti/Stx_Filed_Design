@@ -15,7 +15,7 @@ public class DataSaved {
 
     public static int I_UnitOfMeasure;
     public static int imgMode;
-
+    public static int DisplayOrient;
     public static double D_AltezzaAnt;
     public static double D_Leftedge;
     public static double D_Rightedge;
