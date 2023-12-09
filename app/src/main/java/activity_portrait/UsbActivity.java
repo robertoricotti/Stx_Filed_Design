@@ -1,8 +1,10 @@
 package activity_portrait;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -13,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.documentfile.provider.DocumentFile;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,8 +39,9 @@ import project.PickProjectAdapter;
 
 
 public class UsbActivity extends AppCompatActivity {
+    private static final int REQUEST_CODE_OPEN_DOCUMENT_TREE = 42;
     static String usbPath;
-    TextView txt1, txt2;
+     TextView txt1, txt2;
     PickProjectAdapter adapter;
 
     ImageView exit, export, prendi, readusb, delete;
@@ -85,15 +89,17 @@ public class UsbActivity extends AppCompatActivity {
 
             try {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                usbPath=getUsbFolderPath();
-                }else {
-                usbPath = getStoragePath(UsbActivity.this, true).toString();
+                    usbPath = getUsbFolderPath();
+                } else {
+                    usbPath = getStoragePath(UsbActivity.this, true).toString();
+                    usbPath="/"+usbPath;
                 }
             } catch (Exception e) {
                 new CustomToast(UsbActivity.this, e.toString()).show();
             }
             try {
-                printUSBContents(usbPath);
+
+               // printUSBContents(usbPath.toString());
                 readFromUSB_IN(usbPath);
             } catch (Exception e) {
                 new CustomToast(UsbActivity.this, "USB:\nIN Folder Not Found").show();
@@ -163,7 +169,7 @@ public class UsbActivity extends AppCompatActivity {
             File inFolder = new File(usbFolder, "IN");
             // Verifica se la cartella "IN" esiste
             if (inFolder.exists() && inFolder.isDirectory()) {
-                txt1.setText("USB: "+inFolder.getAbsolutePath());
+                txt1.setText("USB: " + inFolder.getAbsolutePath());
                 // Ottieni la lista di file nella cartella "IN"
                 File[] files = inFolder.listFiles();
                 if (files != null) {
@@ -194,7 +200,7 @@ public class UsbActivity extends AppCompatActivity {
 
             // Verifica se la cartella "IN" esiste
             if (inFolder.exists() && inFolder.isDirectory()) {
-                txt2.setText("USB: "+inFolder.getAbsolutePath());
+                txt2.setText("USB: " + inFolder.getAbsolutePath());
                 // Ottieni la lista di file nella cartella "OUT"
                 File[] files = inFolder.listFiles();
                 if (files != null) {
@@ -455,15 +461,17 @@ public class UsbActivity extends AppCompatActivity {
 
                 if (isUsb == usb) {//usb
 
-                    if( file != null){
+                    if (file != null) {
 
-                    path = file.getAbsolutePath();}
+                        path = file.getAbsolutePath();
+                    }
 
                 } else if (!isUsb == sd) {//sd
 
-                    if(file != null){
+                    if (file != null) {
 
-                    path = file.getAbsolutePath();}
+                        path = file.getAbsolutePath();
+                    }
 
                 }
 
@@ -471,7 +479,7 @@ public class UsbActivity extends AppCompatActivity {
 
         } catch (Exception e) {
 
-           new CustomToast(UsbActivity.this,e.toString());
+            new CustomToast(UsbActivity.this, e.toString());
 
         }
         return path;
@@ -484,20 +492,20 @@ public class UsbActivity extends AppCompatActivity {
         if (storageManager != null) {
             try {
 
-                    // Utilizza il nuovo metodo getDirectory() disponibile da Android 11 in poi
-                    List<StorageVolume> storageVolumes = storageManager.getStorageVolumes();
-                    for (StorageVolume storageVolume : storageVolumes) {
-                        if (Environment.MEDIA_MOUNTED.equals(storageVolume.getState()) && storageVolume.isRemovable()) {
-                            File directory = storageVolume.getDirectory();
-                            if (directory != null) {
-                                //new CustomToast(UsbActivity.this, directory.getAbsolutePath()).show();
-                                return directory.getAbsolutePath();
-                            } else {
-                                //new CustomToast(UsbActivity.this, "No USB Found").show();
-                                return null;
-                            }
+                // Utilizza il nuovo metodo getDirectory() disponibile da Android 11 in poi
+                List<StorageVolume> storageVolumes = storageManager.getStorageVolumes();
+                for (StorageVolume storageVolume : storageVolumes) {
+                    if (Environment.MEDIA_MOUNTED.equals(storageVolume.getState()) && storageVolume.isRemovable()) {
+                        File directory = storageVolume.getDirectory();
+                        if (directory != null) {
+                            //new CustomToast(UsbActivity.this, directory.getAbsolutePath()).show();
+                            return directory.getAbsolutePath();
+                        } else {
+                            //new CustomToast(UsbActivity.this, "No USB Found").show();
+                            return null;
                         }
                     }
+                }
 
             } catch (NoSuchMethodError e) {
 
@@ -510,31 +518,41 @@ public class UsbActivity extends AppCompatActivity {
         return null;
     }
 
-    private static void printUSBContents(String usbPath) {
-        // Creazione dell'oggetto File per il percorso della chiavetta USB
-        File usbFolder = new File(usbPath);
+    private  void printUSBContents(String usbPath) {
+        Log.e("MyUSB", "usbPath= " + usbPath);
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+        intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+        startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT_TREE);
+    }
 
-        // Verifica se la cartella USB esiste
-        if (usbFolder.exists() && usbFolder.isDirectory()) {
-            // Ottieni la lista dei file nella cartella USB
-            File[] files = usbFolder.listFiles();
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-            // Stampa il contenuto della cartella USB
-            if (files != null) {
-                for (File file : files) {
-                    if (file.isFile()) {
-                      Log.e("MyUSB","File: " + file.getName());
-                    } else if (file.isDirectory()) {
-                        Log.e("MyUSB","Directory: " + file.getName());
+        if (requestCode == REQUEST_CODE_OPEN_DOCUMENT_TREE && resultCode == Activity.RESULT_OK) {
+            Uri treeUri = data.getData();
+            DocumentFile documentFile = DocumentFile.fromTreeUri(this, treeUri);
+
+            if (documentFile != null && documentFile.isDirectory()) {
+                DocumentFile[] files = documentFile.listFiles();
+
+                if (files != null) {
+                    for (DocumentFile file : files) {
+                        if (file.isFile()) {
+                            Log.e("MyUSB", "File: " + file.getName());
+                        } else if (file.isDirectory()) {
+                            Log.e("MyUSB", "Directory: " + file.getName());
+                        }
                     }
+                } else {
+                    Log.e("MyUSB", "Nessun file nella cartella USB.");
                 }
             } else {
-                Log.e("MyUSB","Nessun file nella cartella USB.");
+                Log.e("MyUSB", "La cartella USB non esiste o non è una directory.");
             }
-        } else {
-            Log.e("MyUSB","La cartella USB non esiste.");
         }
     }
+
 
 
 }

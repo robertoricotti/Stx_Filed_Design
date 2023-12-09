@@ -23,6 +23,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 
@@ -116,6 +117,7 @@ public class LaunchScreenActivity extends AppCompatActivity {
 
         }
         if (Build.VERSION.SDK_INT <= 29) {
+
             PERMISSIONS = new String[]{
                     Manifest.permission.BLUETOOTH,
                     Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -124,7 +126,7 @@ public class LaunchScreenActivity extends AppCompatActivity {
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_NETWORK_STATE};
-            new CustomToast(LaunchScreenActivity.this, "Limitated USB Features").show();
+            //new CustomToast(LaunchScreenActivity.this, "Limitated USB Features").show();
 
         }
 

@@ -5,11 +5,13 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PointF;
-import android.location.Location;
-import android.util.Log;
+import android.graphics.Path;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
+
+import com.example.stx_field_design.R;
 
 import coords_calc.DistToPoint;
 import coords_calc.GPS;
@@ -17,26 +19,39 @@ import coords_calc.GPS;
 public class ABCanvas extends View {
 
     Paint paint;
+    Canvas canvas;
     float[] B_coord,A_coord;
     DataProjectSingleton dataProject;
+    ///
+    private static final float TOUCH_MOVE_THRESHOLD = 100.0f; // Puoi regolare questo valore
+    private float lastTouchX, lastTouchY;
+    private ScaleGestureDetector scaleGestureDetector;
+    private GestureDetector gestureDetector;
+
+    ///
     public ABCanvas(Context context) {
         super(context);
         paint = new Paint();
         dataProject = DataProjectSingleton.getInstance();
-        translateTouch();
+        // Initialize gesture detectors
+        scaleGestureDetector = new ScaleGestureDetector(context, new ScaleListener());
+        gestureDetector = new GestureDetector(context, new GestureListener());
+
+       // translateTouch();
     }
 
     @SuppressLint("DrawAllocation")
     @Override
     protected void onDraw(Canvas canvas) {
+        this.canvas = canvas;
         super.onDraw(canvas);
 
         paint.setAntiAlias(true);
 
-        float size = 50;
-        float sizedot=20;
+
+        float sizedot=10;
         if(dataProject.mScaleFactor>1){
-            sizedot=20;
+            sizedot=10;
         }else {
             sizedot = sizedot / dataProject.mScaleFactor;
         }
@@ -79,10 +94,10 @@ public class ABCanvas extends View {
 
             B_coord=new float[]{half_width, half_height - (float)(distance / 2f)};
             canvas.drawCircle(B_coord[0],B_coord[1],sizedot, paint);
-            paint.setColor(Color.BLACK);
+            paint.setColor(Color.BLUE);
             paint.setTextSize(50/dataProject.mScaleFactor);
-            canvas.drawText("A", half_width+50, half_height + (float)(distance / 2f) + 350, paint);
-            canvas.drawText("B", half_width+50, half_height - (float)(distance / 2f) - 150, paint);
+            canvas.drawText("A", half_width+50, A_coord[1] + 100, paint);
+            canvas.drawText("B", half_width+50, B_coord[1] - 50, paint);
         }
 
 
@@ -105,14 +120,14 @@ public class ABCanvas extends View {
             canvas.drawCircle(E_coord[0], E_coord[1], sizedot, paint);
             canvas.drawCircle(F_coord[0], F_coord[1], sizedot, paint);
 
+            paint.setColor(Color.BLUE);
+            canvas.drawText("C", C_coord[0]+50f, B_coord[1] - 50, paint);
+            canvas.drawText("D", D_coord[0]+50f, A_coord[1] + 100, paint);
+            canvas.drawText("E", E_coord[0]-250f, B_coord[1] - 50, paint);
+            canvas.drawText("F", F_coord[0]-250f, A_coord[1] + 100, paint);
+
+
             paint.setColor(Color.BLACK);
-            canvas.drawText("C", C_coord[0]+50f, C_coord[1] - 150f, paint);
-            canvas.drawText("D", D_coord[0]+50f, D_coord[1] + 350f, paint);
-            canvas.drawText("E", E_coord[0]-250f, E_coord[1] - 150f, paint);
-            canvas.drawText("F", F_coord[0]-250f, F_coord[1] + 350f, paint);
-
-
-
             paint.setStrokeWidth(5 / dataProject.getmScaleFactor());
 
             canvas.drawLine(B_coord[0],B_coord[1],C_coord[0],C_coord[1], paint);
@@ -127,37 +142,69 @@ public class ABCanvas extends View {
 
 
 
-    private void translateTouch(){
-        dataProject.setOffsetX(0);
-        dataProject.setOffsetY(0);
-        setOnTouchListener(new OnTouchListener() {
-            float lastTouchX, lastTouchY;
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
 
 
-                float x = event.getX() / dataProject.getmScaleFactor();
-                float y = event.getY() / dataProject.getmScaleFactor();
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        lastTouchX = x;
-                        lastTouchY = y;
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        dataProject.offsetX += x - lastTouchX;
-                        dataProject.offsetY += y - lastTouchY;
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // Gestisci il pinch-to-zoom
+        scaleGestureDetector.onTouchEvent(event);
+
+        // Verifica se si sta attualmente gestendo uno zoom
+        boolean isScaling = scaleGestureDetector.isInProgress();
+
+        // Gestisci il trascinamento solo se non si sta zoomando
+        if (!isScaling) {
+            float x = event.getX() / dataProject.getmScaleFactor();
+            float y = event.getY() / dataProject.getmScaleFactor();
+
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    lastTouchX = x;
+                    lastTouchY = y;
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    float deltaX = x - lastTouchX;
+                    float deltaY = y - lastTouchY;
+
+                    // Verifica la distanza totale percorsa prima di considerare il trascinamento
+                    if (Math.abs(deltaX) > TOUCH_MOVE_THRESHOLD || Math.abs(deltaY) > TOUCH_MOVE_THRESHOLD) {
+                        dataProject.offsetX += deltaX;
+                        dataProject.offsetY += deltaY;
                         lastTouchX = x;
                         lastTouchY = y;
                         invalidate();
-                        break;
-                    default:
-                        return false;
-                }
-                return true;
+                    }
+                    break;
+                case MotionEvent.ACTION_UP:
+                    // Ripristina lastTouchX e lastTouchY
+                    lastTouchX = x;
+                    lastTouchY = y;
+                    break;
             }
-        });
+        }
+
+        return true;
     }
+
+
+
+    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            // Adjust the scale factor and invalidate the view
+            dataProject.mScaleFactor *= detector.getScaleFactor();
+            dataProject.mScaleFactor = Math.max(0.04f, Math.min(dataProject.mScaleFactor, 2.0f));
+            invalidate();
+            return true;
+        }
+    }
+
+
+    private class GestureListener extends GestureDetector.SimpleOnGestureListener {
+        // override methods for other gestures if needed
+    }
+
 
 
 }

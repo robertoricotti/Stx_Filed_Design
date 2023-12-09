@@ -9,6 +9,7 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.location.Location;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 
 import com.example.stx_field_design.R;
@@ -28,18 +29,23 @@ import gnss.Nmea_In;
 import services_and_bluetooth.DataSaved;
 
 public class ProjectCanvas extends View {
+
+    private float lastTouchX, lastTouchY;
+    private static final float TOUCH_MOVE_THRESHOLD = 100.0f; // Puoi regolare questo valore
     Paint paint;
     Canvas canvas;
     float half_width;
     float half_height;
     float size;
     private final DataProjectSingleton dataProject;
+    private ScaleGestureDetector scaleGestureDetector;
 
     public ProjectCanvas(Context context) {
         super(context);
         paint = new Paint();
         dataProject = DataProjectSingleton.getInstance();
-        translateTouch();
+        //translateTouch();
+        scaleGestureDetector = new ScaleGestureDetector(context, new ScaleListener());
     }
 
     @SuppressLint("DrawAllocation")
@@ -114,7 +120,7 @@ public class ProjectCanvas extends View {
             paint.setColor(Color.RED);
             canvas.drawCircle(endX, endY, size / 2.5f, paint);
 
-            paint.setColor(Color.BLACK);
+            paint.setColor(Color.BLUE);
             paint.setTextSize(60);
             canvas.drawText(id, endX + 25f, endY - 25f, paint);
 
@@ -265,34 +271,22 @@ public class ProjectCanvas extends View {
 
     }
 
-    private void translateTouch() {
-        dataProject.setOffsetX(0);
-        dataProject.setOffsetY(0);
-        setOnTouchListener(new OnTouchListener() {
-            float lastTouchX, lastTouchY;
 
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
 
-                float x = event.getX() / dataProject.getmScaleFactor();
-                float y = event.getY() / dataProject.getmScaleFactor();
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        lastTouchX = x;
-                        lastTouchY = y;
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        dataProject.offsetX += x - lastTouchX;
-                        dataProject.offsetY += y - lastTouchY;
-                        lastTouchX = x;
-                        lastTouchY = y;
-                        invalidate();
-                        break;
-                    default:
-                        return false;
-                }
-                return true;
-            }
-        });
+
+
+
+
+
+    // GestureDetector for pinch-to-zoom
+    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            // Adjust the scale factor and invalidate the view
+            dataProject.mScaleFactor *= detector.getScaleFactor();
+            dataProject.mScaleFactor = Math.max(0.04f, Math.min(dataProject.mScaleFactor, 2.0f));
+            invalidate();
+            return true;
+        }
     }
 }

@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         to_new = findViewById(R.id.img3);
         to_settings = findViewById(R.id.img4);
         to_usbStick = findViewById(R.id.img7);
-
         to_mch = findViewById(R.id.img5);
         to_palina = findViewById(R.id.img6);
         to_info = findViewById(R.id.img9);
@@ -67,12 +66,17 @@ public class MainActivity extends AppCompatActivity {
         progressBar.setVisibility(View.INVISIBLE);
         btn_screenR=findViewById(R.id.img11);
 
+
     }
 
     private void init() {
 
         myRWIntMem = new MyRW_IntMem();
         dataProject = DataProjectSingleton.getInstance();
+        if(Build.VERSION.SDK_INT<=30){
+            to_usbStick.setAlpha(0.3f);
+            to_usbStick.setEnabled(false);
+        }
     }
 
     @SuppressLint("NewApi")
@@ -85,11 +89,7 @@ public class MainActivity extends AppCompatActivity {
         });
         to_usbStick.setOnClickListener(view -> {
             if(Build.VERSION.SDK_INT <= 29){
-
-                new CustomToast(this,"Can't COPY TO USB Stick\nOn This Device").show();
-                Intent intent = new Intent(MainActivity.this, UsbActivity.class);
-                startActivity(intent);
-                finish();
+                new CustomToast(this,"Can't Use USB Stick\nOn This Device").show();
             }else {
             Intent intent = new Intent(MainActivity.this, UsbActivity.class);
             startActivity(intent);

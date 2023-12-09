@@ -41,14 +41,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.82" />
+        app:layout_constraintGuide_percent="0.8" />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container_draw"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="4dp"
         android:background="@color/light_gray"
-        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintBottom_toTopOf="@+id/quota"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,8 +100,8 @@
 
     <ImageButton
         android:id="@+id/myCenterNav"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_margin="1dp"
         android:backgroundTint="@color/black"
         android:scaleType="fitCenter"
@@ -113,8 +113,8 @@
 
     <ImageButton
         android:id="@+id/myZoomIn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_margin="1dp"
         android:backgroundTint="@color/black"
         android:scaleType="fitCenter"
@@ -127,8 +127,8 @@
 
     <ImageButton
         android:id="@+id/myZoomOut"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_margin="1dp"
         android:backgroundTint="@color/black"
         android:scaleType="fitCenter"
@@ -141,8 +141,8 @@
 
     <ImageButton
         android:id="@+id/rotateLeft"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_margin="1dp"
         android:backgroundTint="@color/black"
         android:scaleType="fitCenter"
@@ -155,8 +155,8 @@
 
     <ImageButton
         android:id="@+id/rotateRight"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_margin="1dp"
         android:backgroundTint="@color/black"
         android:scaleType="fitCenter"
@@ -170,8 +170,8 @@
     <ImageButton
          android:visibility="visible"
         android:id="@+id/autorotate"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_margin="1dp"
         android:backgroundTint="@color/black"
         android:scaleType="fitCenter"
@@ -216,38 +216,40 @@
     <TextView
         android:id="@+id/quota"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="2dp"
         android:layout_marginBottom="2dp"
         android:background="@color/light_gray"
         android:gravity="center"
         android:text="Z: 12.56"
+        android:maxLines="1"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/lowerView"
         app:layout_constraintEnd_toStartOf="@+id/v"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+        app:layout_constraintTop_toBottomOf="@id/container_draw" />
 
 
 
     <TextView
         android:id="@+id/distance"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="2dp"
         android:layout_marginBottom="2dp"
         android:background="@color/_____cancel_text"
         android:gravity="center"
         android:text="DIST: 1234.67m"
+        android:maxLines="1"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/lowerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/v"
-        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+        app:layout_constraintTop_toTopOf="@+id/quota" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

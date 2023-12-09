@@ -3,7 +3,7 @@
     <item android:drawable="@color/transparent" android:state_pressed="true"/>
     <item>
         <rotate
-            android:drawable="@drawable/gps_path__96x96"
+            android:drawable="@drawable/example_img"
             android:fromDegrees="0">
 
         </rotate>

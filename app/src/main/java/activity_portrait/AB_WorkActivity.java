@@ -101,6 +101,10 @@ public class AB_WorkActivity extends AppCompatActivity {
     }
 
     private void init() {
+        if(MyApp.screenWidth>400){
+            altitude.setTextSize(26f);
+            distance.setTextSize(26f);
+        }
 
         delaunay.setVisibility(View.INVISIBLE);
         dataProject = DataProjectSingleton.getInstance();
