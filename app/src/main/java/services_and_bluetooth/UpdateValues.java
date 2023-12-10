@@ -69,6 +69,7 @@ public class UpdateValues extends Service {
             String canname = myRW_intMem.MyRead("_canname", UpdateValues.this);
             String crs = myRW_intMem.MyRead("_crs", UpdateValues.this);
             String altezzaAnt=myRW_intMem.MyRead("_altezzaantenna",UpdateValues.this);
+            String offsetA=myRW_intMem.MyRead("_offset",UpdateValues.this);
             String leftEdge=myRW_intMem.MyRead("_leftedge",UpdateValues.this);
             String rightEdge=myRW_intMem.MyRead("_rightedge",UpdateValues.this);
             String unitOfMeasure = myRW_intMem.MyRead("_unitofmeasure", UpdateValues.this);
@@ -107,6 +108,9 @@ public class UpdateValues extends Service {
             }
             if(altezzaAnt==null){
                 myRW_intMem.MyWrite("_altezzaantenna","2",UpdateValues.this);
+            }
+            if(offsetA==null){
+                myRW_intMem.MyWrite("_offset","0",UpdateValues.this);
             }
             if(leftEdge==null){
                 myRW_intMem.MyWrite("_leftedge","1.5",UpdateValues.this);
@@ -173,6 +177,7 @@ public class UpdateValues extends Service {
             DataSaved.S_can_name=myRW_intMem.MyRead("_canname",UpdateValues.this);
             DataSaved.S_CRS=myRW_intMem.MyRead("_crs",UpdateValues.this);
             DataSaved.D_AltezzaAnt=Double.parseDouble(myRW_intMem.MyRead("_altezzaantenna",UpdateValues.this).replace(",","."));
+            DataSaved.D_Offset=Double.parseDouble(myRW_intMem.MyRead("_offset",UpdateValues.this).replace(",","."));
             DataSaved.D_Leftedge=Double.parseDouble(myRW_intMem.MyRead("_leftedge",UpdateValues.this).replace(",","."));
             DataSaved.D_Rightedge=Double.parseDouble(myRW_intMem.MyRead("_rightedge",UpdateValues.this).replace(",","."));
             DataSaved.I_UnitOfMeasure=Integer.parseInt(myRW_intMem.MyRead("_unitofmeasure",UpdateValues.this));

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/light_gray"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/m_value"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:background="@color/transparent"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="28sp"
+        android:imeOptions="actionDone"
+        android:inputType="numberDecimal|numberSigned"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/_h_exit"
+        android:layout_width="110dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/dark_gray"
+        android:text="X"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/bt_reset"
+        app:layout_constraintTop_toBottomOf="@id/m_value"
+
+
+        />
+    <Button
+        android:id="@+id/bt_reset"
+        android:layout_width="110dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/bg_sfsred"
+        android:text="0.00"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toRightOf="@id/_h_exit"
+        app:layout_constraintRight_toLeftOf="@id/_h_ok"
+        app:layout_constraintTop_toBottomOf="@id/m_value"
+
+
+        />
+
+    <Button
+        android:id="@+id/_h_ok"
+        android:layout_width="110dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/blue"
+        android:text="@string/ok"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toRightOf="@id/bt_reset"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/m_value"
+
+
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

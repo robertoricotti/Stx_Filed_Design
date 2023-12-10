@@ -77,7 +77,6 @@
         <activity
             android:name="activity_portrait.AB_WorkActivity"
             android:autoRemoveFromRecents="true"
-            android:configChanges="orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="locked"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -86,6 +85,7 @@
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
             android:screenOrientation="locked"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="activity_portrait.MenuProject"
@@ -132,6 +132,7 @@
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
             android:screenOrientation="locked"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity

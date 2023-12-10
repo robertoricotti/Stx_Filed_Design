@@ -36,7 +36,8 @@ public class AutoConnectionService extends Service {
     byte c;
 
     int id = 0x6FA, countG = -1, countCan = -1;
-    public static byte[] data_6FA = new byte[]{0, 0, 0, 0, 0, 0, 0, 0};
+    public static byte[] data_6FA = new byte[]{0, 0};
+    public static byte[] data_6FA_2nd = new byte[]{0, 0, 0, 0};
 
 
     private Executor mExecutor;
@@ -226,7 +227,7 @@ public class AutoConnectionService extends Service {
                                 c++;
 
                                 try {
-                                    Bluetooth_CAN_Service.sendCANData(id, new byte[]{page, data_6FA[0], data_6FA[1], data_6FA[2], data_6FA[3], c});
+                                    Bluetooth_CAN_Service.sendCANData(id, new byte[]{page, data_6FA[0], data_6FA[1], data_6FA_2nd[0], data_6FA_2nd[1], c});
 
                                 } catch (Exception e) {
                                     Bluetooth_CAN_Service.sendCANData(id, new byte[]{(byte) 0xFF, 0, 0, 0, (byte) (c & 0xff)});

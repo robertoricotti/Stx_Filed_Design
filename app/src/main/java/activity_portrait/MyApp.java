@@ -42,6 +42,7 @@ import services_and_bluetooth.Bluetooth_CAN_Service;
 import services_and_bluetooth.Bluetooth_GNSS_Service;
 import services_and_bluetooth.DataSaved;
 import utils.FullscreenActivity;
+import utils.MyRW_IntMem;
 import utils.Utils;
 
 
@@ -56,7 +57,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     ImageView btn1, btn2, btn3, btn4, btn5;
     TextView txt1, txt2, txt3, txt4, txt5, txt_coord, txt_canstat;
     ImageView imgConnetti;
-    public  int SCREEN_ORIENTATION;
+    public int SCREEN_ORIENTATION;
 
     public static Activity visibleActivity;
 
@@ -66,25 +67,16 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     public void onCreate() {
         super.onCreate();
         registerActivityLifecycleCallbacks(this);
-        if(DataSaved.DisplayOrient==1){
-
-            SCREEN_ORIENTATION=(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        } else {
-            SCREEN_ORIENTATION=(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
-
-
-
     }
 
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        if(DataSaved.DisplayOrient==1){
+        if (new MyRW_IntMem().MyRead("display",this).equals("1")) {
 
-            SCREEN_ORIENTATION=(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            SCREEN_ORIENTATION = (ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         } else {
-            SCREEN_ORIENTATION=(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            SCREEN_ORIENTATION = (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
         activity.setRequestedOrientation(SCREEN_ORIENTATION);
         switch (activity.toString().substring(0, (activity.toString().indexOf("@")))) {
@@ -100,7 +92,6 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                 m_ABProject(activity);
                 break;
             case "activity_portrait.AntennaMeasure":
-
                 m_AntennaMeasure(activity);
                 break;
             case "activity_portrait.BT_DevicesActivity":
@@ -125,9 +116,8 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                 m_SettingsActivity(activity);
                 break;
             case "activity_portrait.UsbActivity":
-                //questa activity viene gestita dalla classe UsbActivity.class
-                activity.setContentView(R.layout.activity_usb_inout);
-                FullscreenActivity.setFullScreen(activity);
+                m_UsbActivity(activity);
+
                 break;
             case "activity_portrait.Antennas_Blade_Activity":
                 m_Antennas_Blade_Activity(activity);
@@ -148,7 +138,6 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             visibleActivity = activity;
             DataSaved.Actualactivity = String.valueOf(activity);
             setLocale(visibleActivity, "en");
-
 
 
         }
@@ -181,7 +170,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         m_updateUI(activity, false);
     }
 
-    public void m_Antennas_Blade_Activity(Activity activity){
+    public void m_Antennas_Blade_Activity(Activity activity) {
         activity.setContentView(R.layout.activity_antennas_blade);//setta il layout di riferimento dell'activity
         whoLaunch = activity;
         m_updateUI(whoLaunch, true);
@@ -205,14 +194,11 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         activity.setContentView(R.layout.activity_main);//setta il layout di riferimento dell'activity
         whoLaunch = activity;
         m_updateUI(whoLaunch, true);
-
         btn2.setVisibility(View.INVISIBLE);
         btn3.setVisibility(View.INVISIBLE);
         btn4.setVisibility(View.INVISIBLE);
         btn1.setImageResource(R.drawable.btn_poweroff);
         btn5.setImageResource(R.drawable.btn_ecu_connect);
-
-
         btn1.setOnClickListener(view -> {
             new CloseAppDialog(activity).show();
         });
@@ -220,6 +206,31 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             new ConnectDialog(activity, 2).show();
         });
 
+    }
+    public void m_UsbActivity(Activity activity){
+        activity.setContentView(R.layout.activity_usb_inout);
+        whoLaunch = activity;
+        m_updateUI(whoLaunch, true);
+        btn1.setImageResource(R.drawable.btn_to_indietro);
+        btn2.setImageResource(R.drawable.btn_read_usb);
+        btn3.setImageResource(R.drawable.btn_copy_from_usb);
+        btn4.setImageResource(R.drawable.btn_copy_to_usb);
+        btn5.setImageResource(R.drawable.btn_delete);
+        btn1.setOnClickListener(view -> {
+            ((UsbActivity)activity).exBtn1();
+        });
+        btn2.setOnClickListener(view -> {
+            ((UsbActivity)activity).exBtn2();
+        });
+        btn3.setOnClickListener(view -> {
+            ((UsbActivity)activity).exBtn3();
+        });
+        btn4.setOnClickListener(view -> {
+            ((UsbActivity)activity).exBtn4();
+        });
+        btn5.setOnClickListener(view -> {
+            ((UsbActivity)activity).exBtn5();
+        });
     }
 
     public void m_UOM_Activity(Activity activity) {
@@ -240,18 +251,19 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         btn3.setOnClickListener(view -> {
             //implementare logica misura punto
 
-            if( ((UOM_Activity) activity).size<2){
-                ((UOM_Activity) activity).size+=1;}
-            if(((UOM_Activity) activity).size==1){
-                ((UOM_Activity) activity).A_coord=new double[]{Nmea_In.Crs_Est,Nmea_In.Crs_Nord,Nmea_In.Quota1};
-
-                new CustomToast(visibleActivity,"P1").show();
+            if (((UOM_Activity) activity).size < 2) {
+                ((UOM_Activity) activity).size += 1;
             }
-            if(((UOM_Activity) activity).size==2){
+            if (((UOM_Activity) activity).size == 1) {
+                ((UOM_Activity) activity).A_coord = new double[]{Nmea_In.Crs_Est, Nmea_In.Crs_Nord, Nmea_In.Quota1};
 
-                ((UOM_Activity) activity).B_coord=new double[]{Nmea_In.Crs_Est,Nmea_In.Crs_Nord,Nmea_In.Quota1};
+                new CustomToast(visibleActivity, "P1").show();
+            }
+            if (((UOM_Activity) activity).size == 2) {
 
-                new CustomToast(visibleActivity,"P2").show();
+                ((UOM_Activity) activity).B_coord = new double[]{Nmea_In.Crs_Est, Nmea_In.Crs_Nord, Nmea_In.Quota1};
+
+                new CustomToast(visibleActivity, "P2").show();
             }
 
         });
@@ -286,7 +298,15 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     public void m_AntennaMeasure(Activity activity) {
         activity.setContentView(R.layout.activity_antenna_measure);
         whoLaunch = activity;
-        FullscreenActivity.setFullScreen(activity);
+        m_updateUI(whoLaunch, true);
+        btn1.setImageResource(R.drawable.btn_to_indietro);
+        btn2.setVisibility(View.INVISIBLE);
+        btn3.setVisibility(View.INVISIBLE);
+        btn4.setVisibility(View.INVISIBLE);
+        btn5.setVisibility(View.INVISIBLE);
+        btn1.setOnClickListener(view -> {
+            ((AntennaMeasure)activity).goBack();
+        });
     }
 
     public void m_BT_DevicesActivity(Activity activity) {
@@ -307,9 +327,22 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
     public void m_MchMeasureActivity(Activity activity) {
         activity.setContentView(R.layout.activity_mch_meaure);
-
         whoLaunch = activity;
-        FullscreenActivity.setFullScreen(activity);
+        m_updateUI(whoLaunch, true);
+        btn1.setImageResource(R.drawable.btn_to_indietro);
+        btn5.setImageResource(R.drawable.btn_to_indietro);
+        btn5.setRotation(180f);
+        btn2.setVisibility(View.INVISIBLE);
+        btn3.setVisibility(View.INVISIBLE);
+        btn4.setVisibility(View.INVISIBLE);
+        btn1.setOnClickListener(view -> {
+            ((MchMeaureActivity) activity).exit();
+        });
+        btn5.setOnClickListener(view -> {
+            ((MchMeaureActivity) activity).toGnss();
+        });
+
+
     }
 
     public void m_AB_WorkingActivity(Activity activity) {
@@ -337,7 +370,8 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             new ConnectDialog(activity, 2).show();
         });
     }
-    public void m_MenuProject(Activity activity){
+
+    public void m_MenuProject(Activity activity) {
         activity.setContentView(R.layout.activity_menu_project);
 
         whoLaunch = activity;
@@ -357,9 +391,9 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         });
 
     }
-    public void m_SettingsActivity(Activity activity){
-        activity.setContentView(R.layout.activity_settings);
 
+    public void m_SettingsActivity(Activity activity) {
+        activity.setContentView(R.layout.activity_settings);
         whoLaunch = activity;
         m_updateUI(whoLaunch, true);
         btn2.setVisibility(View.INVISIBLE);
@@ -394,11 +428,10 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         if (screenWidth < 400f) {
             txt_coord.setTextSize(14f);
             txt_canstat.setTextSize(14f);
-        } else if(screenWidth < 750f&&screenWidth>400f) {
+        } else if (screenWidth < 750f && screenWidth > 400f) {
             txt_coord.setTextSize(16f);
             txt_canstat.setTextSize(16f);
-        }
-        else if(screenWidth > 750f){
+        } else if (screenWidth > 750f) {
             txt_coord.setTextSize(22f);
             txt_canstat.setTextSize(22f);
             txt1.setTextSize(18f);
@@ -436,7 +469,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                                 txt2.setText(setQuality(Nmea_In.ggaQuality));
                                 txt3.setText("CQ: " + Nmea_In.CQ_Tot);
                                 txt4.setText(Nmea_In.ggaRtk);
-                                txt5.setText(Utils.readUnitOfMeasure(String.valueOf(DataSaved.D_AltezzaAnt),visibleActivity));
+                                txt5.setText(Utils.readUnitOfMeasure(String.valueOf(DataSaved.D_AltezzaAnt), visibleActivity));
                                 if (showCoord) {
                                     txt_coord.setText("Lat:" + My_LocationCalc.decimalToDMS(Nmea_In.mLat_1) + "\tLon:"
                                             + My_LocationCalc.decimalToDMS(Nmea_In.mLon_1) + "  Z:"
@@ -461,11 +494,11 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
                                 } else {
                                     txt_coord.setTextColor(Color.BLUE);
-                                    if(txt2.getText().toString().equals("FIX")){
+                                    if (txt2.getText().toString().equals("FIX")) {
                                         txt_coord.setBackgroundColor(getResources().getColor(R.color.green));
-                                    }else if(txt2.getText().toString().equals("DGNSS")||txt2.getText().toString().equals("FLOAT")) {
+                                    } else if (txt2.getText().toString().equals("DGNSS") || txt2.getText().toString().equals("FLOAT")) {
                                         txt_coord.setBackgroundColor(getResources().getColor(R.color.light_yellow));
-                                    }else {
+                                    } else {
                                         txt_coord.setBackgroundColor(getResources().getColor(R.color.white));
                                     }
                                 }
@@ -485,11 +518,11 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
     public String setQuality(String s) {
         String out = "DISC.";
-        if(s!=null) {
+        if (s != null) {
             switch (s) {
 
                 case "0":
-                    out="";
+                    out = "";
                     break;
                 case "1":
                     out = "SINGLE";
@@ -523,7 +556,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         Locale.setDefault(locale);
 
         // Imposta il separatore decimale come punto
-         DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols(locale);
+        DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols(locale);
         decimalFormatSymbols.setDecimalSeparator('.');
 
         // Applica le configurazioni alla risorsa

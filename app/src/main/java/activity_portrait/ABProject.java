@@ -394,8 +394,9 @@ public class ABProject extends AppCompatActivity {
         String s = "0";
         double d = 0;
         if (!(et_zb.getText().toString() == null) && !et_zb.getText().toString().equals("")) {
+            GPS a = dataProject.getPoints().get("A");
             s = Utils.writeMetri(et_zb.getText().toString(),this);
-            d = Double.parseDouble(s);
+            d = Double.parseDouble(s)+a.getZ();
             dataProject.setzB(d);
         }
         if (dataProject.getSize() >= 2) {
@@ -569,8 +570,9 @@ public class ABProject extends AppCompatActivity {
     }
 
     private void updateAll() {
+        GPS a = dataProject.getPoints().get("A");
         GPS b = dataProject.getPoints().get("B");
-        et_zb.setText(Utils.readUnitOfMeasure(String.valueOf(b.getZ()),ABProject.this));
+        et_zb.setText(Utils.readUnitOfMeasure(String.valueOf(b.getZ()-a.getZ()),ABProject.this));
         et_dst.setText(Utils.readUnitOfMeasure(String.valueOf(dataProject.getDistanceAB()),ABProject.this));
         et_slope.setText(Utils.readAngolo(String.valueOf(dataProject.getSlopeAB()),ABProject.this));
         et_ltdst.setText(Utils.readUnitOfMeasure(String.valueOf(dataProject.getLtLength()),ABProject.this));

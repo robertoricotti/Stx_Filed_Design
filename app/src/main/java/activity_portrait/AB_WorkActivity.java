@@ -25,6 +25,7 @@ import can.PLC_DataTypes_BigEndian;
 import coords_calc.GPS;
 import coords_calc.Surface_Selector;
 import dialogs.CoordsGNSSInfo;
+import dialogs.Dialog_Offset;
 import gnss.Nmea_In;
 import project.DataProjectSingleton;
 import project.ProjectCanvas;
@@ -42,17 +43,15 @@ public class AB_WorkActivity extends AppCompatActivity {
     public static byte page = 0;
     public static byte[] quota;
 
-    ImageView  lineID;
-    TextView altitude, distance, fileName;
+    ImageView lineID;
+    TextView altitude, distance, fileName, setOffset, offsetUnit;
 
     ConstraintLayout container;
     ProjectCanvas canvas;
     ImageButton center, zoomIn, zoomOut, rotateLeft, rotateRight, autorotate;
-    Button crs, delaunay, surfaceStatus, surfaceOK;
+    Button crs, surfaceStatus, surfaceOK;
     DataProjectSingleton dataProject;
     CoordsGNSSInfo coordsGNSSInfo;
-
-
     Handler handler;
 
     Surface_Selector surfaceSelector;
@@ -76,14 +75,13 @@ public class AB_WorkActivity extends AppCompatActivity {
     private void findView() {
 
 
-
         container = findViewById(R.id.container_draw);
         center = findViewById(R.id.myCenterNav);
         zoomIn = findViewById(R.id.myZoomIn);
         zoomOut = findViewById(R.id.myZoomOut);
         surfaceStatus = findViewById(R.id.surfaceStatus);
         crs = findViewById(R.id.crs);
-        delaunay = findViewById(R.id.delunay);
+
         lineID = findViewById(R.id.pickPoint);
         altitude = findViewById(R.id.quota);
         distance = findViewById(R.id.distance);
@@ -94,19 +92,18 @@ public class AB_WorkActivity extends AppCompatActivity {
         rotateLeft = findViewById(R.id.rotateLeft);
         rotateRight = findViewById(R.id.rotateRight);
         autorotate = findViewById(R.id.autorotate);
-
-
-        guideline = findViewById(R.id.H_top_10);
+        setOffset = findViewById(R.id.set_offset);
+        offsetUnit = findViewById(R.id.txt_unitaoffset);
 
     }
 
     private void init() {
-        if(MyApp.screenWidth>400){
+        if (MyApp.screenWidth > 400) {
             altitude.setTextSize(26f);
             distance.setTextSize(26f);
         }
 
-        delaunay.setVisibility(View.INVISIBLE);
+
         dataProject = DataProjectSingleton.getInstance();
 
         surfaceSelector = new Surface_Selector(dataProject.getSize());
@@ -126,11 +123,16 @@ public class AB_WorkActivity extends AppCompatActivity {
         } else if (new MyRW_IntMem().MyRead("_maprotmode", this).equals("1")) {
             auto = true;
         }
-
+        updateOffset();
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private void onClick() {
+
+        setOffset.setOnClickListener(view -> {
+            new Dialog_Offset(this, 0).show();
+
+        });
 
         autorotate.setOnClickListener(v -> {
             auto = !auto;
@@ -188,15 +190,9 @@ public class AB_WorkActivity extends AppCompatActivity {
         });
 
 
-
-        delaunay.setOnClickListener((View v) -> {
-            dataProject.toggleDelaunay();
-        });
-
-
-
     }
-    public void metodoLineId(){
+
+    public void metodoLineId() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle("Choose ID");
 
@@ -219,11 +215,13 @@ public class AB_WorkActivity extends AppCompatActivity {
         alert.setCanceledOnTouchOutside(true);
         alert.show();
     }
-    public void metodoOpenList(){
+
+    public void metodoOpenList() {
         if (!coordsGNSSInfo.dialog.isShowing())
             coordsGNSSInfo.show();
     }
-    public void metodoBack(){
+
+    public void metodoBack() {
         new MyRW_IntMem().MyWrite("zoomF", String.valueOf(dataProject.mScaleFactor), this);
         new MyRW_IntMem().MyWrite("rot", String.valueOf(dataProject.rotate), this);
         if (auto) {
@@ -282,11 +280,6 @@ public class AB_WorkActivity extends AppCompatActivity {
                         public void run() {
 
 
-
-
-
-
-
                             if (auto) {
                                 rotateLeft.setEnabled(false);
                                 rotateRight.setEnabled(false);
@@ -313,25 +306,27 @@ public class AB_WorkActivity extends AppCompatActivity {
                             crs.setText(dataProject.getEpsgCode());
 
 
-                            delaunay.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), dataProject.isDelaunay() ? R.color.pure_green : R.color._____cancel_text));
                             surfaceStatus.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), surfaceSelector.isPointInsideSurface() ? R.color.pure_green : R.color.red));
                             surfaceOK.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), surfaceSelector.isSurfaceOK() ? R.color.pure_green : R.color.red));
                             double v = 0;
-                            v = surfaceSelector.getAltitudeDifference(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1);
+                            double v2 = 0;
+                            v = surfaceSelector.getAltitudeDifference(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1)-DataSaved.D_Offset;
+                            v2 = surfaceSelector.getDistance();
                             if (Double.isNaN(v)) v = 0;
                             if (Bluetooth_CAN_Service.canIsConnected) {
-                                int dataOut = (int) (v * 1000);
-                                byte[] data = PLC_DataTypes_BigEndian.S32_to_bytes_be(dataOut);
+                                short dataOut = (short) (v * 1000);
+                                short dataOut_2 = (short) (v2 * 1000);
+                                byte[] data = PLC_DataTypes_BigEndian.S16_to_bytes_be(dataOut);
+                                byte[] data2 = PLC_DataTypes_BigEndian.S16_to_bytes_be(dataOut_2);
                                 AutoConnectionService.data_6FA = data;
+                                AutoConnectionService.data_6FA_2nd = data2;
                                 page = 1;
-
-
 
 
                             }
 
 
-                            String strDistance = "DIST: " + Utils.readUnitOfMeasure(String.valueOf(surfaceSelector.getDistance()),AB_WorkActivity.this).replace(",", ".") +" "+Utils.getMetriSimbol(AB_WorkActivity.this);
+                            String strDistance = "DIST: " + Utils.readUnitOfMeasure(String.valueOf(surfaceSelector.getDistance()), AB_WorkActivity.this).replace(",", ".") + " " + Utils.getMetriSimbol(AB_WorkActivity.this);
                             if (Math.abs(surfaceSelector.getDistance()) <= DataSaved.xy_tol) {
                                 distance.setBackgroundColor(getColor(R.color.green));
                                 distance.setTextColor(getColor(R.color._____cancel_text));
@@ -342,15 +337,15 @@ public class AB_WorkActivity extends AppCompatActivity {
 
                             if (surfaceSelector.isPointInsideSurface()) {
                                 if (Math.abs(v) <= DataSaved.z_tol) {
-                                    altitude.setText("⧗ " + Utils.readUnitOfMeasure(String.valueOf(v),AB_WorkActivity.this).replace(",", ".")+" "+Utils.getMetriSimbol(AB_WorkActivity.this));
+                                    altitude.setText("⧗ " + Utils.readUnitOfMeasure(String.valueOf(v), AB_WorkActivity.this).replace(",", ".") + " " + Utils.getMetriSimbol(AB_WorkActivity.this));
                                     altitude.setBackgroundColor(getColor(R.color.green));
                                     altitude.setTextColor(getColor(R.color._____cancel_text));
                                 } else if (v < -(DataSaved.z_tol + 0.001)) {
-                                    altitude.setText("▲ " + Utils.readUnitOfMeasure(String.valueOf(v),AB_WorkActivity.this).replace(",", ".")+" "+Utils.getMetriSimbol(AB_WorkActivity.this));
+                                    altitude.setText("▲ " + Utils.readUnitOfMeasure(String.valueOf(v), AB_WorkActivity.this).replace(",", ".") + " " + Utils.getMetriSimbol(AB_WorkActivity.this));
                                     altitude.setBackgroundColor(getColor(R.color.red));
                                     altitude.setTextColor(getColor(R.color.white));
                                 } else if (v > DataSaved.z_tol + 0.001) {
-                                    altitude.setText("▼ " + Utils.readUnitOfMeasure(String.valueOf(v),AB_WorkActivity.this).replace(",", ".")+" "+Utils.getMetriSimbol(AB_WorkActivity.this));
+                                    altitude.setText("▼ " + Utils.readUnitOfMeasure(String.valueOf(v), AB_WorkActivity.this).replace(",", ".") + " " + Utils.getMetriSimbol(AB_WorkActivity.this));
                                     altitude.setBackgroundColor(getColor(R.color.blue));
                                     altitude.setTextColor(getColor(R.color.white));
                                 }
@@ -361,7 +356,6 @@ public class AB_WorkActivity extends AppCompatActivity {
                             }
 
                             distance.setText(strDistance);
-
 
 
                             canvas.invalidate();
@@ -381,12 +375,15 @@ public class AB_WorkActivity extends AppCompatActivity {
 
     }
 
+    public void updateOffset() {
+        offsetUnit.setText(Utils.getMetriSimbol(this));
+        setOffset.setText(Utils.readUnitOfMeasure(String.valueOf(DataSaved.D_Offset), this));
+    }
+
 
     @Override
     public void onBackPressed() {
     }
-
-
 
 
     @Override

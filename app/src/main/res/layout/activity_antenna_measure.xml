@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     android:keepScreenOn="true"
     tools:context="activity_portrait.AntennaMeasure">
+    <include
+        android:id="@+id/topView"
+        layout="@layout/shared_layout_top"
+        android:visibility="invisible"/>
+
+    <include
+        android:id="@+id/lowerView"
+        layout="@layout/shared_layout_low" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/H1"
         android:layout_width="wrap_content"
@@ -14,12 +22,7 @@
         app:layout_constraintGuide_percent="0.05" />
 
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/H_90"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.935" />
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/V1"
@@ -53,7 +56,7 @@
        app:layout_constraintLeft_toLeftOf="parent"
        app:layout_constraintRight_toRightOf="parent"
        app:layout_constraintTop_toBottomOf="@id/H1"
-       app:layout_constraintBottom_toTopOf="@id/H_90">
+       app:layout_constraintBottom_toTopOf="@id/lowerView">
        <TextView
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
@@ -174,210 +177,101 @@
            android:background="@color/_____cancel_text"
            android:textColor="@color/white"
            android:text="POINT 4 GPS1 (2nd measure Len/Side)"/>
-       <LinearLayout
-
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="horizontal">
-           <EditText
-               android:visibility="gone"
-               android:id="@+id/etGPS2_L"
-               android:inputType="numberDecimal|numberSigned"
-               android:digits="0123456789.-"
-               android:textSize="22sp"
-               android:imeOptions="actionDone"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_weight="1"
-               android:hint="GPS 2/2 Length"/>
-           <EditText
-               android:visibility="gone"
-               android:id="@+id/etGPS2_S"
-               android:inputType="numberDecimal|numberSigned"
-               android:digits="0123456789.-"
-               android:textSize="22sp"
-               android:imeOptions="actionDone"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_weight="1"
-               android:hint="GPS2/2 Side "/>
 
 
-       </LinearLayout>
 
-       <TextView
-           android:visibility="invisible"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:gravity="center"
-           android:textStyle="bold"
-           android:background="@color/_____cancel_text"
-           android:textColor="@color/white"
-           android:text="POINT 5 GPS Orient"/>
-       <LinearLayout
-android:visibility="invisible"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="horizontal">
-           <EditText
-               android:visibility="gone"
-               android:id="@+id/etHDT_L"
-               android:inputType="numberDecimal|numberSigned"
-               android:digits="0123456789.-"
-               android:textSize="22sp"
-               android:imeOptions="actionDone"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_weight="1"
-               android:hint="HDT Length"/>
-           <EditText
-               android:visibility="gone"
-               android:id="@+id/etHDT_S"
-               android:inputType="numberDecimal|numberSigned"
-               android:digits="0123456789.-"
-               android:textSize="22sp"
-               android:imeOptions="actionDone"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_weight="1"
-               android:hint="HDT Side "/>
+     <ScrollView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical">
+
+             <Button
+                 android:id="@+id/btn_calcola"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_gravity="center"
+                 android:text="CALC"
+                 android:textStyle="bold"/>
+             <Space
+                 android:layout_width="match_parent"
+                 android:layout_height="10dp"/>
+             <TextView
+                 android:textStyle="bold"
+                 android:id="@+id/txtAccuracy"
+                 android:gravity="left"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:textSize="24sp"
+                 android:textColor="@color/colorStonexBlueLight1"
+                 android:text="Accouracy: "/>
+             <TextView
+                 android:id="@+id/txtxdev"
+                 android:gravity="left"
+                 android:textStyle="bold"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:textSize="24sp"
+                 android:textColor="@color/colorStonexBlueLight1"
+                 android:text="X: "/>
+             <TextView
+                 android:id="@+id/txtydev"
+                 android:gravity="left"
+                 android:textStyle="bold"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:textSize="24sp"
+                 android:textColor="@color/colorStonexBlueLight1"
+                 android:text="Y: "/>
+             <TextView
+                 android:id="@+id/txtxreach"
+                 android:gravity="left"
+                 android:textStyle="bold"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:textSize="24sp"
+                 android:textColor="@color/colorStonexBlueLight1"
+                 android:text="Reach: "/>
+             <TextView
+                 android:id="@+id/txtpitch"
+                 android:gravity="left"
+                 android:textStyle="bold"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:textSize="24sp"
+                 android:textColor="@color/colorStonexBlueLight1"
+                 android:text="Pitch: "/>
+             <TextView
+                 android:id="@+id/txtroll"
+                 android:gravity="left"
+                 android:textStyle="bold"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:textSize="24sp"
+                 android:textColor="@color/colorStonexBlueLight1"
+                 android:text="Roll: "/>
+             <TextView
+                 android:visibility="invisible"
+                 android:id="@+id/txtHdt_result"
+                 android:gravity="left"
+                 android:textStyle="bold"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:textSize="24sp"
+                 android:textColor="@color/colorStonexBlueLight1"
+                 android:text="GPS 2 Dev: "/>
+         </LinearLayout>
+     </ScrollView>
 
 
-       </LinearLayout>
-
-       <Button
-           android:id="@+id/btn_calcola"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_gravity="center"
-           android:text="CALC"
-           android:textStyle="bold"/>
-       <Space
-           android:layout_width="match_parent"
-           android:layout_height="10dp"/>
-       <TextView
-           android:textStyle="bold"
-           android:id="@+id/txtAccuracy"
-           android:gravity="left"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:textSize="24sp"
-           android:textColor="@color/colorStonexBlueLight1"
-           android:text="Accouracy: "/>
-       <TextView
-           android:id="@+id/txtxdev"
-           android:gravity="left"
-           android:textStyle="bold"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:textSize="24sp"
-           android:textColor="@color/colorStonexBlueLight1"
-           android:text="X: "/>
-       <TextView
-           android:id="@+id/txtydev"
-           android:gravity="left"
-           android:textStyle="bold"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:textSize="24sp"
-           android:textColor="@color/colorStonexBlueLight1"
-           android:text="Y: "/>
-       <TextView
-           android:id="@+id/txtxreach"
-           android:gravity="left"
-           android:textStyle="bold"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:textSize="24sp"
-           android:textColor="@color/colorStonexBlueLight1"
-           android:text="Reach: "/>
-       <TextView
-           android:id="@+id/txtpitch"
-           android:gravity="left"
-           android:textStyle="bold"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:textSize="24sp"
-           android:textColor="@color/colorStonexBlueLight1"
-           android:text="Pitch: "/>
-       <TextView
-           android:id="@+id/txtroll"
-           android:gravity="left"
-           android:textStyle="bold"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:textSize="24sp"
-           android:textColor="@color/colorStonexBlueLight1"
-           android:text="Roll: "/>
-       <TextView
-           android:visibility="invisible"
-           android:id="@+id/txtHdt_result"
-           android:gravity="left"
-           android:textStyle="bold"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:textSize="24sp"
-           android:textColor="@color/colorStonexBlueLight1"
-           android:text="GPS 2 Dev: "/>
 
    </LinearLayout>
 
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/light_blue_900"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/H_90">
 
-        <ImageView
-            android:id="@+id/btn_exit"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingVertical="5dp"
-            android:rotation="0"
-            app:tint="@color/white"
-            android:src="@drawable/btn_to_indietro" />
-        <ImageView
-
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingVertical="10dp"
-            app:tint="@color/transparent"
-            android:src="@drawable/btn_positionpage" />
-        <ImageView
-
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingVertical="10dp"
-            app:tint="@color/transparent"
-            android:src="@drawable/btn_positionpage" />
-
-        <ImageView
-
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingVertical="10dp"
-            app:tint="@color/transparent"
-            android:src="@drawable/btn_positionpage" />
-        <ImageView
-            android:visibility="invisible"
-            android:id="@+id/btn_tognss"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:rotation="180"
-            android:paddingVertical="10dp"
-            app:tint="@color/white"
-            android:src="@drawable/arrow_circle" />
-
-
-    </LinearLayout>
 
 
 

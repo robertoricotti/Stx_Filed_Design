@@ -26,7 +26,7 @@ public class MchMeaureActivity extends AppCompatActivity {
 
     Button btn_calc;
     EditText etX1, etX2, etX3, etY1, etY2, etY3;
-    ImageView btn_exit,img_tognss;
+
     TextView  res_m, res_ft, res_deg;
 
     boolean isNumber1 = false, isNumber2 = false, isNumber3 = false, isNumber4 = false, isNumber5 = false, isNumber6 = false;
@@ -42,22 +42,17 @@ public class MchMeaureActivity extends AppCompatActivity {
     }
 
     private void findView() {
-        btn_exit = findViewById(R.id.btn_exit);
-
-
-
         etX1 = findViewById(R.id.et_x1);
         etX2 = findViewById(R.id.et_x2);
         etX3 = findViewById(R.id.et_x3);
         etY1 = findViewById(R.id.et_y1);
         etY2 = findViewById(R.id.et_y2);
         etY3 = findViewById(R.id.et_y3);
-
         btn_calc = findViewById(R.id.btn_calc);
         res_m = findViewById(R.id.txt_result_m);
         res_ft = findViewById(R.id.txt_result_ft);
         res_deg = findViewById(R.id.txt_result_deg);
-        img_tognss=findViewById(R.id.btn_tognss);
+
     }
 
     private void onClick() {
@@ -92,15 +87,16 @@ public class MchMeaureActivity extends AppCompatActivity {
 
 
 
-        btn_exit.setOnClickListener(view -> {
-            startActivity(new Intent(MchMeaureActivity.this, MainActivity.class));
-            finish();
-        });
-        img_tognss.setOnClickListener(view -> {
-            startActivity(new Intent(MchMeaureActivity.this, AntennaMeasure.class));
-            finish();
-        });
 
+
+    }
+    public void exit(){
+        startActivity(new Intent(MchMeaureActivity.this, MainActivity.class));
+        finish();
+    }
+    public void toGnss(){
+        startActivity(new Intent(MchMeaureActivity.this, AntennaMeasure.class));
+        finish();
     }
 
 

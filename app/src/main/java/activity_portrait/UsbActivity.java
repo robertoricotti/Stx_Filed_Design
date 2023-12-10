@@ -43,18 +43,14 @@ public class UsbActivity extends AppCompatActivity {
     static String usbPath;
      TextView txt1, txt2;
     PickProjectAdapter adapter;
-
-    ImageView exit, export, prendi, readusb, delete;
-
     RecyclerView recyclerViewIN, recyclerViewOUT, recyclerViewProj;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         findview();
-        onclick();
+
 
 
     }
@@ -63,11 +59,6 @@ public class UsbActivity extends AppCompatActivity {
         recyclerViewIN = findViewById(R.id.recyclerViewIn);
         recyclerViewOUT = findViewById(R.id.recyclerViewOut);
         recyclerViewProj = findViewById(R.id.recyclerViewProj);
-        exit = findViewById(R.id.back);
-        export = findViewById(R.id.copyToOUT);
-        prendi = findViewById(R.id.loadFromIN);
-        readusb = findViewById(R.id.read);
-        delete = findViewById(R.id.deletSelection);
         txt1 = findViewById(R.id.txt1);
         txt2 = findViewById(R.id.txt2);
         loadFilesToRecyclerView();
@@ -75,64 +66,54 @@ public class UsbActivity extends AppCompatActivity {
     }
 
 
-    private void onclick() {
-        delete.setOnClickListener(view -> {
-            new Confirm_Dialog(UsbActivity.this, 255).show();
 
-        });
-        exit.setOnClickListener(view -> {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
-        });
-
-        readusb.setOnClickListener(view -> {
-
-            try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    usbPath = getUsbFolderPath();
-                } else {
-                    usbPath = getStoragePath(UsbActivity.this, true).toString();
-                    usbPath="/"+usbPath;
-                }
-            } catch (Exception e) {
-                new CustomToast(UsbActivity.this, e.toString()).show();
-            }
-            try {
-
-               // printUSBContents(usbPath.toString());
-                readFromUSB_IN(usbPath);
-            } catch (Exception e) {
-                new CustomToast(UsbActivity.this, "USB:\nIN Folder Not Found").show();
-            }
-            try {
-                readFromUSB_OUT(usbPath);
-            } catch (Exception e) {
-                new CustomToast(UsbActivity.this, "USB:\nOUT Folder Not Found").show();
-            }
-            try {
-                loadFilesToRecyclerView();
-            } catch (Exception e) {
-                new CustomToast(UsbActivity.this, "No Projects Available").show();
-            }
-
-        });
-
-        prendi.setOnClickListener(view -> {
-            //to do IMPORT from IN
-            importFilesFromUsb();
-        });
-
-        export.setOnClickListener(view -> {
-            if (Build.VERSION.SDK_INT <= 29) {
-                //new CustomToast(this, "Can't COPY TO USB Stick\nOn This Device").show();
-                exportFilesToUsb();
+    public void exBtn1(){
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+    public void exBtn2(){
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                usbPath = getUsbFolderPath();
             } else {
-                exportFilesToUsb();
+                usbPath = getStoragePath(UsbActivity.this, true).toString();
+                usbPath="/"+usbPath;
             }
-            //to do EXPORT to OUT
+        } catch (Exception e) {
+            new CustomToast(UsbActivity.this, e.toString()).show();
+        }
+        try {
 
-        });
-
+            // printUSBContents(usbPath.toString());
+            readFromUSB_IN(usbPath);
+        } catch (Exception e) {
+            new CustomToast(UsbActivity.this, "USB:\nIN Folder Not Found").show();
+        }
+        try {
+            readFromUSB_OUT(usbPath);
+        } catch (Exception e) {
+            new CustomToast(UsbActivity.this, "USB:\nOUT Folder Not Found").show();
+        }
+        try {
+            loadFilesToRecyclerView();
+        } catch (Exception e) {
+            new CustomToast(UsbActivity.this, "No Projects Available").show();
+        }
+    }
+    public void exBtn3(){
+        importFilesFromUsb();
+    }
+    public void exBtn4(){
+        if (Build.VERSION.SDK_INT <= 29) {
+            //new CustomToast(this, "Can't COPY TO USB Stick\nOn This Device").show();
+            exportFilesToUsb();
+        } else {
+            exportFilesToUsb();
+        }
+        //to do EXPORT to OUT
+    }
+    public void exBtn5(){
+        new Confirm_Dialog(UsbActivity.this, 255).show();
     }
 
 

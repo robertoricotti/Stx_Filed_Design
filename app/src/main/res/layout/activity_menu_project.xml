@@ -21,10 +21,14 @@
     app:layout_constraintTop_toBottomOf="@id/topView"
     app:layout_constraintBottom_toTopOf="@id/lowView"
     app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent">
+    app:layout_constraintRight_toRightOf="parent"
+    android:scrollbarSize="10dp"
+    android:fadeScrollbars="false">
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,7 +44,7 @@
                 android:id="@+id/ab"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:backgroundTint="@color/bg_sfsgreen"
+                android:backgroundTint="@color/colorStonexBlue"
                 app:srcCompat="@drawable/create_surf_btn"
                 app:tint="@color/_____cancel_text" />
             <Space
@@ -54,7 +58,7 @@
                 android:alpha="0.3"
                 android:backgroundTint="@color/purple_200"
                 android:scaleType="centerInside"
-                app:srcCompat="@drawable/btn_profili_trasp" />
+                app:srcCompat="@drawable/disabled_visu" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -117,7 +121,7 @@
                 android:layout_height="120dp"
                 android:alpha="0.3"
                 android:backgroundTint="@color/purple_200"
-                app:srcCompat="@drawable/btn_define_area"
+                app:srcCompat="@drawable/disabled_visu"
                 app:tint="@color/_____cancel_text" />
 
             <Space
@@ -131,7 +135,7 @@
                 android:alpha="0.3"
                 android:backgroundTint="@color/purple_200"
                 android:visibility="visible"
-                app:srcCompat="@drawable/btn_gpspath" />
+                app:srcCompat="@drawable/disabled_visu" />
 
             <Space
                 android:layout_width="wrap_content"

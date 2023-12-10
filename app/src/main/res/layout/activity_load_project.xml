@@ -182,18 +182,39 @@
         app:srcCompat="@drawable/baseline_360"
         app:tint="@color/white" />
 
-    <Button
-        android:id="@+id/delunay"
-        android:visibility="invisible"
+<TextView
+    android:id="@+id/txt_start"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Offset: "
+    android:textColor="@color/black"
+    android:textSize="20sp"
+    android:textStyle="bold"
+    app:layout_constraintBottom_toBottomOf="@+id/container_draw"
+    app:layout_constraintStart_toStartOf="@+id/container_draw"/>
+    <TextView
+        android:id="@+id/set_offset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginVertical="5dp"
-        android:backgroundTint="@color/_____cancel_text"
-        android:text="DELUNAY"
-        android:textColor="@color/white"
+        android:backgroundTint="@color/transparent"
+        android:text="0.000"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/container_draw"
-        app:layout_constraintEnd_toEndOf="@+id/container_draw" />
+        app:layout_constraintStart_toEndOf="@+id/txt_start" />
+    <TextView
+        android:id="@+id/txt_unitaoffset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(m)"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginStart="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/container_draw"
+        app:layout_constraintStart_toEndOf="@id/set_offset"/>
 
 
 

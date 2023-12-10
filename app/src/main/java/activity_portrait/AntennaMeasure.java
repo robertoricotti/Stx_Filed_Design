@@ -15,14 +15,13 @@ import com.example.stx_field_design.R;
 import dialogs.CustomToast;
 
 public class AntennaMeasure extends AppCompatActivity {
-    ImageView btn_exit, bt_toright;
+
     Button btn_calc;
     EditText p1L, p1S, p2L, p2S, p3L, p3S, p4L, p4S; //pHdtS, pHdtL;
     TextView result1, result2, result3, result4, result5, result6;// result7;
     boolean D26, D27, E27;
 
-    private Handler handler;
-    private boolean mRunning = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +29,12 @@ public class AntennaMeasure extends AppCompatActivity {
 
         findView();
         onClick();
-        updateUI();
+
 
     }
 
     private void findView() {
-        btn_exit = findViewById(R.id.btn_exit);
+
         btn_calc = findViewById(R.id.btn_calcola);
         p1L = findViewById(R.id.etTarget_L);
         p1S = findViewById(R.id.etTarget_S);
@@ -43,18 +42,13 @@ public class AntennaMeasure extends AppCompatActivity {
         p2S = findViewById(R.id.etGPS1_S);
         p3L = findViewById(R.id.etParallel_L);
         p3S = findViewById(R.id.etParallel_S);
-        p4L = findViewById(R.id.etGPS2_L);
-        p4S = findViewById(R.id.etGPS2_S);
         result1 = findViewById(R.id.txtAccuracy);
         result2 = findViewById(R.id.txtxdev);
         result3 = findViewById(R.id.txtydev);
         result4 = findViewById(R.id.txtxreach);
         result5 = findViewById(R.id.txtpitch);
         result6 = findViewById(R.id.txtroll);
-        //pHdtL = findViewById(R.id.etHDT_L);
-        //pHdtS = findViewById(R.id.etHDT_S);
-        //result7 = findViewById(R.id.txtHdt_result);
-        bt_toright = findViewById(R.id.btn_tognss);
+
 
 
     }
@@ -62,11 +56,7 @@ public class AntennaMeasure extends AppCompatActivity {
     private void onClick() {
 
 
-        btn_exit.setOnClickListener(view -> {
-            startActivity(new Intent(AntennaMeasure.this, MchMeaureActivity.class));
 
-            finish();
-        });
         btn_calc.setOnClickListener(view -> {
             try {
                 calcola();
@@ -78,9 +68,14 @@ public class AntennaMeasure extends AppCompatActivity {
 
 
     }
+    public void goBack(){
+        startActivity(new Intent(AntennaMeasure.this, MchMeaureActivity.class));
+
+        finish();
+    }
 
 
-    private void updateUI() {
+   /* private void updateUI() {
 
         handler = new Handler();
         new Thread(new Runnable() {
@@ -106,7 +101,7 @@ public class AntennaMeasure extends AppCompatActivity {
             }
         }).start();
 
-    }
+    }*/
 
     private void calcola() {
         double dP1L = Double.parseDouble(p1L.getText().toString());
@@ -172,7 +167,7 @@ public class AntennaMeasure extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mRunning = false;
+
 
     }
 

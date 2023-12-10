@@ -7,24 +7,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:keepScreenOn="true"
     tools:context="activity_portrait.UsbActivity">
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/h1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.065"/>
+    <include
+        android:id="@+id/topView"
+        layout="@layout/shared_layout_top"
+        android:visibility="invisible"/>
+
+    <include
+        android:id="@+id/lowerView"
+        layout="@layout/shared_layout_low" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/v_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.68"/>
+        app:layout_constraintGuide_percent="0.6"/>
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/v_mid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.38"/>
+        app:layout_constraintGuide_percent="0.3"/>
 
     <TextView
         android:id="@+id/txt1"
@@ -33,7 +36,7 @@
         android:gravity="center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/h1"
+        app:layout_constraintTop_toTopOf="parent"
         android:background="@color/_____cancel_text"
         android:textColor="@color/white"
         android:textSize="18sp"
@@ -90,61 +93,9 @@
         app:layout_constraintVertical_bias="0.8"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/lowerView"
         app:layout_constraintTop_toBottomOf="@id/txt3"/>
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/light_blue_900"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/h1">
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingVertical="5dp"
-            android:rotation="0"
-            android:src="@drawable/btn_to_indietro"
-            app:tint="@color/white" />
-        <ImageView
-            android:id="@+id/read"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingVertical="5dp"
-            android:rotation="0"
-            android:src="@drawable/btn_read_usb"
-            app:tint="@color/white" />
 
-        <ImageView
-            android:id="@+id/loadFromIN"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingVertical="5dp"
-            android:src="@drawable/btn_copy_from_usb"
-            app:tint="@color/white" />
-
-        <ImageView
-            android:id="@+id/copyToOUT"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingVertical="5dp"
-            android:src="@drawable/btn_copy_to_usb"
-            app:tint="@color/white" />
-        <ImageView
-            android:id="@+id/deletSelection"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingVertical="5dp"
-            android:src="@drawable/btn_delete"
-            app:tint="@color/white" />
-
-    </LinearLayout>
 
 
 

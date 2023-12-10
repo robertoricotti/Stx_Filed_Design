@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true"
+    android:fitsSystemWindows="true"
     tools:context="activity_portrait.ABProject">
 
     <include
@@ -48,7 +49,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/container_draw"
-        app:layout_constraintBottom_toTopOf="@id/lowerView">
+        app:layout_constraintBottom_toTopOf="@id/lowerView"
+        android:scrollbarSize="10dp"
+        android:fadeScrollbars="false">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -63,10 +66,11 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/custom_background_light"
                     android:gravity="center"
-                    android:text="Z B "
+                    android:text="&#916; AB "
                     android:ems="6"
                     android:textColor="@color/black"
                     android:textStyle="bold"
+                    android:textSize="18sp"
                     />
 
                 <EditText
@@ -79,6 +83,8 @@
                     android:inputType="numberDecimal|numberSigned"
                     android:selectAllOnFocus="true"
                     android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     />
                 <TextView
                     android:ems="4"
@@ -86,10 +92,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
                     android:gravity="center"
                     android:background="@drawable/custom_background_light"
-                    />
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -102,9 +108,10 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/custom_background_light"
                     android:gravity="center"
-                    android:text="A>>B"
+                    android:text="dist A>>B"
                     android:textColor="@color/black"
                     android:textStyle="bold"
+                    android:textSize="18sp"
                     />
 
                 <EditText
@@ -117,6 +124,8 @@
                     android:inputType="numberDecimal|numberSigned"
                     android:selectAllOnFocus="true"
                     android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     />
                 <TextView
                     android:ems="4"
@@ -124,10 +133,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
                     android:gravity="center"
                     android:background="@drawable/custom_background_light"
-                    />
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -143,6 +152,7 @@
                     android:text="A>B SLOPE"
                     android:textColor="@color/black"
                     android:textStyle="bold"
+                    android:textSize="18sp"
                     />
 
                 <EditText
@@ -155,6 +165,8 @@
                     android:inputType="numberDecimal|numberSigned"
                     android:selectAllOnFocus="true"
                     android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     />
                 <TextView
                     android:ems="4"
@@ -162,10 +174,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
                     android:gravity="center"
                     android:background="@drawable/custom_background_light"
-                    />
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -182,6 +194,7 @@
                     android:text="LEFT LEN "
                     android:textColor="@color/black"
                     android:textStyle="bold"
+                    android:textSize="18sp"
                     />
 
                 <EditText
@@ -194,6 +207,8 @@
                     android:inputType="numberDecimal|numberSigned"
                     android:selectAllOnFocus="true"
                     android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     />
                 <TextView
                     android:ems="4"
@@ -201,10 +216,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
                     android:gravity="center"
                     android:background="@drawable/custom_background_light"
-                    />
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -220,6 +235,7 @@
                     android:text="LEFT SLOPE "
                     android:textColor="@color/black"
                     android:textStyle="bold"
+                    android:textSize="18sp"
                     />
 
                 <EditText
@@ -232,6 +248,8 @@
                     android:inputType="numberDecimal|numberSigned"
                     android:selectAllOnFocus="true"
                     android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     />
                 <TextView
                     android:ems="4"
@@ -239,10 +257,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
                     android:gravity="center"
                     android:background="@drawable/custom_background_light"
-                    />
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -258,6 +276,7 @@
                     android:text="RIGHT LEN"
                     android:textColor="@color/black"
                     android:textStyle="bold"
+                    android:textSize="18sp"
                     />
 
                 <EditText
@@ -270,6 +289,7 @@
                     android:inputType="numberDecimal|numberSigned"
                     android:selectAllOnFocus="true"
                     android:textAlignment="center"
+                    android:textStyle="bold"
                     />
                 <TextView
                     android:ems="4"
@@ -277,10 +297,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
                     android:gravity="center"
                     android:background="@drawable/custom_background_light"
-                    />
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -296,6 +316,7 @@
                     android:text="RIGHT SLOPE "
                     android:textColor="@color/black"
                     android:textStyle="bold"
+                    android:textSize="18sp"
                     />
 
                 <EditText
@@ -308,6 +329,8 @@
                     android:inputType="numberDecimal|numberSigned"
                     android:selectAllOnFocus="true"
                     android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     />
                 <TextView
                     android:ems="4"
@@ -315,10 +338,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
                     android:gravity="center"
                     android:background="@drawable/custom_background_light"
-                    />
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
             </LinearLayout>
 
         </LinearLayout>
