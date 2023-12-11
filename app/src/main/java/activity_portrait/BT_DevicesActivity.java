@@ -25,6 +25,7 @@ import java.util.List;
 
 import dialogs.ConnectDialog;
 import dialogs.CustomToast;
+import services_and_bluetooth.AutoConnectionService;
 import services_and_bluetooth.Bluetooth_CAN_Service;
 import services_and_bluetooth.Bluetooth_GNSS_Service;
 import services_and_bluetooth.DataSaved;
@@ -51,7 +52,7 @@ public class BT_DevicesActivity extends AppCompatActivity {
         findView();
         onClick();
         try {
-            stopService(new Intent(this, AutoCloseable.class));
+            stopService(new Intent(this, AutoConnectionService.class));
             stopService(new Intent(this, Bluetooth_GNSS_Service.class));
             stopService(new Intent(this, Bluetooth_CAN_Service.class));
 
@@ -223,7 +224,7 @@ public class BT_DevicesActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         try {
-            startService(new Intent(this, AutoCloseable.class));
+            startService(new Intent(this, AutoConnectionService.class));
             startService(new Intent(this, Bluetooth_GNSS_Service.class));
             startService(new Intent(this, Bluetooth_CAN_Service.class));
 

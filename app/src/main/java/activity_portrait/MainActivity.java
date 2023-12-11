@@ -24,7 +24,9 @@ import java.io.InputStreamReader;
 import project.DataProjectSingleton;
 import dialogs.CustomToast;
 
+import services_and_bluetooth.AutoConnectionService;
 import services_and_bluetooth.Bluetooth_CAN_Service;
+import services_and_bluetooth.Bluetooth_GNSS_Service;
 import services_and_bluetooth.DataSaved;
 import utils.MyRW_IntMem;
 
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         init();
         onClick();
         updateUI();
+
 
     }
 

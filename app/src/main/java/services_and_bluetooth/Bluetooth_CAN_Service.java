@@ -27,6 +27,7 @@ import can.PLC_DataTypes_BigEndian;
 import gnss.CalculateXor8;
 
 public class Bluetooth_CAN_Service extends Service {
+    public static boolean canEmpty;
     final int[] readBufferPosition_CAN = new int[1];
     private final IBinder mBinder = new BluetoothCANBinder();
     private byte[] messageFrame = new byte[]{0x01, 0x01};//heartib data every 3 sec
@@ -269,6 +270,9 @@ public class Bluetooth_CAN_Service extends Service {
                                 System.arraycopy(buffer, 0, encodedBytes, 0, encodedBytes.length);
                                 readBufferPosition_CAN[0] = 0;
                                 Log.d("DEBUG BT CAN ARRAY", Arrays.toString(encodedBytes));
+                                canEmpty = false;
+                                handler_tl.removeCallbacks(timeoutRunnable_tl);
+                                handler_tl.postDelayed(timeoutRunnable_tl, 3000);
                                 new Can_Decoder(encodedBytes);
 
                             } else {
@@ -359,6 +363,15 @@ public class Bluetooth_CAN_Service extends Service {
             mConnectedThread.writeCAN(id, data);
         }
     }
+
+    private final Handler handler_tl = new Handler();
+    private final Runnable timeoutRunnable_tl = new Runnable() {
+        @Override
+        public void run() {
+            canEmpty = true;
+
+        }
+    };
 
 
 }

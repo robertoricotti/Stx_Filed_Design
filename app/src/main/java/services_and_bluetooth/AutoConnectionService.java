@@ -26,6 +26,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import activity_portrait.MyApp;
+import can.Can_Decoder;
 import gnss.Nmea_In;
 import utils.LocationUtils;
 
@@ -135,11 +136,11 @@ public class AutoConnectionService extends Service {
         }
 
         try {
-            timer_6000.cancel();
+        /*    timer_6000.cancel();
             timer_6000 = null;
 
             timertask_6000.cancel();
-            timertask_6000 = null;
+            timertask_6000 = null;*/
 
             timer_100.cancel();
             timer_100 = null;
@@ -158,7 +159,8 @@ public class AutoConnectionService extends Service {
 
         @Override
         public void run() {
-            timer_6000 = new Timer();
+
+       /*     timer_6000 = new Timer();
             timertask_6000 = new TimerTask() {
                 @Override
                 public void run() {
@@ -205,7 +207,7 @@ public class AutoConnectionService extends Service {
                 }
             };
 
-            timer_6000.scheduleAtFixedRate(timertask_6000, 3000, 3000);
+            timer_6000.scheduleAtFixedRate(timertask_6000, 3000, 3000);*/
 
             timer_100 = new Timer();
 
@@ -233,6 +235,8 @@ public class AutoConnectionService extends Service {
                                     Bluetooth_CAN_Service.sendCANData(id, new byte[]{(byte) 0xFF, 0, 0, 0, (byte) (c & 0xff)});
 
                                 }
+                            }else {
+                                Can_Decoder.auto=0;
                             }
 
                         }

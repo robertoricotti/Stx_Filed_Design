@@ -72,7 +72,10 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        if (new MyRW_IntMem().MyRead("display",this).equals("1")) {
+        if(new MyRW_IntMem().MyRead("display",this)==null){
+            SCREEN_ORIENTATION = (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+        else if (new MyRW_IntMem().MyRead("display",this).equals("1")) {
 
             SCREEN_ORIENTATION = (ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         } else {
@@ -430,10 +433,10 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             txt_canstat.setTextSize(14f);
         } else if (screenWidth < 750f && screenWidth > 400f) {
             txt_coord.setTextSize(16f);
-            txt_canstat.setTextSize(16f);
+            txt_canstat.setTextSize(18f);
         } else if (screenWidth > 750f) {
             txt_coord.setTextSize(22f);
-            txt_canstat.setTextSize(22f);
+            txt_canstat.setTextSize(24f);
             txt1.setTextSize(18f);
             txt2.setTextSize(18f);
             txt3.setTextSize(18f);
@@ -484,16 +487,23 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                                     txt_canstat.setText("CAN DISCONNECTED");
                                     txt_canstat.setBackgroundColor(getResources().getColor(R.color.white));
                                 } else {
-                                    txt_canstat.setTextColor(Color.BLUE);
+                                    if(!Bluetooth_CAN_Service.canEmpty){
+                                    txt_canstat.setTextColor(Color.BLACK);
                                     txt_canstat.setText(String.valueOf("Pitch: " + String.format("%.2f", Can_Decoder.correctPitch).replace(",", ".") + "°       Roll: " + String.format("%.2f", Can_Decoder.correctRoll).replace(",", ".") + "°"));
                                     txt_canstat.setBackgroundColor(getResources().getColor(R.color.white));
+                                    }
+                                    else {
+                                        txt_canstat.setTextColor(Color.BLACK);
+                                        txt_canstat.setText("NO DATA");
+                                        txt_canstat.setBackgroundColor(getResources().getColor(R.color.white));
+                                    }
                                 }
                                 if (!Bluetooth_GNSS_Service.gpsIsConnected) {
                                     txt_coord.setTextColor(Color.RED);
                                     txt_coord.setBackgroundColor(getResources().getColor(R.color.white));
 
                                 } else {
-                                    txt_coord.setTextColor(Color.BLUE);
+                                    txt_coord.setTextColor(Color.BLACK);
                                     if (txt2.getText().toString().equals("FIX")) {
                                         txt_coord.setBackgroundColor(getResources().getColor(R.color.green));
                                     } else if (txt2.getText().toString().equals("DGNSS") || txt2.getText().toString().equals("FLOAT")) {

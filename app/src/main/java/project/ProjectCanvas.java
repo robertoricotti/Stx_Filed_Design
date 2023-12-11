@@ -271,6 +271,47 @@ public class ProjectCanvas extends View {
 
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // Gestisci il pinch-to-zoom
+        scaleGestureDetector.onTouchEvent(event);
+
+        // Verifica se si sta attualmente gestendo uno zoom
+        boolean isScaling = scaleGestureDetector.isInProgress();
+
+        // Gestisci il trascinamento solo se non si sta zoomando
+        if (!isScaling) {
+            float x = event.getX() / dataProject.getmScaleFactor();
+            float y = event.getY() / dataProject.getmScaleFactor();
+
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    lastTouchX = x;
+                    lastTouchY = y;
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    float deltaX = x - lastTouchX;
+                    float deltaY = y - lastTouchY;
+
+                    // Verifica la distanza totale percorsa prima di considerare il trascinamento
+                    if (Math.abs(deltaX) > TOUCH_MOVE_THRESHOLD || Math.abs(deltaY) > TOUCH_MOVE_THRESHOLD) {
+                        dataProject.offsetX += deltaX;
+                        dataProject.offsetY += deltaY;
+                        lastTouchX = x;
+                        lastTouchY = y;
+                        invalidate();
+                    }
+                    break;
+                case MotionEvent.ACTION_UP:
+                    // Ripristina lastTouchX e lastTouchY
+                    lastTouchX = x;
+                    lastTouchY = y;
+                    break;
+            }
+        }
+
+        return true;
+    }
 
 
 

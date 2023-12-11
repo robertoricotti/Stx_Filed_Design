@@ -35,6 +35,8 @@ import java.io.File;
 
 import dialogs.CustomToast;
 import services_and_bluetooth.AutoConnectionService;
+import services_and_bluetooth.Bluetooth_CAN_Service;
+import services_and_bluetooth.Bluetooth_GNSS_Service;
 import services_and_bluetooth.UpdateValues;
 import utils.FullscreenActivity;
 
@@ -126,11 +128,11 @@ public class LaunchScreenActivity extends AppCompatActivity {
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_NETWORK_STATE};
-            //new CustomToast(LaunchScreenActivity.this, "Limitated USB Features").show();
+
 
         }
 
-        if (checkPermissions()) {
+        if (checkPermissions()&&requestOverlayPermission()) {
             count.start();
             try {
 
@@ -174,9 +176,7 @@ public class LaunchScreenActivity extends AppCompatActivity {
     }
 
     private boolean checkPermissions() {
-        if (requestOverlayPermission()) {
-            requestOverlayPermission();
-        }
+
         for (String permission : PERMISSIONS) {
             if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
                 return false;
@@ -191,12 +191,13 @@ public class LaunchScreenActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSION_REQUEST_CODE) {
-            if (checkPermissions()) {
+            if (checkPermissions()&&requestOverlayPermission()) {
                 count.start();
             } else {
                 Toast.makeText(this, "Until you grant the permission, we cannot proceed further", Toast.LENGTH_SHORT).show();
-
-                (new Handler()).postDelayed(this::finish, 3000);
+                checkPermissions();
+                requestOverlayPermission();
+                (new Handler()).postDelayed(this::finish, 10000);
 
             }
         }
@@ -215,9 +216,10 @@ public class LaunchScreenActivity extends AppCompatActivity {
     }
 
     protected void goMain() {
-        //Toast.makeText(LaunchScreenActivity.this, String.valueOf(Build.VERSION.SDK_INT), Toast.LENGTH_SHORT).show();
         startService(new Intent(LaunchScreenActivity.this, UpdateValues.class));
         startActivity(new Intent(LaunchScreenActivity.this, MainActivity.class));
+        startService(new Intent(this, Bluetooth_GNSS_Service.class));
+        startService(new Intent(this, Bluetooth_CAN_Service.class));
         finish();
     }
 
@@ -226,15 +228,5 @@ public class LaunchScreenActivity extends AppCompatActivity {
     public void onBackPressed() {
     }
 
-    public static void executeAdbCommand(String command) {
-        try {
 
-            Log.d("TestADB", "1: " + command);
-            Runtime.getRuntime().exec(command);
-            Log.d("TestADB", "2: " + command);
-        } catch (Exception e) {
-            Log.d("TestADB", e.toString());
-
-        }
-    }
 }

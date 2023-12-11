@@ -3,6 +3,7 @@ package activity_portrait;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import com.example.stx_field_design.R;
 
 import java.util.Map;
 
+import can.Can_Decoder;
 import can.PLC_DataTypes_BigEndian;
 import coords_calc.GPS;
 import coords_calc.Surface_Selector;
@@ -32,6 +34,7 @@ import project.ProjectCanvas;
 import services_and_bluetooth.AutoConnectionService;
 import services_and_bluetooth.Bluetooth_CAN_Service;
 import services_and_bluetooth.DataSaved;
+import utils.FullscreenActivity;
 import utils.MyRW_IntMem;
 import utils.Utils;
 
@@ -69,6 +72,7 @@ public class AB_WorkActivity extends AppCompatActivity {
         init();
         onClick();
         updateUI();
+        dataProject.setDistanceID(new MyRW_IntMem().MyRead("_pointselected",this));
 
     }
 
@@ -80,7 +84,7 @@ public class AB_WorkActivity extends AppCompatActivity {
         zoomIn = findViewById(R.id.myZoomIn);
         zoomOut = findViewById(R.id.myZoomOut);
         surfaceStatus = findViewById(R.id.surfaceStatus);
-        crs = findViewById(R.id.crs);
+        crs = findViewById(R.id.img_crs);
 
         lineID = findViewById(R.id.pickPoint);
         altitude = findViewById(R.id.quota);
@@ -105,7 +109,7 @@ public class AB_WorkActivity extends AppCompatActivity {
 
 
         dataProject = DataProjectSingleton.getInstance();
-
+        surfaceStatus.setClickable(false);
         surfaceSelector = new Surface_Selector(dataProject.getSize());
 
 
@@ -195,17 +199,45 @@ public class AB_WorkActivity extends AppCompatActivity {
     public void metodoLineId() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle("Choose ID");
-
         String[] items = new String[dataProject.getSize() + 1];
         items[0] = "AB Line";
-
         int counter = 1;
         for (Map.Entry<String, GPS> entry : dataProject.getPoints().entrySet()) {
             items[counter++] = entry.getKey();
         }
+        int selected=-1;
+        switch (dataProject.getDistanceID()){
+            case "AB Line":
+                selected=0;
+                break;
+            case "A":
+                selected=1;
+                break;
+            case "B":
+                selected=2;
+                break;
+            case "C":
+                selected=3;
+                break;
+            case "D":
+                selected=4;
+                break;
+            case "E":
+                selected=5;
+                break;
+            case "F":
+                selected=6;
+                break;
+            default:
+                selected=-1;
+                break;
+        }
 
-        alertDialog.setSingleChoiceItems(items, -1, (dialog, which) -> {
+
+
+        alertDialog.setSingleChoiceItems(items, selected, (dialog, which) -> {
             dataProject.setDistanceID(which <= 0 ? null : items[which]);
+            new MyRW_IntMem().MyWrite("_pointselected",items[which],this);
             dialog.dismiss();
         });
 
@@ -214,6 +246,7 @@ public class AB_WorkActivity extends AppCompatActivity {
         AlertDialog alert = alertDialog.create();
         alert.setCanceledOnTouchOutside(true);
         alert.show();
+
     }
 
     public void metodoOpenList() {
@@ -301,12 +334,12 @@ public class AB_WorkActivity extends AppCompatActivity {
                             }
 
 
-                            surfaceStatus.setText(surfaceSelector.isPointInsideSurface() ? "IN" : "OUT");
+
                             surfaceOK.setText(surfaceSelector.isSurfaceOK() ? "YES" : "NO");
                             crs.setText(dataProject.getEpsgCode());
 
 
-                            surfaceStatus.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), surfaceSelector.isPointInsideSurface() ? R.color.pure_green : R.color.red));
+                            surfaceStatus.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), Can_Decoder.auto==1 ? R.color.pure_green : R.color.transparent));
                             surfaceOK.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), surfaceSelector.isSurfaceOK() ? R.color.pure_green : R.color.red));
                             double v = 0;
                             double v2 = 0;

@@ -293,7 +293,7 @@
         app:layout_constraintGuide_percent="0.8" />
 
     <Button
-        android:id="@+id/crs"
+        android:id="@+id/img_crs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/yellow"
@@ -310,11 +310,11 @@
         android:layout_margin="10dp"
         android:backgroundTint="@color/black"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/crs"
+        app:layout_constraintBottom_toBottomOf="@+id/img_crs"
         app:layout_constraintEnd_toStartOf="@+id/myZoomIn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/container_draw"
-        app:layout_constraintTop_toTopOf="@+id/crs"
+        app:layout_constraintTop_toTopOf="@+id/img_crs"
         app:srcCompat="@drawable/baseline_navigation_24"
         app:tint="@color/white" />
 
@@ -325,11 +325,11 @@
         android:layout_margin="10dp"
         android:backgroundTint="@color/black"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/crs"
+        app:layout_constraintBottom_toBottomOf="@+id/img_crs"
         app:layout_constraintEnd_toStartOf="@+id/myZoomOut"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/myCenterNav"
-        app:layout_constraintTop_toTopOf="@+id/crs"
+        app:layout_constraintTop_toTopOf="@+id/img_crs"
         app:srcCompat="@drawable/zoomin"
         app:tint="@color/white" />
 
@@ -340,11 +340,11 @@
         android:layout_margin="10dp"
         android:backgroundTint="@color/black"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/crs"
-        app:layout_constraintEnd_toStartOf="@+id/crs"
+        app:layout_constraintBottom_toBottomOf="@+id/img_crs"
+        app:layout_constraintEnd_toStartOf="@+id/img_crs"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/myZoomIn"
-        app:layout_constraintTop_toTopOf="@+id/crs"
+        app:layout_constraintTop_toTopOf="@+id/img_crs"
         app:srcCompat="@drawable/zoomout"
         app:tint="@color/white" />
 

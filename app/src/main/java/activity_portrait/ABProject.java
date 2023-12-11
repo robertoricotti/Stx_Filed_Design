@@ -41,15 +41,15 @@ public class ABProject extends AppCompatActivity {
     public ProgressBar progressBar;
     private static int passCode = -1;
 
-    TextView txtSat, txtFix, txtCq, txtHdt, txtAltezzaAnt, txtRtk,um1,um2,um3,um4,um5,um6,um7;
+    TextView um1, um2, um3, um4, um5, um6, um7;
 
     EditText et_zb, et_dst, et_slope, et_ltdst, et_ltslope, et_rtdst, et_rtslope;
     ConstraintLayout container_draw;
 
 
-    ImageButton center, zoomIn, zoomOut;
+    ImageButton center, zoomIn, zoomOut, imgCrs;
     ImageButton clear;
-    Button crs;
+    TextView crs;
     TextView textCoord;
 
     int pickIndex;
@@ -78,17 +78,12 @@ public class ABProject extends AppCompatActivity {
         crs = findViewById(R.id.crs);
         textCoord = findViewById(R.id.txt_coord);
         container_draw = findViewById(R.id.container_draw);
-
+        imgCrs = findViewById(R.id.img_crs);
         center = findViewById(R.id.myCenterNav);
         zoomIn = findViewById(R.id.myZoomIn);
         zoomOut = findViewById(R.id.myZoomOut);
         clear = findViewById(R.id.delete);
-        txtSat = findViewById(R.id.txt_satnr);
-        txtFix = findViewById(R.id.txt_quality);
-        txtCq = findViewById(R.id.txt_precision);
-        txtHdt = findViewById(R.id.txt_hdt);
-        txtAltezzaAnt = findViewById(R.id.txt_speed);
-        txtRtk = findViewById(R.id.txt_rtk);
+
 
         et_zb = findViewById(R.id.et_zb);
         et_dst = findViewById(R.id.et_dst);
@@ -99,13 +94,13 @@ public class ABProject extends AppCompatActivity {
         et_rtslope = findViewById(R.id.et_rtslope);
 
         progressBar = findViewById(R.id.progressBar);
-        um1=findViewById(R.id.um_1);
-        um2=findViewById(R.id.um_2);
-        um3=findViewById(R.id.um_3);
-        um4=findViewById(R.id.um_4);
-        um5=findViewById(R.id.um_5);
-        um6=findViewById(R.id.um_6);
-        um7=findViewById(R.id.um_7);
+        um1 = findViewById(R.id.um_1);
+        um2 = findViewById(R.id.um_2);
+        um3 = findViewById(R.id.um_3);
+        um4 = findViewById(R.id.um_4);
+        um5 = findViewById(R.id.um_5);
+        um6 = findViewById(R.id.um_6);
+        um7 = findViewById(R.id.um_7);
 
 
     }
@@ -115,7 +110,7 @@ public class ABProject extends AppCompatActivity {
         progressBar.setVisibility(View.INVISIBLE);
         dataProject = DataProjectSingleton.getInstance();
         myEpsgDialog = new MyEpsgDialog(this);
-        saveFileDialog = new SaveFileDialog(this,"AB");
+        saveFileDialog = new SaveFileDialog(this, "AB");
         canvas = new ABCanvas(this);
         container_draw.addView(canvas);
         pickIndex = 0;
@@ -204,13 +199,6 @@ public class ABProject extends AppCompatActivity {
         });
 
 
-
-
-
-
-
-
-
         clear.setOnLongClickListener((View v) -> {
             if (dataProject.getSize() > 0) {
                 if (dataProject.getSize() == 1) {
@@ -236,7 +224,7 @@ public class ABProject extends AppCompatActivity {
         });
 
 
-        crs.setOnClickListener((View v) -> {
+        imgCrs.setOnClickListener((View v) -> {
             if (!myEpsgDialog.dialog.isShowing())
                 myEpsgDialog.show();
         });
@@ -264,8 +252,6 @@ public class ABProject extends AppCompatActivity {
             }
             return true;
         });
-
-
 
 
     }
@@ -310,10 +296,24 @@ public class ABProject extends AppCompatActivity {
         }
     }
 
-    public void metodoCalcola(){
+    public void metodoCalcola() {
         new Confirm_Dialog(ABProject.this, -1).show();
     }
-    public void metodoSave(){
+
+    public void metodoSave() {
+        (new Handler()).postDelayed(this:: calcZ, 500);
+        (new Handler()).postDelayed(this:: calc2, 100);
+        (new Handler()).postDelayed(this:: calc3, 100);
+        (new Handler()).postDelayed(this:: calc4, 100);
+        (new Handler()).postDelayed(this:: calc5, 100);
+        (new Handler()).postDelayed(this:: calc6, 100);
+        (new Handler()).postDelayed(this:: calc7, 100);
+        (new Handler()).postDelayed(this:: updateAll, 100);
+        (new Handler()).postDelayed(this:: salvatutto, 100);
+
+    }
+
+    private void salvatutto() {
         if (dataProject.getSize() == 4 || dataProject.getSize() == 6) {
 
             if (!saveFileDialog.dialog.isShowing())
@@ -322,10 +322,12 @@ public class ABProject extends AppCompatActivity {
             Toast.makeText(this, "Points not available!", Toast.LENGTH_SHORT).show();
         }
     }
-    public void metodoBack(){
+
+    public void metodoBack() {
         new MyRW_IntMem().MyWrite("zoomF", String.valueOf(dataProject.mScaleFactor), this);
     }
-    public void metodoPick(){
+
+    public void metodoPick() {
 
         pickIndex++;
 
@@ -395,8 +397,8 @@ public class ABProject extends AppCompatActivity {
         double d = 0;
         if (!(et_zb.getText().toString() == null) && !et_zb.getText().toString().equals("")) {
             GPS a = dataProject.getPoints().get("A");
-            s = Utils.writeMetri(et_zb.getText().toString(),this);
-            d = Double.parseDouble(s)+a.getZ();
+            s = Utils.writeMetri(et_zb.getText().toString(), this);
+            d = Double.parseDouble(s) + a.getZ();
             dataProject.setzB(d);
         }
         if (dataProject.getSize() >= 2) {
@@ -419,7 +421,7 @@ public class ABProject extends AppCompatActivity {
         String s = "0";
         double d = 0;
         if (!(et_dst.getText().toString() == null) && !et_dst.getText().toString().equals("")) {
-            s = Utils.writeMetri(et_dst.getText().toString(),this);
+            s = Utils.writeMetri(et_dst.getText().toString(), this);
             d = Double.parseDouble(s);
             dataProject.setDistanceAB(d);
         }
@@ -439,7 +441,7 @@ public class ABProject extends AppCompatActivity {
         String s = "0";
         double d = 0;
         if (!(et_slope.getText().toString() == null) && !et_slope.getText().toString().equals("")) {
-            s = Utils.writeGradi(et_slope.getText().toString(),this);
+            s = Utils.writeGradi(et_slope.getText().toString(), this);
             d = Double.parseDouble(s);
             dataProject.setSlopeAB(d);
         }
@@ -459,7 +461,7 @@ public class ABProject extends AppCompatActivity {
         String s = "0";
         double d = 0;
         if (!(et_ltdst.getText().toString() == null) && !et_ltdst.getText().toString().equals("")) {
-            s = Utils.writeMetri(et_ltdst.getText().toString(),this);
+            s = Utils.writeMetri(et_ltdst.getText().toString(), this);
             d = Double.parseDouble(s);
             dataProject.setLtLength(d);
         }
@@ -473,7 +475,7 @@ public class ABProject extends AppCompatActivity {
         String s = "0";
         double d = 0;
         if (!(et_ltslope.getText().toString() == null) && !et_ltslope.getText().toString().equals("")) {
-            s = Utils.writeGradi(et_ltslope.getText().toString(),this);
+            s = Utils.writeGradi(et_ltslope.getText().toString(), this);
             d = Double.parseDouble(s);
             dataProject.setLtSlope(d);
         }
@@ -487,7 +489,7 @@ public class ABProject extends AppCompatActivity {
         String s = "0";
         double d = 0;
         if (!(et_rtdst.getText().toString() == null) && !et_rtdst.getText().toString().equals("")) {
-            s = Utils.writeMetri(et_rtdst.getText().toString(),this);
+            s = Utils.writeMetri(et_rtdst.getText().toString(), this);
             d = Double.parseDouble(s);
             dataProject.setRtLength(d);
         }
@@ -500,7 +502,8 @@ public class ABProject extends AppCompatActivity {
         String s = "0";
         double d = 0;
         if (!(et_rtslope.getText().toString() == null) && !et_rtslope.getText().toString().equals("")) {
-            s = Utils.writeGradi(et_rtslope.getText().toString(),this);;
+            s = Utils.writeGradi(et_rtslope.getText().toString(), this);
+            ;
             d = Double.parseDouble(s);
             dataProject.setRtSlope(d);
         }
@@ -520,8 +523,8 @@ public class ABProject extends AppCompatActivity {
             GPS a = dataProject.getPoints().get("A");
             GPS b = dataProject.getPoints().get("B");
 
-            dataProject.setLtLength(Double.parseDouble(Utils.writeMetri(et_ltdst.getText().toString(),ABProject.this)));
-            dataProject.setLtSlope(Double.parseDouble(Utils.writeGradi(et_ltslope.getText().toString(),ABProject.this)));
+            dataProject.setLtLength(Double.parseDouble(Utils.writeMetri(et_ltdst.getText().toString(), ABProject.this)));
+            dataProject.setLtSlope(Double.parseDouble(Utils.writeGradi(et_ltslope.getText().toString(), ABProject.this)));
 
             double orientamento1 = My_LocationCalc.calcBearingXY(a.getX(), a.getY(), b.getX(), b.getY());
             double orLeft = orientamento1 - 90;
@@ -549,8 +552,8 @@ public class ABProject extends AppCompatActivity {
             GPS a = dataProject.getPoints().get("A");
             GPS b = dataProject.getPoints().get("B");
 
-            dataProject.setRtLength(Double.parseDouble(Utils.writeMetri(et_rtdst.getText().toString(),ABProject.this)));
-            dataProject.setRtSlope(Double.parseDouble(Utils.writeGradi(et_rtslope.getText().toString(),ABProject.this)));
+            dataProject.setRtLength(Double.parseDouble(Utils.writeMetri(et_rtdst.getText().toString(), ABProject.this)));
+            dataProject.setRtSlope(Double.parseDouble(Utils.writeGradi(et_rtslope.getText().toString(), ABProject.this)));
 
             double orientamento = My_LocationCalc.calcBearingXY(a.getX(), a.getY(), b.getX(), b.getY());
 
@@ -572,13 +575,13 @@ public class ABProject extends AppCompatActivity {
     private void updateAll() {
         GPS a = dataProject.getPoints().get("A");
         GPS b = dataProject.getPoints().get("B");
-        et_zb.setText(Utils.readUnitOfMeasure(String.valueOf(b.getZ()-a.getZ()),ABProject.this));
-        et_dst.setText(Utils.readUnitOfMeasure(String.valueOf(dataProject.getDistanceAB()),ABProject.this));
-        et_slope.setText(Utils.readAngolo(String.valueOf(dataProject.getSlopeAB()),ABProject.this));
-        et_ltdst.setText(Utils.readUnitOfMeasure(String.valueOf(dataProject.getLtLength()),ABProject.this));
-        et_ltslope.setText(Utils.readAngolo(String.valueOf(dataProject.getLtSlope()),ABProject.this));
-        et_rtdst.setText(Utils.readUnitOfMeasure(String.valueOf(dataProject.getRtLength()),ABProject.this));
-        et_rtslope.setText(Utils.readAngolo(String.valueOf(dataProject.getRtSlope()),ABProject.this));
+        et_zb.setText(Utils.readUnitOfMeasure(String.valueOf(b.getZ() - a.getZ()), ABProject.this));
+        et_dst.setText(Utils.readUnitOfMeasure(String.valueOf(dataProject.getDistanceAB()), ABProject.this));
+        et_slope.setText(Utils.readAngolo(String.valueOf(dataProject.getSlopeAB()), ABProject.this));
+        et_ltdst.setText(Utils.readUnitOfMeasure(String.valueOf(dataProject.getLtLength()), ABProject.this));
+        et_ltslope.setText(Utils.readAngolo(String.valueOf(dataProject.getLtSlope()), ABProject.this));
+        et_rtdst.setText(Utils.readUnitOfMeasure(String.valueOf(dataProject.getRtLength()), ABProject.this));
+        et_rtslope.setText(Utils.readAngolo(String.valueOf(dataProject.getRtSlope()), ABProject.this));
     }
 
 

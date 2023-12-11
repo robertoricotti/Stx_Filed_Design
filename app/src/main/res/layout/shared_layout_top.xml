@@ -137,7 +137,7 @@
         android:text="E:0000.000\t\tN:0000.000\t\tZ:0000.000"
         android:textColor="@color/black"
         android:textSize="16sp"
-        android:textStyle="normal" />
+        android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
@@ -155,7 +155,7 @@
         android:text="CAN DISCONNECTED"
         android:textColor="@color/black"
         android:textSize="16sp"
-        android:textStyle="normal" />
+        android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"

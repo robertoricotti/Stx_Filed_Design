@@ -89,6 +89,7 @@ public class UpdateValues extends Service {
             String projectName=myRW_intMem.MyRead("projectName", UpdateValues.this);
             String imgMode=myRW_intMem.MyRead("imgMode", UpdateValues.this);
             String display=myRW_intMem.MyRead("display", UpdateValues.this);
+            String pselect=myRW_intMem.MyRead("_pointselected", UpdateValues.this);
 
             if(macaddress==null){
                 myRW_intMem.MyWrite("_macaddress","00:00:00:00:00:00",UpdateValues.this);
@@ -168,6 +169,9 @@ public class UpdateValues extends Service {
             }
             if(display==null){
                 myRW_intMem.MyWrite("display","0",UpdateValues.this);
+            }
+            if(pselect==null){
+                myRW_intMem.MyWrite("_pointselected","AB Line",UpdateValues.this);
             }
 
 

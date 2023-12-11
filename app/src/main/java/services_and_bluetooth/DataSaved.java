@@ -25,7 +25,7 @@ public class DataSaved {
     public static double xy_tol;
     public static int rmcSize;
     public static int useRmc;
-    public static int lrFrame;
+
     public static double offsetPitch;
     public static double offsetRoll;
     public static int useTilt;

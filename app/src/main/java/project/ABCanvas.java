@@ -37,7 +37,7 @@ public class ABCanvas extends View {
         scaleGestureDetector = new ScaleGestureDetector(context, new ScaleListener());
         gestureDetector = new GestureDetector(context, new GestureListener());
 
-       // translateTouch();
+
     }
 
     @SuppressLint("DrawAllocation")
