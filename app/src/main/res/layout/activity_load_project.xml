@@ -56,17 +56,18 @@
         app:layout_constraintVertical_bias="0.0">
 
 
-        <Button
+        <TextView
             android:id="@+id/surfaceOK"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="8"
+            android:background="@drawable/custom_background_light_2"
             android:layout_marginVertical="30dp"
-            android:backgroundTint="@color/transparent"
             android:text="0.0 °"
+            android:gravity="center"
             android:textColor="@color/red"
             android:textStyle="bold"
-            android:textSize="18sp"
+            android:textSize="22sp"
             app:layout_constraintLeft_toLeftOf="@id/container_draw"
             app:layout_constraintRight_toRightOf="@id/container_draw"
            app:layout_constraintBottom_toBottomOf="@id/container_draw"/>
@@ -260,17 +261,17 @@
     <TextView
         android:id="@+id/distance"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginHorizontal="2dp"
-        android:layout_marginBottom="2dp"
+
         android:background="@color/_____cancel_text"
         android:gravity="center"
         android:text="DIST: 1234.67m"
         android:maxLines="1"
         android:textColor="@color/white"
-        android:textSize="22sp"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/lowerView"
+        app:layout_constraintBottom_toBottomOf="@id/quota"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/v"
         app:layout_constraintTop_toTopOf="@+id/quota" />

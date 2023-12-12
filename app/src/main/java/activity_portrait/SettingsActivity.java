@@ -32,7 +32,7 @@ public class SettingsActivity extends AppCompatActivity {
     ImageView img_connect, imgTest;
     TextView  txtsmootRmc, txt_tilt;
     private Handler handler;
-    EditText xyTol, zTol, tiltTol;
+    EditText xyTol, zTol, tiltTol,hdtTol;
     private boolean mRunning = true;
     SeekBar seekRmc;
     CheckBox ckrmc, ckpos, ckhdt, usetilt, useCircle, useTriang;
@@ -67,6 +67,7 @@ public class SettingsActivity extends AppCompatActivity {
         tiltTol = findViewById(R.id.tilt_tol);
         useCircle = findViewById(R.id.ckPalina);
         useTriang = findViewById(R.id.ckNav);
+        hdtTol=findViewById(R.id.hdt_tol);
         if (DataSaved.useTilt == 0) {
             usetilt.setChecked(false);
         } else if (DataSaved.useTilt == 1) {
@@ -101,6 +102,7 @@ public class SettingsActivity extends AppCompatActivity {
         xyTol.setText(Utils.readUnitOfMeasure(String.valueOf(DataSaved.xy_tol),SettingsActivity.this).replace(",", "."));
         zTol.setText(Utils.readUnitOfMeasure(String.valueOf(DataSaved.z_tol),SettingsActivity.this).replace(",", "."));
         tiltTol.setText(String.format("%.1f", DataSaved.tilt_Tol).replace(",", "."));
+        hdtTol.setText(String.format("%.1f", DataSaved.hdt_Tol).replace(",", "."));
     }
 
     private void onClick() {
@@ -225,6 +227,9 @@ public class SettingsActivity extends AppCompatActivity {
         }
         if (!tiltTol.getText().toString().equals("")) {
             new MyRW_IntMem().MyWrite("tilt_tol", tiltTol.getText().toString(), this);
+        }
+        if (!hdtTol.getText().toString().equals("")) {
+            new MyRW_IntMem().MyWrite("hdt_tol", hdtTol.getText().toString(), this);
         }
         startService(new Intent(SettingsActivity.this, UpdateValues.class));
         Toast.makeText(this, "SAVED!", Toast.LENGTH_SHORT).show();

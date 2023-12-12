@@ -97,32 +97,30 @@ android:layout_marginHorizontal="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingHorizontal="5dp"
-
-
-                >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Z:"
+                    android:ems="2"
+                    android:textAlignment="textEnd"
                     android:textColor="@color/black"
-                    android:textSize="22sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/z_tol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="4"
+                    android:ems="6"
                     android:gravity="center"
                     android:hint="0.000"
                     android:imeOptions="actionDone"
                     android:inputType="numberDecimal"
                     android:maxLength="6"
                     android:selectAllOnFocus="true"
-                    android:textSize="22sp" />
+                    android:textSize="20sp" />
 
 
 
@@ -130,42 +128,75 @@ android:layout_marginHorizontal="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="XY:"
+                    android:ems="2"
+                    android:textAlignment="textEnd"
                     android:textColor="@color/black"
-                    android:textSize="22sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/xy_tol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="4"
+                    android:ems="6"
                     android:gravity="center"
                     android:hint="0.000"
                     android:imeOptions="actionDone"
                     android:inputType="numberDecimal"
                     android:maxLength="6"
                     android:selectAllOnFocus="true"
-                    android:textSize="22sp" />
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tilt: "
+                    android:ems="2"
+                    android:textAlignment="textEnd"
                     android:textColor="@color/black"
-                    android:textSize="22sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/tilt_tol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="2"
+                    android:ems="6"
                     android:gravity="center"
                     android:hint="0.0"
                     android:imeOptions="actionDone"
                     android:inputType="numberDecimal"
-                    android:maxLength="3"
+                    android:maxLength="4"
                     android:selectAllOnFocus="true"
-                    android:textSize="22sp" />
+                    android:textSize="20sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HDT: "
+                    android:ems="2"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/hdt_tol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="6"
+                    android:gravity="center"
+                    android:hint="0.0"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal"
+                    android:maxLength="4"
+                    android:selectAllOnFocus="true"
+                    android:textSize="20sp" />
             </LinearLayout>
             <TextView
                 android:id="@+id/txtslopeSet"

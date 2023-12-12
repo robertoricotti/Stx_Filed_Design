@@ -120,8 +120,8 @@ public class ProjectCanvas extends View {
             paint.setColor(Color.RED);
             canvas.drawCircle(endX, endY, size / 2.5f, paint);
 
-            paint.setColor(Color.BLUE);
-            paint.setTextSize(60);
+            paint.setColor(Color.BLACK);
+            paint.setTextSize(30/dataProject.mScaleFactor);
             canvas.drawText(id, endX + 25f, endY - 25f, paint);
 
             coordinates[counter] = new Coordinate(endX, endY, 0);

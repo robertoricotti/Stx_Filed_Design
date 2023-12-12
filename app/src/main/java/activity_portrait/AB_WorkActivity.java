@@ -28,6 +28,7 @@ import coords_calc.GPS;
 import coords_calc.Surface_Selector;
 import dialogs.CoordsGNSSInfo;
 import dialogs.Dialog_Offset;
+import gnss.My_LocationCalc;
 import gnss.Nmea_In;
 import project.DataProjectSingleton;
 import project.ProjectCanvas;
@@ -47,12 +48,12 @@ public class AB_WorkActivity extends AppCompatActivity {
     public static byte[] quota;
 
     ImageView lineID;
-    TextView altitude, distance, fileName, setOffset, offsetUnit;
+    TextView altitude, distance, fileName, setOffset, offsetUnit, surfaceOK;
 
     ConstraintLayout container;
     ProjectCanvas canvas;
     ImageButton center, zoomIn, zoomOut, rotateLeft, rotateRight, autorotate;
-    Button crs, surfaceStatus, surfaceOK;
+    Button crs, surfaceStatus;
     DataProjectSingleton dataProject;
     CoordsGNSSInfo coordsGNSSInfo;
     Handler handler;
@@ -63,6 +64,7 @@ public class AB_WorkActivity extends AppCompatActivity {
     boolean zommaIn = false;
     boolean zommaOut = false;
     static int idData = 0x6FA;//pacchetto dati
+    static double abOrient,baOrient;
 
 
     @Override
@@ -128,6 +130,9 @@ public class AB_WorkActivity extends AppCompatActivity {
             auto = true;
         }
         updateOffset();
+        abOrient= My_LocationCalc.calcBearingXY(dataProject.getPoints().get("A").getX(),dataProject.getPoints().get("A").getY(),dataProject.getPoints().get("B").getX(),dataProject.getPoints().get("B").getY());
+        baOrient=My_LocationCalc.calcBearingXY(dataProject.getPoints().get("B").getX(),dataProject.getPoints().get("B").getY(),dataProject.getPoints().get("A").getX(),dataProject.getPoints().get("A").getY());
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -200,15 +205,15 @@ public class AB_WorkActivity extends AppCompatActivity {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle("Choose ID");
         String[] items = new String[dataProject.getSize() + 1];
-        items[0] = "AB Line";
+        items[0] = "Line";
         int counter = 1;
         for (Map.Entry<String, GPS> entry : dataProject.getPoints().entrySet()) {
             items[counter++] = entry.getKey();
         }
-        //TODO Abline bug
-        int selected = -1;
+
+        int selected = 0;
         switch (dataProject.getDistanceID()) {
-            case "AB Line":
+            case "Line":
                 selected = 0;
                 break;
             case "A":
@@ -230,13 +235,13 @@ public class AB_WorkActivity extends AppCompatActivity {
                 selected = 6;
                 break;
             default:
-                selected = -1;
+                selected = 0;
                 break;
         }
 
 
         alertDialog.setSingleChoiceItems(items, selected, (dialog, which) -> {
-            dataProject.setDistanceID(which <= 0 ? null : items[which]);
+            dataProject.setDistanceID(which < 0 ? null : items[which]);
             new MyRW_IntMem().MyWrite("_pointselected", items[which], this);
             dialog.dismiss();
         });
@@ -334,13 +339,43 @@ public class AB_WorkActivity extends AppCompatActivity {
                             }
 
 
+
+                            String dir="\u21B6 ";
                             double deltaHdt = dataProject.abOrient() - Nmea_In.tractorBearing;
-                            surfaceOK.setText(String.format("%.1f", deltaHdt) + " °");
+                            if(deltaHdt>180){
+                                deltaHdt-=360;
+                            }
+                            if(deltaHdt<-180){
+                                deltaHdt+=360;
+                            }
+                            double delta=0;
+                            if(Math.abs(deltaHdt)>90){
+                                delta=baOrient - Nmea_In.tractorBearing;
+                            }else {
+                                delta=abOrient - Nmea_In.tractorBearing;
+                            }
+                            delta=delta%360;
+
+                            if(delta>180){
+                                delta-=360;
+                            }
+                            if(delta<-180){
+                                delta+=360;
+                            }
+                            if(Math.abs(delta)>=DataSaved.hdt_Tol&&delta>0){
+                                dir="\u21B7 ";
+                            }else if(Math.abs(delta)>=1&&delta<0){
+                                dir="\u21B6 ";
+                            }else {
+                                dir="\u2191 ";
+                            }
+
+                            surfaceOK.setText(dir+String.format("%.1f", delta) + " °");//freccia negativo gira sx
                             crs.setText(dataProject.getEpsgCode());
 
 
                             surfaceStatus.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), Can_Decoder.auto == 1 ? R.color.pure_green : R.color.transparent));
-                            surfaceOK.setTextColor(ContextCompat.getColorStateList(getApplicationContext(), (Math.abs(deltaHdt) < 1) ? R.color.pure_green : R.color.white));
+                            surfaceOK.setTextColor(ContextCompat.getColorStateList(getApplicationContext(), (Math.abs(delta) < DataSaved.hdt_Tol) ? R.color.pure_green : R.color.bg_sfsred));
                             double v = 0;
                             double v2 = 0;
                             v = surfaceSelector.getAltitudeDifference(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1) - DataSaved.D_Offset;
@@ -355,11 +390,9 @@ public class AB_WorkActivity extends AppCompatActivity {
                                 AutoConnectionService.data_6FA_2nd = data2;
                                 page = 1;
 
-
                             }
 
-
-                            String strDistance = "DIST: " + Utils.readUnitOfMeasure(String.valueOf(surfaceSelector.getDistance()), AB_WorkActivity.this).replace(",", ".") + " " + Utils.getMetriSimbol(AB_WorkActivity.this);
+                            String strDistance = dataProject.getDistanceID()+": " + Utils.readUnitOfMeasure(String.valueOf(surfaceSelector.getDistance()), AB_WorkActivity.this).replace(",", ".") + " " + Utils.getMetriSimbol(AB_WorkActivity.this);
                             if (Math.abs(surfaceSelector.getDistance()) <= DataSaved.xy_tol) {
                                 distance.setBackgroundColor(getColor(R.color.green));
                                 distance.setTextColor(getColor(R.color._____cancel_text));

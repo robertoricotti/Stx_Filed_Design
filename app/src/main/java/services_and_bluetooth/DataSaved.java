@@ -21,6 +21,7 @@ public class DataSaved {
     public static double D_Leftedge;
     public static double D_Rightedge;
     public static double tilt_Tol;
+    public static double hdt_Tol;
     public static double z_tol;
     public static double xy_tol;
     public static int rmcSize;
