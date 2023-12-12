@@ -194,15 +194,16 @@
                 android:src="@drawable/btn_elevation"
                 app:tint="@color/_____cancel_text"
                 />
-
             <ImageView
-                android:id="@+id/img9"
+                android:id="@+id/img12"
                 android:layout_weight="1"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/btn_infoapp"
+                android:src="@drawable/coordinate_btn"
                 app:tint="@color/_____cancel_text"
                 />
+
+
 
         </LinearLayout>
         <LinearLayout
@@ -230,16 +231,16 @@
                 android:gravity="center|top"
 
                 />
-
             <TextView
                 android:layout_weight="1"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:text="Info App"
+                android:text="Coordinate Ref. Systems"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="@color/_____cancel_text"
                 android:gravity="center|top"/>
+
 
 
         </LinearLayout>
@@ -266,13 +267,14 @@
                 android:src="@drawable/btn_screen_rot"
                 app:tint="@color/_____cancel_text"
                 />
+
             <ImageView
-                android:id="@+id/img12"
+                android:id="@+id/img9"
                 android:layout_weight="1"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/btn_unitsofmeasure"
-                app:tint="@color/transparent"
+                android:src="@drawable/btn_infoapp"
+                app:tint="@color/_____cancel_text"
                 />
 
         </LinearLayout>
@@ -302,15 +304,15 @@
 
                 />
 
+
             <TextView
                 android:layout_weight="1"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:text="On Grade"
+                android:text="Info App"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="@color/_____cancel_text"
-                android:visibility="invisible"
                 android:gravity="center|top"/>
 
 

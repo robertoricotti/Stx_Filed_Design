@@ -36,10 +36,10 @@
     <TextView
         android:id="@+id/titlo"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:textStyle="bold"
         android:gravity="center"
-        android:textSize="20dp"
+        android:textSize="18sp"
         android:text="GNSS DEVICE LIST"
         android:background="@color/_____cancel_text"
         android:textColor="@color/white"

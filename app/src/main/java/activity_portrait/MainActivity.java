@@ -21,6 +21,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import dialogs.MyEpsgDialog;
 import project.DataProjectSingleton;
 import dialogs.CustomToast;
 
@@ -33,13 +34,14 @@ import utils.MyRW_IntMem;
 public class MainActivity extends AppCompatActivity {
     int countProgress=0;
     ProgressBar progressBar;
-    ImageView btn_units, to_bt, openProject, to_new, to_settings, to_usbStick, to_mch, to_palina, to_info, toPairCan,btn_screenR;
+    ImageView btn_units, to_bt, openProject, to_new, to_settings, to_usbStick, to_mch, to_palina, to_info, toPairCan,btn_screenR,setCrs;
 
 
     MyRW_IntMem myRWIntMem;
     DataProjectSingleton dataProject;
     private Handler handler;
     private boolean mRunning = true;
+    MyEpsgDialog myEpsgDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,22 +70,24 @@ public class MainActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
         btn_screenR=findViewById(R.id.img11);
+        setCrs=findViewById(R.id.img12);
 
 
     }
 
     private void init() {
-
+        myEpsgDialog = new MyEpsgDialog(this);
         myRWIntMem = new MyRW_IntMem();
         dataProject = DataProjectSingleton.getInstance();
-        if(Build.VERSION.SDK_INT<=30){
-            to_usbStick.setAlpha(0.3f);
-            to_usbStick.setEnabled(false);
-        }
+
     }
 
     @SuppressLint("NewApi")
     private void onClick() {
+        setCrs.setOnClickListener(view -> {
+            if (!myEpsgDialog.dialog.isShowing())
+                myEpsgDialog.show();
+        });
 
         btn_units.setOnClickListener(view -> {
             startActivity(new Intent(this,UOM_Activity.class));
@@ -93,10 +97,14 @@ public class MainActivity extends AppCompatActivity {
         to_usbStick.setOnClickListener(view -> {
             if(Build.VERSION.SDK_INT <= 29){
                 new CustomToast(this,"Can't Use USB Stick\nOn This Device").show();
+                Intent intent = new Intent(MainActivity.this, UsbActivity.class);
+                startActivity(intent);
+                finish();
             }else {
-            Intent intent = new Intent(MainActivity.this, UsbActivity.class);
-            startActivity(intent);
-            finish();}
+                Intent intent = new Intent(MainActivity.this, UsbActivity.class);
+                startActivity(intent);
+                finish();
+            }
         });
 
         to_info.setOnClickListener(view -> {

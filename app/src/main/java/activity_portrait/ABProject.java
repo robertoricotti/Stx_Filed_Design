@@ -301,6 +301,7 @@ public class ABProject extends AppCompatActivity {
     }
 
     public void metodoSave() {
+        progressBar.setVisibility(View.VISIBLE);
         (new Handler()).postDelayed(this:: calcZ, 500);
         (new Handler()).postDelayed(this:: calc2, 100);
         (new Handler()).postDelayed(this:: calc3, 100);
@@ -314,6 +315,7 @@ public class ABProject extends AppCompatActivity {
     }
 
     private void salvatutto() {
+        progressBar.setVisibility(View.INVISIBLE);
         if (dataProject.getSize() == 4 || dataProject.getSize() == 6) {
 
             if (!saveFileDialog.dialog.isShowing())

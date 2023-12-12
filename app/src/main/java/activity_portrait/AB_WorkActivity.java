@@ -72,7 +72,7 @@ public class AB_WorkActivity extends AppCompatActivity {
         init();
         onClick();
         updateUI();
-        dataProject.setDistanceID(new MyRW_IntMem().MyRead("_pointselected",this));
+        dataProject.setDistanceID(new MyRW_IntMem().MyRead("_pointselected", this));
 
     }
 
@@ -106,7 +106,7 @@ public class AB_WorkActivity extends AppCompatActivity {
             altitude.setTextSize(26f);
             distance.setTextSize(26f);
         }
-
+        surfaceOK.setClickable(false);
 
         dataProject = DataProjectSingleton.getInstance();
         surfaceStatus.setClickable(false);
@@ -134,7 +134,7 @@ public class AB_WorkActivity extends AppCompatActivity {
     private void onClick() {
 
         setOffset.setOnClickListener(view -> {
-            new Dialog_Offset(this, 0).show();
+            new Dialog_Offset(this, surfaceSelector.getAltitudeDifference(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1)).show();
 
         });
 
@@ -205,39 +205,39 @@ public class AB_WorkActivity extends AppCompatActivity {
         for (Map.Entry<String, GPS> entry : dataProject.getPoints().entrySet()) {
             items[counter++] = entry.getKey();
         }
-        int selected=-1;
-        switch (dataProject.getDistanceID()){
+        //TODO Abline bug
+        int selected = -1;
+        switch (dataProject.getDistanceID()) {
             case "AB Line":
-                selected=0;
+                selected = 0;
                 break;
             case "A":
-                selected=1;
+                selected = 1;
                 break;
             case "B":
-                selected=2;
+                selected = 2;
                 break;
             case "C":
-                selected=3;
+                selected = 3;
                 break;
             case "D":
-                selected=4;
+                selected = 4;
                 break;
             case "E":
-                selected=5;
+                selected = 5;
                 break;
             case "F":
-                selected=6;
+                selected = 6;
                 break;
             default:
-                selected=-1;
+                selected = -1;
                 break;
         }
 
 
-
         alertDialog.setSingleChoiceItems(items, selected, (dialog, which) -> {
             dataProject.setDistanceID(which <= 0 ? null : items[which]);
-            new MyRW_IntMem().MyWrite("_pointselected",items[which],this);
+            new MyRW_IntMem().MyWrite("_pointselected", items[which], this);
             dialog.dismiss();
         });
 
@@ -334,16 +334,16 @@ public class AB_WorkActivity extends AppCompatActivity {
                             }
 
 
-
-                            surfaceOK.setText(surfaceSelector.isSurfaceOK() ? "YES" : "NO");
+                            double deltaHdt = dataProject.abOrient() - Nmea_In.tractorBearing;
+                            surfaceOK.setText(String.format("%.1f", deltaHdt) + " °");
                             crs.setText(dataProject.getEpsgCode());
 
 
-                            surfaceStatus.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), Can_Decoder.auto==1 ? R.color.pure_green : R.color.transparent));
-                            surfaceOK.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), surfaceSelector.isSurfaceOK() ? R.color.pure_green : R.color.red));
+                            surfaceStatus.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), Can_Decoder.auto == 1 ? R.color.pure_green : R.color.transparent));
+                            surfaceOK.setTextColor(ContextCompat.getColorStateList(getApplicationContext(), (Math.abs(deltaHdt) < 1) ? R.color.pure_green : R.color.white));
                             double v = 0;
                             double v2 = 0;
-                            v = surfaceSelector.getAltitudeDifference(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1)-DataSaved.D_Offset;
+                            v = surfaceSelector.getAltitudeDifference(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1) - DataSaved.D_Offset;
                             v2 = surfaceSelector.getDistance();
                             if (Double.isNaN(v)) v = 0;
                             if (Bluetooth_CAN_Service.canIsConnected) {

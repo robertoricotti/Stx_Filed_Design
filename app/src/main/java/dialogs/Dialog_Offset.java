@@ -25,11 +25,11 @@ public class Dialog_Offset {
 
     Activity activity;
     AlertDialog alertDialog;
-    Button yes, no,reset;
+    Button yes, no,reset,auto;
     EditText title;
-    int flag;
+    double flag;
 
-    public Dialog_Offset(Activity activity, int flag) {
+    public Dialog_Offset(Activity activity, double flag) {
         this.activity = activity;
         this.flag = flag;
 
@@ -50,11 +50,28 @@ public class Dialog_Offset {
         title=alertDialog.findViewById(R.id.m_value);
         yes = alertDialog.findViewById(R.id._h_ok);
         no = alertDialog.findViewById(R.id._h_exit);
+        auto=alertDialog.findViewById(R.id._h_auto);
         reset=alertDialog.findViewById(R.id.bt_reset);
         title.setText(Utils.readUnitOfMeasure(new MyRW_IntMem().MyRead("_offset", MyApp.visibleActivity),MyApp.visibleActivity));
 
     }
     public void onClick(){
+        auto.setOnClickListener(view -> {
+            try {
+
+                DataSaved.D_Offset=flag;
+                String s=String.valueOf(DataSaved.D_Offset);
+                new MyRW_IntMem().MyWrite("_offset",Utils.writeMetri(s,activity),activity);
+                activity.startService(new Intent(activity, UpdateValues.class));
+                if(activity instanceof AB_WorkActivity){
+                    ((AB_WorkActivity)activity).updateOffset();
+                }
+            } catch (Exception e) {
+                alertDialog.dismiss();
+
+            }
+            alertDialog.dismiss();
+        });
         no.setOnClickListener(view -> {
             alertDialog.dismiss();
         });

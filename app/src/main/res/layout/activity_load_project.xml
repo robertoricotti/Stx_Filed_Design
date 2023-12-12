@@ -56,6 +56,20 @@
         app:layout_constraintVertical_bias="0.0">
 
 
+        <Button
+            android:id="@+id/surfaceOK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="8"
+            android:layout_marginVertical="30dp"
+            android:backgroundTint="@color/transparent"
+            android:text="0.0 °"
+            android:textColor="@color/red"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@id/container_draw"
+            app:layout_constraintRight_toRightOf="@id/container_draw"
+           app:layout_constraintBottom_toBottomOf="@id/container_draw"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -86,18 +100,6 @@
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/container_draw"
         app:layout_constraintTop_toBottomOf="@+id/rotateRight" />
-
-    <Button
-        android:id="@+id/surfaceOK"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginVertical="20dp"
-        android:backgroundTint="@color/pure_green"
-        android:text="OK"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/container_draw"
-        app:layout_constraintTop_toBottomOf="@+id/surfaceStatus" />
 
     <ImageButton
         android:id="@+id/myCenterNav"

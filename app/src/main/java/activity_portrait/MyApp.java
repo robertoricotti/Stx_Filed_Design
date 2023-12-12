@@ -10,6 +10,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.icu.text.DecimalFormatSymbols;
+import android.opengl.Visibility;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -219,6 +220,13 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         btn3.setImageResource(R.drawable.btn_copy_from_usb);
         btn4.setImageResource(R.drawable.btn_copy_to_usb);
         btn5.setImageResource(R.drawable.btn_delete);
+        if(Build.VERSION.SDK_INT<=30){
+            btn3.setAlpha(0.3f);
+            btn3.setEnabled(false);
+            btn4.setAlpha(0.3f);
+            btn4.setEnabled(false);
+
+        }
         btn1.setOnClickListener(view -> {
             ((UsbActivity)activity).exBtn1();
         });
@@ -350,7 +358,6 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
     public void m_AB_WorkingActivity(Activity activity) {
         activity.setContentView(R.layout.activity_load_project);
-
         whoLaunch = activity;
         m_updateUI(whoLaunch, true);
         btn5.setVisibility(View.GONE);
@@ -376,7 +383,6 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
     public void m_MenuProject(Activity activity) {
         activity.setContentView(R.layout.activity_menu_project);
-
         whoLaunch = activity;
         m_updateUI(whoLaunch, true);
         btn2.setVisibility(View.INVISIBLE);
@@ -468,9 +474,24 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                             @SuppressLint({"SetTextI18n", "DefaultLocale"})
                             @Override
                             public void run() {
+                                if(activity instanceof ABProject){
+                                    if(((ABProject) activity).progressBar.getVisibility()== View.VISIBLE){
+                                        btn1.setEnabled(false);
+                                        btn2.setEnabled(false);
+                                        btn3.setEnabled(false);
+                                        btn4.setEnabled(false);
+                                        btn5.setEnabled(false);
+                                    }else {
+                                        btn1.setEnabled(true);
+                                        btn2.setEnabled(true);
+                                        btn3.setEnabled(true);
+                                        btn4.setEnabled(true);
+                                        btn5.setEnabled(true);
+                                    }
+                                }
                                 txt1.setText(Nmea_In.ggaSat);
                                 txt2.setText(setQuality(Nmea_In.ggaQuality));
-                                txt3.setText("CQ: " + Nmea_In.CQ_Tot);
+                                txt3.setText(DataSaved.S_CRS);
                                 txt4.setText(Nmea_In.ggaRtk);
                                 txt5.setText(Utils.readUnitOfMeasure(String.valueOf(DataSaved.D_AltezzaAnt), visibleActivity));
                                 if (showCoord) {

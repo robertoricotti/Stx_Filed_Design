@@ -22,7 +22,7 @@
             app:tint="@color/white" />
 
         <ImageView
-
+            android:id="@+id/imgConnect"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -31,12 +31,12 @@
             app:tint="@color/white" />
 
         <ImageView
-            android:id="@+id/imgConnect"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_weight="1"
             android:paddingVertical="2dp"
-            android:src="@drawable/location_on_24"
+            android:src="@drawable/imposta_coordinate"
             app:tint="@color/white" />
 
         <ImageView
@@ -93,7 +93,7 @@
             android:layout_weight="1"
             android:ems="2"
             android:gravity="center"
-            android:text="CQ:"
+            android:text="3004"
             android:textColor="@color/white"
             android:textStyle="bold" />
 

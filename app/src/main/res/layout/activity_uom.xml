@@ -12,14 +12,8 @@
     <include
         android:id="@+id/lowerView"
         layout="@layout/shared_layout_low" />
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideMid"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.50"/>
 
-        <LinearLayout
+    <LinearLayout
             android:id="@+id/lay_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,12 +27,17 @@
                 android:layout_height="wrap_content"
                 android:background="@color/_____cancel_text"
                 android:gravity="center"
-                android:text="Distance Unit of Measure"
+                android:text="Unit of Measure"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@drawable/custom_background_light">
@@ -57,18 +56,10 @@
                     android:text="US Survey Feet" />
 
             </LinearLayout>
-            <TextView
-                android:id="@+id/title_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/_____cancel_text"
-                android:gravity="center"
-                android:text="Slope Unit of Measure"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                />
+
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@drawable/custom_background_light">
@@ -87,6 +78,8 @@
                     android:text="Percent (xx.xx %)" />
 
             </LinearLayout>
+        </LinearLayout>
+
             <TextView
                 android:id="@+id/title_3"
                 android:layout_width="match_parent"
