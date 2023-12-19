@@ -20,6 +20,7 @@ import java.io.File;
 import java.util.Date;
 import java.util.Locale;
 
+import activity_portrait.ABProject;
 import project.DataProjectSingleton;
 import activity_portrait.MenuProject;
 import utils.FullscreenActivity;
@@ -62,11 +63,15 @@ public class SaveFileDialog {
         save.setOnClickListener((View vw) -> {
 
             if(!fileName.getText().toString().equals("")){
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
-                String currentDateTime = sdf.format(new Date());
+                //SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
+                String currentDateTime = "";//sdf.format(new Date());
                 DataProjectSingleton dataProject = DataProjectSingleton.getInstance();
+                if(activity instanceof ABProject){
+                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", "AB_"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag);
 
-                dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag);
+                }
+                //aggiungere 1punto e cross section
+
 
                 Toast.makeText(activity, "File Saved!", Toast.LENGTH_SHORT).show();
                 activity.startActivity(new Intent(activity, MenuProject.class));
