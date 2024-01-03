@@ -52,8 +52,9 @@ public class Bluetooth_GNSS_Service extends Service {
         bluetoothIn = new Handler() {
 
             public void handleMessage(android.os.Message msg) {
-                //Log.d("DEBUG", "handleMessage");
-                if (msg.what == handlerState) {
+
+
+             /*   if (msg.what == handlerState) {
                     //if message is what we want
                     String readMessage = (String) msg.obj;
                     // msg.arg1 = bytes from connect thread
@@ -64,7 +65,27 @@ public class Bluetooth_GNSS_Service extends Service {
                     // Do stuff here with your data, like adding it to the database
                 }
                 //clear all string data
-                recDataString.delete(0, recDataString.length());
+                recDataString.delete(0, recDataString.length());*/
+                if (msg.what == handlerState) {
+                    String readMessage = (String) msg.obj;
+                    recDataString.append(readMessage);
+
+                    // Verifica se ci sono messaggi completi terminati con il delimitatore
+                    while (recDataString.indexOf("\n") != -1) {
+                        // Estrai un messaggio completo
+                        String completeMessage = recDataString.substring(0, recDataString.indexOf("\n"));
+
+                        // Do stuff here con il tuo messaggio completo
+
+                        Log.d("RECORDED", completeMessage);
+                        new Nmea_In(completeMessage);
+                        DataSaved.S_nmea=completeMessage;
+
+                        // Rimuovi il messaggio completo dal buffer
+                        recDataString.delete(0, recDataString.indexOf("\n") + 1);
+                    }
+                }
+
             }
         };
         btAdapter = BluetoothAdapter.getDefaultAdapter();       // get Bluetooth adapter

@@ -78,13 +78,7 @@ public class LaunchScreenActivity extends AppCompatActivity {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.R)
-    private void checkExternalEnviroment() {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
-            startActivity(new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION));
-        }
-    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.R)
@@ -149,31 +143,14 @@ public class LaunchScreenActivity extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    private void checkExternalEnviroment() {
 
-    private void createSystemFolders() {
-        File directory = new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field");
-        Log.d("MyPath", directory.getPath().toString());
-        if (!directory.exists()) {
-            if (directory.mkdir()) {
-
-                File projectsDirectory = new File(directory + "/Projects");
-
-                File devicesDirectory = new File(directory + "/Devices");
-
-                if (projectsDirectory.mkdir() && devicesDirectory.mkdir()) {
-                    Log.e("CreateFolders", "Folder created OK");
-                } else {
-                    Log.e("CreateFolders", "Failed to create subdirectories.");
-                }
-            } else {
-                Log.e("CreateFolders", "Failed to create directory Stx Field.");
-            }
-            Log.e("CreateFolders", "Salvataggio Dati");
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
+            startActivity(new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION));
         }
-
-
     }
+
 
     private boolean checkPermissions() {
 
@@ -213,6 +190,31 @@ public class LaunchScreenActivity extends AppCompatActivity {
         } else {
             return true;
         }
+    }
+
+    private void createSystemFolders() {
+        File directory = new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field");
+        Log.d("MyPath", directory.getPath().toString());
+        if (!directory.exists()) {
+            if (directory.mkdir()) {
+
+                File projectsDirectory = new File(directory + "/Projects");
+
+                File devicesDirectory = new File(directory + "/Devices");
+
+                if (projectsDirectory.mkdir() && devicesDirectory.mkdir()) {
+                    Log.e("CreateFolders", "Folder created OK");
+                } else {
+                    Log.e("CreateFolders", "Failed to create subdirectories.");
+                }
+            } else {
+                Log.e("CreateFolders", "Failed to create directory Stx Field.");
+            }
+            Log.e("CreateFolders", "Salvataggio Dati");
+
+        }
+
+
     }
 
     protected void goMain() {
