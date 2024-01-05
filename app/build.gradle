@@ -6,13 +6,14 @@ android {
 
 
     namespace 'com.example.stx_field_design'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.stx_field_design"
         minSdk 24
 
-        targetSdk 33
+        //noinspection EditedTargetSdkVersion
+        targetSdk 34
         versionCode 101
         versionName "1.0.1"
 
@@ -47,7 +48,9 @@ android {
     }
 
     dependencies {
-
+        implementation files('libs/cputils.v1.0.1.aar')
+        implementation project(path: ':can')
+        implementation project(path: ':cmd')
 
         implementation 'androidx.appcompat:appcompat:1.6.1'
         implementation 'com.google.android.material:material:1.9.0'
@@ -75,6 +78,13 @@ android {
 
         // https://mvnrepository.com/artifact/commons-io/commons-io
         implementation 'commons-io:commons-io:2.15.0'
+
+        //eventbus
+        implementation 'org.greenrobot:eventbus:3.3.1'
+
+        implementation 'androidx.appcompat:appcompat:1.6.1'
+        implementation 'com.google.android.material:material:1.11.0'
+        implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
 
     }

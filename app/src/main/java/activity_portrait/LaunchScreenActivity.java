@@ -27,6 +27,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 
+import com.cp.cputils.ApolloPro;
 import com.example.stx_field_design.R;
 
 
@@ -37,6 +38,8 @@ import dialogs.CustomToast;
 import services_and_bluetooth.AutoConnectionService;
 import services_and_bluetooth.Bluetooth_CAN_Service;
 import services_and_bluetooth.Bluetooth_GNSS_Service;
+import services_and_bluetooth.CanService;
+import services_and_bluetooth.DataSaved;
 import services_and_bluetooth.UpdateValues;
 import utils.FullscreenActivity;
 
@@ -83,7 +86,8 @@ public class LaunchScreenActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.R)
     private void init() {
-        Log.d("VersioneAnd", String.valueOf(Build.VERSION.SDK_INT));
+
+
         if (Build.VERSION.SDK_INT >= 33) {
             PERMISSIONS = new String[]{
                     Manifest.permission.BLUETOOTH,
@@ -221,7 +225,10 @@ public class LaunchScreenActivity extends AppCompatActivity {
         startService(new Intent(LaunchScreenActivity.this, UpdateValues.class));
         startActivity(new Intent(LaunchScreenActivity.this, MainActivity.class));
         startService(new Intent(this, Bluetooth_GNSS_Service.class));
-        startService(new Intent(this, Bluetooth_CAN_Service.class));
+        if(DataSaved.deviceType.equals("SRT8PROS")||DataSaved.deviceType.equals("SRT7PROS")){
+            startService(new Intent(this, CanService.class));
+        }else {
+        startService(new Intent(this, Bluetooth_CAN_Service.class));}
         finish();
     }
 

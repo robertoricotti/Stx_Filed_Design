@@ -30,6 +30,7 @@ public class DataSaved {
     public static double offsetPitch;
     public static double offsetRoll;
     public static int useTilt;
+    public static String deviceType;
 
 
 

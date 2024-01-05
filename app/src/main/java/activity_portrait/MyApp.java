@@ -26,7 +26,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.cp.cputils.ApolloPro;
 import com.example.stx_field_design.R;
+import com.van.jni.VanCmd;
 
 import java.util.Locale;
 import java.util.concurrent.Executors;
@@ -43,6 +45,7 @@ import services_and_bluetooth.Bluetooth_CAN_Service;
 import services_and_bluetooth.Bluetooth_GNSS_Service;
 import services_and_bluetooth.DataSaved;
 import utils.FullscreenActivity;
+import utils.LanguageSetter;
 import utils.MyRW_IntMem;
 import utils.Utils;
 
@@ -73,6 +76,9 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        if(activity!=null){
+            LanguageSetter.setLocale(activity,"en");
+        }
         if(new MyRW_IntMem().MyRead("display",this)==null){
             SCREEN_ORIENTATION = (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
@@ -80,7 +86,16 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
             SCREEN_ORIENTATION = (ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         } else {
-            SCREEN_ORIENTATION = (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            try {
+                if(DataSaved.deviceType.equals("SRT8PROS")||DataSaved.deviceType.equals("SRT7PROS")){
+                    SCREEN_ORIENTATION = (ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
+                }else {
+                    SCREEN_ORIENTATION = (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                }
+            } catch (Exception e) {
+                SCREEN_ORIENTATION = (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            }
+
         }
         activity.setRequestedOrientation(SCREEN_ORIENTATION);
         switch (activity.toString().substring(0, (activity.toString().indexOf("@")))) {
@@ -126,8 +141,17 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             case "activity_portrait.Antennas_Blade_Activity":
                 m_Antennas_Blade_Activity(activity);
                 break;
+            case "activity_portrait.CAN_DebugActivity":
+                m_CAN_Debug_Activity(activity);
+                break;
             case "activity_portrait.LaunchScreenActivity":
-                //questa activity viene gestita dalla classe LaunchScreenActivity.class
+                String b=Build.BRAND;
+                DataSaved.deviceType=b;
+                new MyRW_IntMem().MyWrite("_deviceType",b,activity);
+                Log.d("VersioneAnd", b);
+                if(DataSaved.deviceType.equals("SRT8PROS")||DataSaved.deviceType.equals("SRT7PROS")){
+                    VanCmd.exec("wm overscan 0,-210,0,-210", 10);
+                }
                 printDisplayDimensions(activity);//prendo i dati del display
                 break;
 
@@ -207,7 +231,13 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             new CloseAppDialog(activity).show();
         });
         btn5.setOnClickListener(view -> {
-            new ConnectDialog(activity, 2).show();
+            int i=0;
+            if(DataSaved.deviceType.equals("SRT8PROS")||DataSaved.deviceType.equals("SRT7PROS")){
+               i=3;
+            }else {
+                i=2;
+            }
+            new ConnectDialog(activity, i).show();
         });
 
     }
@@ -377,7 +407,13 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             ((AB_WorkActivity) activity).metodoOpenList();
         });
         btn4.setOnClickListener(view -> {
-            new ConnectDialog(activity, 2).show();
+            int i=0;
+            if(DataSaved.deviceType.equals("SRT8PROS")||DataSaved.deviceType.equals("SRT7PROS")){
+                i=3;
+            }else {
+                i=2;
+            }
+            new ConnectDialog(activity, i).show();
         });
     }
 
@@ -416,6 +452,34 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         });
         btn5.setOnClickListener(view -> {
             ((SettingsActivity) activity).metodoSave();
+        });
+    }
+    public void m_CAN_Debug_Activity(Activity activity){
+        activity.setContentView(R.layout.activity_can_debug);
+        whoLaunch = activity;
+        m_updateUI(whoLaunch, true);
+        btn1.setImageResource(R.drawable.btn_to_indietro);
+        btn5.setImageResource(R.drawable.btn_pause);
+        btn3.setImageResource(R.drawable.btn_delete);
+        btn2.setVisibility(View.INVISIBLE);
+        btn3.setVisibility(View.VISIBLE);
+        btn4.setVisibility(View.INVISIBLE);
+        btn5.setVisibility(View.VISIBLE);
+        btn1.setOnClickListener(view -> {
+            activity.startActivity(new Intent(activity, MainActivity.class));
+            activity.finish();
+        });
+        btn3.setOnClickListener(view -> {
+            ((CAN_DebugActivity)activity).clearList();
+
+        });
+        btn5.setOnClickListener(view -> {
+            ((CAN_DebugActivity)activity).playpause();
+            if( ((CAN_DebugActivity)activity).play){
+                btn5.setImageResource(R.drawable.btn_pause);
+            }else {
+                btn5.setImageResource(R.drawable.btn_play);
+            }
         });
     }
 

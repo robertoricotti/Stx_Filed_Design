@@ -63,7 +63,7 @@ public class AutoConnectionService extends Service {
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
                 double altitude = location.getAltitude();
-
+                
             }
 
             @Override
@@ -88,7 +88,8 @@ public class AutoConnectionService extends Service {
             public void onNmeaMessage(String message, long timestamp) {
 
                 androidNmea = message;
-                Log.d("TEABLET_NMEA",androidNmea);
+                new Nmea_In(androidNmea);
+               // Log.d("TEABLET_NMEA",Nmea_In.mLat_1+"  "+Nmea_In.mLon_1+" "+Nmea_In.ggaSat+" "+Nmea_In.ggaDop);
                 // Ora puoi gestire la stringa NMEA come necessario
             }
         };
@@ -105,7 +106,7 @@ public class AutoConnectionService extends Service {
         locationManager.addNmeaListener(nmeaMessageListener);
 
 
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
 
 
         mExecutor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);

@@ -226,7 +226,10 @@ public class BT_DevicesActivity extends AppCompatActivity {
         try {
             startService(new Intent(this, AutoConnectionService.class));
             startService(new Intent(this, Bluetooth_GNSS_Service.class));
-            startService(new Intent(this, Bluetooth_CAN_Service.class));
+            if(DataSaved.deviceType.equals("SRT8PROS")||DataSaved.deviceType.equals("SRT7PROS")){
+
+            }else {
+                startService(new Intent(this, Bluetooth_CAN_Service.class));}
 
         } catch (Exception e) {
             System.out.println(e.toString());

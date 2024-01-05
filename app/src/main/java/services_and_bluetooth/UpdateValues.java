@@ -63,6 +63,7 @@ public class UpdateValues extends Service {
 
         @Override
         public void run() {
+            String deviceType=myRW_intMem.MyRead("_deviceType", UpdateValues.this);
             String macaddress = myRW_intMem.MyRead("_macaddress", UpdateValues.this);
             String gpsname = myRW_intMem.MyRead("_gpsname", UpdateValues.this);
             String macaddresscan = myRW_intMem.MyRead("_macaddress_can", UpdateValues.this);
@@ -91,6 +92,9 @@ public class UpdateValues extends Service {
             String imgMode=myRW_intMem.MyRead("imgMode", UpdateValues.this);
             String display=myRW_intMem.MyRead("display", UpdateValues.this);
             String pselect=myRW_intMem.MyRead("_pointselected", UpdateValues.this);
+            if(deviceType==null){
+                myRW_intMem.MyWrite("_deviceType","RUGSTORM",UpdateValues.this);
+            }
 
             if(macaddress==null){
                 myRW_intMem.MyWrite("_macaddress","00:00:00:00:00:00",UpdateValues.this);

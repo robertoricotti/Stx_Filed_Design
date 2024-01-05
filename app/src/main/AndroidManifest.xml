@@ -6,11 +6,11 @@
         android:name="android.hardware.telephony"
         android:required="false" />
     <uses-feature android:name="android.hardware.usb.host" />
-
     <uses-feature android:name="android.hardware.usb.accessory" />
+
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
@@ -24,7 +24,6 @@
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
     <uses-permission
         android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         android:minSdkVersion="31"
@@ -53,6 +52,7 @@
     <uses-permission
         android:name="android.permission.READ_MEDIA_AUDIO"
         tools:ignore="ProtectedPermissions" />
+
     <application
         android:name="activity_portrait.MyApp"
         android:allowBackup="true"
@@ -66,13 +66,12 @@
         android:theme="@style/Theme.Stx_Field_Design"
         tools:ignore="RtlEnabled"
         tools:targetApi="31">
-        <activity
-            android:name="activity_portrait.UOM_Activity"
-            android:autoRemoveFromRecents="true"
-            android:launchMode="singleTop"
-            android:screenOrientation="locked"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
+
+        <service
+            android:name="services_and_bluetooth.CanService"
+            android:enabled="true"
+            android:exported="false" />
         <service
             android:name="services_and_bluetooth.Bluetooth_CAN_Service"
             android:enabled="true"
@@ -81,7 +80,21 @@
             android:name="services_and_bluetooth.Bluetooth_GNSS_Service"
             android:enabled="true"
             android:exported="false" />
+        <service
+            android:name="services_and_bluetooth.UpdateValues"
+            android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name="services_and_bluetooth.AutoConnectionService"
+            android:enabled="true"
+            android:exported="false" />
 
+        <activity
+            android:name="activity_portrait.UOM_Activity"
+            android:autoRemoveFromRecents="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="locked"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="activity_portrait.UsbActivity"
             android:autoRemoveFromRecents="true"
@@ -99,10 +112,16 @@
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
             android:screenOrientation="locked"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="activity_portrait.MenuProject"
+            android:autoRemoveFromRecents="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="locked"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="activity_portrait.CAN_DebugActivity"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
             android:screenOrientation="locked"
@@ -125,38 +144,25 @@
             android:launchMode="singleTop"
             android:screenOrientation="locked"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
         <activity
             android:name="activity_portrait.BT_DevicesActivity"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
             android:screenOrientation="locked"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
-        <service
-            android:name="services_and_bluetooth.UpdateValues"
-            android:enabled="true"
-            android:exported="false" />
-        <service
-            android:name="services_and_bluetooth.AutoConnectionService"
-            android:enabled="true"
-            android:exported="false" />
         <activity
             android:name="activity_portrait.SettingsActivity"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
             android:screenOrientation="locked"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="activity_portrait.MainActivity"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"
             android:screenOrientation="locked"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
-
         <activity
             android:name="activity_portrait.LaunchScreenActivity"
             android:autoRemoveFromRecents="true"
@@ -174,8 +180,6 @@
             </intent-filter>
         </activity>
 
-
-
         <receiver
             android:name="utils.UsbReceiver"
             android:enabled="true"
@@ -184,7 +188,6 @@
                 <action android:name="com.example.stx_field_design.USB_PERMISSION" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name="utils.LocationUtils$LocationStateReceiver"
             android:enabled="true"
@@ -192,8 +195,6 @@
             tools:ignore="Instantiatable">
             <intent-filter>
                 <action android:name="android.location.PROVIDERS_CHANGED" />
-
-
             </intent-filter>
         </receiver>
         <receiver

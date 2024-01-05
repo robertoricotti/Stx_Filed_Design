@@ -123,10 +123,16 @@ public class MainActivity extends AppCompatActivity {
             finish();
         });
         toPairCan.setOnClickListener(view -> {
+            if(DataSaved.deviceType.equals("SRT8PROS")||DataSaved.deviceType.equals("SRT7PROS")){
+                Intent intent = new Intent(MainActivity.this, CAN_DebugActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            else {
             Intent intent = new Intent(MainActivity.this, BT_DevicesActivity.class);
             BT_DevicesActivity.flag = "CAN";
             startActivity(intent);
-            finish();
+            finish();}
         });
         btn_screenR.setOnClickListener(view -> {
             DataSaved.DisplayOrient=(DataSaved.DisplayOrient+1)%2;

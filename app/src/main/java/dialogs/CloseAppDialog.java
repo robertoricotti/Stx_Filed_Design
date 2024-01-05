@@ -11,12 +11,17 @@ import android.widget.Button;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.stx_field_design.R;
+import com.van.jni.VanCmd;
 
 
 import services_and_bluetooth.AutoConnectionService;
 import services_and_bluetooth.Bluetooth_CAN_Service;
 import services_and_bluetooth.Bluetooth_GNSS_Service;
+import services_and_bluetooth.CanService;
+import services_and_bluetooth.DataSaved;
+import services_and_bluetooth.UpdateValues;
 import utils.FullscreenActivity;
+import utils.MyRW_IntMem;
 
 public class CloseAppDialog {
     Activity activity;
@@ -53,9 +58,15 @@ public class CloseAppDialog {
             try {
                 activity.stopService(new Intent(activity, AutoConnectionService.class));
                 activity.stopService((new Intent(activity, Bluetooth_GNSS_Service.class)));
-                activity.stopService((new Intent(activity, Bluetooth_CAN_Service.class)));
+                if(DataSaved.deviceType.equals("SRT8PROS")||DataSaved.deviceType.equals("SRT7PROS")){
+                    activity.stopService((new Intent(activity, CanService.class)));
+                }else {
+                activity.stopService((new Intent(activity, Bluetooth_CAN_Service.class)));}
             } catch (Exception e) {
 
+            }
+            if(DataSaved.deviceType.equals("SRT8PROS")||DataSaved.deviceType.equals("SRT7PROS")){
+                VanCmd.exec("wm overscan 0,0,0,0", 10);
             }
 
             alertDialog.dismiss();
