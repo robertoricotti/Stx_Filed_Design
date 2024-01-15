@@ -30,6 +30,8 @@ import com.cp.cputils.ApolloPro;
 import com.example.stx_field_design.R;
 import com.van.jni.VanCmd;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -76,20 +78,19 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        if(activity!=null){
-            LanguageSetter.setLocale(activity,"en");
+        if (activity != null) {
+            LanguageSetter.setLocale(activity, "en");
         }
-        if(new MyRW_IntMem().MyRead("display",this)==null){
+        if (new MyRW_IntMem().MyRead("display", this) == null) {
             SCREEN_ORIENTATION = (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
-        else if (new MyRW_IntMem().MyRead("display",this).equals("1")) {
+        } else if (new MyRW_IntMem().MyRead("display", this).equals("1")) {
 
             SCREEN_ORIENTATION = (ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         } else {
             try {
-                if(DataSaved.deviceType.equals("SRT8PROS")||DataSaved.deviceType.equals("SRT7PROS")){
+                if (DataSaved.deviceType.equals("SRT8PROS") || DataSaved.deviceType.equals("SRT7PROS")) {
                     SCREEN_ORIENTATION = (ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
-                }else {
+                } else {
                     SCREEN_ORIENTATION = (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 }
             } catch (Exception e) {
@@ -145,11 +146,11 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                 m_CAN_Debug_Activity(activity);
                 break;
             case "activity_portrait.LaunchScreenActivity":
-                String b=Build.BRAND;
-                DataSaved.deviceType=b;
-                new MyRW_IntMem().MyWrite("_deviceType",b,activity);
+                String b = Build.BRAND;
+                DataSaved.deviceType = b;
+                new MyRW_IntMem().MyWrite("_deviceType", b, activity);
                 Log.d("VersioneAnd", b);
-                if(DataSaved.deviceType.equals("SRT8PROS")||DataSaved.deviceType.equals("SRT7PROS")){
+                if (DataSaved.deviceType.equals("SRT8PROS") || DataSaved.deviceType.equals("SRT7PROS")) {
                     VanCmd.exec("wm overscan 0,-210,0,-210", 10);
                 }
                 printDisplayDimensions(activity);//prendo i dati del display
@@ -166,8 +167,11 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             visibleActivity = activity;
             DataSaved.Actualactivity = String.valueOf(activity);
             setLocale(visibleActivity, "en");
+            try {
+                EventBus.getDefault().register(activity);
+            } catch (Exception e) {
 
-
+            }
         }
 
     }
@@ -183,6 +187,9 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
     @Override
     public void onActivityStopped(@NonNull Activity activity) {
+        if (activity != null) {
+            EventBus.getDefault().unregister(activity);
+        }
 
 
     }
@@ -231,17 +238,18 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             new CloseAppDialog(activity).show();
         });
         btn5.setOnClickListener(view -> {
-            int i=0;
-            if(DataSaved.deviceType.equals("SRT8PROS")||DataSaved.deviceType.equals("SRT7PROS")){
-               i=3;
-            }else {
-                i=2;
+            int i = 0;
+            if (DataSaved.deviceType.equals("SRT8PROS") || DataSaved.deviceType.equals("SRT7PROS")) {
+                i = 3;
+            } else {
+                i = 2;
             }
             new ConnectDialog(activity, i).show();
         });
 
     }
-    public void m_UsbActivity(Activity activity){
+
+    public void m_UsbActivity(Activity activity) {
         activity.setContentView(R.layout.activity_usb_inout);
         whoLaunch = activity;
         m_updateUI(whoLaunch, true);
@@ -250,7 +258,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         btn3.setImageResource(R.drawable.btn_copy_from_usb);
         btn4.setImageResource(R.drawable.btn_copy_to_usb);
         btn5.setImageResource(R.drawable.btn_delete);
-        if(Build.VERSION.SDK_INT<=30){
+        if (Build.VERSION.SDK_INT <= 30) {
             btn3.setAlpha(0.3f);
             btn3.setEnabled(false);
             btn4.setAlpha(0.3f);
@@ -258,19 +266,19 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
         }
         btn1.setOnClickListener(view -> {
-            ((UsbActivity)activity).exBtn1();
+            ((UsbActivity) activity).exBtn1();
         });
         btn2.setOnClickListener(view -> {
-            ((UsbActivity)activity).exBtn2();
+            ((UsbActivity) activity).exBtn2();
         });
         btn3.setOnClickListener(view -> {
-            ((UsbActivity)activity).exBtn3();
+            ((UsbActivity) activity).exBtn3();
         });
         btn4.setOnClickListener(view -> {
-            ((UsbActivity)activity).exBtn4();
+            ((UsbActivity) activity).exBtn4();
         });
         btn5.setOnClickListener(view -> {
-            ((UsbActivity)activity).exBtn5();
+            ((UsbActivity) activity).exBtn5();
         });
     }
 
@@ -346,7 +354,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         btn4.setVisibility(View.INVISIBLE);
         btn5.setVisibility(View.INVISIBLE);
         btn1.setOnClickListener(view -> {
-            ((AntennaMeasure)activity).goBack();
+            ((AntennaMeasure) activity).goBack();
         });
     }
 
@@ -407,11 +415,11 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             ((AB_WorkActivity) activity).metodoOpenList();
         });
         btn4.setOnClickListener(view -> {
-            int i=0;
-            if(DataSaved.deviceType.equals("SRT8PROS")||DataSaved.deviceType.equals("SRT7PROS")){
-                i=3;
-            }else {
-                i=2;
+            int i = 0;
+            if (DataSaved.deviceType.equals("SRT8PROS") || DataSaved.deviceType.equals("SRT7PROS")) {
+                i = 3;
+            } else {
+                i = 2;
             }
             new ConnectDialog(activity, i).show();
         });
@@ -454,7 +462,8 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             ((SettingsActivity) activity).metodoSave();
         });
     }
-    public void m_CAN_Debug_Activity(Activity activity){
+
+    public void m_CAN_Debug_Activity(Activity activity) {
         activity.setContentView(R.layout.activity_can_debug);
         whoLaunch = activity;
         m_updateUI(whoLaunch, true);
@@ -470,14 +479,14 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             activity.finish();
         });
         btn3.setOnClickListener(view -> {
-            ((CAN_DebugActivity)activity).clearList();
+            ((CAN_DebugActivity) activity).clearList();
 
         });
         btn5.setOnClickListener(view -> {
-            ((CAN_DebugActivity)activity).playpause();
-            if( ((CAN_DebugActivity)activity).play){
+            ((CAN_DebugActivity) activity).playpause();
+            if (((CAN_DebugActivity) activity).play) {
                 btn5.setImageResource(R.drawable.btn_pause);
-            }else {
+            } else {
                 btn5.setImageResource(R.drawable.btn_play);
             }
         });
@@ -538,14 +547,14 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                             @SuppressLint({"SetTextI18n", "DefaultLocale"})
                             @Override
                             public void run() {
-                                if(activity instanceof ABProject){
-                                    if(((ABProject) activity).progressBar.getVisibility()== View.VISIBLE){
+                                if (activity instanceof ABProject) {
+                                    if (((ABProject) activity).progressBar.getVisibility() == View.VISIBLE) {
                                         btn1.setEnabled(false);
                                         btn2.setEnabled(false);
                                         btn3.setEnabled(false);
                                         btn4.setEnabled(false);
                                         btn5.setEnabled(false);
-                                    }else {
+                                    } else {
                                         btn1.setEnabled(true);
                                         btn2.setEnabled(true);
                                         btn3.setEnabled(true);
@@ -570,17 +579,16 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                                 if (!Bluetooth_CAN_Service.canIsConnected) {
                                     txt_canstat.setTextColor(Color.RED);
                                     txt_canstat.setText("CAN DISCONNECTED");
-                                    txt_canstat.setBackgroundColor(getResources().getColor(R.color.white));
+                                    //txt_canstat.setBackgroundColor(getResources().getColor(R.color.white));
                                 } else {
-                                    if(!Bluetooth_CAN_Service.canEmpty){
-                                    txt_canstat.setTextColor(Color.BLACK);
-                                    txt_canstat.setText(String.valueOf("Pitch: " + String.format("%.2f", Can_Decoder.correctPitch).replace(",", ".") + "°       Roll: " + String.format("%.2f", Can_Decoder.correctRoll).replace(",", ".") + "°"));
-                                    txt_canstat.setBackgroundColor(getResources().getColor(R.color.white));
-                                    }
-                                    else {
+                                    if (!Bluetooth_CAN_Service.canEmpty) {
+                                        txt_canstat.setTextColor(Color.BLACK);
+                                        txt_canstat.setText(String.valueOf("Pitch: " + String.format("%.2f", Can_Decoder.correctPitch).replace(",", ".") + "°       Roll: " + String.format("%.2f", Can_Decoder.correctRoll).replace(",", ".") + "°"));
+                                        //txt_canstat.setBackgroundColor(getResources().getColor(R.color.white));
+                                    } else {
                                         txt_canstat.setTextColor(Color.BLACK);
                                         txt_canstat.setText("NO DATA");
-                                        txt_canstat.setBackgroundColor(getResources().getColor(R.color.white));
+                                        //txt_canstat.setBackgroundColor(getResources().getColor(R.color.white));
                                     }
                                 }
                                 if (!Bluetooth_GNSS_Service.gpsIsConnected) {

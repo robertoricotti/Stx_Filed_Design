@@ -197,7 +197,7 @@
                 <action android:name="android.location.PROVIDERS_CHANGED" />
             </intent-filter>
         </receiver>
-        <receiver
+      <!--  <receiver
             android:name="activity_portrait.StartActivityOnBootReceiver"
             android:enabled="true"
             android:exported="true"
@@ -212,7 +212,7 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </receiver>
+        </receiver>-->
     </application>
 
 </manifest>

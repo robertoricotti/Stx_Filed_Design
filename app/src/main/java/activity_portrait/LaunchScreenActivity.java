@@ -233,9 +233,7 @@ public class LaunchScreenActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public void onBackPressed() {
-    }
+
 
 
 }

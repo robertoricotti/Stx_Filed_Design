@@ -215,10 +215,7 @@ public class BT_DevicesActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
 
-    }
 
     @Override
     protected void onDestroy() {

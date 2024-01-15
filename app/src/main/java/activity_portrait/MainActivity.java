@@ -85,8 +85,9 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("NewApi")
     private void onClick() {
         setCrs.setOnClickListener(view -> {
-            if (!myEpsgDialog.dialog.isShowing())
-                myEpsgDialog.show();
+
+            new CustomToast(this,"CRS must be selected when creating a project").show();
+
         });
 
         btn_units.setOnClickListener(view -> {
@@ -253,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        super.onBackPressed();
     }
 
     @Override

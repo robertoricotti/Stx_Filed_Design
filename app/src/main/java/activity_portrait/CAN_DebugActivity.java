@@ -41,7 +41,7 @@ public class CAN_DebugActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);
+        //EventBus.getDefault().register(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
@@ -65,7 +65,7 @@ public class CAN_DebugActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        EventBus.getDefault().unregister(this);
+        //EventBus.getDefault().unregister(this);
     }
     @Override
     protected void onDestroy() {

@@ -120,8 +120,5 @@ public class MchMeaureActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
 
-    }
 }

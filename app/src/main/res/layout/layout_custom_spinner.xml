@@ -7,7 +7,7 @@
     android:textSize="20sp"
     android:gravity="left"
     android:textStyle="normal"
-    android:textColor="@color/bg_stonex_blue"
+    android:textColor="@color/_____cancel_text"
     android:padding="5dip"
     android:background="@drawable/custom_background_light"
     />

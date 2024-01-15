@@ -127,7 +127,7 @@
                 android:layout_weight="1"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                app:srcCompat="@drawable/create_surf_btn"
+                app:srcCompat="@drawable/btn_stakeout"
                 app:tint="@color/_____cancel_text" />
 
 
@@ -163,7 +163,7 @@
                 android:layout_weight="1"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:text="On Grade"
+                android:text="Work"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="@color/_____cancel_text"

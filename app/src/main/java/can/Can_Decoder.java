@@ -102,7 +102,7 @@ public class Can_Decoder {
     public static void Physical_Can(int id, byte[] msg) {
 
             try {
-                String s=""+id+" DLC:"+msg.length+"  { "+Arrays.toString(msg)+" }";
+                String s="ID: 0x"+Integer.toHexString(id)+"  DLC:"+msg.length+"   { "+Arrays.toString(msg)+" }";
                 EventBus.getDefault().post(new CanEvents(s));
             } catch (Exception e) {
 

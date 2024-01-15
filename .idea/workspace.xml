@@ -9,22 +9,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f92bf50-0241-4f68-8acd-219dc0291d3c" name="Changes" comment="03.01 Dicembre">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/can/Stx_Field_Design.can.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/libs/cputils.v1.0.1.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/CAN_DebugActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eventbus/CanEvents.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/services_and_bluetooth/CanService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/baseline_pause_circle_filled_126.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/baseline_play_circle_filled_126.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/btn_pause.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/btn_play.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/can_bluetooth.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/custom_background_transp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_can_debug.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_custom_menu.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_custom_spinner.xml" afterDir="false" />
+    <list default="true" id="4f92bf50-0241-4f68-8acd-219dc0291d3c" name="Changes" comment="05.01 2024">
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" afterDir="false" />
@@ -33,25 +18,24 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/workspace-id.txt.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/workspace-id.txt.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/release/output-metadata.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/BT_DevicesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/BT_DevicesActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/CAN_DebugActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/CAN_DebugActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/LaunchScreenActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/LaunchScreenActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MchMeaureActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MchMeaureActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MyApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MyApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/can/Can_Decoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/can/Can_Decoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/dialogs/CloseAppDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/dialogs/CloseAppDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/dialogs/ConnectDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/dialogs/ConnectDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/services_and_bluetooth/AutoConnectionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/services_and_bluetooth/AutoConnectionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/services_and_bluetooth/DataSaved.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/services_and_bluetooth/DataSaved.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/services_and_bluetooth/UpdateValues.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/services_and_bluetooth/UpdateValues.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/btn_bluetooth_devices.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/btn_bluetooth_devices.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/btn_canconn.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/btn_canconn.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_menu_project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_menu_project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/btn_stakeout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/btn_stakeout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/imposta_coordinate_24.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_custom_spinner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_custom_spinner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/shared_layout_top.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/shared_layout_top.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +45,7 @@
   <component name="ClangdSettings">
     <option name="parameterInfoViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[108TS86383000001]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[9d9fcebf]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -95,32 +79,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ApkExportedModule": "Stx_Field_Design.app",
-    "ExportApk.ApkPathForStx_Field_Design.app": "D:\\Development\\Stx_Field_Design\\app",
-    "ResourceManagerPrefKey.ModuleName": "Stx_Field_Design.app.main",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "android-custom-viewC:/Users/rricotti/.gradle/caches/8.0/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.1.0/f2bdf79e1977939817f54a9d3e2f6bc52b63bdd0/recyclerview-1.1.0-sources.jar!/androidx/recyclerview/widget/RecyclerView.java_SELECTED": "RecyclerView",
-    "android-custom-viewD:/Development/Stx_Field_Design/app/src/main/java/project/UOM_Canvas.java_SELECTED": "UOM_Canvas",
-    "cidr.known.project.marker": "true",
-    "com.google.services.firebase.aqiPopupShown": "true",
-    "last_directory_selection": "D:/Development/Stx_Field_Design/app/src/main/res/drawable",
-    "last_opened_file_path": "D:/Development/Stx_Field_Design/app/src/main/res/drawable",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.17",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ApkExportedModule&quot;: &quot;Stx_Field_Design.app&quot;,
+    &quot;ExportApk.ApkPathForStx_Field_Design.app&quot;: &quot;D:\\Development\\Stx_Field_Design\\app&quot;,
+    &quot;ResourceManagerPrefKey.ModuleName&quot;: &quot;Stx_Field_Design.app.main&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
+    &quot;android-custom-viewC:/Users/rricotti/.gradle/caches/8.0/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.1.0/f2bdf79e1977939817f54a9d3e2f6bc52b63bdd0/recyclerview-1.1.0-sources.jar!/androidx/recyclerview/widget/RecyclerView.java_SELECTED&quot;: &quot;RecyclerView&quot;,
+    &quot;android-custom-viewD:/Development/Stx_Field_Design/app/src/main/java/project/UOM_Canvas.java_SELECTED&quot;: &quot;UOM_Canvas&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
+    &quot;last_directory_selection&quot;: &quot;D:/Development/Stx_Field_Design/app/src/main/res/drawable&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Development/Stx_Field_Design/app/src/main/res/drawable&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   },
-  "keyToStringList": {
-    "ExportApk.BuildVariants": [
-      "release"
+  &quot;keyToStringList&quot;: {
+    &quot;ExportApk.BuildVariants&quot;: [
+      &quot;release&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="PsdUISettings">
     <option name="MODULE_TAB" value="Default Config" />
     <option name="BUILD_VARIANTS_TAB" value="Build Types" />
@@ -441,7 +426,14 @@
       <option name="project" value="LOCAL" />
       <updated>1704291019639</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="05.01 2024">
+      <created>1704455061007</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1704455061007</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -465,6 +457,7 @@
     <MESSAGE value="12_Dicembre" />
     <MESSAGE value="19_Dicembre" />
     <MESSAGE value="03.01 Dicembre" />
-    <option name="LAST_COMMIT_MESSAGE" value="03.01 Dicembre" />
+    <MESSAGE value="05.01 2024" />
+    <option name="LAST_COMMIT_MESSAGE" value="05.01 2024" />
   </component>
 </project>
