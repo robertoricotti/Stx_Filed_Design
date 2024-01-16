@@ -1,5 +1,6 @@
 package activity_portrait;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -43,7 +44,7 @@ public class MenuProject extends AppCompatActivity {
     private void onClick(){
 
         plane.setOnClickListener((View v) -> {
-        new CustomToast(this,"Not Implemented").show();
+            new CustomToast(this,"Not Implemented").show();
         });
 
         ab.setOnClickListener((View v) -> {
@@ -53,7 +54,10 @@ public class MenuProject extends AppCompatActivity {
         });
 
         delaunay.setOnClickListener((View v) -> {
-            new CustomToast(this,"Not Implemented").show();
+            startActivity(new Intent(this, Create_1P.class));
+
+            finish();
+
         });
         path.setOnClickListener(view -> {
             new CustomToast(this,"Not Implemented").show();
@@ -72,6 +76,7 @@ public class MenuProject extends AppCompatActivity {
             pickProjectDialog.show();
     }
 
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {}
 

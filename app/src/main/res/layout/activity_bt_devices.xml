@@ -33,6 +33,26 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.666666" />
+    <LinearLayout
+        android:id="@+id/cbLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/topView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginVertical="5dp"
+        android:gravity="center_vertical"
+        android:visibility="gone">
+        <CheckBox
+            android:id="@+id/ck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="Use Internal GPS"/>
+
+
+    </LinearLayout>
     <TextView
         android:id="@+id/titlo"
         android:layout_width="match_parent"
@@ -43,7 +63,7 @@
         android:text="GNSS DEVICE LIST"
         android:background="@color/_____cancel_text"
         android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/topView"
+        app:layout_constraintTop_toBottomOf="@id/cbLayout"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/V1"
         />

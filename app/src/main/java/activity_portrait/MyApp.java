@@ -10,7 +10,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.icu.text.DecimalFormatSymbols;
-import android.opengl.Visibility;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -18,15 +17,11 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.cp.cputils.ApolloPro;
 import com.example.stx_field_design.R;
 import com.van.jni.VanCmd;
 
@@ -104,7 +99,6 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                 m_MainActivity(activity);//method to manage components in activity...see below
                 break;
             case "activity_portrait.UOM_Activity":
-
                 m_UOM_Activity(activity);
                 break;
             case "activity_portrait.ABProject":
@@ -144,6 +138,9 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                 break;
             case "activity_portrait.CAN_DebugActivity":
                 m_CAN_Debug_Activity(activity);
+                break;
+            case "activity_portrait.Create_1P":
+                m_Create_1P_Activity(activity);
                 break;
             case "activity_portrait.LaunchScreenActivity":
                 String b = Build.BRAND;
@@ -203,6 +200,21 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     public void onActivityDestroyed(@NonNull Activity activity) {
 
         m_updateUI(activity, false);
+    }
+    public void m_Create_1P_Activity(Activity activity) {
+        activity.setContentView(R.layout.activity_create1_p);//setta il layout di riferimento dell'activity
+        whoLaunch = activity;
+        m_updateUI(whoLaunch, true);
+        btn2.setVisibility(View.INVISIBLE);
+        btn3.setVisibility(View.INVISIBLE);
+        btn4.setVisibility(View.INVISIBLE);
+        btn1.setImageResource(R.drawable.btn_to_indietro);
+        btn5.setImageResource(R.drawable.btn_save);
+        btn1.setOnClickListener(view -> {
+            activity.startActivity(new Intent(activity, MenuProject.class));
+            activity.finish();
+        });
+
     }
 
     public void m_Antennas_Blade_Activity(Activity activity) {
@@ -320,7 +332,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
     public void m_ABProject(Activity activity) {
 
-        activity.setContentView(R.layout.ab_project);
+        activity.setContentView(R.layout.activity_ab_project);
         whoLaunch = activity;
         m_updateUI(whoLaunch, true);
         btn1.setImageResource(R.drawable.btn_to_indietro);
@@ -336,9 +348,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         btn2.setOnClickListener(view -> {
             ((ABProject) activity).metodoPick();
         });
-        btn3.setOnClickListener(view -> {
-            ((ABProject) activity).metodoCalcola();
-        });
+       btn3.setVisibility(View.INVISIBLE);
         btn4.setOnClickListener(view -> {
             ((ABProject) activity).metodoSave();
         });
@@ -527,7 +537,10 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             showCoord = !showCoord;
         });
         imgConnetti.setOnClickListener(view -> {
-            new ConnectDialog(activity, 1).show();
+            if(DataSaved.useDemo==0){
+            new ConnectDialog(activity, 1).show();}else {
+                new CustomToast(activity,"Internal GPS Selected").show();
+            }
         });
     }
 
@@ -564,7 +577,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                                 }
                                 txt1.setText(Nmea_In.ggaSat);
                                 txt2.setText(setQuality(Nmea_In.ggaQuality));
-                                txt3.setText(DataSaved.S_CRS);
+                                txt3.setText("UTM");
                                 txt4.setText(Nmea_In.ggaRtk);
                                 txt5.setText(Utils.readUnitOfMeasure(String.valueOf(DataSaved.D_AltezzaAnt), visibleActivity));
                                 if (showCoord) {

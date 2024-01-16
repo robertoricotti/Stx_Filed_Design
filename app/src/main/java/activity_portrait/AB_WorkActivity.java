@@ -87,6 +87,7 @@ public class AB_WorkActivity extends AppCompatActivity {
         zoomOut = findViewById(R.id.myZoomOut);
         surfaceStatus = findViewById(R.id.surfaceStatus);
         crs = findViewById(R.id.img_crs);
+        crs.setVisibility(View.INVISIBLE);
 
         lineID = findViewById(R.id.pickPoint);
         altitude = findViewById(R.id.quota);
@@ -317,7 +318,6 @@ public class AB_WorkActivity extends AppCompatActivity {
                         @Override
                         public void run() {
 
-
                             if (auto) {
                                 rotateLeft.setEnabled(false);
                                 rotateRight.setEnabled(false);
@@ -371,7 +371,7 @@ public class AB_WorkActivity extends AppCompatActivity {
                             }
 
                             surfaceOK.setText(dir+String.format("%.1f", delta) + " °");//freccia negativo gira sx
-                            crs.setText(dataProject.getEpsgCode());
+                            crs.setText("UTM");
 
 
                             surfaceStatus.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), Can_Decoder.auto == 1 ? R.color.pure_green : R.color.transparent));
@@ -447,6 +447,7 @@ public class AB_WorkActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
     }

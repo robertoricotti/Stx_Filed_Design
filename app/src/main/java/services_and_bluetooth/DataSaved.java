@@ -6,7 +6,7 @@ public class DataSaved {
     public static String S_macAddress_CAN;
     public static String S_can_name;
     public static String S_gpsname;
-    public static String S_CRS;
+    //public static String S_CRS;
     public static String S_nmea;
     public static String Actualactivity;
 
@@ -31,6 +31,7 @@ public class DataSaved {
     public static double offsetRoll;
     public static int useTilt;
     public static String deviceType;
+    public static int useDemo;
 
 
 

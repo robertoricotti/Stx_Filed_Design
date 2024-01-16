@@ -88,7 +88,7 @@ public class AutoConnectionService extends Service {
             public void onNmeaMessage(String message, long timestamp) {
 
                 androidNmea = message;
-                new Nmea_In(androidNmea);
+               // new Nmea_In(androidNmea);
                // Log.d("TEABLET_NMEA",Nmea_In.mLat_1+"  "+Nmea_In.mLon_1+" "+Nmea_In.ggaSat+" "+Nmea_In.ggaDop);
                 // Ora puoi gestire la stringa NMEA come necessario
             }
@@ -137,11 +137,11 @@ public class AutoConnectionService extends Service {
         }
 
         try {
-        /*    timer_6000.cancel();
+            timer_6000.cancel();
             timer_6000 = null;
 
             timertask_6000.cancel();
-            timertask_6000 = null;*/
+            timertask_6000 = null;
 
             timer_100.cancel();
             timer_100 = null;
@@ -161,7 +161,7 @@ public class AutoConnectionService extends Service {
         @Override
         public void run() {
 
-       /*     timer_6000 = new Timer();
+          timer_6000 = new Timer();
             timertask_6000 = new TimerTask() {
                 @Override
                 public void run() {
@@ -170,45 +170,19 @@ public class AutoConnectionService extends Service {
                         LocationUtils.requestLocationSettings(MyApp.visibleActivity);
                     }
 
-                    countG++;
-                    countCan++;
-                    if (!Bluetooth_GNSS_Service.gpsIsConnected && DataSaved.S_macAddres != null && (countG % 2 == 0) && countG <= 10) {
+                    if (DataSaved.useDemo==1) {
 
-                        try {
-                            if (!DataSaved.S_macAddres.equals("00:00:00:00:00:00")) {
-                                startService(new Intent(AutoConnectionService.this, Bluetooth_GNSS_Service.class));
+                        //Bluetooth_GNSS_Service.sendGNSSata("Sample Message\r\n"); //Usare questo codice per scrivere su seriale da bluetooth
+                        new Nmea_In(androidNmea);
 
-                            }
-                        } catch (Exception e) {
-                            //do nothing
-                        }
 
                     }
-                    if (Bluetooth_GNSS_Service.gpsIsConnected) {
-                        countG = 0;
-                    }
 
-                    if (!Bluetooth_CAN_Service.canIsConnected && DataSaved.S_macAddress_CAN != null && (countCan % 2 != 0) && countCan <= 10) {
-
-                        try {
-                            if (!DataSaved.S_macAddress_CAN.equals("00:00:00:00:00:00")) {
-                                startService(new Intent(AutoConnectionService.this, Bluetooth_CAN_Service.class));
-
-                            }
-                        } catch (
-                                Exception e) {
-                            //do nothing
-                        }
-
-                    }
-                    if (Bluetooth_CAN_Service.canIsConnected) {
-                        countCan = 0;
-                    }
 
                 }
             };
 
-            timer_6000.scheduleAtFixedRate(timertask_6000, 3000, 3000);*/
+            timer_6000.scheduleAtFixedRate(timertask_6000, 2000, 3000);
 
             timer_100 = new Timer();
 
@@ -217,13 +191,7 @@ public class AutoConnectionService extends Service {
                     TimerTask() {
                         @Override
                         public void run() {
-                            if (!Bluetooth_GNSS_Service.gpsIsConnected) {
 
-                                //Bluetooth_GNSS_Service.sendGNSSata("Sample Message\r\n"); //Usare questo codice per scrivere su seriale da bluetooth
-                                new Nmea_In(androidNmea);
-
-
-                            }
 
 
                             if (Bluetooth_CAN_Service.canIsConnected) {

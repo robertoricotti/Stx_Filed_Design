@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true"
+    tools:context="activity_portrait.Create_1P">
+    <include layout="@layout/shared_layout_low"
+        android:id="@+id/lowerView"/>
+    <include layout="@layout/shared_layout_top"
+        android:id="@+id/topView"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/topView"
+        app:layout_constraintBottom_toTopOf="@id/lowerView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:orientation="vertical">
+        <TextView
+            android:gravity="center"
+            android:background="@color/_____cancel_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/bg_alibuybutton_states"
+            android:text="FLAT SURFACE\nTOOL POSITION"/>
+        <TextView
+            android:id="@+id/p_coord_est"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="E: 000.000"/>
+        <TextView
+            android:id="@+id/p_coord_nord"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="N: 000.000"/>
+        <TextView
+            android:id="@+id/p_coord_z"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="Z: 000.000"/>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

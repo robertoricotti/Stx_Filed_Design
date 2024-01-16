@@ -18,10 +18,11 @@ public class Nmea_In {
     CalculateXor8 calculateXor8;
     String myNmea;
     String mNmea1, mNmea2;
-    private double lat1,lon1,tempq;
-
-    public static String VRMS_, HRMS_,CQ_Tot;
-    public static double Nord1, Est1, Quota1, mLat_1, mLon_1, mSpeed_rmc, mBearing_rmc, tractorBearing,Crs_Nord,Crs_Est,mch_Hdt;
+    private double lat1, lon1, tempq;
+    public static int Zone;
+    public static char Band;
+    public static String VRMS_, HRMS_, CQ_Tot;
+    public static double Nord1, Est1, Quota1, mLat_1, mLon_1, mSpeed_rmc, mBearing_rmc, tractorBearing, Crs_Nord, Crs_Est, mch_Hdt;
     public static String ggaNord, ggaEast, ggaNoS, ggaWoE, ggaZ1, ggaZ2, ggaSat, ggaDop, ggaQuality, ggaRtk;//String data from  GPS1
 
 
@@ -74,23 +75,30 @@ public class Nmea_In {
                             }
                             tempq = Double.parseDouble(ggaZ1.replace(",", ".")) + Double.parseDouble(ggaZ2.replace(",", "."));
                             Quota1 = tempq - DataSaved.D_AltezzaAnt;
-                            if(DataSaved.useTilt==0) {
-                                mLat_1=lat1;
-                                mLon_1=lon1;
-                                UpdateValues.wgsToUtm.transform(new ProjCoordinate(lon1, lat1), UpdateValues.result);
-                                Crs_Est = UpdateValues.result.x;
-                                Crs_Nord = UpdateValues.result.y;
+                            if (DataSaved.useTilt == 0) {
+                                mLat_1 = lat1;
+                                mLon_1 = lon1;
+                                Deg2UTM deg2UTM = new Deg2UTM(lat1, lon1);
+                                Crs_Est = deg2UTM.getEasting();//UpdateValues.result.x;
+                                Crs_Nord = deg2UTM.getNorthing(); //UpdateValues.result.y;
+                                Band =deg2UTM.getLetter();
+                                Zone = deg2UTM.getZone();
 
-                            }
-                            else if(DataSaved.useTilt==1){
-                                UpdateValues.wgsToUtm.transform(new ProjCoordinate(lon1, lat1), UpdateValues.result);
-                                double []end=Exca_Quaternion.endPoint(new double[]{UpdateValues.result.x,UpdateValues.result.y,tempq},Can_Decoder.correctPitch-90,Can_Decoder.correctRoll,DataSaved.D_AltezzaAnt,tractorBearing);
+                            } else if (DataSaved.useTilt == 1) {
+
+                                double x = new Deg2UTM(lat1, lon1).Easting;
+                                double y = new Deg2UTM(lat1, lon1).Northing;
+                                char band = new Deg2UTM(lat1, lon1).Letter;
+                                int zone = new Deg2UTM(lat1, lon1).Zone;
+                                double[] end = Exca_Quaternion.endPoint(new double[]{x, y, tempq}, Can_Decoder.correctPitch - 90, Can_Decoder.correctRoll, DataSaved.D_AltezzaAnt, tractorBearing);
                                 Crs_Est = end[0];
                                 Crs_Nord = end[1];
-                                Quota1=end[2];
-                              double []latlon=CoordsConverter.transformIntoWGS84(DataSaved.S_CRS,end[0],end[1]);
-                                mLon_1=latlon[1];
-                                mLat_1=latlon[0];
+                                Quota1 = end[2];
+                                double[] latlon = new UTM2Deg(zone, band, x, y).getLatLon(); //CoordsConverter.transformIntoWGS84(DataSaved.S_CRS,end[0],end[1]);
+                                mLon_1 = latlon[1];
+                                mLat_1 = latlon[0];
+                                Band = new Deg2UTM(mLat_1, mLon_1).getLetter();
+                                Zone = new Deg2UTM(mLat_1, mLon_1).getZone();
 
 
                             }
@@ -124,12 +132,12 @@ public class Nmea_In {
                             String HgtCQ = NmeaInput[8].substring(0, NmeaInput[8].indexOf("*"));
                             VRMS_ = String.format("%.3f", Float.parseFloat(HgtCQ));
                             HRMS_ = String.format("%.3f", 2 * Math.sqrt(0.5 * ((Math.pow(Double.parseDouble(LatCQ), 2) + Math.pow(Double.parseDouble(LonCQ), 2)) / 2)));
-                            CQ_Tot= String.format("%.3f",Math.abs(Double.parseDouble(VRMS_)+Double.parseDouble(HRMS_)/2));
+                            CQ_Tot = String.format("%.3f", Math.abs(Double.parseDouble(VRMS_) + Double.parseDouble(HRMS_) / 2));
                             break;
                         } catch (Exception e) {
                             VRMS_ = "_";
                             HRMS_ = "_";
-                            CQ_Tot="_";
+                            CQ_Tot = "_";
 
                         }
                     case "$GPRMC":
@@ -150,12 +158,12 @@ public class Nmea_In {
 
             if (DataSaved.useRmc == 0) {
                 tractorBearing = MachineBearing_from_RMC.machineBearing(mBearing_rmc, mSpeed_rmc, DataSaved.rmcSize);
-            }else if(DataSaved.useRmc==1){
+            } else if (DataSaved.useRmc == 1) {
 
-                MachineBearing_from_POSITIONS.onLocationUpdate(mLat_1,mLon_1,DataSaved.rmcSize);
-               tractorBearing= MachineBearing_from_POSITIONS.getAverageBearing();
-            }else if(DataSaved.useRmc==2){
-                tractorBearing=mch_Hdt;
+                MachineBearing_from_POSITIONS.onLocationUpdate(mLat_1, mLon_1, DataSaved.rmcSize);
+                tractorBearing = MachineBearing_from_POSITIONS.getAverageBearing();
+            } else if (DataSaved.useRmc == 2) {
+                tractorBearing = mch_Hdt;
             }
 
         } catch (Exception e) {

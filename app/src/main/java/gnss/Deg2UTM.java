@@ -84,4 +84,8 @@ public class Deg2UTM
     public char getLetter() {
         return Letter;
     }
+
+    public double[] getXY(){
+        return new double[]{Easting,Northing};
+    }
 }

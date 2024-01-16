@@ -1,5 +1,8 @@
 package coords_calc;
 
+import gnss.Deg2UTM;
+import gnss.UTM2Deg;
+
 public class GPS {
 
     private double x;
@@ -8,8 +11,8 @@ public class GPS {
     private double longitude;
     private double z;
 
-    public GPS(String epsg, double x, double y, double z) {
-        double[] res = CoordsConverter.transformIntoWGS84(epsg, x, y);
+    public GPS(String epsg, double x, double y, double z,char band,int zone) {
+        double[] res = new UTM2Deg(zone,band,x,y).getLatLon();//CoordsConverter.transformIntoWGS84(epsg, x, y);
         this.x = x;
         this.y = y;
         this.latitude = res[0];
@@ -18,7 +21,7 @@ public class GPS {
     }
 
     public GPS(double latitude, double longitude, double z, String epsg) {
-        double[] res = CoordsConverter.transformIntoCRS(epsg, latitude, longitude);
+        double[] res = new Deg2UTM(latitude,longitude).getXY();//CoordsConverter.transformIntoCRS(epsg, latitude, longitude);
         this.latitude = latitude;
         this.longitude = longitude;
         this.x = res[0];

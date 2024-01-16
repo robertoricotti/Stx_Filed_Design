@@ -65,7 +65,7 @@ public class MyEpsgDialog {
                 strEpsg = String.valueOf(MyEpsgNumber.class.getField(selectedFromList).getInt(selectedFromList));
                 DataProjectSingleton dataProject = DataProjectSingleton.getInstance();
                 dataProject.clearData();
-                dataProject.setEpsgCode(strEpsg,activity);
+                //dataProject.setEpsgCode(strEpsg,activity);
                 dialog.dismiss();
             }
             catch (Exception ignored) {}

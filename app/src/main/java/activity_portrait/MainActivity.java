@@ -86,7 +86,8 @@ public class MainActivity extends AppCompatActivity {
     private void onClick() {
         setCrs.setOnClickListener(view -> {
 
-            new CustomToast(this,"CRS must be selected when creating a project").show();
+            //new CustomToast(this,"CRS must be selected when creating a project").show();
+            new CustomToast(this,"UTM").show();
 
         });
 

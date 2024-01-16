@@ -68,7 +68,7 @@ public class UpdateValues extends Service {
             String gpsname = myRW_intMem.MyRead("_gpsname", UpdateValues.this);
             String macaddresscan = myRW_intMem.MyRead("_macaddress_can", UpdateValues.this);
             String canname = myRW_intMem.MyRead("_canname", UpdateValues.this);
-            String crs = myRW_intMem.MyRead("_crs", UpdateValues.this);
+            //String crs = myRW_intMem.MyRead("_crs", UpdateValues.this);
             String altezzaAnt=myRW_intMem.MyRead("_altezzaantenna",UpdateValues.this);
             String offsetA=myRW_intMem.MyRead("_offset",UpdateValues.this);
             String leftEdge=myRW_intMem.MyRead("_leftedge",UpdateValues.this);
@@ -92,6 +92,7 @@ public class UpdateValues extends Service {
             String imgMode=myRW_intMem.MyRead("imgMode", UpdateValues.this);
             String display=myRW_intMem.MyRead("display", UpdateValues.this);
             String pselect=myRW_intMem.MyRead("_pointselected", UpdateValues.this);
+            String usedemo=myRW_intMem.MyRead("_usedemo", UpdateValues.this);
             if(deviceType==null){
                 myRW_intMem.MyWrite("_deviceType","RUGSTORM",UpdateValues.this);
             }
@@ -109,9 +110,9 @@ public class UpdateValues extends Service {
                 myRW_intMem.MyWrite("_canname","UNKNOWN",UpdateValues.this);
             }
 
-            if(crs==null){
+           /* if(crs==null){
                 myRW_intMem.MyWrite("_crs","3004",UpdateValues.this);
-            }
+            }*/
             if(altezzaAnt==null){
                 myRW_intMem.MyWrite("_altezzaantenna","2",UpdateValues.this);
             }
@@ -181,13 +182,16 @@ public class UpdateValues extends Service {
             if(pselect==null){
                 myRW_intMem.MyWrite("_pointselected","AB Line",UpdateValues.this);
             }
+            if(usedemo==null){
+                myRW_intMem.MyWrite("_usedemo","0",UpdateValues.this);
+            }
 
 
             DataSaved.S_macAddres=myRW_intMem.MyRead("_macaddress",UpdateValues.this);
             DataSaved.S_gpsname=myRW_intMem.MyRead("_gpsname",UpdateValues.this);
             DataSaved.S_macAddress_CAN=myRW_intMem.MyRead("_macaddress_can",UpdateValues.this);
             DataSaved.S_can_name=myRW_intMem.MyRead("_canname",UpdateValues.this);
-            DataSaved.S_CRS=myRW_intMem.MyRead("_crs",UpdateValues.this);
+            //DataSaved.S_CRS=myRW_intMem.MyRead("_crs",UpdateValues.this);
             DataSaved.D_AltezzaAnt=Double.parseDouble(myRW_intMem.MyRead("_altezzaantenna",UpdateValues.this).replace(",","."));
             DataSaved.D_Offset=Double.parseDouble(myRW_intMem.MyRead("_offset",UpdateValues.this).replace(",","."));
             DataSaved.D_Leftedge=Double.parseDouble(myRW_intMem.MyRead("_leftedge",UpdateValues.this).replace(",","."));
@@ -207,9 +211,10 @@ public class UpdateValues extends Service {
             DataSaved.S_projectName=myRW_intMem.MyRead("projectName",UpdateValues.this);
             DataSaved.imgMode=Integer.parseInt(myRW_intMem.MyRead("imgMode",UpdateValues.this));
             DataSaved.DisplayOrient=Integer.parseInt(myRW_intMem.MyRead("display",UpdateValues.this));
+            DataSaved.useDemo=Integer.parseInt(myRW_intMem.MyRead("_usedemo",UpdateValues.this));
 
 
-            try {
+          /*  try {
                 WGS84 = crsFactory.createFromName("epsg:" +"4326");
                 try {
                     UTM = crsFactory.createFromName("epsg:" +  DataSaved.S_CRS);
@@ -229,7 +234,7 @@ public class UpdateValues extends Service {
 
             } catch (Exception e) {
 
-            }
+            }*/
 
             stopSelf();
         }

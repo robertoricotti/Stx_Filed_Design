@@ -225,8 +225,8 @@ public class ABProject extends AppCompatActivity {
 
 
         imgCrs.setOnClickListener((View v) -> {
-            if (!myEpsgDialog.dialog.isShowing())
-                myEpsgDialog.show();
+          /*  if (!myEpsgDialog.dialog.isShowing())
+                myEpsgDialog.show();*/
         });
 
         center.setOnClickListener((View v) -> {
@@ -275,8 +275,8 @@ public class ABProject extends AppCompatActivity {
 
             }
 
-            crs.setText(dataProject.getEpsgCode() != null ? dataProject.getEpsgCode() : DataSaved.S_CRS);
 
+            crs.setText("UTM");
 
             canvas.invalidate();
 
@@ -302,15 +302,15 @@ public class ABProject extends AppCompatActivity {
 
     public void metodoSave() {
         progressBar.setVisibility(View.VISIBLE);
-        (new Handler()).postDelayed(this:: calcZ, 500);
-        (new Handler()).postDelayed(this:: calc2, 100);
-        (new Handler()).postDelayed(this:: calc3, 100);
-        (new Handler()).postDelayed(this:: calc4, 100);
-        (new Handler()).postDelayed(this:: calc5, 100);
-        (new Handler()).postDelayed(this:: calc6, 100);
-        (new Handler()).postDelayed(this:: calc7, 100);
-        (new Handler()).postDelayed(this:: updateAll, 100);
-        (new Handler()).postDelayed(this:: salvatutto, 100);
+        (new Handler()).postDelayed(this::calcZ, 500);
+        (new Handler()).postDelayed(this::calc2, 100);
+        (new Handler()).postDelayed(this::calc3, 100);
+        (new Handler()).postDelayed(this::calc4, 100);
+        (new Handler()).postDelayed(this::calc5, 100);
+        (new Handler()).postDelayed(this::calc6, 100);
+        (new Handler()).postDelayed(this::calc7, 100);
+        (new Handler()).postDelayed(this::updateAll, 100);
+        (new Handler()).postDelayed(this::salvatutto, 100);
 
     }
 
@@ -333,17 +333,17 @@ public class ABProject extends AppCompatActivity {
 
         pickIndex++;
 
-        dataProject.setEpsgCode(DataSaved.S_CRS, ABProject.this);
+
 
 
         if (dataProject.getSize() == 0 && pickIndex == 1) {
-            GPS gps = new GPS(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1, DataSaved.S_CRS);
+            GPS gps = new GPS(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1, null);
             dataProject.addCoordinate("A", gps);
 
         }
 
         if (dataProject.getSize() == 1 && pickIndex == 2) {
-            GPS gps = new GPS(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1, DataSaved.S_CRS);
+            GPS gps = new GPS(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1, null);
             dataProject.addCoordinate("B", gps);
 
             GPS a = dataProject.getPoints().get("A");
@@ -374,10 +374,10 @@ public class ABProject extends AppCompatActivity {
 
             double[] f = new EasyPointCalculator(new double[]{a.getX(), a.getY(), a.getZ()}).calculateEndPoint(dataProject.getLtSlope(), orLeft, dataProject.getLtLength());
 
-            dataProject.addCoordinate("C", new GPS(dataProject.getEpsgCode(), c[0], c[1], c[2]));
-            dataProject.addCoordinate("D", new GPS(dataProject.getEpsgCode(), d[0], d[1], d[2]));
-            dataProject.addCoordinate("E", new GPS(dataProject.getEpsgCode(), e[0], e[1], e[2]));
-            dataProject.addCoordinate("F", new GPS(dataProject.getEpsgCode(), f[0], f[1], f[2]));
+            dataProject.addCoordinate("C", new GPS(null, c[0], c[1], c[2],Nmea_In.Band,Nmea_In.Zone));
+            dataProject.addCoordinate("D", new GPS(null, d[0], d[1], d[2],Nmea_In.Band,Nmea_In.Zone));
+            dataProject.addCoordinate("E", new GPS(null, e[0], e[1], e[2],Nmea_In.Band,Nmea_In.Zone));
+            dataProject.addCoordinate("F", new GPS(null, f[0], f[1], f[2],Nmea_In.Band,Nmea_In.Zone));
             dataProject.setzB(b.getZ());
             dataProject.setSlopeAB(slopeAB);
 
@@ -406,7 +406,7 @@ public class ABProject extends AppCompatActivity {
         if (dataProject.getSize() >= 2) {
             GPS myA = dataProject.getPoints().get("A");//coordinate misurate di A
             GPS myB = dataProject.getPoints().get("B");//coordinate misurate di B
-            dataProject.updateCoordinate("B", new GPS(DataSaved.S_CRS, myB.getX(), myB.getY(), dataProject.getzB()));
+            dataProject.updateCoordinate("B", new GPS(null, myB.getX(), myB.getY(), dataProject.getzB(),Nmea_In.Band,Nmea_In.Zone));
             GPS my_new_B = dataProject.getPoints().get("B");//coordinate misurate di B
             double ab = new DistToPoint(myA.getX(), myA.getY(), myA.getZ(), my_new_B.getX(), my_new_B.getY(), my_new_B.getZ()).getDist_to_point();
             dataProject.setDistanceAB(ab);
@@ -431,7 +431,7 @@ public class ABProject extends AppCompatActivity {
             GPS myA = dataProject.getPoints().get("A");//coordinate misurate di A
             GPS myB = dataProject.getPoints().get("B");//coordinate misurate di B
             double[] np = new EasyPointCalculator(new double[]{myA.getX(), myA.getY(), myA.getZ()}).calculateEndPoint(dataProject.getSlopeAB(), dataProject.abOrient(), d);
-            dataProject.updateCoordinate("B", new GPS(DataSaved.S_CRS, np[0], np[1], np[2]));
+            dataProject.updateCoordinate("B", new GPS(null, np[0], np[1], np[2],Nmea_In.Band,Nmea_In.Zone));
             updateAll();
 
         }
@@ -451,7 +451,7 @@ public class ABProject extends AppCompatActivity {
             GPS myA = dataProject.getPoints().get("A");//coordinate misurate di A
             GPS myB = dataProject.getPoints().get("B");//coordinate misurate di B
             double[] np = new EasyPointCalculator(new double[]{myA.getX(), myA.getY(), myA.getZ()}).calculateEndPoint(dataProject.getSlopeAB(), dataProject.abOrient(), dataProject.getDistanceAB());
-            dataProject.updateCoordinate("B", new GPS(DataSaved.S_CRS, np[0], np[1], np[2]));
+            dataProject.updateCoordinate("B", new GPS(null, np[0], np[1], np[2],Nmea_In.Band,Nmea_In.Zone));
             updateAll();
 
         }
@@ -538,8 +538,8 @@ public class ABProject extends AppCompatActivity {
 
             double[] e = new EasyPointCalculator(new double[]{b.getX(), b.getY(), b.getZ()}).calculateEndPoint(dataProject.getLtSlope(), orLeft, dataProject.getLtLength());
             double[] f = new EasyPointCalculator(new double[]{a.getX(), a.getY(), a.getZ()}).calculateEndPoint(dataProject.getLtSlope(), orLeft, dataProject.getLtLength());
-            dataProject.updateCoordinate("E", new GPS(dataProject.getEpsgCode(), e[0], e[1], e[2]));
-            dataProject.updateCoordinate("F", new GPS(dataProject.getEpsgCode(), f[0], f[1], f[2]));
+            dataProject.updateCoordinate("E", new GPS(null, e[0], e[1], e[2],Nmea_In.Band,Nmea_In.Zone));
+            dataProject.updateCoordinate("F", new GPS(null, f[0], f[1], f[2],Nmea_In.Band,Nmea_In.Zone));
         }
 
 
@@ -569,8 +569,8 @@ public class ABProject extends AppCompatActivity {
 
             double[] c = new EasyPointCalculator(new double[]{b.getX(), b.getY(), b.getZ()}).calculateEndPoint(dataProject.getRtSlope(), orRight, dataProject.getRtLength());
             double[] d = new EasyPointCalculator(new double[]{a.getX(), a.getY(), a.getZ()}).calculateEndPoint(dataProject.getRtSlope(), orRight, dataProject.getRtLength());
-            dataProject.updateCoordinate("C", new GPS(dataProject.getEpsgCode(), c[0], c[1], c[2]));
-            dataProject.updateCoordinate("D", new GPS(dataProject.getEpsgCode(), d[0], d[1], d[2]));
+            dataProject.updateCoordinate("C", new GPS(null, c[0], c[1], c[2],Nmea_In.Band,Nmea_In.Zone));
+            dataProject.updateCoordinate("D", new GPS(null, d[0], d[1], d[2],Nmea_In.Band,Nmea_In.Zone));
         }
     }
 

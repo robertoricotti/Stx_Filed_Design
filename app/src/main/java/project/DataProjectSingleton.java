@@ -21,6 +21,7 @@ import coords_calc.CoordsConverter;
 import coords_calc.GPS;
 import dialogs.CustomToast;
 import gnss.My_LocationCalc;
+import gnss.Nmea_In;
 import services_and_bluetooth.DataSaved;
 import services_and_bluetooth.UpdateValues;
 import utils.MyRW_IntMem;
@@ -98,7 +99,7 @@ public class DataProjectSingleton {
 
         this.epsgCode = epsgCode;
         new MyRW_IntMem().MyWrite("_crs", epsgCode.toString(), context);
-        DataSaved.S_CRS = epsgCode;
+        //DataSaved.S_CRS = epsgCode;
 
 
         Pattern pattern = Pattern.compile("\\+units=([^,\\s]+)");
@@ -230,9 +231,9 @@ public class DataProjectSingleton {
         this.projectName = projectName;
     }
 
-    public String getEpsgCode() {
+   /* public String getEpsgCode() {
         return epsgCode;
-    }
+    }*/
     public String getProjectTag(){return projectTag;}
 
     public double getzB() {
@@ -317,13 +318,13 @@ public class DataProjectSingleton {
             this.projectTag=info[3];
 
 
-            new MyRW_IntMem().MyWrite("_crs", this.epsgCode, MyApp.visibleActivity);
+            //new MyRW_IntMem().MyWrite("_crs", this.epsgCode, MyApp.visibleActivity);
             MyApp.visibleActivity.startService(new Intent(MyApp.visibleActivity, UpdateValues.class));
             String[] row;
 
             while ((row = reader.readNext()) != null) {
                 String id = row[0];
-                addCoordinate(id, new GPS(info[1], Double.parseDouble(row[1]), Double.parseDouble(row[2]), Double.parseDouble(row[3])));
+                addCoordinate(id, new GPS(null, Double.parseDouble(row[1]), Double.parseDouble(row[2]), Double.parseDouble(row[3]), Nmea_In.Band,Nmea_In.Zone));
             }
             return true;
 
@@ -343,7 +344,7 @@ public class DataProjectSingleton {
 
             CSVWriter writer = new CSVWriter(new FileWriter(f));
 
-            String[] info = {fileName, epsgCode, String.valueOf(getSize()),tag};//TAG in last pos
+            String[] info = {fileName.replace(".pstx", ""), "UTM", String.valueOf(getSize()),tag};//TAG in last pos
             //PLAN "P"
             //AB "P"
             //TRIANGLES "PE"  "P"

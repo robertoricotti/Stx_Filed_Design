@@ -79,7 +79,7 @@
                 android:id="@+id/textView8"
                 android:layout_width="120dp"
                 android:layout_height="60dp"
-                android:text="Surfae From\nA>>B"
+                android:text="Surface From\nA>>B"
                 android:gravity="center|top"
                 android:textColor="@color/_____cancel_text"
                 android:textSize="16sp"

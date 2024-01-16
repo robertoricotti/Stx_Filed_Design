@@ -31,7 +31,7 @@ public class CoordsGNSSInfo {
         coordsList = new ArrayList<>();
         DataProjectSingleton dataProject = DataProjectSingleton.getInstance();
         for (Map.Entry<String, GPS> entry : dataProject.getPoints().entrySet()) {
-            String id = "ID: " + entry.getKey() + "    CRS: "+dataProject.getEpsgCode()+"\n";
+            String id = "ID: " + entry.getKey() + "    CRS: "+"UTM"+"\n";
             String x = "X: " + entry.getValue().getX() + "\n";
             String y = "Y: " + entry.getValue().getY() + "\n";
             String z = "Z: " + entry.getValue().getZ();

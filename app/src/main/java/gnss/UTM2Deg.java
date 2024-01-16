@@ -32,5 +32,8 @@ double latitude,longitude;
     public double getLongitude() {
         return longitude;
     }
+    public double [] getLatLon(){
+            return new double[]{latitude,longitude};
+    }
 }
 

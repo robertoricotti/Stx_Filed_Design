@@ -10,10 +10,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,13 +36,14 @@ import services_and_bluetooth.UpdateValues;
 import utils.MyRW_IntMem;
 
 public class BT_DevicesActivity extends AppCompatActivity {
-    ImageView  btn_search, btn_stop, img_cbt;
+    ImageView btn_search, btn_stop, img_cbt;
     TextView titolo;
 
     public static String flag = "";
     int who;
 
-
+    LinearLayout cbLayout;
+    CheckBox checkBox;
     private BluetoothAdapter bluetoothAdapter;
     private List<BluetoothDeviceInfo> deviceList;
     private ListView deviceListView;
@@ -69,6 +73,8 @@ public class BT_DevicesActivity extends AppCompatActivity {
         btn_stop = findViewById(R.id.img2);
         titolo = findViewById(R.id.titlo);
         img_cbt = findViewById(R.id.img3);
+        cbLayout=findViewById(R.id.cbLayout);
+        checkBox=findViewById(R.id.ck);
 
         // Inizializza l'adattatore Bluetooth
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -88,22 +94,40 @@ public class BT_DevicesActivity extends AppCompatActivity {
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         registerReceiver(bluetoothReceiver, filter);
 
-        if(flag.contains("GPS")){who=1;
-            titolo.setText(flag+" PAIRED DEVICE\n"+ DataSaved.S_gpsname+"   "+DataSaved.S_macAddres);
-        }else if(flag.contains("CAN")){who=2;
-            titolo.setText(flag+" PAIRED DEVICE\n"+ DataSaved.S_can_name+"   "+DataSaved.S_macAddress_CAN);}
+        if (flag.contains("GPS")) {
+            cbLayout.setVisibility(View.VISIBLE);
+            if(DataSaved.useDemo>0){
+                checkBox.setChecked(true);
+            }else {
+                checkBox.setChecked(false);
+            }
+            who = 1;
+            titolo.setText(flag + " PAIRED DEVICE\n" + DataSaved.S_gpsname + "   " + DataSaved.S_macAddres);
+        } else if (flag.contains("CAN")) {
+            cbLayout.setVisibility(View.GONE);
+            who = 2;
+            titolo.setText(flag + " PAIRED DEVICE\n" + DataSaved.S_can_name + "   " + DataSaved.S_macAddress_CAN);
+        }
 
     }
 
     private void onClick() {
+        checkBox.setOnClickListener(view -> {
+            if(checkBox.isChecked()){
+                DataSaved.useDemo=1;
+            }else {
+                DataSaved.useDemo=0;
+            }
+            new MyRW_IntMem().MyWrite("_usedemo",String.valueOf(DataSaved.useDemo),BT_DevicesActivity.this);
+        });
 
         img_cbt.setOnClickListener(view -> {
-            new ConnectDialog(this,who).show();
+            new ConnectDialog(this, who).show();
         });
 
         btn_search.setOnClickListener(view -> {
 
-            new CustomToast(BT_DevicesActivity.this, flag+" SEARCH STARTED...").show();
+            new CustomToast(BT_DevicesActivity.this, flag + " SEARCH STARTED...").show();
             searchDevices();
         });
         btn_stop.setOnClickListener(view -> {
@@ -140,7 +164,7 @@ public class BT_DevicesActivity extends AppCompatActivity {
         boolean pairingStarted = device.createBond();
         if (pairingStarted) {
 
-            new CustomToast(BT_DevicesActivity.this, flag+ " PAIRING PROCESS STARTED WITH: " + device.getName()).show();
+            new CustomToast(BT_DevicesActivity.this, flag + " PAIRING PROCESS STARTED WITH: " + device.getName()).show();
         } else {
             new CustomToast(BT_DevicesActivity.this, flag + " MACADDRESS SAVED: " + device.getName()).show();
         }
@@ -216,22 +240,22 @@ public class BT_DevicesActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         try {
             startService(new Intent(this, AutoConnectionService.class));
             startService(new Intent(this, Bluetooth_GNSS_Service.class));
-            if(DataSaved.deviceType.equals("SRT8PROS")||DataSaved.deviceType.equals("SRT7PROS")){
+            if (DataSaved.deviceType.equals("SRT8PROS") || DataSaved.deviceType.equals("SRT7PROS")) {
 
-            }else {
-                startService(new Intent(this, Bluetooth_CAN_Service.class));}
+            } else {
+                startService(new Intent(this, Bluetooth_CAN_Service.class));
+            }
 
         } catch (Exception e) {
             System.out.println(e.toString());
         }
         unregisterReceiver(bluetoothReceiver);
-        flag="";
+        flag = "";
     }
 }

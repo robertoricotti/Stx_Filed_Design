@@ -66,7 +66,12 @@
         android:theme="@style/Theme.Stx_Field_Design"
         tools:ignore="RtlEnabled"
         tools:targetApi="31">
-
+        <activity
+            android:name="activity_portrait.Create_1P"
+            android:autoRemoveFromRecents="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="locked"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
         <service
             android:name="services_and_bluetooth.CanService"
@@ -197,22 +202,6 @@
                 <action android:name="android.location.PROVIDERS_CHANGED" />
             </intent-filter>
         </receiver>
-      <!--  <receiver
-            android:name="activity_portrait.StartActivityOnBootReceiver"
-            android:enabled="true"
-            android:exported="true"
-            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
-            <intent-filter android:priority="100">
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </receiver>-->
     </application>
 
 </manifest>
