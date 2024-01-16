@@ -25,6 +25,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import activity_portrait.LaunchScreenActivity;
+import activity_portrait.MainActivity;
 import utils.MyRW_IntMem;
 
 public class UpdateValues extends Service {
@@ -188,10 +190,15 @@ public class UpdateValues extends Service {
 
 
             DataSaved.S_macAddres=myRW_intMem.MyRead("_macaddress",UpdateValues.this);
+            if(!Bluetooth_GNSS_Service.gpsIsConnected){
+                startService(new Intent(UpdateValues.this, Bluetooth_GNSS_Service.class));
+            }
             DataSaved.S_gpsname=myRW_intMem.MyRead("_gpsname",UpdateValues.this);
             DataSaved.S_macAddress_CAN=myRW_intMem.MyRead("_macaddress_can",UpdateValues.this);
+            if(!Bluetooth_CAN_Service.canIsConnected){
+                startService(new Intent(UpdateValues.this, Bluetooth_CAN_Service.class));
+            }
             DataSaved.S_can_name=myRW_intMem.MyRead("_canname",UpdateValues.this);
-            //DataSaved.S_CRS=myRW_intMem.MyRead("_crs",UpdateValues.this);
             DataSaved.D_AltezzaAnt=Double.parseDouble(myRW_intMem.MyRead("_altezzaantenna",UpdateValues.this).replace(",","."));
             DataSaved.D_Offset=Double.parseDouble(myRW_intMem.MyRead("_offset",UpdateValues.this).replace(",","."));
             DataSaved.D_Leftedge=Double.parseDouble(myRW_intMem.MyRead("_leftedge",UpdateValues.this).replace(",","."));

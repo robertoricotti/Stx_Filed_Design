@@ -88,8 +88,15 @@ public class AutoConnectionService extends Service {
             public void onNmeaMessage(String message, long timestamp) {
 
                 androidNmea = message;
-               // new Nmea_In(androidNmea);
-               // Log.d("TEABLET_NMEA",Nmea_In.mLat_1+"  "+Nmea_In.mLon_1+" "+Nmea_In.ggaSat+" "+Nmea_In.ggaDop);
+                if (DataSaved.useDemo==1) {
+
+                    //Bluetooth_GNSS_Service.sendGNSSata("Sample Message\r\n"); //Usare questo codice per scrivere su seriale da bluetooth
+                    new Nmea_In(androidNmea);
+
+                     Log.d("TEABLET_NMEA",androidNmea);
+                }
+
+
                 // Ora puoi gestire la stringa NMEA come necessario
             }
         };
@@ -169,15 +176,6 @@ public class AutoConnectionService extends Service {
                         // Se la localizzazione è disabilitata apre la pag per attivazione
                         LocationUtils.requestLocationSettings(MyApp.visibleActivity);
                     }
-
-                    if (DataSaved.useDemo==1) {
-
-                        //Bluetooth_GNSS_Service.sendGNSSata("Sample Message\r\n"); //Usare questo codice per scrivere su seriale da bluetooth
-                        new Nmea_In(androidNmea);
-
-
-                    }
-
 
                 }
             };

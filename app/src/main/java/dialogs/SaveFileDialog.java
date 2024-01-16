@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import activity_portrait.ABProject;
+import activity_portrait.Create_1P;
 import project.DataProjectSingleton;
 import activity_portrait.MenuProject;
 import utils.FullscreenActivity;
@@ -70,7 +71,11 @@ public class SaveFileDialog {
                     dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", "AB_"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag);
 
                 }
-                //aggiungere 1punto e cross section
+                if(activity instanceof Create_1P){
+                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", "1P_"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag);
+
+                }
+                //aggiungere  cross section
 
 
                 Toast.makeText(activity, "File Saved!", Toast.LENGTH_SHORT).show();

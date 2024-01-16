@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.media.session.PlaybackState;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,8 +14,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import com.example.stx_field_design.BuildConfig;
 import com.example.stx_field_design.R;
+
+import org.rajawali3d.BuildConfig;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -86,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
     private void onClick() {
         setCrs.setOnClickListener(view -> {
 
-            //new CustomToast(this,"CRS must be selected when creating a project").show();
             new CustomToast(this,"UTM").show();
 
         });
@@ -243,8 +244,18 @@ public class MainActivity extends AppCompatActivity {
         DataProjectSingleton.getInstance().readProject(path);
 
         if (dataProject.readProject(path)) {
-            startActivity(new Intent(MainActivity.this, AB_WorkActivity.class));
-            finish();
+
+
+            if(dataProject.getSize()==4||dataProject.getSize()==6){
+                 startActivity(new Intent(MainActivity.this, AB_WorkActivity.class));
+                 finish();
+            }else if(dataProject.getSize()==1){
+                startActivity(new Intent(MainActivity.this, P_WorkActivity.class));
+                finish();
+            }
+            else {
+                new CustomToast(MainActivity.this,"Error Reading Project").show();
+            }
         }
     }
 

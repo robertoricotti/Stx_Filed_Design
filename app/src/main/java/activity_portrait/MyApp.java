@@ -142,6 +142,9 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             case "activity_portrait.Create_1P":
                 m_Create_1P_Activity(activity);
                 break;
+            case "activity_portrait.P_WorkActivity":
+                m_P_WorkActivity(activity);
+                break;
             case "activity_portrait.LaunchScreenActivity":
                 String b = Build.BRAND;
                 DataSaved.deviceType = b;
@@ -201,6 +204,32 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
         m_updateUI(activity, false);
     }
+
+    public void m_P_WorkActivity(Activity activity) {
+        activity.setContentView(R.layout.activity_pwork);//setta il layout di riferimento dell'activity
+        whoLaunch = activity;
+        m_updateUI(whoLaunch, true);
+        btn5.setVisibility(View.GONE);
+        btn1.setImageResource(R.drawable.btn_to_indietro);
+        btn2.setVisibility(View.INVISIBLE);
+        btn3.setVisibility(View.INVISIBLE);
+        btn4.setImageResource(R.drawable.btn_ecu_connect);
+        btn1.setOnClickListener(view -> {
+            activity.startActivity(new Intent(activity, MainActivity.class));
+            activity.finish();
+        });
+
+        btn4.setOnClickListener(view -> {
+            int i = 0;
+            if (DataSaved.deviceType.equals("SRT8PROS") || DataSaved.deviceType.equals("SRT7PROS")) {
+                i = 3;
+            } else {
+                i = 2;
+            }
+            new ConnectDialog(activity, i).show();
+        });
+
+    }
     public void m_Create_1P_Activity(Activity activity) {
         activity.setContentView(R.layout.activity_create1_p);//setta il layout di riferimento dell'activity
         whoLaunch = activity;
@@ -213,6 +242,9 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         btn1.setOnClickListener(view -> {
             activity.startActivity(new Intent(activity, MenuProject.class));
             activity.finish();
+        });
+        btn5.setOnClickListener(view -> {
+            ((Create_1P) activity).save1P();
         });
 
     }

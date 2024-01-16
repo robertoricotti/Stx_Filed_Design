@@ -223,12 +223,12 @@ public class LaunchScreenActivity extends AppCompatActivity {
 
     protected void goMain() {
         startService(new Intent(LaunchScreenActivity.this, UpdateValues.class));
-        startActivity(new Intent(LaunchScreenActivity.this, MainActivity.class));
-        startService(new Intent(this, Bluetooth_GNSS_Service.class));
+
+
         if(DataSaved.deviceType.equals("SRT8PROS")||DataSaved.deviceType.equals("SRT7PROS")){
             startService(new Intent(this, CanService.class));
-        }else {
-        startService(new Intent(this, Bluetooth_CAN_Service.class));}
+        }
+        startActivity(new Intent(LaunchScreenActivity.this, MainActivity.class));
         finish();
     }
 

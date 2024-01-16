@@ -79,8 +79,8 @@ public class Bluetooth_GNSS_Service extends Service {
 
                         Log.d("RECORDED", completeMessage);
                         if(DataSaved.useDemo==0){
-                        new Nmea_In(completeMessage);}
-                        DataSaved.S_nmea=completeMessage;
+                        new Nmea_In(completeMessage);
+                        DataSaved.S_nmea=completeMessage;}
 
                         // Rimuovi il messaggio completo dal buffer
                         recDataString.delete(0, recDataString.indexOf("\n") + 1);

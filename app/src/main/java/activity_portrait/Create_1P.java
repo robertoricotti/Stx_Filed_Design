@@ -12,16 +12,22 @@ import android.util.DisplayMetrics;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.stx_field_design.R;
 
+import coords_calc.GPS;
+import dialogs.SaveFileDialog;
 import gnss.Nmea_In;
+import project.DataProjectSingleton;
 
 public class Create_1P extends AppCompatActivity {
     private boolean mRunning=true;
     private Handler handler;
 
     TextView txE,txN,txZ;
+    SaveFileDialog saveFileDialog;
+    DataProjectSingleton dataProject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +39,8 @@ public class Create_1P extends AppCompatActivity {
     }
 
     private void findView(){
+        dataProject = DataProjectSingleton.getInstance();
+        saveFileDialog = new SaveFileDialog(this, "PLAN");
         txE=findViewById(R.id.p_coord_est);
         txN=findViewById(R.id.p_coord_nord);
         txZ=findViewById(R.id.p_coord_z);
@@ -72,6 +80,17 @@ public class Create_1P extends AppCompatActivity {
         }).start();
 
     }
+    public void save1P(){
+        GPS gps=new GPS(null,Nmea_In.Crs_Est,Nmea_In.Crs_Nord,Nmea_In.Quota1,Nmea_In.Band,Nmea_In.Zone);
+        dataProject.addCoordinate("P",gps);
+        if (dataProject.getSize() == 1) {
+
+            if (!saveFileDialog.dialog.isShowing())
+                saveFileDialog.show();
+        } else {
+            Toast.makeText(this, "Points not available!", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @SuppressLint("MissingSuperCall")
     @Override
@@ -83,6 +102,7 @@ public class Create_1P extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        dataProject.clearData();
         mRunning=false;
     }
 }
