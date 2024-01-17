@@ -3,123 +3,148 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/light_blue_900"
+    android:background="@color/element_yellow"
     android:orientation="vertical">
-
-    <LinearLayout
-        android:id="@+id/topLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingVertical="2dp"
-            android:src="@drawable/sat_24"
-            app:tint="@color/white" />
-
-        <ImageView
-            android:id="@+id/imgConnect"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingVertical="2dp"
-            android:src="@drawable/gps_fixed_24"
-            app:tint="@color/white" />
-
-        <ImageView
-
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_weight="1"
-            android:paddingVertical="2dp"
-            android:src="@drawable/imposta_coordinate"
-            app:tint="@color/white" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingVertical="2dp"
-            android:src="@drawable/rtk_24"
-            app:tint="@color/white" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingVertical="2dp"
-            android:rotation="-90"
-            android:src="@drawable/arrow_right_alt_24"
-            app:tint="@color/white" />
-
-    </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:orientation="horizontal">
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/img_bt_top"
+            android:padding="5dp"
+            android:background="@drawable/custom_background_transp"
+            android:src="@drawable/bluetooth_connetti"
+            app:tint="@color/black"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+        <LinearLayout
+            android:id="@+id/topLayout"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_weight="2"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/txt_1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:ems="2"
-            android:gravity="center"
-            android:text="0"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txt_2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:ems="2"
-            android:gravity="center"
-            android:text=""
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingVertical="2dp"
+                android:src="@drawable/sat_24"
 
-        <TextView
-            android:id="@+id/txt_3"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:ems="2"
-            android:gravity="center"
-            android:text="3004"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+                app:tint="@color/_____cancel_text" />
 
-        <TextView
-            android:id="@+id/txt_4"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:ems="2"
-            android:gravity="center"
-            android:text="-.-"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/imgConnect"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingVertical="2dp"
+                android:src="@drawable/gps_fixed_24"
+                app:tint="@color/_____cancel_text" />
 
-        <TextView
-            android:id="@+id/txt_5"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            <ImageView
+
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:paddingVertical="2dp"
+                android:src="@drawable/imposta_coordinate"
+                app:tint="@color/_____cancel_text" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingVertical="2dp"
+                android:src="@drawable/rtk_24"
+                app:tint="@color/_____cancel_text" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingVertical="2dp"
+                android:rotation="-90"
+                android:src="@drawable/arrow_right_alt_24"
+                app:tint="@color/_____cancel_text" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
             android:layout_weight="1"
-            android:ems="2"
-            android:gravity="center"
-            android:text=""
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/txt_1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ems="2"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/_____cancel_text"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ems="2"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/_____cancel_text"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ems="2"
+                android:gravity="center"
+                android:text="3004"
+                android:textColor="@color/_____cancel_text"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ems="2"
+                android:gravity="center"
+                android:text="-.-"
+                android:textColor="@color/_____cancel_text"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_5"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ems="2"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/_____cancel_text"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
+
+
 
     <View
         android:layout_width="match_parent"
@@ -136,7 +161,7 @@
         android:maxLines="1"
         android:text="E:0000.000\t\tN:0000.000\t\tZ:0000.000"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textStyle="bold" />
 
     <View
@@ -154,7 +179,7 @@
         android:maxLines="1"
         android:text="CAN DISCONNECTED"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textStyle="bold" />
 
     <View

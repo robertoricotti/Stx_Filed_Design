@@ -55,7 +55,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     private volatile boolean mRunning = false;
     private ScheduledExecutorService executorService;
     Activity whoLaunch;
-    ImageView btn1, btn2, btn3, btn4, btn5;
+    ImageView btn1, btn2, btn3, btn4, btn5,imgBTTop;
     TextView txt1, txt2, txt3, txt4, txt5, txt_coord, txt_canstat;
     ImageView imgConnetti;
     public int SCREEN_ORIENTATION;
@@ -145,6 +145,9 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             case "activity_portrait.P_WorkActivity":
                 m_P_WorkActivity(activity);
                 break;
+            case "activity_portrait.Debug_Activity":
+                m_Debug_Activity(activity);
+                break;
             case "activity_portrait.LaunchScreenActivity":
                 String b = Build.BRAND;
                 DataSaved.deviceType = b;
@@ -204,7 +207,33 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
         m_updateUI(activity, false);
     }
+    public void m_Debug_Activity(Activity activity) {
+        activity.setContentView(R.layout.activity_debug);//setta il layout di riferimento dell'activity
+        whoLaunch = activity;
+        m_updateUI(whoLaunch, true);
+        btn5.setVisibility(View.INVISIBLE);
+        btn1.setImageResource(R.drawable.btn_to_indietro);
+        btn2.setVisibility(View.INVISIBLE);
+        btn3.setVisibility(View.INVISIBLE);
+        btn4.setImageResource(R.drawable.btn_ecu_connect);
+        btn5.setVisibility(View.GONE);
+        btn1.setOnClickListener(view -> {
+            activity.startActivity(new Intent(activity, MainActivity.class));
+            activity.finish();
+        });
+        btn4.setOnClickListener(view -> {
+            int i = 0;
+            if (DataSaved.deviceType.equals("SRT8PROS") || DataSaved.deviceType.equals("SRT7PROS")) {
+                i = 3;
+            } else {
+                i = 2;
+            }
+            new ConnectDialog(activity, i).show();
+        });
 
+
+
+    }
     public void m_P_WorkActivity(Activity activity) {
         activity.setContentView(R.layout.activity_pwork);//setta il layout di riferimento dell'activity
         whoLaunch = activity;
@@ -275,13 +304,13 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         m_updateUI(whoLaunch, true);
         btn2.setVisibility(View.INVISIBLE);
         btn3.setVisibility(View.INVISIBLE);
-        btn4.setVisibility(View.INVISIBLE);
+        btn5.setVisibility(View.GONE);
         btn1.setImageResource(R.drawable.btn_poweroff);
-        btn5.setImageResource(R.drawable.btn_ecu_connect);
+        btn4.setImageResource(R.drawable.btn_ecu_connect);
         btn1.setOnClickListener(view -> {
             new CloseAppDialog(activity).show();
         });
-        btn5.setOnClickListener(view -> {
+        btn4.setOnClickListener(view -> {
             int i = 0;
             if (DataSaved.deviceType.equals("SRT8PROS") || DataSaved.deviceType.equals("SRT7PROS")) {
                 i = 3;
@@ -370,8 +399,8 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         btn1.setImageResource(R.drawable.btn_to_indietro);
         btn2.setImageResource(R.drawable.btn_selectfakepos);
         btn3.setImageResource(R.drawable.btn_calcola);
-        btn4.setImageResource(R.drawable.btn_save);
-        btn5.setVisibility(View.GONE);
+        btn5.setImageResource(R.drawable.btn_save);
+        btn4.setVisibility(View.INVISIBLE);
         btn1.setOnClickListener(view -> {
             ((ABProject) activity).metodoBack();
             activity.startActivity(new Intent(activity, MenuProject.class));
@@ -381,7 +410,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             ((ABProject) activity).metodoPick();
         });
        btn3.setVisibility(View.INVISIBLE);
-        btn4.setOnClickListener(view -> {
+        btn5.setOnClickListener(view -> {
             ((ABProject) activity).metodoSave();
         });
     }
@@ -547,16 +576,17 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         txt3 = activity.findViewById(R.id.txt_3);
         txt4 = activity.findViewById(R.id.txt_4);
         txt5 = activity.findViewById(R.id.txt_5);
+        imgBTTop=activity.findViewById(R.id.img_bt_top);
         txt_coord = activity.findViewById(R.id.txt_coord);
         txt_canstat = activity.findViewById(R.id.txt_canstat);
         if (screenWidth < 400f) {
             txt_coord.setTextSize(14f);
             txt_canstat.setTextSize(14f);
         } else if (screenWidth < 750f && screenWidth > 400f) {
-            txt_coord.setTextSize(16f);
+            txt_coord.setTextSize(18f);
             txt_canstat.setTextSize(18f);
         } else if (screenWidth > 750f) {
-            txt_coord.setTextSize(22f);
+            txt_coord.setTextSize(24f);
             txt_canstat.setTextSize(24f);
             txt1.setTextSize(18f);
             txt2.setTextSize(18f);
@@ -568,9 +598,10 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         txt_coord.setOnClickListener(view -> {
             showCoord = !showCoord;
         });
-        imgConnetti.setOnClickListener(view -> {
+        imgBTTop.setOnClickListener(view -> {
             if(DataSaved.useDemo==0){
-            new ConnectDialog(activity, 1).show();}else {
+            new ConnectDialog(activity, 1).show();}
+            else {
                 new CustomToast(activity,"Internal GPS Selected").show();
             }
         });
@@ -621,6 +652,16 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                                             + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + "  Z: "
                                             + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
                                 }
+
+                                if(visibleActivity instanceof Debug_Activity||visibleActivity instanceof AB_WorkActivity||visibleActivity instanceof P_WorkActivity|| visibleActivity instanceof MainActivity){
+                                    if(Bluetooth_CAN_Service.canIsConnected){
+                                        btn4.setImageTintList(getApplicationContext().getColorStateList(R.color.blue));
+                                    }else {
+                                        btn4.setImageTintList(getApplicationContext().getColorStateList(R.color._____cancel_text));
+                                    }
+                                }else {
+                                    btn4.setImageTintList(getApplicationContext().getColorStateList(R.color._____cancel_text));
+                                }
                                 if (!Bluetooth_CAN_Service.canIsConnected) {
                                     txt_canstat.setTextColor(Color.RED);
                                     txt_canstat.setText("CAN DISCONNECTED");
@@ -639,8 +680,15 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                                 if (!Bluetooth_GNSS_Service.gpsIsConnected) {
                                     txt_coord.setTextColor(Color.RED);
                                     txt_coord.setBackgroundColor(getResources().getColor(R.color.white));
+                                    if(DataSaved.useDemo==0){
+                                        imgBTTop.setImageTintList(getApplicationContext().getColorStateList(R.color._____cancel_text));
+                                        txt_coord.setText("GPS DISCONNECTED");
+                                    }
 
                                 } else {
+                                    if(DataSaved.useDemo==0){
+                                        imgBTTop.setImageTintList(getApplicationContext().getColorStateList(R.color.blue));
+                                    }
                                     txt_coord.setTextColor(Color.BLACK);
                                     if (txt2.getText().toString().equals("FIX")) {
                                         txt_coord.setBackgroundColor(getResources().getColor(R.color.green));
@@ -650,7 +698,6 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                                         txt_coord.setBackgroundColor(getResources().getColor(R.color.white));
                                     }
                                 }
-
                             }
                         });
                     }

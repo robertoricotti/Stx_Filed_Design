@@ -575,15 +575,20 @@ public class ABProject extends AppCompatActivity {
     }
 
     private void updateAll() {
-        GPS a = dataProject.getPoints().get("A");
-        GPS b = dataProject.getPoints().get("B");
-        et_zb.setText(Utils.readUnitOfMeasure(String.valueOf(b.getZ() - a.getZ()), ABProject.this));
-        et_dst.setText(Utils.readUnitOfMeasure(String.valueOf(dataProject.getDistanceAB()), ABProject.this));
-        et_slope.setText(Utils.readAngolo(String.valueOf(dataProject.getSlopeAB()), ABProject.this));
-        et_ltdst.setText(Utils.readUnitOfMeasure(String.valueOf(dataProject.getLtLength()), ABProject.this));
-        et_ltslope.setText(Utils.readAngolo(String.valueOf(dataProject.getLtSlope()), ABProject.this));
-        et_rtdst.setText(Utils.readUnitOfMeasure(String.valueOf(dataProject.getRtLength()), ABProject.this));
-        et_rtslope.setText(Utils.readAngolo(String.valueOf(dataProject.getRtSlope()), ABProject.this));
+        try {
+            GPS a = dataProject.getPoints().get("A");
+            GPS b = dataProject.getPoints().get("B");
+            et_zb.setText(Utils.readUnitOfMeasure(String.valueOf(b.getZ() - a.getZ()), ABProject.this));
+            et_dst.setText(Utils.readUnitOfMeasure(String.valueOf(dataProject.getDistanceAB()), ABProject.this));
+            et_slope.setText(Utils.readAngolo(String.valueOf(dataProject.getSlopeAB()), ABProject.this));
+            et_ltdst.setText(Utils.readUnitOfMeasure(String.valueOf(dataProject.getLtLength()), ABProject.this));
+            et_ltslope.setText(Utils.readAngolo(String.valueOf(dataProject.getLtSlope()), ABProject.this));
+            et_rtdst.setText(Utils.readUnitOfMeasure(String.valueOf(dataProject.getRtLength()), ABProject.this));
+            et_rtslope.setText(Utils.readAngolo(String.valueOf(dataProject.getRtSlope()), ABProject.this));
+        } catch (Exception e) {
+            //Toast.makeText(ABProject.this,e.toString(),Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 

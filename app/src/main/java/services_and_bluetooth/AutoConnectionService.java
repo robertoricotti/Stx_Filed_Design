@@ -13,6 +13,7 @@ import android.location.OnNmeaMessageListener;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -43,8 +44,8 @@ public class AutoConnectionService extends Service {
 
     private Executor mExecutor;
     private static final int THREAD_POOL_SIZE = 4;
-    Timer timer_6000, timer_100;
-    TimerTask timertask_6000, timertask_100;
+    Timer timer_100;
+    TimerTask timertask_100;
 
     private LocationManager locationManager;
     private LocationListener locationListener;
@@ -53,6 +54,11 @@ public class AutoConnectionService extends Service {
 
     @Override
     public void onCreate() {
+        if (!LocationUtils.isLocationEnabled(MyApp.visibleActivity)) {
+            // Se la localizzazione è disabilitata apre la pag per attivazione
+            LocationUtils.requestLocationSettings(MyApp.visibleActivity);
+        }
+
 
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -63,7 +69,7 @@ public class AutoConnectionService extends Service {
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
                 double altitude = location.getAltitude();
-                
+
             }
 
             @Override
@@ -88,12 +94,13 @@ public class AutoConnectionService extends Service {
             public void onNmeaMessage(String message, long timestamp) {
 
                 androidNmea = message;
-                if (DataSaved.useDemo==1) {
+                if (DataSaved.useDemo == 1) {
 
                     //Bluetooth_GNSS_Service.sendGNSSata("Sample Message\r\n"); //Usare questo codice per scrivere su seriale da bluetooth
                     new Nmea_In(androidNmea);
+                    DataSaved.S_nmea=message;
 
-                     Log.d("TEABLET_NMEA",androidNmea);
+                    Log.d("TEABLET_NMEA", androidNmea);
                 }
 
 
@@ -117,6 +124,26 @@ public class AutoConnectionService extends Service {
 
 
         mExecutor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+    /*    handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                    if (!Bluetooth_CAN_Service.canIsConnected&&DataSaved.useTilt==1) {
+                        startService(new Intent(AutoConnectionService.this, Bluetooth_CAN_Service.class));
+                        Log.d("MioRunnable", "INSIDE RUNNABLE " + "mi riconnetto al CAN");
+                    }
+                if (!Bluetooth_GNSS_Service.gpsIsConnected&&DataSaved.useDemo==0) {
+                    startService(new Intent(AutoConnectionService.this, Bluetooth_GNSS_Service.class));
+                    Log.d("MioRunnable", "INSIDE RUNNABLE " + "mi riconnetto al GPS");
+                }
+
+
+                    // Ripeti il controllo ogni 2 secondi
+                    handler.postDelayed(this, 2000);
+            }
+        }, 2000);*/
+
+
 
 
     }
@@ -124,6 +151,8 @@ public class AutoConnectionService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         mExecutor.execute(new MyAsync_Excecutor());
+
+
 
 
         return START_STICKY;
@@ -144,11 +173,6 @@ public class AutoConnectionService extends Service {
         }
 
         try {
-            timer_6000.cancel();
-            timer_6000 = null;
-
-            timertask_6000.cancel();
-            timertask_6000 = null;
 
             timer_100.cancel();
             timer_100 = null;
@@ -165,31 +189,20 @@ public class AutoConnectionService extends Service {
 
     private class MyAsync_Excecutor implements Runnable {
 
+
         @Override
         public void run() {
 
-          timer_6000 = new Timer();
-            timertask_6000 = new TimerTask() {
-                @Override
-                public void run() {
-                    if (!LocationUtils.isLocationEnabled(MyApp.visibleActivity)) {
-                        // Se la localizzazione è disabilitata apre la pag per attivazione
-                        LocationUtils.requestLocationSettings(MyApp.visibleActivity);
-                    }
 
-                }
-            };
-
-            timer_6000.scheduleAtFixedRate(timertask_6000, 2000, 3000);
 
             timer_100 = new Timer();
 
             timertask_100 = new
 
                     TimerTask() {
+
                         @Override
                         public void run() {
-
 
 
                             if (Bluetooth_CAN_Service.canIsConnected) {
@@ -202,8 +215,8 @@ public class AutoConnectionService extends Service {
                                     Bluetooth_CAN_Service.sendCANData(id, new byte[]{(byte) 0xFF, 0, 0, 0, (byte) (c & 0xff)});
 
                                 }
-                            }else {
-                                Can_Decoder.auto=0;
+                            } else {
+                                Can_Decoder.auto = 0;
                             }
 
                         }
@@ -215,6 +228,9 @@ public class AutoConnectionService extends Service {
 
 
     }
+   // private Handler handler = new Handler();
+
+
 
 
 }

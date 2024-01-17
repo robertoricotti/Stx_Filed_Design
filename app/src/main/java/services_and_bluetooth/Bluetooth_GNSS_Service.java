@@ -13,11 +13,14 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
+import eventbus.GpsEvents;
 import gnss.Nmea_In;
 
 public class Bluetooth_GNSS_Service extends Service {
@@ -78,9 +81,13 @@ public class Bluetooth_GNSS_Service extends Service {
                         // Do stuff here con il tuo messaggio completo
 
                         Log.d("RECORDED", completeMessage);
-                        if(DataSaved.useDemo==0){
+                        EventBus.getDefault().post(new GpsEvents(completeMessage));
+                        if(DataSaved.useDemo==1){
+                            stopSelf();
+                        }
+
                         new Nmea_In(completeMessage);
-                        DataSaved.S_nmea=completeMessage;}
+                        DataSaved.S_nmea=completeMessage;
 
                         // Rimuovi il messaggio completo dal buffer
                         recDataString.delete(0, recDataString.indexOf("\n") + 1);

@@ -36,7 +36,7 @@ import utils.MyRW_IntMem;
 public class MainActivity extends AppCompatActivity {
     int countProgress=0;
     ProgressBar progressBar;
-    ImageView btn_units, to_bt, openProject, to_new, to_settings, to_usbStick, to_mch, to_palina, to_info, toPairCan,btn_screenR,setCrs;
+    ImageView btn_units, to_bt, openProject, to_new, to_settings, to_usbStick, to_mch, to_palina, to_info, toPairCan,btn_screenR,setCrs,toDebug;
 
 
     MyRW_IntMem myRWIntMem;
@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         progressBar.setVisibility(View.INVISIBLE);
         btn_screenR=findViewById(R.id.img11);
         setCrs=findViewById(R.id.img12);
+        toDebug=findViewById(R.id.img13);
 
 
     }
@@ -86,6 +87,10 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("NewApi")
     private void onClick() {
+        toDebug.setOnClickListener(view -> {
+            startActivity(new Intent(this,Debug_Activity.class));
+            finish();
+        });
         setCrs.setOnClickListener(view -> {
 
             new CustomToast(this,"UTM").show();

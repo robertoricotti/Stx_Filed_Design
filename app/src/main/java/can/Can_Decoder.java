@@ -30,6 +30,20 @@ public class Can_Decoder {
             mID = PLC_DataTypes_BigEndian.byte_to_U16_be(new byte[]{msg[3], msg[4]});
             msgFrame = new byte[len];
             System.arraycopy(msg, 5, msgFrame, 0, len);
+            try {
+                String s=null;
+
+                int [] positiveValue = new int[msgFrame.length];
+                for (int i=0;i<msgFrame.length;i++){
+                    // Converti il byte in un valore compreso tra 0 e 255
+                     positiveValue[i] = msgFrame[i] & 0xFF;
+                     s="ID: 0x"+Integer.toHexString(mID)+"  DLC:"+len+"   { "+ Arrays.toString(positiveValue) +" }";
+                }
+
+                EventBus.getDefault().post(new CanEvents(s));
+            } catch (Exception e) {
+
+            }
             switch (mID) {
                 case 0x7f0:
                     counter++;

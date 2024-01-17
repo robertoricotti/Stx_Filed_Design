@@ -232,8 +232,19 @@ public class LaunchScreenActivity extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+            Log.d("ISTANZA","ISTANZA DELLA LAUNCH");
+            if(!Bluetooth_CAN_Service.canIsConnected){
+                startService(new Intent(this,Bluetooth_CAN_Service.class));
+
+            }
+            if(!Bluetooth_GNSS_Service.gpsIsConnected){
+                startService(new Intent(this,Bluetooth_GNSS_Service.class));
 
 
-
-
+        }
+    }
 }

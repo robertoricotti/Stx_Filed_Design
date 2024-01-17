@@ -1,6 +1,8 @@
 package services_and_bluetooth;
 
+import android.app.Activity;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 import android.os.IBinder;
@@ -190,14 +192,10 @@ public class UpdateValues extends Service {
 
 
             DataSaved.S_macAddres=myRW_intMem.MyRead("_macaddress",UpdateValues.this);
-            if(!Bluetooth_GNSS_Service.gpsIsConnected){
-                startService(new Intent(UpdateValues.this, Bluetooth_GNSS_Service.class));
-            }
+
             DataSaved.S_gpsname=myRW_intMem.MyRead("_gpsname",UpdateValues.this);
             DataSaved.S_macAddress_CAN=myRW_intMem.MyRead("_macaddress_can",UpdateValues.this);
-            if(!Bluetooth_CAN_Service.canIsConnected){
-                startService(new Intent(UpdateValues.this, Bluetooth_CAN_Service.class));
-            }
+
             DataSaved.S_can_name=myRW_intMem.MyRead("_canname",UpdateValues.this);
             DataSaved.D_AltezzaAnt=Double.parseDouble(myRW_intMem.MyRead("_altezzaantenna",UpdateValues.this).replace(",","."));
             DataSaved.D_Offset=Double.parseDouble(myRW_intMem.MyRead("_offset",UpdateValues.this).replace(",","."));
@@ -243,6 +241,7 @@ public class UpdateValues extends Service {
 
             }*/
 
+
             stopSelf();
         }
     }
@@ -250,6 +249,7 @@ public class UpdateValues extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+
         saveBTdevices( new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field/Devices").toString());
         ((ExecutorService) mExecutor).shutdown();
 

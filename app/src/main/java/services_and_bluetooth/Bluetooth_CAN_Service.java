@@ -14,6 +14,8 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -248,38 +250,38 @@ public class Bluetooth_CAN_Service extends Service {
             // Keep looping to listen for received messages
             while (true && !stopThread) {
                 try {
-                    bytesRead = mmInStream.read(buffer); // read bytes from input buffer
 
+                        bytesRead = mmInStream.read(buffer); // read bytes from input buffer
+                        if (bytesRead > 0) {
+                            byte[] packetBytes = new byte[bytesRead];
+                            packetBytes = buffer;
+                            char[] hexArray = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+                            char[] hexChars = new char[packetBytes.length * 2];
+                            int v;
+                            for (int j = 0; j < packetBytes.length; j++) {
+                                v = packetBytes[j] & 0xFF;
+                                hexChars[j * 2] = hexArray[v / 16];
+                                hexChars[j * 2 + 1] = hexArray[v % 16];
+                            }
+                            for (int i = 0; i < bytesRead; i++) {
+                                byte b = packetBytes[i];
 
-                    if (bytesRead > 0) {
-                        byte[] packetBytes = new byte[bytesRead];
-                        packetBytes = buffer;
-                        char[] hexArray = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-                        char[] hexChars = new char[packetBytes.length * 2];
-                        int v;
-                        for (int j = 0; j < packetBytes.length; j++) {
-                            v = packetBytes[j] & 0xFF;
-                            hexChars[j * 2] = hexArray[v / 16];
-                            hexChars[j * 2 + 1] = hexArray[v % 16];
-                        }
-                        for (int i = 0; i < bytesRead; i++) {
-                            byte b = packetBytes[i];
+                                if (b == 0x0D) {
+                                    byte[] encodedBytes = new byte[readBufferPosition_CAN[0]];
+                                    System.arraycopy(buffer, 0, encodedBytes, 0, encodedBytes.length);
+                                    readBufferPosition_CAN[0] = 0;
+                                    Log.d("DEBUG BT CAN ARRAY", Arrays.toString(encodedBytes));
 
-                            if (b == 0x0D) {
-                                byte[] encodedBytes = new byte[readBufferPosition_CAN[0]];
-                                System.arraycopy(buffer, 0, encodedBytes, 0, encodedBytes.length);
-                                readBufferPosition_CAN[0] = 0;
-                                Log.d("DEBUG BT CAN ARRAY", Arrays.toString(encodedBytes));
-                                canEmpty = false;
-                                handler_tl.removeCallbacks(timeoutRunnable_tl);
-                                handler_tl.postDelayed(timeoutRunnable_tl, 3000);
-                                new Can_Decoder(encodedBytes);
+                                    canEmpty = false;
+                                    handler_tl.removeCallbacks(timeoutRunnable_tl);
+                                    handler_tl.postDelayed(timeoutRunnable_tl, 3000);
+                                    new Can_Decoder(encodedBytes);
 
-                            } else {
-                                buffer[readBufferPosition_CAN[0]++] = b;
+                                } else {
+                                    buffer[readBufferPosition_CAN[0]++] = b;
+                                }
                             }
                         }
-                    }
 
                 } catch (Exception e) {
                     Log.d("DEBUG BT CAN", e.toString());

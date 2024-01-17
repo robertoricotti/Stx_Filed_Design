@@ -63,24 +63,27 @@ public class P_WorkActivity extends AppCompatActivity {
                             quota.setText(Utils.readUnitOfMeasure(String.valueOf(quots), P_WorkActivity.this));
                             if (Math.abs(quots) <= DataSaved.z_tol) {
                                 linearLayout.setBackgroundColor(Color.GREEN);
-                                quota.setTextColor(Color.BLACK);
-                                freccia.setTextColor(Color.BLACK);
-                                offset.setTextColor(Color.BLACK);
+
+                                quota.setTextColor(Color.DKGRAY);
+                                freccia.setTextColor(Color.DKGRAY);
+                                offset.setTextColor(Color.DKGRAY);
                                 freccia.setText("=");
                             }
                             if (quots > (DataSaved.z_tol + 0.001)) {
-                                linearLayout.setBackgroundColor(Color.BLUE);
-                                quota.setTextColor(Color.WHITE);
-                                freccia.setTextColor(Color.WHITE);
-                                offset.setTextColor(Color.WHITE);
+                                //linearLayout.setBackgroundColor(Color.BLUE);
+                                linearLayout.setBackground(getDrawable(R.drawable.custom_background_transp));
+                                quota.setTextColor(Color.BLUE);
+                                freccia.setTextColor(Color.BLUE);
+                                offset.setTextColor(Color.BLUE);
                                 freccia.setText("▼");
                             }
                             if (quots < -(DataSaved.z_tol + 0.001)) {
-                                linearLayout.setBackgroundColor(Color.RED);
-                                quota.setTextColor(Color.WHITE);
-                                freccia.setTextColor(Color.WHITE);
-                                offset.setTextColor(Color.WHITE);
-                                freccia.setText("▼");
+                                //linearLayout.setBackgroundColor(Color.RED);
+                                linearLayout.setBackground(getDrawable(R.drawable.custom_background_transp));
+                                quota.setTextColor(Color.RED);
+                                freccia.setTextColor(Color.RED);
+                                offset.setTextColor(Color.RED);
+                                freccia.setText("▲");
                             }
 
 

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true"
+    tools:context="activity_portrait.Debug_Activity">
+
+    <include
+        android:id="@+id/lowerView"
+        layout="@layout/shared_layout_low" />
+
+    <include
+        android:id="@+id/topView"
+        layout="@layout/shared_layout_top" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guid_mid_v"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/guid_mid_v"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topView">
+
+        <TextView
+            android:id="@+id/txtg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/_____cancel_text"
+            android:gravity="center"
+            android:text="NMEA DEBUG"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/play_gps"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/custom_background_transp"
+                android:src="@drawable/btn_play"
+                app:tint="@color/_____cancel_text" />
+
+            <Space
+                android:layout_width="50dp"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/pause_gps"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/custom_background_transp"
+                android:src="@drawable/btn_pause"
+                app:tint="@color/_____cancel_text" />
+            <Space
+                android:layout_width="50dp"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/clear_gps"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/custom_background_transp"
+                android:src="@drawable/btn_delete"
+                app:tint="@color/_____cancel_text" />
+
+        </LinearLayout>
+
+        <ListView
+            android:scrollbarSize="24dp"
+            android:id="@+id/listView_GPS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/lowerView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guid_mid_v">
+
+        <TextView
+            android:id="@+id/txtc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/_____cancel_text"
+            android:gravity="center"
+            android:text="CAN DEBUG"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/play_can"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/custom_background_transp"
+                android:src="@drawable/btn_play"
+                app:tint="@color/_____cancel_text" />
+
+            <Space
+                android:layout_width="50dp"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/pause_can"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/custom_background_transp"
+                android:src="@drawable/btn_pause"
+                app:tint="@color/_____cancel_text" />
+            <Space
+                android:layout_width="50dp"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/clear_can"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/custom_background_transp"
+                android:src="@drawable/btn_delete"
+                app:tint="@color/_____cancel_text" />
+
+        </LinearLayout>
+
+        <ListView
+            android:scrollbarSize="24dp"
+            android:id="@+id/listView_CAN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
