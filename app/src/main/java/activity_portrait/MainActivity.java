@@ -3,6 +3,7 @@ package activity_portrait;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.media.session.PlaybackState;
@@ -36,7 +37,7 @@ import utils.MyRW_IntMem;
 public class MainActivity extends AppCompatActivity {
     int countProgress=0;
     ProgressBar progressBar;
-    ImageView btn_units, to_bt, openProject, to_new, to_settings, to_usbStick, to_mch, to_palina, to_info, toPairCan,btn_screenR,setCrs,toDebug;
+    ImageView openDigApp,btn_units, to_bt, openProject, to_new, to_settings, to_usbStick, to_mch, to_palina, to_info, toPairCan,btn_screenR,setCrs,toDebug;
 
 
     MyRW_IntMem myRWIntMem;
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         btn_screenR=findViewById(R.id.img11);
         setCrs=findViewById(R.id.img12);
         toDebug=findViewById(R.id.img13);
+        openDigApp=findViewById(R.id.img14);
 
 
     }
@@ -87,6 +89,10 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("NewApi")
     private void onClick() {
+        openDigApp.setOnClickListener(view -> {
+            openApp("com.example.stx_digging");
+
+        });
         toDebug.setOnClickListener(view -> {
             startActivity(new Intent(this,Debug_Activity.class));
             finish();
@@ -264,6 +270,29 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    }
+    private void openApp(String packageName) {
+        try {
+
+
+            Intent intent = new Intent();
+            intent.setComponent(new ComponentName(packageName, "gui.boot_and_choose.LaunchScreenActivity")); // Sostituisci con il nome della tua attività principale
+
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                stopService(new Intent(this,Bluetooth_GNSS_Service.class));
+                stopService(new Intent(this,Bluetooth_CAN_Service.class));
+                stopService(new Intent(this,AutoConnectionService.class));
+                startActivity(intent);
+
+                finish();
+                finishAndRemoveTask();
+                System.exit(0);
+            } else {
+                new CustomToast(MainActivity.this, packageName + " Not Found").show();
+            }
+        } catch (Exception e) {
+            new CustomToast(MainActivity.this, packageName + " Not Found").show();
+        }
     }
 
 

@@ -77,38 +77,23 @@ public class PickProjectAdapter extends RecyclerView.Adapter<PickProjectAdapter.
         // Set item views based on your views and data model
         ConstraintLayout constraintLayout = holder.panel;
         TextView textView = holder.nameTextView;
-        ImageView imageView = holder.imageView;  // Aggiunto
-        textView.setText(nameFile);
-        String fileExtension = getFileExtension(nameFile);
-        if (fileExtension != null) {
-            switch (fileExtension.toLowerCase()) {
+        ImageView imageView=holder.icon;
 
 
-                case "pdf":
-                case "doc":
-                case "docx":
-                case "xls":
-                case "xlsx":
-                case "txt":
-                case "dxf":
-                case "xml":
-                case "landxml":
-                case "dwg":
-                case "csv":
-                    imageView.setImageResource(R.drawable.generic_file);
-                    imageView.setImageTintList(ContextCompat.getColorStateList(MyApp.visibleActivity, R.color.red));
-                    break;
-                case "pstx":
-                    imageView.setImageResource(R.drawable.generic_file);
-                    imageView.setImageTintList(ContextCompat.getColorStateList(MyApp.visibleActivity, R.color.blue));
-                    break;
-                default:
-                    // Imposta un'immagine di default o lasciala vuota
-                    imageView.setImageResource(R.drawable.file_alet_96);
-                    imageView.setImageTintList(ContextCompat.getColorStateList(MyApp.visibleActivity, R.color.black));
-                    break;
-            }
+        if(nameFile.substring(0,3).equals("1P_")){
+            imageView.setImageResource(R.drawable.image_1p);
+            imageView.setImageTintList(ContextCompat.getColorStateList(MyApp.visibleActivity, R.color.blue));
         }
+        else if(nameFile.substring(0,3).equals("AB_")){
+            imageView.setImageResource(R.drawable.image_ab);
+            imageView.setImageTintList(ContextCompat.getColorStateList(MyApp.visibleActivity, R.color.blue));
+        }
+        else if(nameFile.substring(0,3).equals("CS_")){
+            imageView.setImageResource(R.drawable.image_cs);
+            imageView.setImageTintList(ContextCompat.getColorStateList(MyApp.visibleActivity, R.color.blue));
+        }
+        textView.setText(nameFile.replace("AB_", "").replace("1P_", "").replace("CS_", ""));
+
 
         constraintLayout.setBackgroundColor(selectedItem == position ? ContextCompat.getColor(constraintLayout.getContext(), R.color.orange) : ContextCompat.getColor(constraintLayout.getContext(), R.color.transparent));
 
@@ -137,6 +122,7 @@ public class PickProjectAdapter extends RecyclerView.Adapter<PickProjectAdapter.
         public TextView nameTextView;
         public ImageView imageView;
         public ConstraintLayout panel;
+        public ImageView icon;
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
@@ -145,10 +131,10 @@ public class PickProjectAdapter extends RecyclerView.Adapter<PickProjectAdapter.
             // Stores the itemView in a public final member variable that can be used
             // to access the context from any ViewHolder instance.
             super(itemView);
-
+            icon = itemView.findViewById(R.id.imageView);
             nameTextView = itemView.findViewById(R.id.path_tv);
             panel = itemView.findViewById(R.id.panel);
-            imageView = itemView.findViewById(R.id.imageView);
+            //imageView = itemView.findViewById(R.id.imageView);
             nameTextView.setOnLongClickListener((View v) -> {
                 selectedItem = getAdapterPosition();
                 notifyDataSetChanged();

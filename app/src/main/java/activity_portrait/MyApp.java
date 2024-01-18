@@ -170,11 +170,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             visibleActivity = activity;
             DataSaved.Actualactivity = String.valueOf(activity);
             setLocale(visibleActivity, "en");
-            try {
-                EventBus.getDefault().register(activity);
-            } catch (Exception e) {
 
-            }
         }
 
     }
