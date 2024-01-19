@@ -47,7 +47,7 @@ public class AB_WorkActivity extends AppCompatActivity {
     public static byte page = 0;
     public static byte[] quota;
 
-    ImageView lineID;
+   // ImageView lineID;
     TextView altitude, distance, fileName, setOffset, offsetUnit, surfaceOK;
 
     ConstraintLayout container;
@@ -89,7 +89,7 @@ public class AB_WorkActivity extends AppCompatActivity {
         crs = findViewById(R.id.img_crs);
         crs.setVisibility(View.INVISIBLE);
 
-        lineID = findViewById(R.id.pickPoint);
+       // lineID = findViewById(R.id.pickPoint);
         altitude = findViewById(R.id.quota);
         distance = findViewById(R.id.distance);
 
@@ -206,7 +206,7 @@ public class AB_WorkActivity extends AppCompatActivity {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle("Choose ID");
         String[] items = new String[dataProject.getSize() + 1];
-        items[0] = "Line";
+        items[0] = "Line AB";
         int counter = 1;
         for (Map.Entry<String, GPS> entry : dataProject.getPoints().entrySet()) {
             items[counter++] = entry.getKey();
@@ -214,7 +214,7 @@ public class AB_WorkActivity extends AppCompatActivity {
 
         int selected = 0;
         switch (dataProject.getDistanceID()) {
-            case "Line":
+            case "Line AB":
                 selected = 0;
                 break;
             case "A":

@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="18sp"
+            android:textSize="18dp"
             android:text="Use Internal GPS"/>
 
 
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:gravity="center"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:text="GNSS DEVICE LIST"
         android:background="@color/_____cancel_text"
         android:textColor="@color/white"

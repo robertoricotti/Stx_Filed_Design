@@ -78,7 +78,7 @@
                     android:gravity="center|top"
                     android:text="GPS BT Config"
                     android:textColor="@color/_____cancel_text"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -88,7 +88,7 @@
                     android:gravity="center|top"
                     android:text="CAN BT Config"
                     android:textColor="@color/_____cancel_text"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -98,7 +98,7 @@
                     android:gravity="center|top"
                     android:text="Projects"
                     android:textColor="@color/_____cancel_text"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
 
@@ -152,7 +152,7 @@
                     android:gravity="center|top"
                     android:text="Settings"
                     android:textColor="@color/_____cancel_text"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
                 <TextView
                     android:layout_width="60dp"
@@ -161,7 +161,7 @@
                     android:gravity="center|top"
                     android:text="Comm Debug"
                     android:textColor="@color/_____cancel_text"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
 
@@ -173,7 +173,7 @@
                     android:gravity="center|top"
                     android:text="Work"
                     android:textColor="@color/_____cancel_text"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
 
@@ -227,7 +227,7 @@
                     android:gravity="center|top"
                     android:text="Units Of Measure"
                     android:textColor="@color/_____cancel_text"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -237,7 +237,7 @@
                     android:gravity="center|top"
                     android:text="Antenna Height"
                     android:textColor="@color/_____cancel_text"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:textStyle="bold"
 
                     />
@@ -248,7 +248,7 @@
                     android:gravity="center|top"
                     android:text="Info App"
                     android:textColor="@color/_____cancel_text"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
 
@@ -303,7 +303,7 @@
                     android:gravity="center|top"
                     android:text="USB Files Transfer"
                     android:textColor="@color/_____cancel_text"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -313,7 +313,7 @@
                     android:gravity="center|top"
                     android:text="Rotate Screen"
                     android:textColor="@color/_____cancel_text"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:textStyle="bold"
 
                     />
@@ -327,7 +327,7 @@
                     android:gravity="center|top"
                     android:text="Coordinate Ref. Systems"
                     android:textColor="@color/_____cancel_text"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
 
@@ -381,7 +381,7 @@
                     android:gravity="center|top"
                     android:text="Machine Measurements"
                     android:textColor="@color/_____cancel_text"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:textStyle="bold"
                     />
 
@@ -394,7 +394,7 @@
                     android:gravity="center|top"
                     android:text="Open\nSTX DIG"
                     android:textColor="@color/_____cancel_text"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:textStyle="bold"
 
                     />
@@ -407,7 +407,7 @@
                     android:gravity="center|top"
                     android:text=""
                     android:textColor="@color/_____cancel_text"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
 

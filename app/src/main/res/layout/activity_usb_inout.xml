@@ -39,7 +39,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:background="@color/_____cancel_text"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:text="USB IN"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewIn"
@@ -60,7 +60,7 @@
         app:layout_constraintTop_toBottomOf="@id/v_mid"
         android:background="@color/_____cancel_text"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:text="USB OUT"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewOut"
@@ -81,7 +81,7 @@
         app:layout_constraintTop_toBottomOf="@id/v_top"
         android:background="@color/_____cancel_text"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:text="Project Folder"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewProj"

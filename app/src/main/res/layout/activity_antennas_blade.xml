@@ -37,7 +37,7 @@
                 android:gravity="center"
                 android:text="Antenna Height"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="18dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -56,7 +56,7 @@
                     android:inputType="numberDecimal"
                     android:maxLength="8"
                     android:selectAllOnFocus="true"
-                    android:textSize="22sp" />
+                    android:textSize="22dp" />
 
                 <TextView
                     android:id="@+id/txt_unit"
@@ -66,7 +66,7 @@
                     android:gravity="center"
                     android:text="(m)"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="18dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -79,7 +79,7 @@
                 android:gravity="center"
                 android:text="Left Side Edge"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="18dp" />
 
             <LinearLayout
 
@@ -99,7 +99,7 @@
                     android:inputType="numberDecimal"
                     android:maxLength="8"
                     android:selectAllOnFocus="true"
-                    android:textSize="22sp" />
+                    android:textSize="22dp" />
 
                 <TextView
                     android:id="@+id/txt_unit2"
@@ -109,7 +109,7 @@
                     android:gravity="center"
                     android:text="(m)"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="18dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -122,7 +122,7 @@
                 android:gravity="center"
                 android:text="Right Side Edge"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="18dp" />
 
             <LinearLayout
 
@@ -142,7 +142,7 @@
                     android:inputType="numberDecimal"
                     android:maxLength="8"
                     android:selectAllOnFocus="true"
-                    android:textSize="22sp" />
+                    android:textSize="22dp" />
 
                 <TextView
                     android:id="@+id/txt_unit3"
@@ -152,7 +152,7 @@
                     android:gravity="center"
                     android:text="(m)"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="18dp"
                     android:textStyle="bold" />
 
             </LinearLayout>

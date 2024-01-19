@@ -40,7 +40,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:text="GPS 1 Antenna Measurement"
         android:gravity="center"
         android:textStyle="bold"
@@ -72,7 +72,7 @@
            android:orientation="horizontal">
            <EditText
                android:id="@+id/etTarget_L"
-               android:textSize="22sp"
+               android:textSize="22dp"
                android:inputType="numberDecimal|numberSigned"
                android:digits="0123456789.-"
                android:imeOptions="actionDone"
@@ -82,7 +82,7 @@
                android:hint="Target Length"/>
            <EditText
                android:id="@+id/etTarget_S"
-               android:textSize="22sp"
+               android:textSize="22dp"
                android:inputType="numberDecimal|numberSigned"
                android:digits="0123456789.-"
                android:imeOptions="actionDone"
@@ -110,7 +110,7 @@
                android:id="@+id/etGPS1_L"
                android:inputType="numberDecimal|numberSigned"
                android:digits="0123456789.-"
-               android:textSize="22sp"
+               android:textSize="22dp"
                android:imeOptions="actionDone"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
                android:inputType="numberDecimal|numberSigned"
                android:digits="0123456789.-"
                android:imeOptions="actionDone"
-               android:textSize="22sp"
+               android:textSize="22dp"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_weight="1"
@@ -147,7 +147,7 @@
                android:id="@+id/etParallel_L"
                android:inputType="numberDecimal|numberSigned"
                android:digits="0123456789.-"
-               android:textSize="22sp"
+               android:textSize="22dp"
                android:imeOptions="actionDone"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
@@ -157,7 +157,7 @@
                android:id="@+id/etParallel_S"
                android:inputType="numberDecimal|numberSigned"
                android:digits="0123456789.-"
-               android:textSize="22sp"
+               android:textSize="22dp"
                android:imeOptions="actionDone"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
@@ -204,7 +204,7 @@
                  android:gravity="left"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:textSize="24sp"
+                 android:textSize="24dp"
                  android:textColor="@color/colorStonexBlueLight1"
                  android:text="Accouracy: "/>
              <TextView
@@ -213,7 +213,7 @@
                  android:textStyle="bold"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:textSize="24sp"
+                 android:textSize="24dp"
                  android:textColor="@color/colorStonexBlueLight1"
                  android:text="X: "/>
              <TextView
@@ -222,7 +222,7 @@
                  android:textStyle="bold"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:textSize="24sp"
+                 android:textSize="24dp"
                  android:textColor="@color/colorStonexBlueLight1"
                  android:text="Y: "/>
              <TextView
@@ -231,7 +231,7 @@
                  android:textStyle="bold"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:textSize="24sp"
+                 android:textSize="24dp"
                  android:textColor="@color/colorStonexBlueLight1"
                  android:text="Reach: "/>
              <TextView
@@ -240,7 +240,7 @@
                  android:textStyle="bold"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:textSize="24sp"
+                 android:textSize="24dp"
                  android:textColor="@color/colorStonexBlueLight1"
                  android:text="Pitch: "/>
              <TextView
@@ -249,7 +249,7 @@
                  android:textStyle="bold"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:textSize="24sp"
+                 android:textSize="24dp"
                  android:textColor="@color/colorStonexBlueLight1"
                  android:text="Roll: "/>
              <TextView
@@ -259,7 +259,7 @@
                  android:textStyle="bold"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:textSize="24sp"
+                 android:textSize="24dp"
                  android:textColor="@color/colorStonexBlueLight1"
                  android:text="GPS 2 Dev: "/>
          </LinearLayout>

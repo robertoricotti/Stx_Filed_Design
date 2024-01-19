@@ -82,7 +82,7 @@
                 android:text="Surface From\nA>>B"
                 android:gravity="center|top"
                 android:textColor="@color/_____cancel_text"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 android:textStyle="bold" />
 
             <Space
@@ -97,7 +97,7 @@
                 android:alpha="0.4"
                 android:gravity="center|top"
                 android:textColor="@color/_____cancel_text"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 android:textStyle="bold" />
 
             <Space
@@ -159,7 +159,7 @@
                 android:text="Flat Surface"
                 android:gravity="center|top"
                 android:textColor="@color/_____cancel_text"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 android:textStyle="bold"
                 />
 
@@ -176,7 +176,7 @@
                 android:visibility="invisible"
                 android:gravity="center|top"
                 android:textColor="@color/_____cancel_text"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 android:textStyle="bold" />
             <Space
                 android:layout_width="wrap_content"

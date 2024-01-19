@@ -61,7 +61,7 @@
                     android:ems="6"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     />
 
                 <EditText
@@ -74,7 +74,7 @@
                     android:inputType="numberDecimal|numberSigned"
                     android:selectAllOnFocus="true"
                     android:textAlignment="center"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     android:textStyle="bold"
                     />
                 <TextView
@@ -85,7 +85,7 @@
                     android:textColor="@color/black"
                     android:gravity="center"
                     android:background="@drawable/custom_background_light"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     android:textStyle="bold"/>
             </LinearLayout>
             <LinearLayout
@@ -102,7 +102,7 @@
                     android:text="dist A>>B"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     />
 
                 <EditText
@@ -115,7 +115,7 @@
                     android:inputType="numberDecimal|numberSigned"
                     android:selectAllOnFocus="true"
                     android:textAlignment="center"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     android:textStyle="bold"
                     />
                 <TextView
@@ -126,7 +126,7 @@
                     android:textColor="@color/black"
                     android:gravity="center"
                     android:background="@drawable/custom_background_light"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     android:textStyle="bold"/>
             </LinearLayout>
             <LinearLayout
@@ -143,7 +143,7 @@
                     android:text="A>B SLOPE"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     />
 
                 <EditText
@@ -156,7 +156,7 @@
                     android:inputType="numberDecimal|numberSigned"
                     android:selectAllOnFocus="true"
                     android:textAlignment="center"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     android:textStyle="bold"
                     />
                 <TextView
@@ -167,7 +167,7 @@
                     android:textColor="@color/black"
                     android:gravity="center"
                     android:background="@drawable/custom_background_light"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     android:textStyle="bold"/>
             </LinearLayout>
             <LinearLayout
@@ -185,7 +185,7 @@
                     android:text="LEFT LEN "
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     />
 
                 <EditText
@@ -198,7 +198,7 @@
                     android:inputType="numberDecimal|numberSigned"
                     android:selectAllOnFocus="true"
                     android:textAlignment="center"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     android:textStyle="bold"
                     />
                 <TextView
@@ -209,7 +209,7 @@
                     android:textColor="@color/black"
                     android:gravity="center"
                     android:background="@drawable/custom_background_light"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     android:textStyle="bold"/>
             </LinearLayout>
             <LinearLayout
@@ -226,7 +226,7 @@
                     android:text="LEFT SLOPE "
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     />
 
                 <EditText
@@ -239,7 +239,7 @@
                     android:inputType="numberDecimal|numberSigned"
                     android:selectAllOnFocus="true"
                     android:textAlignment="center"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     android:textStyle="bold"
                     />
                 <TextView
@@ -250,7 +250,7 @@
                     android:textColor="@color/black"
                     android:gravity="center"
                     android:background="@drawable/custom_background_light"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     android:textStyle="bold"/>
             </LinearLayout>
             <LinearLayout
@@ -267,7 +267,7 @@
                     android:text="RIGHT LEN"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     />
 
                 <EditText
@@ -290,7 +290,7 @@
                     android:textColor="@color/black"
                     android:gravity="center"
                     android:background="@drawable/custom_background_light"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     android:textStyle="bold"/>
             </LinearLayout>
             <LinearLayout
@@ -307,7 +307,7 @@
                     android:text="RIGHT SLOPE "
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     />
 
                 <EditText
@@ -320,7 +320,7 @@
                     android:inputType="numberDecimal|numberSigned"
                     android:selectAllOnFocus="true"
                     android:textAlignment="center"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     android:textStyle="bold"
                     />
                 <TextView
@@ -331,7 +331,7 @@
                     android:textColor="@color/black"
                     android:gravity="center"
                     android:background="@drawable/custom_background_light"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     android:textStyle="bold"/>
             </LinearLayout>
 
@@ -400,7 +400,7 @@
         android:text="3004"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="16sp"/>
+        android:textSize="16dp"/>
 
     <ImageButton
         android:id="@+id/delete"

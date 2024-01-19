@@ -24,7 +24,7 @@
             android:background="@color/_____cancel_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:textStyle="bold"
             android:textColor="@color/bg_alibuybutton_states"
             android:text="FLAT SURFACE\nTOOL POSITION"/>
@@ -33,7 +33,7 @@
             android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:text="E: 000.000"/>
@@ -42,7 +42,7 @@
             android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:text="N: 000.000"/>
@@ -51,7 +51,7 @@
             android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:text="Z: 000.000"/>

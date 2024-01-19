@@ -77,7 +77,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:text="HIDDEN PIN CALCULATION"
         android:gravity="center"
         android:textStyle="bold"
@@ -196,7 +196,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="18sp"
+            android:textSize="18dp"
             android:textStyle="bold"
             android:textColor="@color/_____cancel_text"
             android:text="CALC"/>
@@ -218,7 +218,7 @@
            android:minEms="5"
            android:textStyle="bold"
            android:textColor="@color/colorStonexBlueLight1"
-           android:textSize="24sp"/>
+           android:textSize="24dp"/>
         <TextView
             android:text="  "
             android:layout_width="wrap_content"
@@ -226,7 +226,7 @@
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="@color/_____cancel_text"
-            android:textSize="24sp"/>
+            android:textSize="24dp"/>
         <TextView
 
             android:id="@+id/txt_result_ft"
@@ -237,7 +237,7 @@
             android:minEms="5"
             android:textStyle="bold"
             android:textColor="@color/colorStonexBlueLight1"
-            android:textSize="24sp"/>
+            android:textSize="24dp"/>
         <TextView
             android:text="  "
             android:layout_width="wrap_content"
@@ -245,7 +245,7 @@
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="@color/_____cancel_text"
-            android:textSize="24sp"/>
+            android:textSize="24dp"/>
 
 
     </LinearLayout>
@@ -265,7 +265,7 @@
             android:minEms="5"
             android:textStyle="bold"
             android:textColor="@color/colorStonexBlueLight1"
-            android:textSize="24sp"/>
+            android:textSize="24dp"/>
 
 
 
