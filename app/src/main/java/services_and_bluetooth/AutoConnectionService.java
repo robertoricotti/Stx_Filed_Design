@@ -20,6 +20,8 @@ import android.util.Log;
 import androidx.core.app.ActivityCompat;
 
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executor;
@@ -28,6 +30,7 @@ import java.util.concurrent.Executors;
 
 import activity_portrait.MyApp;
 import can.Can_Decoder;
+import eventbus.GpsEvents;
 import gnss.Nmea_In;
 import utils.LocationUtils;
 
@@ -99,6 +102,7 @@ public class AutoConnectionService extends Service {
                     //Bluetooth_GNSS_Service.sendGNSSata("Sample Message\r\n"); //Usare questo codice per scrivere su seriale da bluetooth
                     new Nmea_In(androidNmea);
                     DataSaved.S_nmea=message;
+                    EventBus.getDefault().post(new GpsEvents(androidNmea));
 
                     Log.d("TEABLET_NMEA", androidNmea);
                 }

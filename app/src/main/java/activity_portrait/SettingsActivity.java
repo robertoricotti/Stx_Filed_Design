@@ -8,10 +8,12 @@ import static can.Can_Decoder.correctRoll;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -191,10 +193,17 @@ public class SettingsActivity extends AppCompatActivity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
+                            if(DataSaved.useRmc==2){
+                                seekRmc.setVisibility(View.GONE);
+                                txtsmootRmc.setVisibility(View.GONE);
+                            }else {
+                                seekRmc.setVisibility(View.VISIBLE);
+                                txtsmootRmc.setVisibility(View.VISIBLE);
+                            }
 
                                 txt_tilt.setText(String.valueOf("Pitch: " + String.format("%.2f", correctPitch) + "°       Roll: " + String.format("%.2f", correctRoll) + "°"));
 
-                                txtsmootRmc.setText("Bearing min Dist: \t\t" + String.format("%.1f",(float)DataSaved.rmcSize/100));
+                                txtsmootRmc.setText("BEARING SMOOTH: \t\t" + String.format("%.1f",(float)DataSaved.rmcSize/100));
 
 
                             if (DataSaved.imgMode == 0) {
@@ -237,6 +246,7 @@ public class SettingsActivity extends AppCompatActivity {
         finish();
     }
 
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
 

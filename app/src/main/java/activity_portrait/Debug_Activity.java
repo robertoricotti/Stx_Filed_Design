@@ -26,7 +26,7 @@ public class Debug_Activity extends AppCompatActivity {
     private ArrayList<String> itemListG, itemListC;
     private boolean b_playG = true;
 
-    private boolean b_playC = true;
+    private boolean b_playC = false;
     TextView txtG,txtC;
 
 
@@ -35,24 +35,34 @@ public class Debug_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         findView();
         onClick();
-        updateC();
+        //updateC();
         updateG();
+        txtC.setText("DEBUG CAN");
+        txtG.setText("DEBUG NMEA");
 
 
 
     }
     private void updateC(){
         if(b_playC){
-            txtC.setText("DEBUG CAN PLAY");
+            //txtC.setText("DEBUG CAN PLAY");
+            playC.setImageTintList(getColorStateList(R.color.blue));
+            pauseC.setImageTintList(getColorStateList(R.color._____cancel_text));
         }else {
-            txtC.setText("DEBUG CAN STOP");
+            //txtC.setText("DEBUG CAN STOP");
+            playC.setImageTintList(getColorStateList(R.color._____cancel_text));
+            pauseC.setImageTintList(getColorStateList(R.color.blue));
         }
     }
     private void updateG(){
         if(b_playG){
-            txtG.setText("DEBUG NMEA PLAY");
+            //txtG.setText("DEBUG NMEA PLAY");
+            playG.setImageTintList(getColorStateList(R.color.blue));
+            pauseG.setImageTintList(getColorStateList(R.color._____cancel_text));
         }else {
-            txtG.setText("DEBUG NMEA STOP");
+            //txtG.setText("DEBUG NMEA STOP");
+            playG.setImageTintList(getColorStateList(R.color._____cancel_text));
+            pauseG.setImageTintList(getColorStateList(R.color.blue));
         }
     }
 
@@ -68,11 +78,11 @@ public class Debug_Activity extends AppCompatActivity {
         listViewG = findViewById(R.id.listView_GPS);
         listViewC = findViewById(R.id.listView_CAN);
         itemListG = new ArrayList<>();
-        adapterG = new ArrayAdapter<>(this, R.layout.layout_custom_spinner, itemListG);
+        adapterG = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1 , itemListG);
         listViewG.setAdapter(adapterG);
 
         itemListC = new ArrayList<>();
-        adapterC = new ArrayAdapter<>(this, R.layout.layout_custom_spinner, itemListC);
+        adapterC = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1 , itemListC);
         listViewC.setAdapter(adapterC);
     }
 
@@ -93,18 +103,18 @@ public class Debug_Activity extends AppCompatActivity {
 
         });
         playC.setOnClickListener(view -> {
-            b_playC = true;
-            updateC();
+            //b_playC = true;
+            //updateC();
 
         });
         pauseC.setOnClickListener(view -> {
-            b_playC = false;
-            updateC();
+            //b_playC = false;
+           // updateC();
 
         });
         clearC.setOnClickListener(view -> {
             clearListC();
-            updateC();
+            //updateC();
         });
 
     }

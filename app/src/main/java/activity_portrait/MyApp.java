@@ -212,6 +212,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         btn2.setVisibility(View.INVISIBLE);
         btn3.setVisibility(View.INVISIBLE);
         btn4.setImageResource(R.drawable.btn_ecu_connect);
+        btn4.setVisibility(View.INVISIBLE);
         btn5.setVisibility(View.GONE);
         btn1.setOnClickListener(view -> {
             activity.startActivity(new Intent(activity, MainActivity.class));
@@ -239,6 +240,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         btn2.setVisibility(View.INVISIBLE);
         btn3.setVisibility(View.INVISIBLE);
         btn4.setImageResource(R.drawable.btn_ecu_connect);
+        btn4.setVisibility(View.INVISIBLE);
         btn1.setOnClickListener(view -> {
             activity.startActivity(new Intent(activity, MainActivity.class));
             activity.finish();
@@ -303,6 +305,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         btn5.setVisibility(View.GONE);
         btn1.setImageResource(R.drawable.btn_poweroff);
         btn4.setImageResource(R.drawable.btn_ecu_connect);
+        btn4.setVisibility(View.INVISIBLE);
         btn1.setOnClickListener(view -> {
             new CloseAppDialog(activity).show();
         });
@@ -326,6 +329,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         btn2.setImageResource(R.drawable.btn_read_usb);
         btn3.setImageResource(R.drawable.btn_copy_from_usb);
         btn4.setImageResource(R.drawable.btn_copy_to_usb);
+
         btn5.setImageResource(R.drawable.btn_delete);
         if (Build.VERSION.SDK_INT <= 30) {
             btn3.setAlpha(0.3f);
@@ -470,6 +474,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         btn2.setImageResource(R.drawable.btn_coordinate_list);
         btn3.setImageResource(R.drawable.btn_infoapp);
         btn4.setImageResource(R.drawable.btn_ecu_connect);
+        btn4.setVisibility(View.INVISIBLE);
         btn1.setOnClickListener(view -> {
             ((AB_WorkActivity) activity).metodoBack();
             activity.startActivity(new Intent(activity, MainActivity.class));
@@ -656,7 +661,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                                         btn4.setImageTintList(getApplicationContext().getColorStateList(R.color._____cancel_text));
                                     }
                                 }else {
-                                    btn4.setImageTintList(getApplicationContext().getColorStateList(R.color._____cancel_text));
+                                    btn4.setImageTintList(getApplicationContext().getColorStateList(R.color.white));
                                 }
                                 if (!Bluetooth_CAN_Service.canIsConnected) {
                                     txt_canstat.setTextColor(Color.RED);
@@ -677,13 +682,13 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                                     txt_coord.setTextColor(Color.RED);
                                     txt_coord.setBackgroundColor(getResources().getColor(R.color.white));
                                     if(DataSaved.useDemo==0){
-                                        imgBTTop.setImageTintList(getApplicationContext().getColorStateList(R.color._____cancel_text));
+                                        imgBTTop.setImageTintList(getApplicationContext().getColorStateList(R.color.white));
                                         txt_coord.setText("GPS DISCONNECTED");
                                     }
 
                                 } else {
                                     if(DataSaved.useDemo==0){
-                                        imgBTTop.setImageTintList(getApplicationContext().getColorStateList(R.color.blue));
+                                        imgBTTop.setImageTintList(getApplicationContext().getColorStateList(R.color.green));
                                     }
                                     txt_coord.setTextColor(Color.BLACK);
                                     if (txt2.getText().toString().equals("FIX")) {

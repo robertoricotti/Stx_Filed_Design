@@ -153,7 +153,7 @@ public class ProjectCanvas extends View {
             Coordinate start;
             Coordinate dest;
 
-            for (int i = 0; i < triangoli.length; i++) {
+          /*  for (int i = 0; i < triangoli.length; i++) {
                 start = new Coordinate(triangoli[i].x, triangoli[i].y);
 
                 if ((i + 1) % 3 != 0)
@@ -162,7 +162,10 @@ public class ProjectCanvas extends View {
                     dest = new Coordinate(triangoli[i - 2].x, triangoli[i - 2].y);
 
                 canvas.drawLine((float) start.x, (float) start.y, (float) dest.x, (float) dest.y, paint);
-            }
+            }*/
+            canvas.drawLine((float) coordinates[0].x, (float) coordinates[0].y, (float) coordinates[4].x, (float) coordinates[4].y, paint);
+            canvas.drawLine((float) coordinates[3].x, (float) coordinates[3].y, (float) coordinates[1].x, (float) coordinates[1].y, paint);
+
 
             // Codice per riempire l'area chiusa
             paint.setColor(Color.parseColor("#800F00FF")); // Colore rosso semitrasparente

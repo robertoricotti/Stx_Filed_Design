@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/_____cancel_text"
                 android:gravity="center"
-                android:text="Bearing Mode"
+                android:text="BEARING MODE"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 />
@@ -44,6 +44,8 @@
                 android:gravity="center">
                 <CheckBox
                     android:id="@+id/ckRMC"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
@@ -51,6 +53,8 @@
 
                 <CheckBox
                     android:id="@+id/ckPos"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
@@ -59,6 +63,8 @@
 
                 <CheckBox
                     android:id="@+id/ckhdt"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
@@ -72,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/_____cancel_text"
                 android:gravity="center"
-                android:text="Bearing Mode"
+                android:text="BEARING MIN DISTANCE"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 />
@@ -91,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/_____cancel_text"
                 android:gravity="center"
-                android:text="Tolerances"
+                android:text="TOLERANCES"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 />
@@ -157,6 +163,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tilt: "
@@ -167,6 +174,7 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:visibility="gone"
                     android:id="@+id/tilt_tol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -202,6 +210,7 @@
                     android:textSize="20sp" />
             </LinearLayout>
             <TextView
+                android:visibility="invisible"
                 android:id="@+id/txtslopeSet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -212,6 +221,7 @@
                 android:textSize="18sp"
                 />
             <TextView
+                android:visibility="gone"
                 android:id="@+id/txt_tilt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -224,6 +234,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -256,7 +267,7 @@
                 android:layout_marginTop="5dp"
                 android:background="@color/_____cancel_text"
                 android:gravity="center"
-                android:text="Navigator Type"
+                android:text="NAVIGATOR TYPE"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -274,6 +285,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:text="Circle"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
                     android:ems="8"
                     />
 
@@ -283,6 +296,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:text="Triangle"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
                     />
 
             </LinearLayout>

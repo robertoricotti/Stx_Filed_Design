@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.55" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -81,11 +81,17 @@
 
         </LinearLayout>
 
-        <ListView
-            android:scrollbarSize="24dp"
-            android:id="@+id/listView_GPS"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+
+
+            <ListView
+                android:scrollbarSize="24dp"
+                android:id="@+id/listView_GPS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+
+
     </LinearLayout>
 
     <LinearLayout
