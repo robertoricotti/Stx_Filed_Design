@@ -26,7 +26,7 @@ public class Debug_Activity extends AppCompatActivity {
     private ArrayList<String> itemListG, itemListC;
     private boolean b_playG = true;
 
-    private boolean b_playC = false;
+    private boolean b_playC = true;
     TextView txtG,txtC;
 
 
@@ -35,7 +35,7 @@ public class Debug_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         findView();
         onClick();
-        //updateC();
+        updateC();
         updateG();
         txtC.setText("DEBUG CAN");
         txtG.setText("DEBUG NMEA");
@@ -103,18 +103,18 @@ public class Debug_Activity extends AppCompatActivity {
 
         });
         playC.setOnClickListener(view -> {
-            //b_playC = true;
-            //updateC();
+            b_playC = true;
+            updateC();
 
         });
         pauseC.setOnClickListener(view -> {
-            //b_playC = false;
-           // updateC();
+            b_playC = false;
+            updateC();
 
         });
         clearC.setOnClickListener(view -> {
             clearListC();
-            //updateC();
+            updateC();
         });
 
     }

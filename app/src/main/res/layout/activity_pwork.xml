@@ -14,6 +14,18 @@
     <include
         android:id="@+id/lowerView"
         layout="@layout/shared_layout_low" />
+    <TextView
+        android:id="@+id/txtoff"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Offset: 0.000"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginVertical="25dp"
+        android:layout_marginHorizontal="15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topView"/>
     <LinearLayout
         android:layout_marginVertical="15dp"
         android:layout_marginHorizontal="5dp"
@@ -27,24 +39,12 @@
         android:orientation="vertical"
         android:background="@drawable/custom_background_transp"
         android:gravity="center|center_vertical">
-        <TextView
-            android:id="@+id/txtoff"
 
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Offset: 0.000"
-            android:textSize="20dp"
-            android:textStyle="bold"/>
-        <TextView
-
+        <ImageView
             android:id="@+id/statusSurf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="▼"
-            android:textSize="200dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+          android:src="@drawable/baseline_navigation_24"
             />
 
         <TextView

@@ -49,7 +49,6 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
-                    android:alpha="0.2"
                     android:src="@drawable/btn_canconn"
                     app:tint="@color/_____cancel_text"
 
@@ -86,7 +85,6 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
-                    android:alpha="0.2"
                     android:gravity="center|top"
                     android:text="CAN BT Config"
                     android:textColor="@color/_____cancel_text"
@@ -285,7 +283,6 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
-                    android:visibility="invisible"
                     android:src="@drawable/coordinate_btn"
                     app:tint="@color/_____cancel_text" />
 
@@ -331,7 +328,6 @@
                     android:text="Coordinate Ref. Systems"
                     android:textColor="@color/_____cancel_text"
                     android:textSize="16sp"
-                    android:visibility="invisible"
                     android:textStyle="bold" />
 
 
@@ -348,7 +344,6 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
-                    android:visibility="invisible"
                     android:src="@drawable/btn_mch_measure"
                     app:tint="@color/_____cancel_text" />
 
@@ -360,7 +355,6 @@
                     android:layout_height="60dp"
                     android:layout_weight="1"
                     android:padding="5dp"
-                    android:visibility="invisible"
                     android:src="@drawable/btn_open_dig" />
 
                 <ImageView
@@ -389,7 +383,6 @@
                     android:textColor="@color/_____cancel_text"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:alpha="0.0"
                     />
 
 
@@ -403,7 +396,6 @@
                     android:textColor="@color/_____cancel_text"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:visibility="invisible"
 
                     />
 

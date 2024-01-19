@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,8 +20,9 @@ import services_and_bluetooth.DataSaved;
 import utils.Utils;
 
 public class P_WorkActivity extends AppCompatActivity {
-    TextView freccia, quota,offset;
+    TextView  quota,offset;
     LinearLayout linearLayout;
+    ImageView freccia;
     private boolean mRunning = true;
     private Handler handler;
     DataProjectSingleton dataProject;
@@ -62,28 +64,30 @@ public class P_WorkActivity extends AppCompatActivity {
                             quots = Nmea_In.Quota1-d - DataSaved.D_Offset;
                             quota.setText(Utils.readUnitOfMeasure(String.valueOf(quots), P_WorkActivity.this));
                             if (Math.abs(quots) <= DataSaved.z_tol) {
-                                linearLayout.setBackgroundColor(Color.GREEN);
+                                linearLayout.setBackground(getDrawable(R.drawable.custom_background_transp));
+                                quota.setTextColor(getColor(R.color.pure_green));
+                                freccia.setImageResource(R.drawable.equal_96);
+                                freccia.setImageTintList(getApplicationContext().getColorStateList(R.color.pure_green));
+                                offset.setTextColor(Color.BLACK);
+                                freccia.setRotation(180);
 
-                                quota.setTextColor(Color.DKGRAY);
-                                freccia.setTextColor(Color.DKGRAY);
-                                offset.setTextColor(Color.DKGRAY);
-                                freccia.setText("=");
                             }
                             if (quots > (DataSaved.z_tol + 0.001)) {
-                                //linearLayout.setBackgroundColor(Color.BLUE);
                                 linearLayout.setBackground(getDrawable(R.drawable.custom_background_transp));
                                 quota.setTextColor(Color.BLUE);
-                                freccia.setTextColor(Color.BLUE);
-                                offset.setTextColor(Color.BLUE);
-                                freccia.setText("▼");
+                                freccia.setImageTintList(getApplicationContext().getColorStateList(R.color.blue));
+                                freccia.setImageResource(R.drawable.baseline_navigation_24);
+                                offset.setTextColor(Color.BLACK);
+                                freccia.setRotation(0);
+
                             }
                             if (quots < -(DataSaved.z_tol + 0.001)) {
-                                //linearLayout.setBackgroundColor(Color.RED);
                                 linearLayout.setBackground(getDrawable(R.drawable.custom_background_transp));
                                 quota.setTextColor(Color.RED);
-                                freccia.setTextColor(Color.RED);
-                                offset.setTextColor(Color.RED);
-                                freccia.setText("▲");
+                                freccia.setImageTintList(getApplicationContext().getColorStateList(R.color.red));
+                                freccia.setImageResource(R.drawable.baseline_navigation_24);
+                                offset.setTextColor(Color.BLACK);
+                                freccia.setRotation(180);
                             }
 
 

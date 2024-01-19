@@ -163,7 +163,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tilt: "
@@ -174,7 +173,6 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:visibility="gone"
                     android:id="@+id/tilt_tol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -190,7 +188,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="HDT: "
-                    android:ems="2"
+                    android:ems="3"
                     android:textAlignment="textEnd"
                     android:textColor="@color/black"
                     android:textSize="20sp"
@@ -210,18 +208,16 @@
                     android:textSize="20sp" />
             </LinearLayout>
             <TextView
-                android:visibility="invisible"
                 android:id="@+id/txtslopeSet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/_____cancel_text"
                 android:gravity="center"
-                android:text="Tilt Setup"
+                android:text="TILT SETUP"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 />
             <TextView
-                android:visibility="gone"
                 android:id="@+id/txt_tilt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -234,7 +230,6 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
             <LinearLayout
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"

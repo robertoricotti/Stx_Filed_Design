@@ -9,21 +9,26 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f92bf50-0241-4f68-8acd-219dc0291d3c" name="Changes" comment="dig launcher">
+    <list default="true" id="4f92bf50-0241-4f68-8acd-219dc0291d3c" name="Changes" comment="usa version">
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/equal_96.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/Debug_Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/Debug_Activity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/LaunchScreenActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/LaunchScreenActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MyApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MyApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/SettingsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/SettingsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/project/ProjectCanvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/project/ProjectCanvas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/services_and_bluetooth/AutoConnectionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/services_and_bluetooth/AutoConnectionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/P_WorkActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/P_WorkActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_debug.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_debug.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_pwork.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_pwork.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_uom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_uom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/shared_layout_low.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/shared_layout_low.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/shared_layout_top.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/shared_layout_top.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -463,7 +468,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705606944510</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="usa version">
+      <created>1705664100028</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1705664100029</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -491,6 +503,7 @@
     <MESSAGE value="before remove CRS" />
     <MESSAGE value="removed CRS" />
     <MESSAGE value="dig launcher" />
-    <option name="LAST_COMMIT_MESSAGE" value="dig launcher" />
+    <MESSAGE value="usa version" />
+    <option name="LAST_COMMIT_MESSAGE" value="usa version" />
   </component>
 </project>

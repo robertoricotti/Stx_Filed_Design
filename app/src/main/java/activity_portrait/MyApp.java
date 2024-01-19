@@ -212,7 +212,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         btn2.setVisibility(View.INVISIBLE);
         btn3.setVisibility(View.INVISIBLE);
         btn4.setImageResource(R.drawable.btn_ecu_connect);
-        btn4.setVisibility(View.INVISIBLE);
+
         btn5.setVisibility(View.GONE);
         btn1.setOnClickListener(view -> {
             activity.startActivity(new Intent(activity, MainActivity.class));
@@ -240,7 +240,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         btn2.setVisibility(View.INVISIBLE);
         btn3.setVisibility(View.INVISIBLE);
         btn4.setImageResource(R.drawable.btn_ecu_connect);
-        btn4.setVisibility(View.INVISIBLE);
+
         btn1.setOnClickListener(view -> {
             activity.startActivity(new Intent(activity, MainActivity.class));
             activity.finish();
@@ -305,7 +305,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         btn5.setVisibility(View.GONE);
         btn1.setImageResource(R.drawable.btn_poweroff);
         btn4.setImageResource(R.drawable.btn_ecu_connect);
-        btn4.setVisibility(View.INVISIBLE);
+
         btn1.setOnClickListener(view -> {
             new CloseAppDialog(activity).show();
         });
@@ -474,7 +474,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         btn2.setImageResource(R.drawable.btn_coordinate_list);
         btn3.setImageResource(R.drawable.btn_infoapp);
         btn4.setImageResource(R.drawable.btn_ecu_connect);
-        btn4.setVisibility(View.INVISIBLE);
+
         btn1.setOnClickListener(view -> {
             ((AB_WorkActivity) activity).metodoBack();
             activity.startActivity(new Intent(activity, MainActivity.class));
@@ -656,9 +656,9 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
                                 if(visibleActivity instanceof Debug_Activity||visibleActivity instanceof AB_WorkActivity||visibleActivity instanceof P_WorkActivity|| visibleActivity instanceof MainActivity){
                                     if(Bluetooth_CAN_Service.canIsConnected){
-                                        btn4.setImageTintList(getApplicationContext().getColorStateList(R.color.blue));
+                                        btn4.setImageTintList(getApplicationContext().getColorStateList(R.color.green));
                                     }else {
-                                        btn4.setImageTintList(getApplicationContext().getColorStateList(R.color._____cancel_text));
+                                        btn4.setImageTintList(getApplicationContext().getColorStateList(R.color.white));
                                     }
                                 }else {
                                     btn4.setImageTintList(getApplicationContext().getColorStateList(R.color.white));
