@@ -52,7 +52,7 @@ public class ABProject extends AppCompatActivity {
     TextView crs;
     TextView textCoord;
 
-    int pickIndex;
+    public int pickIndex;
 
     DataProjectSingleton dataProject;
     ABCanvas canvas;
@@ -110,7 +110,7 @@ public class ABProject extends AppCompatActivity {
         progressBar.setVisibility(View.INVISIBLE);
         dataProject = DataProjectSingleton.getInstance();
         myEpsgDialog = new MyEpsgDialog(this);
-        saveFileDialog = new SaveFileDialog(this, "AB");
+        saveFileDialog = new SaveFileDialog(this, "AB",String.valueOf(DataSaved.offset_Z_antenna));
         canvas = new ABCanvas(this);
         container_draw.addView(canvas);
         pickIndex = 0;

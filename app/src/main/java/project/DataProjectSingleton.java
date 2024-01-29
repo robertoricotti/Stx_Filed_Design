@@ -1,8 +1,10 @@
 package project;
 
 import android.annotation.SuppressLint;
+import android.app.appsearch.GenericDocument;
 import android.content.Context;
 import android.content.Intent;
+import android.provider.ContactsContract;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
@@ -302,6 +304,7 @@ public class DataProjectSingleton {
             this.projectName = info[0];
             this.epsgCode = info[1];
             this.projectTag=info[3];
+           DataSaved.offset_Z_antenna= Double.parseDouble(info[4]);
 
 
             MyApp.visibleActivity.startService(new Intent(MyApp.visibleActivity, UpdateValues.class));
@@ -323,13 +326,13 @@ public class DataProjectSingleton {
     }
 
 
-    public boolean saveProject(String path, String fileName,String tag) {
+    public boolean saveProject(String path, String fileName,String tag,String zOffset) {
         try {
             File f = new File(path, fileName);
 
             CSVWriter writer = new CSVWriter(new FileWriter(f));
 
-            String[] info = {fileName.replace(".pstx", ""), "UTM", String.valueOf(getSize()),tag};//TAG in last pos
+            String[] info = {fileName.replace(".pstx", ""), "UTM", String.valueOf(getSize()),tag,zOffset};//TAG in last pos
             //PLAN "P"
             //AB "P"
             //TRIANGLES "PE"  "P"

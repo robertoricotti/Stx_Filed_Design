@@ -73,7 +73,7 @@ public class Nmea_In {
                                 lon1 = LonDec / 60 + LonInt;
                                 lon1 = lon1 * -1;
                             }
-                            tempq = Double.parseDouble(ggaZ1.replace(",", ".")) + Double.parseDouble(ggaZ2.replace(",", "."));
+                            tempq = DataSaved.offset_Z_antenna+Double.parseDouble(ggaZ1.replace(",", ".")) + Double.parseDouble(ggaZ2.replace(",", "."));
                             Quota1 = tempq - DataSaved.D_AltezzaAnt;
                             if (DataSaved.useTilt == 0) {
                                 mLat_1 = lat1;

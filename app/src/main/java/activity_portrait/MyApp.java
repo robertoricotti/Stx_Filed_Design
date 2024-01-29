@@ -36,6 +36,7 @@ import can.Can_Decoder;
 import dialogs.CloseAppDialog;
 import dialogs.ConnectDialog;
 import dialogs.CustomToast;
+import dialogs.Dialog_Edit_Zeta;
 import gnss.My_LocationCalc;
 import gnss.Nmea_In;
 import services_and_bluetooth.Bluetooth_CAN_Service;
@@ -271,7 +272,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             activity.finish();
         });
         btn5.setOnClickListener(view -> {
-            ((Create_1P) activity).save1P();
+            new Dialog_Edit_Zeta(activity,0).show();
         });
 
     }
@@ -407,7 +408,12 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             activity.finish();
         });
         btn2.setOnClickListener(view -> {
-            ((ABProject) activity).metodoPick();
+            if(activity instanceof ABProject && ((ABProject)activity).pickIndex==0){
+            new Dialog_Edit_Zeta(activity,0).show();}
+            else {
+                ((ABProject)activity).metodoPick();
+            }
+
         });
        btn3.setVisibility(View.INVISIBLE);
         btn5.setOnClickListener(view -> {

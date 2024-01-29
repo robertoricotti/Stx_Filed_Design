@@ -31,11 +31,12 @@ public class SaveFileDialog {
     public Dialog dialog;
     Button save, exit;
     EditText fileName;
-    String tag;
+    String tag,offset;
 
-    public SaveFileDialog(Activity activity,String tag) {
+    public SaveFileDialog(Activity activity,String tag,String offset) {
         this.activity = activity;
         this.tag=tag;
+        this.offset=offset;
         dialog = new Dialog(activity);
         dialog.setContentView(R.layout.save_file_dialog);
 
@@ -68,11 +69,11 @@ public class SaveFileDialog {
                 String currentDateTime = "";//sdf.format(new Date());
                 DataProjectSingleton dataProject = DataProjectSingleton.getInstance();
                 if(activity instanceof ABProject){
-                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", "AB_"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag);
+                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", "AB_"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag,offset);
 
                 }
                 if(activity instanceof Create_1P){
-                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", "1P_"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag);
+                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", "1P_"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag,offset);
 
                 }
                 //aggiungere  cross section

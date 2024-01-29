@@ -20,6 +20,7 @@ import coords_calc.GPS;
 import dialogs.SaveFileDialog;
 import gnss.Nmea_In;
 import project.DataProjectSingleton;
+import services_and_bluetooth.DataSaved;
 
 public class Create_1P extends AppCompatActivity {
     private boolean mRunning=true;
@@ -40,7 +41,7 @@ public class Create_1P extends AppCompatActivity {
 
     private void findView(){
         dataProject = DataProjectSingleton.getInstance();
-        saveFileDialog = new SaveFileDialog(this, "PLAN");
+        saveFileDialog = new SaveFileDialog(this, "PLAN",String.valueOf(DataSaved.offset_Z_antenna));
         txE=findViewById(R.id.p_coord_est);
         txN=findViewById(R.id.p_coord_nord);
         txZ=findViewById(R.id.p_coord_z);

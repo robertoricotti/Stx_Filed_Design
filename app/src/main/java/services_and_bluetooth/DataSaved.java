@@ -32,6 +32,7 @@ public class DataSaved {
     public static int useTilt;
     public static String deviceType;
     public static int useDemo;
+    public static double offset_Z_antenna;
 
 
 

@@ -111,6 +111,7 @@
     <string name="release">RELEASE</string>
     <string name="quick_setup">QUICK SETUP</string>
     <string name="id_point">ID POINT</string>
+    <string name="edit_zeta">DO YOU WANT TO EDIT THE Z AND APPLY THE NEW VALUE TO THE GPS?</string>
 
 
     <!-- Strings used for fragments for navigation -->
