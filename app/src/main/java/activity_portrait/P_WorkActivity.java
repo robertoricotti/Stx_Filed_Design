@@ -78,7 +78,7 @@ public class P_WorkActivity extends AppCompatActivity {
                                 freccia.setImageTintList(getApplicationContext().getColorStateList(R.color.blue));
                                 freccia.setImageResource(R.drawable.baseline_navigation_24);
                                 offset.setTextColor(Color.BLACK);
-                                freccia.setRotation(0);
+                                freccia.setRotation(180);
 
                             }
                             if (quots < -(DataSaved.z_tol + 0.001)) {
@@ -87,7 +87,7 @@ public class P_WorkActivity extends AppCompatActivity {
                                 freccia.setImageTintList(getApplicationContext().getColorStateList(R.color.red));
                                 freccia.setImageResource(R.drawable.baseline_navigation_24);
                                 offset.setTextColor(Color.BLACK);
-                                freccia.setRotation(180);
+                                freccia.setRotation(0);
                             }
 
 

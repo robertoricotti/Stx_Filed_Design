@@ -149,6 +149,9 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             case "activity_portrait.Debug_Activity":
                 m_Debug_Activity(activity);
                 break;
+            case "activity_portrait.Activity_Gnss_Setup":
+                m_GnssSetup_Activity(activity);
+                break;
             case "activity_portrait.LaunchScreenActivity":
                 String b = Build.BRAND;
                 DataSaved.deviceType = b;
@@ -203,6 +206,34 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     public void onActivityDestroyed(@NonNull Activity activity) {
 
         m_updateUI(activity, false);
+    }
+
+    public void m_GnssSetup_Activity(Activity activity){
+        activity.setContentView(R.layout.activity_gnss_setup_nuova_7);
+        whoLaunch = activity;
+        m_updateUI(whoLaunch, true);
+        btn1.setImageResource(R.drawable.btn_to_indietro);
+        btn2.setImageResource(R.drawable.btn_copy_from_usb);
+        btn3.setImageResource(R.drawable.btn_copy_to_usb);
+        btn4.setImageResource(R.drawable.btn_delete);
+        btn5.setImageResource(R.drawable.play_96);
+        btn1.setOnClickListener(view -> {
+            activity.startActivity(new Intent(activity, MainActivity.class));
+            activity.finish();
+        });
+        btn2.setOnClickListener(view -> {
+            ((Activity_Gnss_Setup) activity).exBtn2();
+
+        });
+        btn3.setOnClickListener(view -> {
+            ((Activity_Gnss_Setup) activity).exBtn3();
+        });
+        btn4.setOnClickListener(view -> {
+            ((Activity_Gnss_Setup) activity).exBtn4();
+        });
+        btn5.setOnClickListener(view -> {
+            ((Activity_Gnss_Setup) activity).exBtn5();
+        });
     }
     public void m_Debug_Activity(Activity activity) {
         activity.setContentView(R.layout.activity_debug);//setta il layout di riferimento dell'activity

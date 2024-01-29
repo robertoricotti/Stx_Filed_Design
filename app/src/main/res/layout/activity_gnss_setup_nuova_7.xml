@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true">
+
+
+    <include
+        android:id="@+id/topView"
+        layout="@layout/shared_layout_top" />
+
+    <include
+        android:id="@+id/lowerView"
+        layout="@layout/shared_layout_low" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/lowerView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/topView">
+
+        <LinearLayout
+            android:id="@+id/canLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:alpha="0.3"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <CheckBox
+                android:id="@+id/ckusenme2k"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_weight="1"
+                android:ems="8"
+                android:text="USE NMEA2000"
+                android:textSize="20px"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/useLowlatlon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="20dp"
+                android:layout_weight="1"
+                android:ems="8"
+                android:text="LAT/LON Low Resolution"
+                android:textSize="20px"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/useCustomCan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="20dp"
+                android:layout_weight="1"
+                android:ems="8"
+                android:enabled="false"
+                android:text="GNSS STX CAN"
+                android:textSize="20px"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txbaudCan"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:ems="8"
+                android:focusableInTouchMode="false"
+                android:gravity="center"
+                android:hint="250Kb/s"
+                android:maxLines="1"
+                android:paddingHorizontal="30dp"
+                android:textColor="@color/black"
+                android:textSize="22px"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/gnssLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+
+            <LinearLayout
+                android:id="@+id/layoutBT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/stmacAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:digits="ABCDEF0123456789:"
+                    android:ems="14"
+                    android:background="@color/_____cancel_text"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:text="00:00:00:00:00:00\t\t\t\tGPS NAME"
+                    android:textColor="@color/white"
+                    android:textSize="26px"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="5px"
+                android:background="@color/_____cancel_text" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+
+                <CheckBox
+                    android:id="@+id/ck980"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_weight="1"
+                    android:ems="8"
+                    android:text="Stonex GNSS"
+                    android:textSize="26px"
+                    android:textStyle="bold" />
+                <CheckBox
+                    android:id="@+id/ck600"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_weight="1"
+                    android:ems="8"
+                    android:text="SC600"
+                    android:textSize="26px"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/layoutnmea"
+                android:layout_width="match_parent"
+                android:layout_height="90px"
+                android:layout_marginHorizontal="1dp"
+                android:layout_marginVertical="1dp"
+                android:layout_weight="0"
+                android:background="@color/gray"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_gga"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:ems="6"
+                    android:gravity="center_vertical"
+                    android:text="GGA:"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="24px"
+                    android:textStyle="bold"
+                    tools:ignore="RtlCompat" />
+
+                <TextView
+                    android:id="@+id/txt_ggah"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:ems="6"
+                    android:gravity="center_vertical"
+                    android:text="GGAH:"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="24px"
+                    android:textStyle="bold"
+                    tools:ignore="RtlCompat" />
+
+                <TextView
+                    android:id="@+id/txt_hdt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:ems="6"
+                    android:gravity="center_vertical"
+                    android:text="HDT: "
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="24px"
+                    android:textStyle="bold"
+                    tools:ignore="RtlCompat" />
+
+                <TextView
+                    android:id="@+id/txt_gst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:ems="6"
+                    android:gravity="center_vertical"
+                    android:text="GST: "
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="24px"
+                    android:textStyle="bold"
+                    tools:ignore="RtlCompat" />
+
+                <TextView
+                    android:id="@+id/txt_rmc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:ems="6"
+                    android:gravity="center_vertical"
+                    android:text="RMC: "
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="24px"
+                    android:textStyle="bold"
+                    tools:ignore="RtlCompat" />
+
+                <TextView
+                    android:id="@+id/txt_gsv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:ems="6"
+                    android:gravity="center_vertical"
+                    android:text="GSV: "
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="24px"
+                    android:textStyle="bold"
+                    tools:ignore="RtlCompat" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutradio"
+                android:layout_width="match_parent"
+                android:layout_height="90px"
+                android:layout_marginVertical="1dp"
+                android:layout_marginHorizontal="1dp"
+                android:background="@color/gray"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_radioenable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:ems="6"
+                    android:gravity="center_vertical"
+                    android:text="UHF:\n"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="24px"
+                    android:textStyle="bold"
+                    tools:ignore="RtlCompat" />
+
+                <TextView
+                    android:id="@+id/txt_radioch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:ems="6"
+                    android:gravity="center_vertical"
+                    android:text="CH:\n"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="24px"
+                    android:textStyle="bold"
+                    tools:ignore="RtlCompat" />
+
+                <TextView
+                    android:id="@+id/txt_radioproto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:ems="6"
+                    android:gravity="center_vertical"
+                    android:text="Protocol:\n"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="24px"
+                    android:textStyle="bold"
+                    tools:ignore="RtlCompat" />
+
+                <TextView
+                    android:id="@+id/txt_radiospacing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:ems="6"
+                    android:gravity="center_vertical"
+                    android:text="Spacing:\n"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="24px"
+                    android:textStyle="bold"
+                    tools:ignore="RtlCompat" />
+
+                <TextView
+                    android:id="@+id/txt_radiofunction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:ems="6"
+                    android:gravity="center_vertical"
+                    android:text="Function:\n"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="24px"
+                    android:textStyle="bold"
+                    tools:ignore="RtlCompat" />
+
+                <TextView
+                    android:id="@+id/txt_radiortk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:ems="6"
+                    android:gravity="center_vertical"
+                    android:text="Rtk:\n"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="24px"
+                    android:textStyle="bold"
+                    tools:ignore="RtlCompat" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtdebugtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/_____cancel_text"
+                android:gravity="center"
+                android:text="DEBUG"
+                android:textColor="@color/white"
+                android:textSize="26px"
+                android:textStyle="bold"
+                android:visibility="visible" />
+
+            <ListView
+                android:id="@+id/txtnmeaDebug"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fadeScrollbars="false"
+                android:scrollbarSize="10dp"
+                android:textAlignment="inherit"
+                android:textColor="@color/blue"
+                android:textSize="18px" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="@style/CustomProgressBar"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

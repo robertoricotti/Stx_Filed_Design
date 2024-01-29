@@ -180,5 +180,69 @@
     <string name="status_removed">Device Detached</string>
     <string name="status_added">Device Attached</string>
 
+    <string-array name="rate_options">
+        <item>Off</item>
+        <item>10 Sec.</item>
+        <item>5 Sec.</item>
+        <item>2 Sec.</item>
+        <item>1 Sec.</item>
+        <item>2 Hz</item>
+        <item>5 Hz</item>
+        <item>10 Hz</item>
+        <item>20 Hz</item>
+    </string-array>
+    <string-array name="uhf_options">
+        <item>ENABLE</item>
+        <item>OFF</item>
+    </string-array>
+    <string-array name="radio_ch">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+    </string-array>
+    <string-array name="radio_proto">
+        <item>Satel</item>
+        <item>PCC-4FSK</item>
+        <item>PCC-GMSK</item>
+        <item>TrimTalk 450S</item>
+        <item>South 9600</item>
+        <item>HITARGET(9600)</item>
+        <item>HITARGET(19200)</item>
+        <item>TrimMark III</item>
+        <item>South 19200</item>
+        <item>TrimTalk(4800)</item>
+        <item>GEOTALK</item>
+        <item>GEOMARK</item>
+        <item>HZSZ</item>
+        <item>GEO FHSS</item>
+        <item>Satel_ADL</item>
+        <item>PCCFST</item>
+        <item>PCCFST_ADL</item>
+    </string-array>
+    <string-array name="radio_spacing">
+        <item>6.5</item>
+        <item>12.5</item>
+        <item>25</item>
+    </string-array>
+    <string-array name="radio_rtk">
+        <item>Off</item>
+        <item>RTCM2.3</item>
+        <item>RTCM3.0</item>
+        <item>RTCM3.2</item>
+    </string-array>
+
 
 </resources>

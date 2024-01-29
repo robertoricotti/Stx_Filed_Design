@@ -72,6 +72,7 @@ public class ConnectDialog {
                 textView.setText("GPS\nConnect To\n" + DataSaved.S_gpsname + "\n" + DataSaved.S_macAddres);
             }
         } else if (flag == 2) {
+            /*
             if (Bluetooth_CAN_Service.canIsConnected) {
                 yes.setBackgroundTintList(ContextCompat.getColorStateList(activity.getApplicationContext(), R.color.bg_sfsred));
 
@@ -81,6 +82,10 @@ public class ConnectDialog {
 
                 textView.setText("CAN\nConnect To\n" + DataSaved.S_can_name + "\n" + DataSaved.S_macAddress_CAN);
             }
+
+             */
+            textView.setText("CAN Not Yet Implemented");
+           alertDialog.dismiss();
         }else if (flag==3) {
 
             textView.setText("ID: "+ Can_Decoder.mID+" "+ Arrays.toString(Can_Decoder.msgFrame)+"\n");

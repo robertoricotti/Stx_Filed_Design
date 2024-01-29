@@ -35,9 +35,9 @@ import services_and_bluetooth.DataSaved;
 import utils.MyRW_IntMem;
 
 public class MainActivity extends AppCompatActivity {
-    int countProgress=0;
+    int countProgress = 0;
     ProgressBar progressBar;
-    ImageView openDigApp,btn_units, to_bt, openProject, to_new, to_settings, to_usbStick, to_mch, to_palina, to_info, toPairCan,btn_screenR,setCrs,toDebug;
+    ImageView to_NmeaConfig,openDigApp, btn_units, to_bt, openProject, to_new, to_settings, to_usbStick, to_mch, to_palina, to_info, toPairCan, btn_screenR, setCrs, toDebug;
 
 
     MyRW_IntMem myRWIntMem;
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void findView() {
-        btn_units=findViewById(R.id.img10);
+        btn_units = findViewById(R.id.img10);
         to_bt = findViewById(R.id.img1);
         openProject = findViewById(R.id.openProject);
         to_new = findViewById(R.id.img3);
@@ -72,10 +72,11 @@ public class MainActivity extends AppCompatActivity {
         toPairCan = findViewById(R.id.img8);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
-        btn_screenR=findViewById(R.id.img11);
-        setCrs=findViewById(R.id.img12);
-        toDebug=findViewById(R.id.img13);
-        openDigApp=findViewById(R.id.img14);
+        btn_screenR = findViewById(R.id.img11);
+        setCrs = findViewById(R.id.img12);
+        toDebug = findViewById(R.id.img13);
+        openDigApp = findViewById(R.id.img14);
+        to_NmeaConfig = findViewById(R.id.img15);
 
 
     }
@@ -89,32 +90,36 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("NewApi")
     private void onClick() {
+        to_NmeaConfig.setOnClickListener(view -> {
+            startActivity(new Intent(this, Activity_Gnss_Setup.class));
+            finish();
+        });
         openDigApp.setOnClickListener(view -> {
             openApp("com.example.stx_digging");
 
         });
         toDebug.setOnClickListener(view -> {
-            startActivity(new Intent(this,Debug_Activity.class));
+            startActivity(new Intent(this, Debug_Activity.class));
             finish();
         });
         setCrs.setOnClickListener(view -> {
 
-            new CustomToast(this,"UTM").show();
+            // new CustomToast(this,"UTM").show();
 
         });
 
         btn_units.setOnClickListener(view -> {
-            startActivity(new Intent(this,UOM_Activity.class));
+            startActivity(new Intent(this, UOM_Activity.class));
             finish();
 
         });
         to_usbStick.setOnClickListener(view -> {
-            if(Build.VERSION.SDK_INT <= 29){
-                new CustomToast(this,"Can't Use USB Stick\nOn This Device").show();
+            if (Build.VERSION.SDK_INT <= 29) {
+                new CustomToast(this, "Can't Use USB Stick\nOn This Device").show();
                 Intent intent = new Intent(MainActivity.this, UsbActivity.class);
                 startActivity(intent);
                 finish();
-            }else {
+            } else {
                 Intent intent = new Intent(MainActivity.this, UsbActivity.class);
                 startActivity(intent);
                 finish();
@@ -137,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
         });
         toPairCan.setOnClickListener(view -> {
-
+            /*
             if(DataSaved.deviceType.equals("SRT8PROS")||DataSaved.deviceType.equals("SRT7PROS")){
                 Intent intent = new Intent(MainActivity.this, CAN_DebugActivity.class);
                 startActivity(intent);
@@ -147,16 +152,16 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, BT_DevicesActivity.class);
             BT_DevicesActivity.flag = "CAN";
             startActivity(intent);
-            finish();}
+            finish();}*/
         });
         btn_screenR.setOnClickListener(view -> {
-            DataSaved.DisplayOrient=(DataSaved.DisplayOrient+1)%2;
-            myRWIntMem.MyWrite("display", String.valueOf(DataSaved.DisplayOrient),MainActivity.this);
+            DataSaved.DisplayOrient = (DataSaved.DisplayOrient + 1) % 2;
+            myRWIntMem.MyWrite("display", String.valueOf(DataSaved.DisplayOrient), MainActivity.this);
             recreate();
         });
         openProject.setOnClickListener(view -> {
             progressBar.setVisibility(View.VISIBLE);
-            if(progressBar.getVisibility()==View.VISIBLE) {
+            if (progressBar.getVisibility() == View.VISIBLE) {
                 (new Handler()).postDelayed(this::openProj, 500);
             }
         });
@@ -174,9 +179,9 @@ public class MainActivity extends AppCompatActivity {
 
         to_mch.setOnClickListener(view -> {
 
-            startActivity(new Intent(MainActivity.this, MchMeaureActivity.class));
+           /* startActivity(new Intent(MainActivity.this, MchMeaureActivity.class));
 
-            finish();
+            finish();*/
         });
 
     }
@@ -194,19 +199,19 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
 
-                            if(progressBar.getVisibility()==View.VISIBLE){
+                            if (progressBar.getVisibility() == View.VISIBLE) {
                                 countProgress++;
-                            to_bt.setEnabled(false);
-                            openProject.setEnabled(false);
-                            to_new.setEnabled(false);
-                            to_settings.setEnabled(false);
-                            to_usbStick.setEnabled(false);
+                                to_bt.setEnabled(false);
+                                openProject.setEnabled(false);
+                                to_new.setEnabled(false);
+                                to_settings.setEnabled(false);
+                                to_usbStick.setEnabled(false);
 
-                            to_mch.setEnabled(false);
-                            to_palina.setEnabled(false);
-                            to_info.setEnabled(false);
-                            toPairCan.setEnabled(false);}
-                            else {
+                                to_mch.setEnabled(false);
+                                to_palina.setEnabled(false);
+                                to_info.setEnabled(false);
+                                toPairCan.setEnabled(false);
+                            } else {
                                 to_bt.setEnabled(true);
                                 openProject.setEnabled(true);
                                 to_new.setEnabled(true);
@@ -218,18 +223,15 @@ public class MainActivity extends AppCompatActivity {
                                 to_info.setEnabled(true);
                                 toPairCan.setEnabled(true);
                             }
-                            if(countProgress>100){
+                            if (countProgress > 100) {
                                 progressBar.setVisibility(View.INVISIBLE);
-                                countProgress=0;
+                                countProgress = 0;
                             }
                             if (Bluetooth_CAN_Service.canIsConnected) {
 
                             } else {
 
                             }
-
-
-
 
 
                         }
@@ -248,31 +250,31 @@ public class MainActivity extends AppCompatActivity {
 
     private void openProj() {
 
-    String path = myRWIntMem.MyRead("projectPath", MainActivity.this);
-    if (path == null) {
+        String path = myRWIntMem.MyRead("projectPath", MainActivity.this);
+        if (path == null) {
 
-        new CustomToast(this,"No Project Selected\nPlease Choose One").show();
+            new CustomToast(this, "No Project Selected\nPlease Choose One").show();
 
-    } else {
-        DataProjectSingleton.getInstance().readProject(path);
+        } else {
+            DataProjectSingleton.getInstance().readProject(path);
 
-        if (dataProject.readProject(path)) {
+            if (dataProject.readProject(path)) {
 
 
-            if(dataProject.getSize()==4||dataProject.getSize()==6){
-                 startActivity(new Intent(MainActivity.this, AB_WorkActivity.class));
-                 finish();
-            }else if(dataProject.getSize()==1){
-                startActivity(new Intent(MainActivity.this, P_WorkActivity.class));
-                finish();
-            }
-            else {
-                new CustomToast(MainActivity.this,"Error Reading Project").show();
+                if (dataProject.getSize() == 4 || dataProject.getSize() == 6) {
+                    startActivity(new Intent(MainActivity.this, AB_WorkActivity.class));
+                    finish();
+                } else if (dataProject.getSize() == 1) {
+                    startActivity(new Intent(MainActivity.this, P_WorkActivity.class));
+                    finish();
+                } else {
+                    new CustomToast(MainActivity.this, "Error Reading Project").show();
+                }
             }
         }
-    }
 
     }
+
     private void openApp(String packageName) {
         try {
 
@@ -281,9 +283,9 @@ public class MainActivity extends AppCompatActivity {
             intent.setComponent(new ComponentName(packageName, "gui.boot_and_choose.LaunchScreenActivity")); // Sostituisci con il nome della tua attività principale
 
             if (intent.resolveActivity(getPackageManager()) != null) {
-                stopService(new Intent(this,Bluetooth_GNSS_Service.class));
-                stopService(new Intent(this,Bluetooth_CAN_Service.class));
-                stopService(new Intent(this,AutoConnectionService.class));
+                stopService(new Intent(this, Bluetooth_GNSS_Service.class));
+                stopService(new Intent(this, Bluetooth_CAN_Service.class));
+                stopService(new Intent(this, AutoConnectionService.class));
                 startActivity(intent);
 
                 finish();
@@ -296,8 +298,6 @@ public class MainActivity extends AppCompatActivity {
             new CustomToast(MainActivity.this, packageName + " Not Found").show();
         }
     }
-
-
 
 
     @Override

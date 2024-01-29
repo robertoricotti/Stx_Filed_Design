@@ -110,6 +110,11 @@ public class AB_WorkActivity extends AppCompatActivity {
             distance.setTextSize(26f);
         }
         surfaceOK.setClickable(false);
+        if(DataSaved.useRmc==2){
+            surfaceOK.setVisibility(View.VISIBLE);
+        }else {
+            surfaceOK.setVisibility(View.INVISIBLE);
+        }
 
         dataProject = DataProjectSingleton.getInstance();
         surfaceStatus.setClickable(false);

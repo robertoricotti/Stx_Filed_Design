@@ -277,6 +277,7 @@ public class Bluetooth_CAN_Service extends Service {
                                     handler_tl.postDelayed(timeoutRunnable_tl, 3000);
                                     new Can_Decoder(encodedBytes);
 
+
                                 } else {
                                     buffer[readBufferPosition_CAN[0]++] = b;
                                 }

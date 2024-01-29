@@ -20,7 +20,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
+import eventbus.CMD_Event;
 import eventbus.GpsEvents;
+import eventbus.SerialEvent;
 import gnss.Nmea_In;
 
 public class Bluetooth_GNSS_Service extends Service {
@@ -82,6 +84,8 @@ public class Bluetooth_GNSS_Service extends Service {
 
                         Log.d("RECORDED", completeMessage);
                         EventBus.getDefault().post(new GpsEvents(completeMessage));
+                        EventBus.getDefault().post(new CMD_Event(completeMessage));
+                        EventBus.getDefault().post(new SerialEvent(completeMessage));
                         if(DataSaved.useDemo==1){
                             stopSelf();
                         }
