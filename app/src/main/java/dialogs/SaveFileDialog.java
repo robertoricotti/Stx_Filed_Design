@@ -24,6 +24,7 @@ import activity_portrait.ABProject;
 import activity_portrait.Create_1P;
 import project.DataProjectSingleton;
 import activity_portrait.MenuProject;
+import services_and_bluetooth.DataSaved;
 import utils.FullscreenActivity;
 
 public class SaveFileDialog {
@@ -69,11 +70,11 @@ public class SaveFileDialog {
                 String currentDateTime = "";//sdf.format(new Date());
                 DataProjectSingleton dataProject = DataProjectSingleton.getInstance();
                 if(activity instanceof ABProject){
-                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", "AB_"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag,offset);
+                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", "AB_"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag,String.valueOf(DataSaved.offset_Z_antenna));
 
                 }
                 if(activity instanceof Create_1P){
-                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", "1P_"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag,offset);
+                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", "1P_"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag,String.valueOf(DataSaved.offset_Z_antenna));
 
                 }
                 //aggiungere  cross section
