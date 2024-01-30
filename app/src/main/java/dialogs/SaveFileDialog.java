@@ -22,6 +22,7 @@ import java.util.Locale;
 
 import activity_portrait.ABProject;
 import activity_portrait.Create_1P;
+import activity_portrait.Create_Area;
 import project.DataProjectSingleton;
 import activity_portrait.MenuProject;
 import services_and_bluetooth.DataSaved;
@@ -75,6 +76,10 @@ public class SaveFileDialog {
                 }
                 if(activity instanceof Create_1P){
                     dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", "1P_"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag,String.valueOf(DataSaved.offset_Z_antenna));
+
+                }
+                if(activity instanceof Create_Area){
+                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", "AR_"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag,String.valueOf(DataSaved.offset_Z_antenna));
 
                 }
                 //aggiungere  cross section

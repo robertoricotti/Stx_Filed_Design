@@ -92,7 +92,11 @@ public class PickProjectAdapter extends RecyclerView.Adapter<PickProjectAdapter.
             imageView.setImageResource(R.drawable.image_cs);
             imageView.setImageTintList(ContextCompat.getColorStateList(MyApp.visibleActivity, R.color.blue));
         }
-        textView.setText(nameFile.replace("AB_", "").replace("1P_", "").replace("CS_", ""));
+        else if(nameFile.substring(0,3).equals("AR_")){
+            imageView.setImageResource(R.drawable.area_image);
+            imageView.setImageTintList(ContextCompat.getColorStateList(MyApp.visibleActivity, R.color.blue));
+        }
+        textView.setText(nameFile.replace("AB_", "").replace("1P_", "").replace("CS_", "").replace("AR_", ""));
 
 
         constraintLayout.setBackgroundColor(selectedItem == position ? ContextCompat.getColor(constraintLayout.getContext(), R.color.orange) : ContextCompat.getColor(constraintLayout.getContext(), R.color.transparent));

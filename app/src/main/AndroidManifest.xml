@@ -67,6 +67,12 @@
         tools:ignore="RtlEnabled"
         tools:targetApi="31">
         <activity
+            android:name="activity_portrait.Create_Area"
+            android:autoRemoveFromRecents="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="locked"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"  />
+        <activity
             android:name="activity_portrait.Activity_Gnss_Setup"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTop"

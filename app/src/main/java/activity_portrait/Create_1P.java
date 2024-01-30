@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ public class Create_1P extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DataSaved.offset_Z_antenna=0;
 
         findView();
         onClick();
@@ -82,14 +84,18 @@ public class Create_1P extends AppCompatActivity {
 
     }
     public void save1P(){
-        GPS gps=new GPS(null,Nmea_In.Crs_Est,Nmea_In.Crs_Nord,Nmea_In.Quota1,Nmea_In.Band,Nmea_In.Zone);
-        dataProject.addCoordinate("P",gps);
-        if (dataProject.getSize() == 1) {
+        if(Nmea_In.Crs_Est==0&&Nmea_In.Crs_Nord==0){
+            Toast.makeText(this,"Invalid GPS Position", Toast.LENGTH_LONG).show();
+        }else {
+            GPS gps = new GPS(null, Nmea_In.Crs_Est, Nmea_In.Crs_Nord, Nmea_In.Quota1, Nmea_In.Band, Nmea_In.Zone);
+            dataProject.addCoordinate("P", gps);
+            if (dataProject.getSize() == 1) {
 
-            if (!saveFileDialog.dialog.isShowing())
-                saveFileDialog.show();
-        } else {
-            Toast.makeText(this, "Points not available!", Toast.LENGTH_SHORT).show();
+                if (!saveFileDialog.dialog.isShowing())
+                    saveFileDialog.show();
+            } else {
+                Toast.makeText(this, "Points not available!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

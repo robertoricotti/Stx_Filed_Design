@@ -337,6 +337,7 @@ public class DataProjectSingleton {
             //AB "P"
             //TRIANGLES "PE"  "P"
             //PATH  "PL" "P"
+            //AREA  "AR" "P"
 
             writer.writeNext(info);
 

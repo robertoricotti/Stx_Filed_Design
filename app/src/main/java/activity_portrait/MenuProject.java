@@ -16,7 +16,7 @@ import dialogs.PickProjectDialog;
 
 public class MenuProject extends AppCompatActivity {
 
-    ImageButton plane, ab, delaunay,path;
+    ImageButton cross_sect, ab, flat_surf, create_area;
     PickProjectDialog pickProjectDialog;
 
     @Override
@@ -29,10 +29,10 @@ public class MenuProject extends AppCompatActivity {
     }
 
     private void findView(){
-        plane = findViewById(R.id.plane);
+        cross_sect = findViewById(R.id.plane);
         ab = findViewById(R.id.ab);
-        delaunay = findViewById(R.id.delaunay);
-        path=findViewById(R.id.imagepathfollower);
+        flat_surf = findViewById(R.id.delaunay);
+        create_area =findViewById(R.id.imagepathfollower);
 
 
     }
@@ -43,7 +43,7 @@ public class MenuProject extends AppCompatActivity {
 
     private void onClick(){
 
-        plane.setOnClickListener((View v) -> {
+        cross_sect.setOnClickListener((View v) -> {
             new CustomToast(this,"Not Implemented").show();
         });
 
@@ -53,14 +53,17 @@ public class MenuProject extends AppCompatActivity {
             finish();
         });
 
-        delaunay.setOnClickListener((View v) -> {
+        flat_surf.setOnClickListener((View v) -> {
             startActivity(new Intent(this, Create_1P.class));
 
             finish();
 
         });
-        path.setOnClickListener(view -> {
-            new CustomToast(this,"Not Implemented").show();
+        create_area.setOnClickListener(view -> {
+            startActivity(new Intent(this, Create_Area.class));
+
+            finish();
+
         });
 
 

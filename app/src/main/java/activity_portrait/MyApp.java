@@ -152,6 +152,9 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             case "activity_portrait.Activity_Gnss_Setup":
                 m_GnssSetup_Activity(activity);
                 break;
+            case "activity_portrait.Create_Area":
+                m_Create_Area(activity);
+                break;
             case "activity_portrait.LaunchScreenActivity":
                 String b = Build.BRAND;
                 DataSaved.deviceType = b;
@@ -206,6 +209,32 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     public void onActivityDestroyed(@NonNull Activity activity) {
 
         m_updateUI(activity, false);
+    }
+    public void m_Create_Area(Activity activity){
+        activity.setContentView(R.layout.activity_create_area);
+        whoLaunch = activity;
+        m_updateUI(whoLaunch, true);
+        btn1.setImageResource(R.drawable.btn_to_indietro);
+        btn2.setImageResource(R.drawable.btn_selectfakepos);
+        btn3.setImageResource(R.drawable.btn_delete);
+        btn4.setImageResource(R.drawable.btn_coordinate_list);
+        btn5.setImageResource(R.drawable.btn_save);
+        btn1.setOnClickListener(view -> {
+            activity.startActivity(new Intent(activity, MenuProject.class));
+            activity.finish();
+        });
+        btn2.setOnClickListener(view -> {
+            ((Create_Area) activity).addPoint();
+        });
+        btn3.setOnClickListener(view -> {
+            ((Create_Area) activity).clearPoint();
+        });
+        btn4.setOnClickListener(view -> {
+            ((Create_Area) activity).showList();
+        });
+        btn5.setOnClickListener(view -> {
+            ((Create_Area) activity).saveProj();
+        });
     }
 
     public void m_GnssSetup_Activity(Activity activity){

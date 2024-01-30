@@ -177,6 +177,7 @@
         android:background="@color/bg_alibuybutton_states"
         android:gravity="center"
         android:maxLines="1"
+        android:visibility="gone"
         android:text="CAN DISCONNECTED"
         android:textColor="@color/black"
         android:textSize="16dp"

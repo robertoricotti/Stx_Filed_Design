@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -66,6 +67,7 @@ public class ABProject extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DataSaved.offset_Z_antenna=0;
 
         findView();
         init();
@@ -330,65 +332,65 @@ public class ABProject extends AppCompatActivity {
     }
 
     public void metodoPick() {
+        if(Nmea_In.Crs_Est==0&&Nmea_In.Crs_Nord==0){
 
-        pickIndex++;
+            Toast.makeText(this,"Invalid GPS Position", Toast.LENGTH_LONG).show();
+        }else {
+            pickIndex++;
+            if (dataProject.getSize() == 0 && pickIndex == 1) {
+                GPS gps = new GPS(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1, null);
+                dataProject.addCoordinate("A", gps);
 
-
-
-
-        if (dataProject.getSize() == 0 && pickIndex == 1) {
-            GPS gps = new GPS(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1, null);
-            dataProject.addCoordinate("A", gps);
-
-        }
-
-        if (dataProject.getSize() == 1 && pickIndex == 2) {
-            GPS gps = new GPS(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1, null);
-            dataProject.addCoordinate("B", gps);
-
-            GPS a = dataProject.getPoints().get("A");
-
-            GPS b = dataProject.getPoints().get("B");
-            dataProject.setDistanceAB(new DistToPoint(a.getX(), a.getY(), a.getZ(), b.getX(), b.getY(), b.getZ()).getDist_to_point());
-            double orientamento = My_LocationCalc.calcBearingXY(a.getX(), a.getY(), b.getX(), b.getY());
-
-            double orRight = orientamento + 90;
-
-            if (orRight < -180) {
-                orRight += 360;
-            } else if (orRight > 180) {
-                orRight -= 360;
             }
-            double orLeft = orientamento - 90;
-            if (orLeft < -180) {
-                orLeft += 360;
-            } else if (orLeft > 180) {
-                orLeft -= 360;
+
+            if (dataProject.getSize() == 1 && pickIndex == 2) {
+                GPS gps = new GPS(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1, null);
+                dataProject.addCoordinate("B", gps);
+
+                GPS a = dataProject.getPoints().get("A");
+
+                GPS b = dataProject.getPoints().get("B");
+                dataProject.setDistanceAB(new DistToPoint(a.getX(), a.getY(), a.getZ(), b.getX(), b.getY(), b.getZ()).getDist_to_point());
+                double orientamento = My_LocationCalc.calcBearingXY(a.getX(), a.getY(), b.getX(), b.getY());
+
+                double orRight = orientamento + 90;
+
+                if (orRight < -180) {
+                    orRight += 360;
+                } else if (orRight > 180) {
+                    orRight -= 360;
+                }
+                double orLeft = orientamento - 90;
+                if (orLeft < -180) {
+                    orLeft += 360;
+                } else if (orLeft > 180) {
+                    orLeft -= 360;
+                }
+                double slopeAB = Utils.slopeCalculator(a, b);
+                double[] c = new EasyPointCalculator(new double[]{b.getX(), b.getY(), b.getZ()}).calculateEndPoint(dataProject.getRtSlope(), orRight, dataProject.getRtLength());
+
+                double[] d = new EasyPointCalculator(new double[]{a.getX(), a.getY(), a.getZ()}).calculateEndPoint(dataProject.getRtSlope(), orRight, dataProject.getRtLength());
+
+                double[] e = new EasyPointCalculator(new double[]{b.getX(), b.getY(), b.getZ()}).calculateEndPoint(dataProject.getLtSlope(), orLeft, dataProject.getLtLength());
+
+                double[] f = new EasyPointCalculator(new double[]{a.getX(), a.getY(), a.getZ()}).calculateEndPoint(dataProject.getLtSlope(), orLeft, dataProject.getLtLength());
+
+                dataProject.addCoordinate("C", new GPS(null, c[0], c[1], c[2], Nmea_In.Band, Nmea_In.Zone));
+                dataProject.addCoordinate("D", new GPS(null, d[0], d[1], d[2], Nmea_In.Band, Nmea_In.Zone));
+                dataProject.addCoordinate("E", new GPS(null, e[0], e[1], e[2], Nmea_In.Band, Nmea_In.Zone));
+                dataProject.addCoordinate("F", new GPS(null, f[0], f[1], f[2], Nmea_In.Band, Nmea_In.Zone));
+                dataProject.setzB(b.getZ());
+                dataProject.setSlopeAB(slopeAB);
+
+                updateAll();
+
+
             }
-            double slopeAB = Utils.slopeCalculator(a, b);
-            double[] c = new EasyPointCalculator(new double[]{b.getX(), b.getY(), b.getZ()}).calculateEndPoint(dataProject.getRtSlope(), orRight, dataProject.getRtLength());
 
-            double[] d = new EasyPointCalculator(new double[]{a.getX(), a.getY(), a.getZ()}).calculateEndPoint(dataProject.getRtSlope(), orRight, dataProject.getRtLength());
-
-            double[] e = new EasyPointCalculator(new double[]{b.getX(), b.getY(), b.getZ()}).calculateEndPoint(dataProject.getLtSlope(), orLeft, dataProject.getLtLength());
-
-            double[] f = new EasyPointCalculator(new double[]{a.getX(), a.getY(), a.getZ()}).calculateEndPoint(dataProject.getLtSlope(), orLeft, dataProject.getLtLength());
-
-            dataProject.addCoordinate("C", new GPS(null, c[0], c[1], c[2],Nmea_In.Band,Nmea_In.Zone));
-            dataProject.addCoordinate("D", new GPS(null, d[0], d[1], d[2],Nmea_In.Band,Nmea_In.Zone));
-            dataProject.addCoordinate("E", new GPS(null, e[0], e[1], e[2],Nmea_In.Band,Nmea_In.Zone));
-            dataProject.addCoordinate("F", new GPS(null, f[0], f[1], f[2],Nmea_In.Band,Nmea_In.Zone));
-            dataProject.setzB(b.getZ());
-            dataProject.setSlopeAB(slopeAB);
-
-            updateAll();
-
-
-        }
-
-        if (pickIndex >= 3) {
-            Toast.makeText(this, "Limit Exceed!", Toast.LENGTH_SHORT).show();
-            pickIndex--;
+            if (pickIndex >= 3) {
+                Toast.makeText(this, "Limit Exceed!", Toast.LENGTH_SHORT).show();
+                pickIndex--;
+            }
         }
 
     }
