@@ -56,7 +56,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     private volatile boolean mRunning = false;
     private ScheduledExecutorService executorService;
     Activity whoLaunch;
-    ImageView btn1, btn2, btn3, btn4, btn5,imgBTTop;
+    ImageView btn1, btn2, btn3, btn4, btn5, imgBTTop;
     TextView txt1, txt2, txt3, txt4, txt5, txt_coord, txt_canstat;
     ImageView imgConnetti;
     public int SCREEN_ORIENTATION;
@@ -210,14 +210,15 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
         m_updateUI(activity, false);
     }
-    public void m_Create_Area(Activity activity){
+
+    public void m_Create_Area(Activity activity) {
         activity.setContentView(R.layout.activity_create_area);
         whoLaunch = activity;
         m_updateUI(whoLaunch, true);
         btn1.setImageResource(R.drawable.btn_to_indietro);
         btn2.setImageResource(R.drawable.btn_selectfakepos);
         btn3.setImageResource(R.drawable.btn_delete);
-        btn4.setImageResource(R.drawable.btn_coordinate_list);
+        btn4.setImageResource(R.drawable.btn_infoapp);
         btn5.setImageResource(R.drawable.btn_save);
         btn1.setOnClickListener(view -> {
             activity.startActivity(new Intent(activity, MenuProject.class));
@@ -237,7 +238,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         });
     }
 
-    public void m_GnssSetup_Activity(Activity activity){
+    public void m_GnssSetup_Activity(Activity activity) {
         activity.setContentView(R.layout.activity_gnss_setup_nuova_7);
         whoLaunch = activity;
         m_updateUI(whoLaunch, true);
@@ -264,6 +265,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             ((Activity_Gnss_Setup) activity).exBtn5();
         });
     }
+
     public void m_Debug_Activity(Activity activity) {
         activity.setContentView(R.layout.activity_debug);//setta il layout di riferimento dell'activity
         whoLaunch = activity;
@@ -290,8 +292,8 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         });
 
 
-
     }
+
     public void m_P_WorkActivity(Activity activity) {
         activity.setContentView(R.layout.activity_pwork);//setta il layout di riferimento dell'activity
         whoLaunch = activity;
@@ -318,6 +320,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         });
 
     }
+
     public void m_Create_1P_Activity(Activity activity) {
         activity.setContentView(R.layout.activity_create1_p);//setta il layout di riferimento dell'activity
         whoLaunch = activity;
@@ -332,7 +335,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             activity.finish();
         });
         btn5.setOnClickListener(view -> {
-            new Dialog_Edit_Zeta(activity,0).show();
+            new Dialog_Edit_Zeta(activity, 0).show();
         });
 
     }
@@ -468,14 +471,14 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             activity.finish();
         });
         btn2.setOnClickListener(view -> {
-            if(activity instanceof ABProject && ((ABProject)activity).pickIndex==0){
-            new Dialog_Edit_Zeta(activity,0).show();}
-            else {
-                ((ABProject)activity).metodoPick();
+            if (activity instanceof ABProject && ((ABProject) activity).pickIndex == 0) {
+                new Dialog_Edit_Zeta(activity, 0).show();
+            } else {
+                ((ABProject) activity).metodoPick();
             }
 
         });
-       btn3.setVisibility(View.INVISIBLE);
+        btn3.setVisibility(View.INVISIBLE);
         btn5.setOnClickListener(view -> {
             ((ABProject) activity).metodoSave();
         });
@@ -643,7 +646,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         txt3 = activity.findViewById(R.id.txt_3);
         txt4 = activity.findViewById(R.id.txt_4);
         txt5 = activity.findViewById(R.id.txt_5);
-        imgBTTop=activity.findViewById(R.id.img_bt_top);
+        imgBTTop = activity.findViewById(R.id.img_bt_top);
         txt_coord = activity.findViewById(R.id.txt_coord);
         txt_canstat = activity.findViewById(R.id.txt_canstat);
         if (screenWidth < 400f) {
@@ -666,10 +669,10 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             showCoord = !showCoord;
         });
         imgBTTop.setOnClickListener(view -> {
-            if(DataSaved.useDemo==0){
-            new ConnectDialog(activity, 1).show();}
-            else {
-                new CustomToast(activity,"Internal GPS Selected").show();
+            if (DataSaved.useDemo == 0) {
+                new ConnectDialog(activity, 1).show();
+            } else {
+                new CustomToast(activity, "Internal GPS Selected").show();
             }
         });
     }
@@ -715,18 +718,18 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                                             + My_LocationCalc.decimalToDMS(Nmea_In.mLon_1) + "  Z:"
                                             + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
                                 } else {
-                                    txt_coord.setText("E: " + Utils.readSensorCalibration(String.valueOf(Nmea_In.Crs_Est),visibleActivity) + "\t\tN: "
-                                            + Utils.readSensorCalibration(String.valueOf(Nmea_In.Crs_Nord),visibleActivity) + "  Z: "
-                                            + Utils.readSensorCalibration(String.valueOf(Nmea_In.Quota1),visibleActivity));
+                                    txt_coord.setText("E: " + Utils.readSensorCalibration(String.valueOf(Nmea_In.Crs_Est), visibleActivity) + "\t\tN: "
+                                            + Utils.readSensorCalibration(String.valueOf(Nmea_In.Crs_Nord), visibleActivity) + "  Z: "
+                                            + Utils.readSensorCalibration(String.valueOf(Nmea_In.Quota1), visibleActivity));
                                 }
 
-                                if(visibleActivity instanceof Debug_Activity||visibleActivity instanceof AB_WorkActivity||visibleActivity instanceof P_WorkActivity|| visibleActivity instanceof MainActivity){
-                                    if(Bluetooth_CAN_Service.canIsConnected){
+                                if (visibleActivity instanceof Debug_Activity || visibleActivity instanceof AB_WorkActivity || visibleActivity instanceof P_WorkActivity || visibleActivity instanceof MainActivity) {
+                                    if (Bluetooth_CAN_Service.canIsConnected) {
                                         btn4.setImageTintList(getApplicationContext().getColorStateList(R.color.green));
-                                    }else {
+                                    } else {
                                         btn4.setImageTintList(getApplicationContext().getColorStateList(R.color.white));
                                     }
-                                }else {
+                                } else {
                                     btn4.setImageTintList(getApplicationContext().getColorStateList(R.color.white));
                                 }
                                 if (!Bluetooth_CAN_Service.canIsConnected) {
@@ -747,13 +750,13 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                                 if (!Bluetooth_GNSS_Service.gpsIsConnected) {
                                     txt_coord.setTextColor(Color.RED);
                                     txt_coord.setBackgroundColor(getResources().getColor(R.color.white));
-                                    if(DataSaved.useDemo==0){
+                                    if (DataSaved.useDemo == 0) {
                                         imgBTTop.setImageTintList(getApplicationContext().getColorStateList(R.color.white));
                                         txt_coord.setText("GPS DISCONNECTED");
                                     }
 
                                 } else {
-                                    if(DataSaved.useDemo==0){
+                                    if (DataSaved.useDemo == 0) {
                                         imgBTTop.setImageTintList(getApplicationContext().getColorStateList(R.color.green));
                                     }
                                     txt_coord.setTextColor(Color.BLACK);

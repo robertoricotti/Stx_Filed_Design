@@ -3,6 +3,7 @@ package dialogs;
 import android.app.Activity;
 import android.app.Dialog;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
@@ -17,24 +18,26 @@ import java.util.Map;
 import coords_calc.GPS;
 import project.DataProjectSingleton;
 import utils.FullscreenActivity;
+import utils.Utils;
 
 public class CoordsGNSSInfo {
     public final Dialog dialog;
     private final ListView listView;
     private final ArrayList<String> coordsList;
     private final ArrayAdapter<String> arrayAdapter;
-
+    DataProjectSingleton dataProject;
     public CoordsGNSSInfo(Activity activity) {
         dialog = new Dialog(activity);
         dialog.setContentView(R.layout.dialog_gnss_coordinates);
         listView = dialog.findViewById(R.id.listCoordinates);
         coordsList = new ArrayList<>();
-        DataProjectSingleton dataProject = DataProjectSingleton.getInstance();
+        dataProject = DataProjectSingleton.getInstance();
+        Log.d("EntrySet", String.valueOf(dataProject.getPoints().entrySet()));
         for (Map.Entry<String, GPS> entry : dataProject.getPoints().entrySet()) {
-            String id = "ID: " + entry.getKey() + "    CRS: "+"UTM"+"\n";
-            String x = "X: " + entry.getValue().getX() + "\n";
-            String y = "Y: " + entry.getValue().getY() + "\n";
-            String z = "Z: " + entry.getValue().getZ();
+            String id = "ID: " + entry.getKey() + "    CRS: "+"UTM"+"  "+Utils.getMetriSimbol(activity)+"\n";
+            String x = "X: " + Utils.readSensorCalibration(String.valueOf(entry.getValue().getX()),activity) + "\n";
+            String y = "Y: " + Utils.readSensorCalibration(String.valueOf(entry.getValue().getY()),activity)  + "\n";
+            String z = "Z: " + Utils.readSensorCalibration(String.valueOf(entry.getValue().getZ()),activity) ;
             String strRes = id + x + y + z;
             coordsList.add(strRes);
         }

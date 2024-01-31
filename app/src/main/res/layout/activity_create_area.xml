@@ -71,11 +71,39 @@
         android:backgroundTint="@color/black"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/myCenterNav"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/myRotateL"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/myZoomIn"
         app:layout_constraintTop_toTopOf="@+id/myCenterNav"
         app:srcCompat="@drawable/zoomout"
+        app:tint="@color/white" />
+    <ImageButton
+        android:id="@+id/myRotateL"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="0dp"
+        android:backgroundTint="@color/black"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/myCenterNav"
+        app:layout_constraintEnd_toStartOf="@id/myRotateR"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/myZoomOut"
+        app:layout_constraintTop_toTopOf="@+id/myCenterNav"
+        app:srcCompat="@drawable/rotate_left"
+        app:tint="@color/white" />
+    <ImageButton
+        android:id="@+id/myRotateR"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="0dp"
+        android:backgroundTint="@color/black"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/myCenterNav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/myRotateL"
+        app:layout_constraintTop_toTopOf="@+id/myCenterNav"
+        app:srcCompat="@drawable/rotate_right"
         app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
