@@ -161,8 +161,8 @@
         android:maxLines="1"
         android:text="E:0000.000\t\tN:0000.000\t\tZ:0000.000"
         android:textColor="@color/black"
-        android:textSize="16dp"
-        android:textStyle="bold" />
+        android:textSize="26px"
+        android:textStyle="normal" />
 
     <View
         android:layout_width="match_parent"

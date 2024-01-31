@@ -133,7 +133,8 @@
                 android:id="@+id/imagepathfollower"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:backgroundTint="@color/bg_gray"
+                android:alpha="0.3"
+                android:backgroundTint="@color/purple_200"
                 app:srcCompat="@drawable/perimetro_gps" />
 
             <Space
@@ -171,6 +172,7 @@
                 android:layout_width="120dp"
                 android:layout_height="60dp"
                 android:text="Define Area"
+                android:alpha="0.3"
                 android:gravity="center|top"
                 android:textColor="@color/_____cancel_text"
                 android:textSize="16dp"

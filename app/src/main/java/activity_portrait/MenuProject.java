@@ -60,9 +60,10 @@ public class MenuProject extends AppCompatActivity {
 
         });
         create_area.setOnClickListener(view -> {
-            startActivity(new Intent(this, Create_Area.class));
+            new CustomToast(this,"Not Implemented").show();
+         /*   startActivity(new Intent(this, Create_Area.class));
 
-            finish();
+            finish();*/
 
         });
 

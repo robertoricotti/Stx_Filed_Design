@@ -27,7 +27,7 @@
             android:textSize="20dp"
             android:textStyle="bold"
             android:textColor="@color/bg_alibuybutton_states"
-            android:text="FLAT SURFACE\nTOOL POSITION"/>
+            android:text="FLAT SURFACE"/>
         <TextView
             android:id="@+id/p_coord_est"
             android:layout_margin="5dp"

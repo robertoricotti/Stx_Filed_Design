@@ -20,13 +20,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.55" />
+        app:layout_constraintGuide_percent="0.7" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/guid_mid_v"
+        app:layout_constraintBottom_toTopOf="@id/lowerView"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topView">
@@ -104,6 +104,7 @@
         app:layout_constraintTop_toBottomOf="@id/guid_mid_v">
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/txtc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -117,7 +118,7 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+android:visibility="gone"
             android:gravity="right"
             android:orientation="horizontal">
 

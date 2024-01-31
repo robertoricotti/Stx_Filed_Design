@@ -143,7 +143,19 @@
         android:backgroundTint="@color/blue"
         app:layout_constraintBottom_toTopOf="@id/linea_5_h"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/close"
          />
+    <Button
+        android:id="@+id/close"
+        android:layout_width="250px"
+        android:layout_height="120px"
+        android:text="@string/exit"
+        android:textColor="@color/white"
+        android:textSize="25px"
+        android:backgroundTint="@color/_____cancel_text"
+        app:layout_constraintBottom_toTopOf="@id/linea_5_h"
+        app:layout_constraintLeft_toRightOf="@id/ok"
+        app:layout_constraintRight_toRightOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

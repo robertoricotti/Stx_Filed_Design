@@ -22,6 +22,7 @@ import dialogs.SaveFileDialog;
 import gnss.Nmea_In;
 import project.DataProjectSingleton;
 import services_and_bluetooth.DataSaved;
+import utils.Utils;
 
 public class Create_1P extends AppCompatActivity {
     private boolean mRunning=true;
@@ -65,9 +66,9 @@ public class Create_1P extends AppCompatActivity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                           txE.setText("E: "+ String.format("%.3f",Nmea_In.Crs_Est));
-                            txN.setText("N: "+ String.format("%.3f",Nmea_In.Crs_Nord));
-                            txZ.setText("Z: "+ String.format("%.3f",Nmea_In.Quota1));
+                           txE.setText("E: "+ Utils.readSensorCalibration(String.valueOf(Nmea_In.Crs_Est),Create_1P.this));
+                            txN.setText("N: "+ Utils.readSensorCalibration(String.valueOf(Nmea_In.Crs_Nord),Create_1P.this));
+                            txZ.setText("Z: "+ Utils.readSensorCalibration(String.valueOf(Nmea_In.Quota1),Create_1P.this));
 
 
                         }

@@ -3,10 +3,13 @@ package dialogs;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -27,10 +30,12 @@ public class Dialog_Edit_Zeta {
     private boolean isSaving=false;
     Activity activity;
     public Dialog alertDialog;
-    Button save;
+    Button save,close;
     TextView est, nord,uom;
     EditText zeta;
     int index;
+    private boolean isUpdating = false;
+    private Handler handler;
 
     public Dialog_Edit_Zeta(Activity activity, int index) {
 
@@ -44,7 +49,7 @@ public class Dialog_Edit_Zeta {
         LayoutInflater inflater = activity.getLayoutInflater();
         builder.setView(inflater.inflate(R.layout.dialog_modify_z, null));
         alertDialog = builder.create();
-        alertDialog.setCancelable(true);
+        alertDialog.setCancelable(false);
         Window window = alertDialog.getWindow();
         WindowManager.LayoutParams wlp = window.getAttributes();
         wlp.gravity = Gravity.CENTER;
@@ -58,19 +63,17 @@ public class Dialog_Edit_Zeta {
         findView();
         init();
         onClick();
+        startUpdatingCoordinates();
     }
 
     private void findView() {
         save = alertDialog.findViewById(R.id.ok);
-
         est=alertDialog.findViewById(R.id.txtest);
         nord=alertDialog.findViewById(R.id.txtnord);
         zeta=alertDialog.findViewById(R.id.etquota);
         uom=alertDialog.findViewById(R.id.txtuom);
+        close=alertDialog.findViewById(R.id.close);
         DataSaved.offset_Z_antenna=0;
-
-
-
 
     }
     private void init(){
@@ -82,16 +85,24 @@ public class Dialog_Edit_Zeta {
     }
     private void pickA(){
         if(activity instanceof ABProject){
+            stopUpdatingCoordinates();
             ((ABProject) activity).metodoPick();
             alertDialog.dismiss();
         }
         if(activity instanceof Create_1P){
+            stopUpdatingCoordinates();
             ((Create_1P) activity).save1P();
             alertDialog.dismiss();
         }
     }
 
     private void onClick() {
+        close.setOnClickListener(view -> {
+            DataSaved.offset_Z_antenna=0;
+            stopUpdatingCoordinates();
+            alertDialog.dismiss();
+        });
+
 
         save.setOnClickListener(view -> {
             if(!isSaving) {
@@ -108,11 +119,38 @@ public class Dialog_Edit_Zeta {
             }
 
         });
+    }
+    private void startUpdatingCoordinates() {
+        if (!isUpdating) {
+            isUpdating = true;
+            handler = new Handler();
+            updateCoordinates();
+        }
+    }
 
+    private void stopUpdatingCoordinates() {
+        if (isUpdating) {
+            isUpdating = false;
+            if (handler != null) {
+                handler.removeCallbacksAndMessages(null);
+            }
+        }
+    }
 
+    private void updateCoordinates() {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Update coord TextView with new coordinates
 
+                uom.setText("Z  "+ Utils.getMetriSimbol(activity)+" :");
+                est.setText("E  "+Utils.getMetriSimbol(activity)+" :"+Utils.readSensorCalibration(String.valueOf(Nmea_In.Crs_Est),activity));
+                nord.setText("N  "+Utils.getMetriSimbol(activity)+" :"+Utils.readSensorCalibration(String.valueOf(Nmea_In.Crs_Nord),activity));
 
-
-
+                if (isUpdating) {
+                    updateCoordinates();
+                }
+            }
+        }, 100);
     }
 }

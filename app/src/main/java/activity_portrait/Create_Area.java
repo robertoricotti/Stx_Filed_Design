@@ -7,6 +7,7 @@ import android.icu.number.LocalizedNumberFormatter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.stx_field_design.R;
@@ -23,6 +24,7 @@ public class Create_Area extends AppCompatActivity {
     SaveFileDialog saveFileDialog;
     DataProjectSingleton dataProject;
     public int pickIndex;
+    ImageButton zoomC,zoomIn,zoomOut;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

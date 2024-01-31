@@ -647,19 +647,19 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         txt_coord = activity.findViewById(R.id.txt_coord);
         txt_canstat = activity.findViewById(R.id.txt_canstat);
         if (screenWidth < 400f) {
-            txt_coord.setTextSize(14f);
-            txt_canstat.setTextSize(14f);
+            txt_coord.setTextSize(13f);
+            txt_canstat.setTextSize(13f);
         } else if (screenWidth < 750f && screenWidth > 400f) {
-            txt_coord.setTextSize(18f);
-            txt_canstat.setTextSize(18f);
+            txt_coord.setTextSize(17f);
+            txt_canstat.setTextSize(17f);
         } else if (screenWidth > 750f) {
-            txt_coord.setTextSize(24f);
-            txt_canstat.setTextSize(24f);
-            txt1.setTextSize(18f);
-            txt2.setTextSize(18f);
-            txt3.setTextSize(18f);
-            txt4.setTextSize(18f);
-            txt5.setTextSize(18f);
+            txt_coord.setTextSize(23f);
+            txt_canstat.setTextSize(23f);
+            txt1.setTextSize(17f);
+            txt2.setTextSize(17f);
+            txt3.setTextSize(17f);
+            txt4.setTextSize(17f);
+            txt5.setTextSize(17f);
         }
 
         txt_coord.setOnClickListener(view -> {
@@ -715,9 +715,9 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                                             + My_LocationCalc.decimalToDMS(Nmea_In.mLon_1) + "  Z:"
                                             + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
                                 } else {
-                                    txt_coord.setText("E: " + String.format("%.3f", Nmea_In.Crs_Est).replace(",", ".") + "\t\tN: "
-                                            + String.format("%.3f", Nmea_In.Crs_Nord).replace(",", ".") + "  Z: "
-                                            + String.format("%.3f", Nmea_In.Quota1).replace(",", "."));
+                                    txt_coord.setText("E: " + Utils.readSensorCalibration(String.valueOf(Nmea_In.Crs_Est),visibleActivity) + "\t\tN: "
+                                            + Utils.readSensorCalibration(String.valueOf(Nmea_In.Crs_Nord),visibleActivity) + "  Z: "
+                                            + Utils.readSensorCalibration(String.valueOf(Nmea_In.Quota1),visibleActivity));
                                 }
 
                                 if(visibleActivity instanceof Debug_Activity||visibleActivity instanceof AB_WorkActivity||visibleActivity instanceof P_WorkActivity|| visibleActivity instanceof MainActivity){

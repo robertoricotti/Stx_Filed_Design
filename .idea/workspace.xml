@@ -128,6 +128,7 @@
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_modify_z.xml">
         <config>
+          <state>portrait</state>
           <theme>@style/Theme.Stx_Field_Design</theme>
         </config>
       </layout>
@@ -222,52 +223,25 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f92bf50-0241-4f68-8acd-219dc0291d3c" name="Changes" comment="gnss commands">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/Create_Area.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/perimetro_gps.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_create_area.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86/CMakeFiles/sysmcu.dir/JniWrapper.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86/CMakeFiles/sysmcu.dir/Lock.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86/CMakeFiles/sysmcu.dir/Packet.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86/CMakeFiles/sysmcu.dir/PacketParser.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86/CMakeFiles/sysmcu.dir/TcpClient.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86/CMakeFiles/sysmcu.dir/Utils.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86/CMakeFiles/sysmcu.dir/VanException.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86/CMakeFiles/sysmcu.dir/VanRequest.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86/CMakeFiles/sysmcu.dir/VcxCmd.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86/CMakeFiles/sysmcu.dir/VcxCore.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86/CMakeFiles/sysmcu.dir/VcxHandler.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86_64/CMakeFiles/sysmcu.dir/JniWrapper.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86_64/CMakeFiles/sysmcu.dir/Lock.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86_64/CMakeFiles/sysmcu.dir/Packet.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86_64/CMakeFiles/sysmcu.dir/PacketParser.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86_64/CMakeFiles/sysmcu.dir/TcpClient.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86_64/CMakeFiles/sysmcu.dir/Utils.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86_64/CMakeFiles/sysmcu.dir/VanException.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86_64/CMakeFiles/sysmcu.dir/VanRequest.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86_64/CMakeFiles/sysmcu.dir/VcxCmd.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86_64/CMakeFiles/sysmcu.dir/VcxCore.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86_64/CMakeFiles/sysmcu.dir/VcxHandler.cpp.o" afterDir="false" />
+    <list default="true" id="4f92bf50-0241-4f68-8acd-219dc0291d3c" name="Changes" comment="area implementation step 1">
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/ABProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/ABProject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/Create_1P.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/Create_1P.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/Create_Area.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/Create_Area.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MenuProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MenuProject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MyApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MyApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/dialogs/SaveFileDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/dialogs/SaveFileDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/project/DataProjectSingleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/project/DataProjectSingleton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/project/PickProjectAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/project/PickProjectAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_ab_project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_ab_project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/dialogs/Dialog_Edit_Zeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/dialogs/Dialog_Edit_Zeta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_create1_p.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_create1_p.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_debug.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_debug.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_menu_project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_menu_project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_modify_z.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_modify_z.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/shared_layout_top.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/shared_layout_top.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -279,7 +253,7 @@
     <option name="parameterInfoViaClangd" value="false" />
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\rricotti\.android\avd\Stonex_S80_API_33.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[9d9fcebf]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -769,12 +743,19 @@
       <option name="project" value="LOCAL" />
       <updated>1706561477718</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="area implementation step 1">
+      <option name="closed" value="true" />
+      <created>1706655711550</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1706655711551</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="usb in out" />
     <MESSAGE value="usb in out write" />
     <MESSAGE value="USB file ok" />
     <MESSAGE value="USB file ok R/W" />
@@ -799,6 +780,7 @@
     <MESSAGE value="ita version" />
     <MESSAGE value="edit z in project" />
     <MESSAGE value="gnss commands" />
-    <option name="LAST_COMMIT_MESSAGE" value="gnss commands" />
+    <MESSAGE value="area implementation step 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="area implementation step 1" />
   </component>
 </project>

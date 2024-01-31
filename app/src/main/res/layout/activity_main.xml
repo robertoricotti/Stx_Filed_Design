@@ -44,6 +44,7 @@
                     android:padding="5dp"
                     android:src="@drawable/btn_bluetooth_devices"
                     app:tint="@color/_____cancel_text" />
+
                 <ImageView
 
                     android:id="@+id/img15"
@@ -53,7 +54,6 @@
                     android:padding="5dp"
                     android:src="@drawable/btn_to_nmea"
                     app:tint="@color/_____cancel_text" />
-
 
 
                 <ImageView
@@ -123,6 +123,7 @@
                     android:padding="5dp"
                     android:src="@drawable/btn_setting"
                     app:tint="@color/_____cancel_text" />
+
                 <ImageView
                     android:id="@+id/img13"
                     android:layout_width="60dp"
@@ -131,7 +132,6 @@
                     android:padding="5dp"
                     android:src="@drawable/btn_debug"
                     app:tint="@color/_____cancel_text" />
-
 
 
                 <ImageView
@@ -161,6 +161,7 @@
                     android:textColor="@color/_____cancel_text"
                     android:textSize="26px"
                     android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -170,7 +171,6 @@
                     android:textColor="@color/_____cancel_text"
                     android:textSize="26px"
                     android:textStyle="bold" />
-
 
 
                 <TextView
@@ -210,20 +210,18 @@
                     android:padding="5dp"
                     android:src="@drawable/btn_elevation"
                     app:tint="@color/_____cancel_text" />
+
                 <ImageView
-                    android:alpha="0.3"
                     android:id="@+id/img8"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
+                    android:alpha="0.3"
                     android:padding="5dp"
                     android:src="@drawable/btn_canconn"
                     app:tint="@color/_____cancel_text"
 
                     />
-
-
-
 
 
             </LinearLayout>
@@ -255,19 +253,17 @@
                     android:textStyle="bold"
 
                     />
+
                 <TextView
-                    android:alpha="0.3"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
+                    android:alpha="0.3"
                     android:gravity="center|top"
                     android:text="CAN BT Config"
                     android:textColor="@color/_____cancel_text"
                     android:textSize="26px"
                     android:textStyle="bold" />
-
-
-
 
 
             </LinearLayout>
@@ -298,16 +294,14 @@
                     app:tint="@color/_____cancel_text" />
 
 
-
                 <ImageView
                     android:id="@+id/img14"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
                     android:padding="5dp"
-                    android:src="@drawable/btn_open_dig" />
-
-
+                    android:src="@drawable/btn_open_dig"
+                    android:visibility="invisible" />
 
 
             </LinearLayout>
@@ -339,8 +333,8 @@
                     android:textStyle="bold"
 
                     />
-                <TextView
 
+                <TextView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
@@ -349,15 +343,9 @@
                     android:textColor="@color/_____cancel_text"
                     android:textSize="26px"
                     android:textStyle="bold"
+                    android:visibility="invisible"
 
                     />
-
-
-
-
-
-
-
 
 
             </LinearLayout>
@@ -378,26 +366,24 @@
                     android:padding="5dp"
                     android:src="@drawable/btn_infoapp"
                     app:tint="@color/_____cancel_text" />
+
                 <ImageView
-                    android:alpha="0"
                     android:id="@+id/img5"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
+                    android:alpha="0"
                     android:padding="5dp"
                     android:src="@drawable/btn_mch_measure"
                     app:tint="@color/_____cancel_text" />
 
 
-
-
-
                 <ImageView
-                    android:alpha="0"
                     android:id="@+id/img12"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
+                    android:alpha="0"
                     android:padding="5dp"
                     android:src="@drawable/coordinate_btn"
                     app:tint="@color/_____cancel_text" />
@@ -422,24 +408,22 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:alpha="0"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
+                    android:alpha="0"
                     android:gravity="center|top"
                     android:text="Machine Measurements"
                     android:textColor="@color/_____cancel_text"
                     android:textSize="26px"
-                    android:textStyle="bold"
-                    />
-
+                    android:textStyle="bold" />
 
 
                 <TextView
-                    android:alpha="0"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
+                    android:alpha="0"
                     android:gravity="center|top"
                     android:text="Coordinate Ref. Systems"
                     android:textColor="@color/_____cancel_text"
