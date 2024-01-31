@@ -8,11 +8,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.storage.StorageManager;
 import android.os.storage.StorageVolume;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.documentfile.provider.DocumentFile;
@@ -31,6 +33,7 @@ import java.lang.reflect.Method;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import dialogs.Confirm_Dialog;
@@ -39,18 +42,21 @@ import project.PickProjectAdapter;
 
 
 public class UsbActivity extends AppCompatActivity {
+    private boolean mRunning = true;
+    private Handler handler;
     private static final int REQUEST_CODE_OPEN_DOCUMENT_TREE = 42;
     static String usbPath;
-     TextView txt1, txt2;
-    PickProjectAdapter adapter;
+    TextView txt1, txt2;
+    PickProjectAdapter adapter, adapterIN, adapterOUT;
     RecyclerView recyclerViewIN, recyclerViewOUT, recyclerViewProj;
+    public static boolean enableBtn3,enableBtn4;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         findview();
-
+        updateUI();
 
 
     }
@@ -65,45 +71,113 @@ public class UsbActivity extends AppCompatActivity {
 
     }
 
+    private void updateUI() {
+
+        handler = new Handler();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (mRunning) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            enableBtn3();
+                            enableBtn4();
+                        }
+                    });
+                    // sleep per intervallo update UI
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+    }
+
+    public void enableBtn3() {
+        if(adapterIN!=null){
+        enableBtn3= adapterIN.getSelectedItem() > -1;}else {
+            enableBtn3=false;
+        }
+    }
+
+    public void enableBtn4() {
+        if(adapter!=null){
+       enableBtn4=adapter.getSelectedItem()>-1;}
+        else {
+            enableBtn4=false;
+        }
+    }
 
 
-    public void exBtn1(){
+
+    public void exBtn1() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
-    public void exBtn2(){
+
+    public void exBtn2() {
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 usbPath = getUsbFolderPath();
             } else {
                 usbPath = getStoragePath(UsbActivity.this, true).toString();
-                usbPath="/"+usbPath;
+                usbPath = "/" + usbPath;
             }
         } catch (Exception e) {
             new CustomToast(UsbActivity.this, e.toString()).show();
         }
-        try {
 
-            // printUSBContents(usbPath.toString());
+        // Verifica e crea la cartella "IN" se necessario
+        File inFolder = new File(usbPath, "IN");
+        if (!inFolder.exists()) {
+            if (inFolder.mkdir()) {
+                new CustomToast(UsbActivity.this, "USB:\nCreated IN Folder").show();
+            } else {
+                new CustomToast(UsbActivity.this, "USB:\nFailed to create IN Folder").show();
+                return;
+            }
+        }
+
+        // Verifica e crea la cartella "OUT" se necessario
+        File outFolder = new File(usbPath, "OUT");
+        if (!outFolder.exists()) {
+            if (outFolder.mkdir()) {
+                new CustomToast(UsbActivity.this, "USB:\nCreated OUT Folder").show();
+            } else {
+                new CustomToast(UsbActivity.this, "USB:\nFailed to create OUT Folder").show();
+                return;
+            }
+        }
+
+        try {
             readFromUSB_IN(usbPath);
         } catch (Exception e) {
             new CustomToast(UsbActivity.this, "USB:\nIN Folder Not Found").show();
         }
+
         try {
             readFromUSB_OUT(usbPath);
         } catch (Exception e) {
             new CustomToast(UsbActivity.this, "USB:\nOUT Folder Not Found").show();
         }
+
         try {
             loadFilesToRecyclerView();
         } catch (Exception e) {
             new CustomToast(UsbActivity.this, "No Projects Available").show();
         }
     }
-    public void exBtn3(){
+
+
+    public void exBtn3() {
         importFilesFromUsb();
     }
-    public void exBtn4(){
+
+    public void exBtn4() {
         if (Build.VERSION.SDK_INT <= 29) {
             //new CustomToast(this, "Can't COPY TO USB Stick\nOn This Device").show();
             exportFilesToUsb();
@@ -112,14 +186,49 @@ public class UsbActivity extends AppCompatActivity {
         }
         //to do EXPORT to OUT
     }
-    public void exBtn5(){
+
+    public void exBtn5() {
         new Confirm_Dialog(UsbActivity.this, 255).show();
     }
 
 
     public void confirmDelete(boolean del) {
         if (del) {
-            if (adapter.getSelectedItem() > -1) {
+            if (adapterOUT != null && adapterOUT.getSelectedItem() > -1) {
+                File source = new File(getStoragePath(this, true), "OUT" + "/" + adapterOUT.getSelectedFilePath());
+                try {
+                    deleteFile(source.getPath());
+
+
+                } catch (Exception e) {
+                    new CustomToast(UsbActivity.this, "IMPOSSIBLE TO DELETE").show();
+                }
+                adapterOUT.removeItem(adapterOUT.getSelectedItem());
+                adapterOUT.notifyDataSetChanged();
+
+            } else {
+                new CustomToast(UsbActivity.this, "Select a File to Delete").show();
+            }
+
+
+            if (adapterIN != null && adapterIN.getSelectedItem() > -1) {
+                File source = new File(getStoragePath(this, true), "IN" + "/" + adapterIN.getSelectedFilePath());
+                try {
+                    deleteFile(source.getPath());
+
+
+                } catch (Exception e) {
+                    new CustomToast(UsbActivity.this, "IMPOSSIBLE TO DELETE").show();
+                }
+                adapterIN.removeItem(adapterIN.getSelectedItem());
+                adapterIN.notifyDataSetChanged();
+
+            } else {
+                new CustomToast(UsbActivity.this, "Select a File to Delete").show();
+            }
+
+
+            if (adapter != null && adapter.getSelectedItem() > -1) {
                 String appCsvFolder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Stx Field/Projects/";
                 File appCsvDir = new File(appCsvFolder);
 
@@ -132,12 +241,15 @@ public class UsbActivity extends AppCompatActivity {
                 }
                 adapter.removeItem(adapter.getSelectedItem());
                 adapter.notifyDataSetChanged();
+
             } else {
                 new CustomToast(UsbActivity.this, "Select a File to Delete").show();
             }
             del = false;
         } else {
             adapter.removeItem(-1);
+            adapterIN.removeItem(-1);
+            adapterOUT.removeItem(-1);
         }
     }
 
@@ -155,8 +267,8 @@ public class UsbActivity extends AppCompatActivity {
                 File[] files = inFolder.listFiles();
                 if (files != null) {
 
-                    adapter = new PickProjectAdapter(getFileNames(files));
-                    recyclerViewIN.setAdapter(adapter);
+                    adapterIN = new PickProjectAdapter(getFileNames(files));
+                    recyclerViewIN.setAdapter(adapterIN);
                     recyclerViewIN.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
                 }
@@ -187,8 +299,8 @@ public class UsbActivity extends AppCompatActivity {
                 if (files != null) {
 
 
-                    adapter = new PickProjectAdapter(getFileNames(files));
-                    recyclerViewOUT.setAdapter(adapter);
+                    adapterOUT = new PickProjectAdapter(getFileNames(files));
+                    recyclerViewOUT.setAdapter(adapterOUT);
                     recyclerViewOUT.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
 
@@ -240,7 +352,9 @@ public class UsbActivity extends AppCompatActivity {
 
     }
 
+
     private void importFilesFromUsb() {
+
         // Ottieni la cartella "IN" sulla USB
         File usbInFolder = new File(getStoragePath(this, true), "IN");
 
@@ -254,37 +368,26 @@ public class UsbActivity extends AppCompatActivity {
             if (filesToImport != null && filesToImport.length > 0) {
                 // Percorso della cartella "CSV" dell'app
                 String appCsvFolder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Stx Field/Projects/";
+                if (adapterIN != null) {
+                    if (adapterIN.getSelectedItem() > -1) {
+                        File source = new File(getStoragePath(this, true), "IN" + "/" + adapterIN.getSelectedFilePath());
 
-                // Verifica se la cartella "CSV" dell'app esiste, altrimenti creala
-                File appCsvDir = new File(appCsvFolder);
-                if (!appCsvDir.exists()) {
-                    appCsvDir.mkdirs();
-                }
+                        try {
+                            FileUtils.copyFile(source, new File(appCsvFolder, adapterIN.getSelectedFilePath()));
 
-                // Copia i file che non esistono nella cartella "CSV" dell'app
-                for (File file : filesToImport) {
-                    String fileName = file.getName();
-                    File destinationFile = new File(appCsvFolder, fileName);
+                        } catch (IOException e) {
 
-                    if (file.exists() && file.isFile()) {
-                        // Verifica se il file sorgente esiste ed è un file valido
-                        if (!destinationFile.exists()) {
-                            // Copia il file solo se non esiste già
-                            try {
-                                FileUtils.copyFile(file, destinationFile);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                                // Gestisci l'eccezione di copia del file, se necessario
-                            }
                         }
+                        adapter.notifyDataSetChanged();
                     } else {
-                        // Il file sorgente non esiste o non è un file valido
-                        Log.e("UsbActivity", "Source file not found or is not a valid file: " + file.getAbsolutePath());
+                        new CustomToast(UsbActivity.this, "Select a File to IMPORT").show();
+
                     }
                 }
 
                 // Aggiorna la RecyclerView dopo l'importazione
                 loadFilesToRecyclerView();
+                exBtn2();
             } else {
                 // Messaggio se non ci sono file da importare
                 new CustomToast(UsbActivity.this, "No files to import from USB").show();
@@ -320,23 +423,26 @@ public class UsbActivity extends AppCompatActivity {
             if (internalCsvFolder.exists() && internalCsvFolder.isDirectory()) {
                 //  lista di file nella cartella CSV interna dell'app
                 File[] filesToExport = internalCsvFolder.listFiles();
-                if (filesToExport != null) {
-                    // Copia il contenuto dei file nella cartella "OUT" sulla USB
-                    for (File file : filesToExport) {
-                        File outFile = new File(outFolder, file.getName());
-                        try {
+                if (filesToExport != null && filesToExport.length > 0) {
+                    if (adapter != null) {
+                        if (adapter.getSelectedItem() > -1) {
+                            File source = new File(S_internalCsvFoldes + "/" + adapter.getSelectedFilePath());
 
-                            copyFile(file, outFile);
+                            try {
+                                FileUtils.copyFile(source, new File(outFolder, adapter.getSelectedFilePath()));
 
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            // errore di copia del file
-                            String msg = ("Failed to copy file to USB stick");
-                            new CustomToast(UsbActivity.this, msg).show();
+                            } catch (IOException e) {
+
+                            }
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            new CustomToast(UsbActivity.this, "Select a File to export").show();
+
                         }
                     }
-                    // Aggiorna la RecyclerView della cartella "OUT"
+
                     readFromUSB_OUT(usbFolderPath);
+                    exBtn2();
                 } else {
                     String msg = ("No files found in the internal folder");
                     new CustomToast(UsbActivity.this, msg).show();
@@ -371,6 +477,7 @@ public class UsbActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
 
@@ -379,6 +486,7 @@ public class UsbActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mRunning = false;
 
     }
 
@@ -499,7 +607,7 @@ public class UsbActivity extends AppCompatActivity {
         return null;
     }
 
-    private  void printUSBContents(String usbPath) {
+    private void printUSBContents(String usbPath) {
         Log.e("MyUSB", "usbPath= " + usbPath);
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
         intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
@@ -533,7 +641,6 @@ public class UsbActivity extends AppCompatActivity {
             }
         }
     }
-
 
 
 }

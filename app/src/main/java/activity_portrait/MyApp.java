@@ -395,7 +395,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         btn4.setImageResource(R.drawable.btn_copy_to_usb);
 
         btn5.setImageResource(R.drawable.btn_delete);
-        if (Build.VERSION.SDK_INT <= 30) {
+        if (Build.VERSION.SDK_INT < 29) {
             btn3.setAlpha(0.3f);
             btn3.setEnabled(false);
             btn4.setAlpha(0.3f);
@@ -417,6 +417,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         btn5.setOnClickListener(view -> {
             ((UsbActivity) activity).exBtn5();
         });
+
     }
 
     public void m_UOM_Activity(Activity activity) {
@@ -693,6 +694,20 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                             @SuppressLint({"SetTextI18n", "DefaultLocale"})
                             @Override
                             public void run() {
+                                if(visibleActivity instanceof UsbActivity){
+                                    Log.d("ENAMED","  "+UsbActivity.enableBtn3+"  "+UsbActivity.enableBtn4);
+                                    if(UsbActivity.enableBtn3){
+                                        btn3.setVisibility(View.VISIBLE);
+                                    }else {
+                                        btn3.setVisibility(View.INVISIBLE);
+                                    }
+                                    if(UsbActivity.enableBtn4){
+                                        btn4.setVisibility(View.VISIBLE);
+                                    }else {
+                                        btn4.setVisibility(View.INVISIBLE);
+                                    }
+
+                                }
                                 if (activity instanceof ABProject) {
                                     if (((ABProject) activity).progressBar.getVisibility() == View.VISIBLE) {
                                         btn1.setEnabled(false);
