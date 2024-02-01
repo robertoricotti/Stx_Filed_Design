@@ -64,6 +64,10 @@ public class PickProjectAdapter extends RecyclerView.Adapter<PickProjectAdapter.
             }
             return true;
         });
+        viewHolder.nameTextView.setOnClickListener(view -> {
+            selectedItem=-1;
+            notifyDataSetChanged();
+        });
 
         return viewHolder;
     }
@@ -80,23 +84,23 @@ public class PickProjectAdapter extends RecyclerView.Adapter<PickProjectAdapter.
         ImageView imageView=holder.icon;
 
 
-        if(nameFile.substring(0,3).equals("1P_")){
+        if(nameFile.substring(0,5).equals("#1P_#")){
             imageView.setImageResource(R.drawable.image_1p);
             imageView.setImageTintList(ContextCompat.getColorStateList(MyApp.visibleActivity, R.color.blue));
         }
-        else if(nameFile.substring(0,3).equals("AB_")){
+        else if(nameFile.substring(0,5).equals("#AB_#")){
             imageView.setImageResource(R.drawable.image_ab);
             imageView.setImageTintList(ContextCompat.getColorStateList(MyApp.visibleActivity, R.color.blue));
         }
-        else if(nameFile.substring(0,3).equals("CS_")){
+        else if(nameFile.substring(0,5).equals("#CS_#")){
             imageView.setImageResource(R.drawable.image_cs);
             imageView.setImageTintList(ContextCompat.getColorStateList(MyApp.visibleActivity, R.color.blue));
         }
-        else if(nameFile.substring(0,3).equals("AR_")){
+        else if(nameFile.substring(0,5).equals("#AR_#")){
             imageView.setImageResource(R.drawable.area_image);
             imageView.setImageTintList(ContextCompat.getColorStateList(MyApp.visibleActivity, R.color.blue));
         }
-        textView.setText(nameFile.replace("AB_", "").replace("1P_", "").replace("CS_", "").replace("AR_", ""));
+        textView.setText(nameFile.replace("#AB_#", "").replace("#1P_#", "").replace("#CS_#", "").replace("#AR_#", ""));
 
 
         constraintLayout.setBackgroundColor(selectedItem == position ? ContextCompat.getColor(constraintLayout.getContext(), R.color.orange) : ContextCompat.getColor(constraintLayout.getContext(), R.color.transparent));

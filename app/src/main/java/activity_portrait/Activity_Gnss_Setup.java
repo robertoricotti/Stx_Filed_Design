@@ -1086,7 +1086,6 @@ public class Activity_Gnss_Setup extends AppCompatActivity {
             dataList.add(serialEvent.nmeaData);
             adapter.notifyDataSetChanged();
             listView.smoothScrollToPosition(dataList.size() - 1);
-
         }
 
 

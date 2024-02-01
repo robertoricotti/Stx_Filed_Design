@@ -58,7 +58,6 @@ public class UsbActivity extends AppCompatActivity {
         findview();
         updateUI();
 
-
     }
 
     private void findview() {
@@ -68,11 +67,9 @@ public class UsbActivity extends AppCompatActivity {
         txt1 = findViewById(R.id.txt1);
         txt2 = findViewById(R.id.txt2);
         loadFilesToRecyclerView();
-
     }
 
     private void updateUI() {
-
         handler = new Handler();
         new Thread(new Runnable() {
             @Override
@@ -83,6 +80,8 @@ public class UsbActivity extends AppCompatActivity {
                         public void run() {
                             enableBtn3();
                             enableBtn4();
+
+
                         }
                     });
                     // sleep per intervallo update UI
@@ -96,6 +95,7 @@ public class UsbActivity extends AppCompatActivity {
         }).start();
 
     }
+
 
     public void enableBtn3() {
         if(adapterIN!=null){
@@ -178,7 +178,7 @@ public class UsbActivity extends AppCompatActivity {
     }
 
     public void exBtn4() {
-        if (Build.VERSION.SDK_INT <= 29) {
+        if (Build.VERSION.SDK_INT < 29) {
             //new CustomToast(this, "Can't COPY TO USB Stick\nOn This Device").show();
             exportFilesToUsb();
         } else {
@@ -471,7 +471,7 @@ public class UsbActivity extends AppCompatActivity {
                 destinationChannel.transferFrom(sourceChannel, 0, sourceChannel.size());
                 destinationChannel.force(true);  // Flush dei dati
             } catch (IOException e) {
-                new CustomToast(UsbActivity.this, e.toString()).show_long();
+              //  new CustomToast(UsbActivity.this, e.toString()).show_long();
                 Log.e("CopyFile", "Errore durante la copia del file", e);
             }
         }
@@ -494,7 +494,15 @@ public class UsbActivity extends AppCompatActivity {
         File file = new File(filePath);
         if (file.exists()) {
             if (file.delete()) {
+                if(adapter.getSelectedItem()>-1){
                 new CustomToast(UsbActivity.this, adapter.getSelectedFilePath() + "\n DELETED").show();
+                }
+                if(adapterIN.getSelectedItem()>-1){
+                    new CustomToast(UsbActivity.this, adapterIN.getSelectedFilePath() + "\n DELETED").show();
+                }
+                if(adapterOUT.getSelectedItem()>-1){
+                    new CustomToast(UsbActivity.this, adapterOUT.getSelectedFilePath() + "\n DELETED").show();
+                }
             } else {
                 new CustomToast(UsbActivity.this, "IMPOSSIBLE TO DELETE").show();
             }

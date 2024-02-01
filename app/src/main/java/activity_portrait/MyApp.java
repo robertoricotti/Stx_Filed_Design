@@ -395,13 +395,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         btn4.setImageResource(R.drawable.btn_copy_to_usb);
 
         btn5.setImageResource(R.drawable.btn_delete);
-        if (Build.VERSION.SDK_INT < 29) {
-            btn3.setAlpha(0.3f);
-            btn3.setEnabled(false);
-            btn4.setAlpha(0.3f);
-            btn4.setEnabled(false);
 
-        }
         btn1.setOnClickListener(view -> {
             ((UsbActivity) activity).exBtn1();
         });
@@ -695,7 +689,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                             @Override
                             public void run() {
                                 if(visibleActivity instanceof UsbActivity){
-                                    Log.d("ENAMED","  "+UsbActivity.enableBtn3+"  "+UsbActivity.enableBtn4);
+
                                     if(UsbActivity.enableBtn3){
                                         btn3.setVisibility(View.VISIBLE);
                                     }else {
@@ -708,8 +702,8 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                                     }
 
                                 }
-                                if (activity instanceof ABProject) {
-                                    if (((ABProject) activity).progressBar.getVisibility() == View.VISIBLE) {
+                                if (visibleActivity instanceof ABProject) {
+                                    if (((ABProject) visibleActivity).progressBar.getVisibility() == View.VISIBLE) {
                                         btn1.setEnabled(false);
                                         btn2.setEnabled(false);
                                         btn3.setEnabled(false);

@@ -91,8 +91,12 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("NewApi")
     private void onClick() {
         to_NmeaConfig.setOnClickListener(view -> {
-            startActivity(new Intent(this, Activity_Gnss_Setup.class));
-            finish();
+            if(DataSaved.useDemo==0) {
+                startActivity(new Intent(this, Activity_Gnss_Setup.class));
+                finish();
+            }else {
+                new CustomToast(this, "Can't setup NMEA\nConnect a Device").show();
+            }
         });
         openDigApp.setOnClickListener(view -> {
             openApp("com.example.stx_digging");
@@ -198,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
+
 
                             if (progressBar.getVisibility() == View.VISIBLE) {
                                 countProgress++;

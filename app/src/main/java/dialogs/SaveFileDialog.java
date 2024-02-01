@@ -71,15 +71,15 @@ public class SaveFileDialog {
                 String currentDateTime = "";//sdf.format(new Date());
                 DataProjectSingleton dataProject = DataProjectSingleton.getInstance();
                 if(activity instanceof ABProject){
-                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", "AB_"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag,String.valueOf(DataSaved.offset_Z_antenna));
+                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", "#AB_#"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag,String.valueOf(DataSaved.offset_Z_antenna));
 
                 }
                 if(activity instanceof Create_1P){
-                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", "1P_"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag,String.valueOf(DataSaved.offset_Z_antenna));
+                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", "#1P_#"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag,String.valueOf(DataSaved.offset_Z_antenna));
 
                 }
                 if(activity instanceof Create_Area){
-                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", "AR_"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag,String.valueOf(DataSaved.offset_Z_antenna));
+                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", "#AR_#"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag,String.valueOf(DataSaved.offset_Z_antenna));
 
                 }
                 //aggiungere  cross section
