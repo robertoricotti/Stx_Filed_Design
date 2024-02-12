@@ -102,10 +102,6 @@ public class Confirm_Dialog {
                 }
 
             }
-            if(activity instanceof UsbActivity){
-                ((UsbActivity)activity).confirmDelete(true);
-            }
-
 
             alertDialog.dismiss();
 
@@ -114,9 +110,7 @@ public class Confirm_Dialog {
 
         no.setOnClickListener((View v) -> {
             flag=0;
-            if(activity instanceof UsbActivity){
-                ((UsbActivity)activity).confirmDelete(false);
-            }
+
             alertDialog.dismiss();
         });
     }

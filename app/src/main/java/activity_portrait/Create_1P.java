@@ -85,7 +85,7 @@ public class Create_1P extends AppCompatActivity {
 
     }
     public void save1P(){
-        if(Nmea_In.Crs_Est==0&&Nmea_In.Crs_Nord==0){
+        if((Nmea_In.Crs_Est==0&&Nmea_In.Crs_Nord==0)|| (!Nmea_In.ggaQuality.equals("4")&&DataSaved.useDemo==0)){
             Toast.makeText(this,"Invalid GPS Position", Toast.LENGTH_LONG).show();
         }else {
             GPS gps = new GPS(null, Nmea_In.Crs_Est, Nmea_In.Crs_Nord, Nmea_In.Quota1, Nmea_In.Band, Nmea_In.Zone);

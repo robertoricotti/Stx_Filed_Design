@@ -266,7 +266,8 @@ public class MainActivity extends AppCompatActivity {
             if (dataProject.readProject(path)) {
 
 
-                if (dataProject.getSize() == 4 || dataProject.getSize() == 6) {
+              //  if (dataProject.getSize() == 4 || dataProject.getSize() == 6) {
+                if (dataProject.getSize()>=3) {
                     startActivity(new Intent(MainActivity.this, AB_WorkActivity.class));
                     finish();
                 } else if (dataProject.getSize() == 1) {

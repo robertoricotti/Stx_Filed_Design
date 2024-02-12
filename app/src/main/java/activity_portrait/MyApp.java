@@ -386,20 +386,24 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     }
 
     public void m_UsbActivity(Activity activity) {
-        activity.setContentView(R.layout.activity_usb_inout);
+        activity.setContentView(R.layout.activity_project_usb_nuova);
         whoLaunch = activity;
         m_updateUI(whoLaunch, true);
         btn1.setImageResource(R.drawable.btn_to_indietro);
-        btn2.setImageResource(R.drawable.btn_read_usb);
+        btn2.setVisibility(View.INVISIBLE);
+        btn3.setVisibility(View.INVISIBLE);
+        btn4.setVisibility(View.INVISIBLE);
+        btn5.setVisibility(View.INVISIBLE);
+      /*  btn2.setImageResource(R.drawable.btn_read_usb);
         btn3.setImageResource(R.drawable.btn_copy_from_usb);
         btn4.setImageResource(R.drawable.btn_copy_to_usb);
 
-        btn5.setImageResource(R.drawable.btn_delete);
+        btn5.setImageResource(R.drawable.btn_delete);*/
 
         btn1.setOnClickListener(view -> {
             ((UsbActivity) activity).exBtn1();
         });
-        btn2.setOnClickListener(view -> {
+      /*  btn2.setOnClickListener(view -> {
             ((UsbActivity) activity).exBtn2();
         });
         btn3.setOnClickListener(view -> {
@@ -410,7 +414,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         });
         btn5.setOnClickListener(view -> {
             ((UsbActivity) activity).exBtn5();
-        });
+        });*/
 
     }
 
@@ -688,20 +692,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                             @SuppressLint({"SetTextI18n", "DefaultLocale"})
                             @Override
                             public void run() {
-                                if(visibleActivity instanceof UsbActivity){
 
-                                    if(UsbActivity.enableBtn3){
-                                        btn3.setVisibility(View.VISIBLE);
-                                    }else {
-                                        btn3.setVisibility(View.INVISIBLE);
-                                    }
-                                    if(UsbActivity.enableBtn4){
-                                        btn4.setVisibility(View.VISIBLE);
-                                    }else {
-                                        btn4.setVisibility(View.INVISIBLE);
-                                    }
-
-                                }
                                 if (visibleActivity instanceof ABProject) {
                                     if (((ABProject) visibleActivity).progressBar.getVisibility() == View.VISIBLE) {
                                         btn1.setEnabled(false);
@@ -715,6 +706,13 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                                         btn3.setEnabled(true);
                                         btn4.setEnabled(true);
                                         btn5.setEnabled(true);
+                                    }
+                                }
+                                if(visibleActivity instanceof Create_Area){
+                                    if(!Create_Area.shoeButton){
+                                        btn2.setImageTintList(getApplicationContext().getColorStateList(R.color._____cancel_text));
+                                    }else {
+                                        btn2.setImageTintList(getApplicationContext().getColorStateList(R.color.white));
                                     }
                                 }
                                 txt1.setText(Nmea_In.ggaSat);
@@ -741,6 +739,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                                 } else {
                                     btn4.setImageTintList(getApplicationContext().getColorStateList(R.color.white));
                                 }
+
                                 if (!Bluetooth_CAN_Service.canIsConnected) {
                                     txt_canstat.setTextColor(Color.RED);
                                     txt_canstat.setText("CAN DISCONNECTED");

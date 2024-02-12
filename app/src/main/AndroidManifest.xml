@@ -7,7 +7,9 @@
         android:required="false" />
     <uses-feature android:name="android.hardware.usb.host" />
     <uses-feature android:name="android.hardware.usb.accessory" />
-
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.amaze.cloud.permission.ACCESS_PROVIDER" />
+    <uses-permission android:name="android.permission.USB_PERMISSION" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -24,18 +26,16 @@
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission
-        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
-        android:minSdkVersion="31"
-        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.DELETE_CACHE_FILES"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="29" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="29" />
-    <uses-permission
-        android:name="android.permission.WRITE_MEDIA_STORAGE"
+    <uses-permission android:name="android.permission.WRITE_MEDIA_STORAGE"
         tools:ignore="ProtectedPermissions" />
     <uses-permission
         android:name="android.permission.MANAGE_MEDIA"
@@ -65,7 +65,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Stx_Field_Design"
         tools:ignore="RtlEnabled"
-        tools:targetApi="31">
+        android:usesCleartextTraffic="true"
+        android:directBootAware="true"
+        android:launchMode="singleInstance"
+        tools:targetApi="33">
+
         <activity
             android:name="activity_portrait.Create_Area"
             android:autoRemoveFromRecents="true"
@@ -130,6 +134,9 @@
             android:launchMode="singleTop"
             android:screenOrientation="locked"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+
+
         <activity
             android:name="activity_portrait.AB_WorkActivity"
             android:autoRemoveFromRecents="true"
@@ -203,7 +210,6 @@
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.action.HOME" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

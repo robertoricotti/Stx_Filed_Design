@@ -332,7 +332,7 @@ public class ABProject extends AppCompatActivity {
     }
 
     public void metodoPick() {
-        if(Nmea_In.Crs_Est==0&&Nmea_In.Crs_Nord==0){
+        if((Nmea_In.Crs_Est==0&&Nmea_In.Crs_Nord==0)|| (!Nmea_In.ggaQuality.equals("4")&&DataSaved.useDemo==0)){
 
             Toast.makeText(this,"Invalid GPS Position", Toast.LENGTH_LONG).show();
         }else {

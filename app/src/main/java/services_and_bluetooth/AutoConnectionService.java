@@ -2,6 +2,7 @@ package services_and_bluetooth;
 
 import static activity_portrait.AB_WorkActivity.page;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -55,6 +56,7 @@ public class AutoConnectionService extends Service {
     private OnNmeaMessageListener nmeaMessageListener;
 
 
+    @SuppressLint("InlinedApi")
     @Override
     public void onCreate() {
         if (!LocationUtils.isLocationEnabled(MyApp.visibleActivity)) {
@@ -124,7 +126,7 @@ public class AutoConnectionService extends Service {
         locationManager.addNmeaListener(nmeaMessageListener);
 
 
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 0, locationListener);
 
 
         mExecutor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);

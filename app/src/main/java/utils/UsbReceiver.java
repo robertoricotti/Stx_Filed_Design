@@ -17,9 +17,10 @@ public class UsbReceiver extends BroadcastReceiver {
         if ("com.example.stx_field_design.USB_PERMISSION".equals(action)) {
             synchronized (this) {
                 UsbAccessory accessory = (UsbAccessory) intent.getParcelableExtra(UsbManager.EXTRA_ACCESSORY);
+                UsbAccessory accessory1 = (UsbAccessory) intent.getParcelableExtra(UsbManager.ACTION_USB_DEVICE_ATTACHED);
 
                 if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
-                    if (accessory != null) {
+                    if (accessory != null&&accessory1!=null) {
                         // Autorizzazione USB concessa, puoi fare qualcosa con l'accessorio
                     }
                 } else {

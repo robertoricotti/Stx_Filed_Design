@@ -76,6 +76,8 @@ public class DataProjectSingleton {
         distanceAB = 0;
         slopeAB = 0;
         delaunay = false;
+        navigatorX = 0;
+        navigatorY = 0;
     }
 
     public static DataProjectSingleton getInstance() {
@@ -88,6 +90,10 @@ public class DataProjectSingleton {
         }
         return INSTANCE;
     }
+    public float navigatorX;  // Aggiunto per la traslazione del navigator lungo l'asse X
+    public float navigatorY;  // Aggiunto per la traslazione del navigator lungo l'asse Y
+
+
 
     public int getSize() {
         return points.size();

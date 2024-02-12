@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:keepScreenOn="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/topView"
+        layout="@layout/shared_layout_top"
+        android:visibility="invisible"/>
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline209"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.475" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline201"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+    <include
+        android:id="@+id/lowerView"
+        layout="@layout/shared_layout_low" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/light_gray"
+        app:layout_constraintBottom_toTopOf="@+id/lowerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/txt1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/bg"
+        android:gravity="center"
+        android:padding="3dp"
+        android:text="USB\nSTX_MC"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/divider48"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <TextView
+        android:id="@+id/txt2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/application_table_line_color"
+        android:gravity="center"
+        android:padding="3dp"
+        android:text="PROJECT\nFOLDER"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/divider48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/divider48"
+        android:layout_width="80dp"
+        android:layout_height="0dp"
+        android:background="@color/_____cancel_text"
+        android:orientation="vertical"
+        android:gravity="center"
+
+        app:layout_constraintBottom_toTopOf="@+id/lowerView"
+        app:layout_constraintEnd_toStartOf="@+id/guideline201"
+        app:layout_constraintStart_toEndOf="@id/guideline201"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:id="@+id/new_delete"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="15dp"
+            android:layout_weight="0"
+            android:background="@color/nav_gray_color"
+            app:srcCompat="@drawable/delete_raw"
+            />
+
+
+        <ImageView
+            android:id="@+id/new_copy_to_usb"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="15dp"
+            android:layout_weight="0"
+            android:background="@color/nav_gray_color"
+            app:srcCompat="@drawable/btn_copia_destra"
+            app:tint="@color/black"
+            />
+        <ImageView
+            android:id="@+id/new_copy_from_usb"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="15dp"
+            android:layout_weight="0"
+            android:background="@color/nav_gray_color"
+            app:srcCompat="@drawable/btn_copia_sinistra"
+            />
+        <ImageView
+            android:id="@+id/new_Update"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="15dp"
+            android:layout_weight="0"
+            android:background="@color/nav_gray_color"
+            app:srcCompat="@drawable/btn_refresh"
+            />
+
+
+    </LinearLayout>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_proj"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/lowerView"
+        app:layout_constraintEnd_toStartOf="@+id/divider48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt2" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_in"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/lowerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/divider48"
+        app:layout_constraintTop_toBottomOf="@+id/txt1" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

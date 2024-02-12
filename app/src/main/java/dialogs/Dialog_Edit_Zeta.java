@@ -1,5 +1,7 @@
 package dialogs;
 
+import static activity_portrait.Create_Area.quotaPiano;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -21,17 +23,18 @@ import com.example.stx_field_design.R;
 
 import activity_portrait.ABProject;
 import activity_portrait.Create_1P;
+import activity_portrait.Create_Area;
 import gnss.Nmea_In;
 import services_and_bluetooth.DataSaved;
 import utils.FullscreenActivity;
 import utils.Utils;
 
 public class Dialog_Edit_Zeta {
-    private boolean isSaving=false;
+    private boolean isSaving = false;
     Activity activity;
     public Dialog alertDialog;
-    Button save,close;
-    TextView est, nord,uom;
+    Button save, close;
+    TextView est, nord, uom;
     EditText zeta;
     int index;
     private boolean isUpdating = false;
@@ -40,7 +43,7 @@ public class Dialog_Edit_Zeta {
     public Dialog_Edit_Zeta(Activity activity, int index) {
 
         this.activity = activity;
-        this.index=index;
+        this.index = index;
     }
 
     public void show() {
@@ -68,48 +71,57 @@ public class Dialog_Edit_Zeta {
 
     private void findView() {
         save = alertDialog.findViewById(R.id.ok);
-        est=alertDialog.findViewById(R.id.txtest);
-        nord=alertDialog.findViewById(R.id.txtnord);
-        zeta=alertDialog.findViewById(R.id.etquota);
-        uom=alertDialog.findViewById(R.id.txtuom);
-        close=alertDialog.findViewById(R.id.close);
-        DataSaved.offset_Z_antenna=0;
+        est = alertDialog.findViewById(R.id.txtest);
+        nord = alertDialog.findViewById(R.id.txtnord);
+        zeta = alertDialog.findViewById(R.id.etquota);
+        uom = alertDialog.findViewById(R.id.txtuom);
+        close = alertDialog.findViewById(R.id.close);
+        DataSaved.offset_Z_antenna = 0;
 
     }
-    private void init(){
-        uom.setText("Z  "+ Utils.getMetriSimbol(activity)+" :");
-        est.setText("E  "+Utils.getMetriSimbol(activity)+" :"+Utils.readSensorCalibration(String.valueOf(Nmea_In.Crs_Est),activity));
-        nord.setText("N  "+Utils.getMetriSimbol(activity)+" :"+Utils.readSensorCalibration(String.valueOf(Nmea_In.Crs_Nord),activity));
-        zeta.setText(Utils.readSensorCalibration(String.valueOf(Nmea_In.Quota1),activity));
+
+    private void init() {
+        uom.setText("Z  " + Utils.getMetriSimbol(activity) + " :");
+        est.setText("E  " + Utils.getMetriSimbol(activity) + " :" + Utils.readSensorCalibration(String.valueOf(Nmea_In.Crs_Est), activity));
+        nord.setText("N  " + Utils.getMetriSimbol(activity) + " :" + Utils.readSensorCalibration(String.valueOf(Nmea_In.Crs_Nord), activity));
+        zeta.setText(Utils.readSensorCalibration(String.valueOf(Nmea_In.Quota1), activity));
 
     }
-    private void pickA(){
-        if(activity instanceof ABProject){
+
+    private void pickA() {
+        if (activity instanceof ABProject) {
             stopUpdatingCoordinates();
             ((ABProject) activity).metodoPick();
             alertDialog.dismiss();
         }
-        if(activity instanceof Create_1P){
+        if (activity instanceof Create_1P) {
             stopUpdatingCoordinates();
             ((Create_1P) activity).save1P();
+            alertDialog.dismiss();
+        }
+        if (activity instanceof Create_Area) {
+            stopUpdatingCoordinates();
+            //quotaPiano = Double.parseDouble(Utils.writeMetri(zeta.getText().toString(), activity));
             alertDialog.dismiss();
         }
     }
 
     private void onClick() {
         close.setOnClickListener(view -> {
-            DataSaved.offset_Z_antenna=0;
+            DataSaved.offset_Z_antenna = 0;
             stopUpdatingCoordinates();
             alertDialog.dismiss();
         });
 
 
         save.setOnClickListener(view -> {
-            if(!isSaving) {
-                isSaving=true;
-                double value=Double.parseDouble(Utils.writeMetri(zeta.getText().toString(), activity));
+            if (!isSaving) {
+
+                isSaving = true;
+                double value = Double.parseDouble(Utils.writeMetri(zeta.getText().toString(), activity));
+                quotaPiano = Double.parseDouble(Utils.writeMetri(zeta.getText().toString(), activity));
                 try {
-                    DataSaved.offset_Z_antenna = (value-Nmea_In.Quota1);
+                    DataSaved.offset_Z_antenna = (value - Nmea_In.Quota1);
 
                 } catch (Exception e) {
                     DataSaved.offset_Z_antenna = 0;
@@ -120,6 +132,7 @@ public class Dialog_Edit_Zeta {
 
         });
     }
+
     private void startUpdatingCoordinates() {
         if (!isUpdating) {
             isUpdating = true;
@@ -143,9 +156,9 @@ public class Dialog_Edit_Zeta {
             public void run() {
                 // Update coord TextView with new coordinates
 
-                uom.setText("Z  "+ Utils.getMetriSimbol(activity)+" :");
-                est.setText("E  "+Utils.getMetriSimbol(activity)+" :"+Utils.readSensorCalibration(String.valueOf(Nmea_In.Crs_Est),activity));
-                nord.setText("N  "+Utils.getMetriSimbol(activity)+" :"+Utils.readSensorCalibration(String.valueOf(Nmea_In.Crs_Nord),activity));
+                uom.setText("Z  " + Utils.getMetriSimbol(activity) + " :");
+                est.setText("E  " + Utils.getMetriSimbol(activity) + " :" + Utils.readSensorCalibration(String.valueOf(Nmea_In.Crs_Est), activity));
+                nord.setText("N  " + Utils.getMetriSimbol(activity) + " :" + Utils.readSensorCalibration(String.valueOf(Nmea_In.Crs_Nord), activity));
 
                 if (isUpdating) {
                     updateCoordinates();

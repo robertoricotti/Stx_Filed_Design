@@ -48,6 +48,9 @@ android {
     }
 
     dependencies {
+
+        implementation 'me.jahnen.libaums:core:0.10.0'
+
         implementation files('libs/cputils.v1.0.1.aar')
         implementation project(path: ':can')
         //implementation project(path: ':cmd')

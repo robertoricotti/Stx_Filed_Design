@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -20,11 +21,13 @@ import androidx.core.content.ContextCompat;
 
 import com.example.stx_field_design.R;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import can.Can_Decoder;
 import can.PLC_DataTypes_BigEndian;
 import coords_calc.GPS;
+import coords_calc.Polygon;
 import coords_calc.Surface_Selector;
 import dialogs.CoordsGNSSInfo;
 import dialogs.Dialog_Offset;
@@ -40,6 +43,9 @@ import utils.MyRW_IntMem;
 import utils.Utils;
 
 public class AB_WorkActivity extends AppCompatActivity {
+    LinearLayout.LayoutParams layoutParams ;
+    ArrayList<Double> coordinateXList;
+    ArrayList<Double> coordinateYList;
     private boolean mRunning = true;
 
     public static boolean auto;
@@ -47,7 +53,7 @@ public class AB_WorkActivity extends AppCompatActivity {
     public static byte page = 0;
     public static byte[] quota;
 
-   // ImageView lineID;
+    // ImageView lineID;
     TextView altitude, distance, fileName, setOffset, offsetUnit, surfaceOK;
 
     ConstraintLayout container;
@@ -64,7 +70,7 @@ public class AB_WorkActivity extends AppCompatActivity {
     boolean zommaIn = false;
     boolean zommaOut = false;
     static int idData = 0x6FA;//pacchetto dati
-    static double abOrient,baOrient;
+    static double abOrient, baOrient;
 
 
     @Override
@@ -75,6 +81,10 @@ public class AB_WorkActivity extends AppCompatActivity {
         onClick();
         updateUI();
         dataProject.setDistanceID(new MyRW_IntMem().MyRead("_pointselected", this));
+        layoutParams= new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, // larghezza
+                LinearLayout.LayoutParams.WRAP_CONTENT // altezza, puoi impostarla a WRAP_CONTENT o a un valore specifico
+        );
 
     }
 
@@ -89,7 +99,7 @@ public class AB_WorkActivity extends AppCompatActivity {
         crs = findViewById(R.id.img_crs);
         crs.setVisibility(View.INVISIBLE);
 
-       // lineID = findViewById(R.id.pickPoint);
+        // lineID = findViewById(R.id.pickPoint);
         altitude = findViewById(R.id.quota);
         distance = findViewById(R.id.distance);
 
@@ -110,9 +120,9 @@ public class AB_WorkActivity extends AppCompatActivity {
             distance.setTextSize(26f);
         }
         surfaceOK.setClickable(false);
-        if(DataSaved.useRmc==2){
+        if (DataSaved.useRmc == 2) {
             surfaceOK.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             surfaceOK.setVisibility(View.INVISIBLE);
         }
 
@@ -136,9 +146,10 @@ public class AB_WorkActivity extends AppCompatActivity {
             auto = true;
         }
         updateOffset();
-        abOrient= My_LocationCalc.calcBearingXY(dataProject.getPoints().get("A").getX(),dataProject.getPoints().get("A").getY(),dataProject.getPoints().get("B").getX(),dataProject.getPoints().get("B").getY());
-        baOrient=My_LocationCalc.calcBearingXY(dataProject.getPoints().get("B").getX(),dataProject.getPoints().get("B").getY(),dataProject.getPoints().get("A").getX(),dataProject.getPoints().get("A").getY());
-
+        if (dataProject.projectTag.equals("AB")) {
+            abOrient = My_LocationCalc.calcBearingXY(dataProject.getPoints().get("A").getX(), dataProject.getPoints().get("A").getY(), dataProject.getPoints().get("B").getX(), dataProject.getPoints().get("B").getY());
+            baOrient = My_LocationCalc.calcBearingXY(dataProject.getPoints().get("B").getX(), dataProject.getPoints().get("B").getY(), dataProject.getPoints().get("A").getX(), dataProject.getPoints().get("A").getY());
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -208,55 +219,59 @@ public class AB_WorkActivity extends AppCompatActivity {
     }
 
     public void metodoLineId() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle("Choose ID");
-        String[] items = new String[dataProject.getSize() + 1];
-        items[0] = "Line AB";
-        int counter = 1;
-        for (Map.Entry<String, GPS> entry : dataProject.getPoints().entrySet()) {
-            items[counter++] = entry.getKey();
+        if (dataProject.projectTag.equals("AB")) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setTitle("Choose ID");
+            String[] items = new String[dataProject.getSize() + 1];
+
+            items[0] = "Line AB";
+
+            int counter = 1;
+            for (Map.Entry<String, GPS> entry : dataProject.getPoints().entrySet()) {
+                items[counter++] = entry.getKey();
+            }
+
+            int selected = 0;
+            switch (dataProject.getDistanceID()) {
+                case "Line AB":
+                    selected = 0;
+                    break;
+                case "A":
+                    selected = 1;
+                    break;
+                case "B":
+                    selected = 2;
+                    break;
+                case "C":
+                    selected = 3;
+                    break;
+                case "D":
+                    selected = 4;
+                    break;
+                case "E":
+                    selected = 5;
+                    break;
+                case "F":
+                    selected = 6;
+                    break;
+                default:
+                    selected = 0;
+                    break;
+            }
+
+
+            alertDialog.setSingleChoiceItems(items, selected, (dialog, which) -> {
+                dataProject.setDistanceID(which < 0 ? null : items[which]);
+                new MyRW_IntMem().MyWrite("_pointselected", items[which], this);
+                dialog.dismiss();
+            });
+
+            alertDialog.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+            AlertDialog alert = alertDialog.create();
+            alert.setCanceledOnTouchOutside(true);
+            alert.show();
         }
-
-        int selected = 0;
-        switch (dataProject.getDistanceID()) {
-            case "Line AB":
-                selected = 0;
-                break;
-            case "A":
-                selected = 1;
-                break;
-            case "B":
-                selected = 2;
-                break;
-            case "C":
-                selected = 3;
-                break;
-            case "D":
-                selected = 4;
-                break;
-            case "E":
-                selected = 5;
-                break;
-            case "F":
-                selected = 6;
-                break;
-            default:
-                selected = 0;
-                break;
-        }
-
-
-        alertDialog.setSingleChoiceItems(items, selected, (dialog, which) -> {
-            dataProject.setDistanceID(which < 0 ? null : items[which]);
-            new MyRW_IntMem().MyWrite("_pointselected", items[which], this);
-            dialog.dismiss();
-        });
-
-        alertDialog.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
-
-        AlertDialog alert = alertDialog.create();
-        alert.setCanceledOnTouchOutside(true);
-        alert.show();
 
     }
 
@@ -323,115 +338,153 @@ public class AB_WorkActivity extends AppCompatActivity {
                         @Override
                         public void run() {
 
-                            if (auto) {
-                                rotateLeft.setEnabled(false);
-                                rotateRight.setEnabled(false);
-                                rotateLeft.setAlpha(0.4f);
-                                rotateRight.setAlpha(0.4f);
-                                autorotate.setAlpha(1.0f);
-                            } else {
-                                rotateLeft.setEnabled(true);
-                                rotateRight.setEnabled(true);
-                                rotateLeft.setAlpha(1f);
-                                rotateRight.setAlpha(1f);
-                                autorotate.setAlpha(0.4f);
-                            }
                             try {
-                                fileName.setText(dataProject.getProjectName().replace(".csv", ""));
+                                if (auto) {
+                                    rotateLeft.setEnabled(false);
+                                    rotateRight.setEnabled(false);
+                                    rotateLeft.setAlpha(0.4f);
+                                    rotateRight.setAlpha(0.4f);
+                                    autorotate.setAlpha(1.0f);
+                                } else {
+                                    rotateLeft.setEnabled(true);
+                                    rotateRight.setEnabled(true);
+                                    rotateLeft.setAlpha(1f);
+                                    rotateRight.setAlpha(1f);
+                                    autorotate.setAlpha(0.4f);
+                                }
+                                try {
+                                    fileName.setText(dataProject.getProjectName().replace("#AB_#", "").replace("#AR_#", ""));
+
+                                } catch (Exception e) {
+                                    fileName.setText(" ");
+                                }
+
+
+                                String dir = "\u21B6 ";
+                                double deltaHdt = dataProject.abOrient() - Nmea_In.tractorBearing;
+                                if (deltaHdt > 180) {
+                                    deltaHdt -= 360;
+                                }
+                                if (deltaHdt < -180) {
+                                    deltaHdt += 360;
+                                }
+                                double delta = 0;
+                                if (Math.abs(deltaHdt) > 90) {
+                                    delta = baOrient - Nmea_In.tractorBearing;
+                                } else {
+                                    delta = abOrient - Nmea_In.tractorBearing;
+                                }
+                                delta = delta % 360;
+
+                                if (delta > 180) {
+                                    delta -= 360;
+                                }
+                                if (delta < -180) {
+                                    delta += 360;
+                                }
+                                if (Math.abs(delta) >= DataSaved.hdt_Tol && delta > 0) {
+                                    dir = "\u21B7 ";
+                                } else if (Math.abs(delta) >= 1 && delta < 0) {
+                                    dir = "\u21B6 ";
+                                } else {
+                                    dir = "\u2191 ";
+                                }
+
+                                surfaceOK.setText(dir + String.format("%.1f", delta) + " °");//freccia negativo gira sx
+                                crs.setText("UTM");
+
+
+                                surfaceStatus.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), Can_Decoder.auto == 1 ? R.color.pure_green : R.color.transparent));
+                                surfaceOK.setTextColor(ContextCompat.getColorStateList(getApplicationContext(), (Math.abs(delta) < DataSaved.hdt_Tol) ? R.color.pure_green : R.color.bg_sfsred));
+                                if (dataProject.projectTag.equals("AB")) {
+                                    double v = 0;
+                                    double v2 = 0;
+                                    v = surfaceSelector.getAltitudeDifference(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1) - DataSaved.D_Offset;
+                                    v2 = surfaceSelector.getDistance();
+                                    if (Double.isNaN(v)) v = 0;
+                                    if (Bluetooth_CAN_Service.canIsConnected) {
+                                        short dataOut = (short) (v * 1000);
+                                        short dataOut_2 = (short) (v2 * 1000);
+                                        byte[] data = PLC_DataTypes_BigEndian.S16_to_bytes_be(dataOut);
+                                        byte[] data2 = PLC_DataTypes_BigEndian.S16_to_bytes_be(dataOut_2);
+                                        AutoConnectionService.data_6FA = data;
+                                        AutoConnectionService.data_6FA_2nd = data2;
+                                        page = 1;
+
+                                    }
+
+                                    String strDistance = dataProject.getDistanceID() + ": " + Utils.readUnitOfMeasure(String.valueOf(surfaceSelector.getDistance()), AB_WorkActivity.this).replace(",", ".") + " " + Utils.getMetriSimbol(AB_WorkActivity.this);
+                                    if (dataProject.projectTag.equals("AB")) {
+                                        if (Math.abs(surfaceSelector.getDistance()) <= DataSaved.xy_tol) {
+                                            distance.setBackgroundColor(getColor(R.color.green));
+                                            distance.setTextColor(getColor(R.color._____cancel_text));
+                                        } else {
+                                            distance.setBackgroundColor(getColor(R.color._____cancel_text));
+                                            distance.setTextColor(getColor(R.color.white));
+                                        }
+                                    }
+
+                                    if (surfaceSelector.isPointInsideSurface()) {
+                                        if (Math.abs(v) <= DataSaved.z_tol) {
+                                            altitude.setText("⧗ " + Utils.readUnitOfMeasure(String.valueOf(v), AB_WorkActivity.this).replace(",", ".") + " " + Utils.getMetriSimbol(AB_WorkActivity.this));
+                                            altitude.setBackgroundColor(getColor(R.color.green));
+                                            altitude.setTextColor(getColor(R.color._____cancel_text));
+                                        } else if (v < -(DataSaved.z_tol + 0.001)) {
+                                            altitude.setText("▲ " + Utils.readUnitOfMeasure(String.valueOf(v), AB_WorkActivity.this).replace(",", ".") + " " + Utils.getMetriSimbol(AB_WorkActivity.this));
+                                            altitude.setBackgroundColor(getColor(R.color.red));
+                                            altitude.setTextColor(getColor(R.color.white));
+                                        } else if (v > DataSaved.z_tol + 0.001) {
+                                            altitude.setText("▼ " + Utils.readUnitOfMeasure(String.valueOf(v), AB_WorkActivity.this).replace(",", ".") + " " + Utils.getMetriSimbol(AB_WorkActivity.this));
+                                            altitude.setBackgroundColor(getColor(R.color.blue));
+                                            altitude.setTextColor(getColor(R.color.white));
+                                        }
+                                    } else {
+                                        altitude.setText("OFF GRID");
+                                        altitude.setTextColor(getColor(R.color.white));
+                                        altitude.setBackgroundColor(getColor(R.color._____cancel_text));
+                                    }
+
+
+                                    distance.setText(strDistance);
+
+                                } else {
+                                    distance.setAlpha(0.3f);
+                                   distance.setText("");
+                                    coordinateXList = new ArrayList<>();
+                                    coordinateYList = new ArrayList<>();
+
+                                    for (GPS gps : dataProject.getPoints().values()) {
+                                        coordinateXList.add(gps.getX());
+                                        coordinateYList.add(gps.getY());
+                                    }
+                                   boolean vero= Polygon.isInsidePolygon(Nmea_In.Crs_Est,Nmea_In.Crs_Nord,coordinateXList,coordinateYList);
+                                    double v = Nmea_In.Quota1 -dataProject.getPoints().get("P1").getZ() - DataSaved.D_Offset;
+                                    if(vero) {
+                                        if (Math.abs(v) <= DataSaved.z_tol) {
+                                            altitude.setText("⧗ " + Utils.readUnitOfMeasure(String.valueOf(v), AB_WorkActivity.this).replace(",", ".") + " " + Utils.getMetriSimbol(AB_WorkActivity.this));
+                                            altitude.setBackgroundColor(getColor(R.color.green));
+                                            altitude.setTextColor(getColor(R.color._____cancel_text));
+                                        } else if (v < -(DataSaved.z_tol + 0.001)) {
+                                            altitude.setText("▲ " + Utils.readUnitOfMeasure(String.valueOf(v), AB_WorkActivity.this).replace(",", ".") + " " + Utils.getMetriSimbol(AB_WorkActivity.this));
+                                            altitude.setBackgroundColor(getColor(R.color.red));
+                                            altitude.setTextColor(getColor(R.color.white));
+                                        } else if (v > DataSaved.z_tol + 0.001) {
+                                            altitude.setText("▼ " + Utils.readUnitOfMeasure(String.valueOf(v), AB_WorkActivity.this).replace(",", ".") + " " + Utils.getMetriSimbol(AB_WorkActivity.this));
+                                            altitude.setBackgroundColor(getColor(R.color.blue));
+                                            altitude.setTextColor(getColor(R.color.white));
+                                        }
+                                    }else {
+                                        altitude.setText("OFF GRID");
+                                        altitude.setBackgroundColor(getColor(R.color._____cancel_text));
+                                        altitude.setTextColor(getColor(R.color.white));
+                                    }
+
+                                }
+                                canvas.invalidate();
 
                             } catch (Exception e) {
-                                fileName.setText(" ");
+                                System.out.println(e);
                             }
-
-
-
-                            String dir="\u21B6 ";
-                            double deltaHdt = dataProject.abOrient() - Nmea_In.tractorBearing;
-                            if(deltaHdt>180){
-                                deltaHdt-=360;
-                            }
-                            if(deltaHdt<-180){
-                                deltaHdt+=360;
-                            }
-                            double delta=0;
-                            if(Math.abs(deltaHdt)>90){
-                                delta=baOrient - Nmea_In.tractorBearing;
-                            }else {
-                                delta=abOrient - Nmea_In.tractorBearing;
-                            }
-                            delta=delta%360;
-
-                            if(delta>180){
-                                delta-=360;
-                            }
-                            if(delta<-180){
-                                delta+=360;
-                            }
-                            if(Math.abs(delta)>=DataSaved.hdt_Tol&&delta>0){
-                                dir="\u21B7 ";
-                            }else if(Math.abs(delta)>=1&&delta<0){
-                                dir="\u21B6 ";
-                            }else {
-                                dir="\u2191 ";
-                            }
-
-                            surfaceOK.setText(dir+String.format("%.1f", delta) + " °");//freccia negativo gira sx
-                            crs.setText("UTM");
-
-
-                            surfaceStatus.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), Can_Decoder.auto == 1 ? R.color.pure_green : R.color.transparent));
-                            surfaceOK.setTextColor(ContextCompat.getColorStateList(getApplicationContext(), (Math.abs(delta) < DataSaved.hdt_Tol) ? R.color.pure_green : R.color.bg_sfsred));
-                            double v = 0;
-                            double v2 = 0;
-                            v = surfaceSelector.getAltitudeDifference(Nmea_In.mLat_1, Nmea_In.mLon_1, Nmea_In.Quota1) - DataSaved.D_Offset;
-                            v2 = surfaceSelector.getDistance();
-                            if (Double.isNaN(v)) v = 0;
-                            if (Bluetooth_CAN_Service.canIsConnected) {
-                                short dataOut = (short) (v * 1000);
-                                short dataOut_2 = (short) (v2 * 1000);
-                                byte[] data = PLC_DataTypes_BigEndian.S16_to_bytes_be(dataOut);
-                                byte[] data2 = PLC_DataTypes_BigEndian.S16_to_bytes_be(dataOut_2);
-                                AutoConnectionService.data_6FA = data;
-                                AutoConnectionService.data_6FA_2nd = data2;
-                                page = 1;
-
-                            }
-
-                            String strDistance = dataProject.getDistanceID()+": " + Utils.readUnitOfMeasure(String.valueOf(surfaceSelector.getDistance()), AB_WorkActivity.this).replace(",", ".") + " " + Utils.getMetriSimbol(AB_WorkActivity.this);
-                            if (Math.abs(surfaceSelector.getDistance()) <= DataSaved.xy_tol) {
-                                distance.setBackgroundColor(getColor(R.color.green));
-                                distance.setTextColor(getColor(R.color._____cancel_text));
-                            } else {
-                                distance.setBackgroundColor(getColor(R.color._____cancel_text));
-                                distance.setTextColor(getColor(R.color.white));
-                            }
-
-                            if (surfaceSelector.isPointInsideSurface()) {
-                                if (Math.abs(v) <= DataSaved.z_tol) {
-                                    altitude.setText("⧗ " + Utils.readUnitOfMeasure(String.valueOf(v), AB_WorkActivity.this).replace(",", ".") + " " + Utils.getMetriSimbol(AB_WorkActivity.this));
-                                    altitude.setBackgroundColor(getColor(R.color.green));
-                                    altitude.setTextColor(getColor(R.color._____cancel_text));
-                                } else if (v < -(DataSaved.z_tol + 0.001)) {
-                                    altitude.setText("▲ " + Utils.readUnitOfMeasure(String.valueOf(v), AB_WorkActivity.this).replace(",", ".") + " " + Utils.getMetriSimbol(AB_WorkActivity.this));
-                                    altitude.setBackgroundColor(getColor(R.color.red));
-                                    altitude.setTextColor(getColor(R.color.white));
-                                } else if (v > DataSaved.z_tol + 0.001) {
-                                    altitude.setText("▼ " + Utils.readUnitOfMeasure(String.valueOf(v), AB_WorkActivity.this).replace(",", ".") + " " + Utils.getMetriSimbol(AB_WorkActivity.this));
-                                    altitude.setBackgroundColor(getColor(R.color.blue));
-                                    altitude.setTextColor(getColor(R.color.white));
-                                }
-                            } else {
-                                altitude.setText("OFF GRID");
-                                altitude.setTextColor(getColor(R.color.white));
-                                altitude.setBackgroundColor(getColor(R.color._____cancel_text));
-                            }
-
-                            distance.setText(strDistance);
-
-
-                            canvas.invalidate();
-
-
                         }
                     });
                     // sleep per intervallo update UI

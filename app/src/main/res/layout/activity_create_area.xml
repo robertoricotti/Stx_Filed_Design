@@ -78,6 +78,7 @@
         app:srcCompat="@drawable/zoomout"
         app:tint="@color/white" />
     <ImageButton
+        android:visibility="invisible"
         android:id="@+id/myRotateL"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -92,6 +93,7 @@
         app:srcCompat="@drawable/rotate_left"
         app:tint="@color/white" />
     <ImageButton
+        android:visibility="invisible"
         android:id="@+id/myRotateR"
         android:layout_width="50dp"
         android:layout_height="50dp"

@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.location.Location;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -21,6 +22,8 @@ import org.locationtech.jts.triangulate.DelaunayTriangulationBuilder;
 import org.locationtech.jts.triangulate.quadedge.QuadEdgeSubdivision;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import activity_portrait.AB_WorkActivity;
@@ -51,6 +54,7 @@ public class ProjectCanvas extends View {
     @SuppressLint("DrawAllocation")
     @Override
     protected void onDraw(Canvas canvas) {
+
         this.canvas = canvas;
         super.onDraw(canvas);
 
@@ -65,8 +69,6 @@ public class ProjectCanvas extends View {
 
 
         size = 50;
-
-
 
 
         double myLat = Nmea_In.mLat_1;
@@ -87,7 +89,8 @@ public class ProjectCanvas extends View {
         int indexLine = -1;
 
         int counter = 0;
-
+        float[] arrx = new float[dataProject.getSize()];
+        float[] arry = new float[dataProject.getSize()];
         for (Map.Entry<String, GPS> entry : dataProject.getPoints().entrySet()) {
             GPS value = entry.getValue();
             id = entry.getKey();
@@ -100,6 +103,7 @@ public class ProjectCanvas extends View {
 
             Location.distanceBetween(myLat, myLong, pointLat, pointLong, result);
             meters = result[0] * dataProject.getScale();
+
             double resultAngolo = 0;
             if (AB_WorkActivity.auto) {
                 resultAngolo = result[1] - (Nmea_In.tractorBearing);
@@ -114,6 +118,8 @@ public class ProjectCanvas extends View {
             angolo = resultAngolo;
 
             double angleRadians = Math.toRadians(angolo);
+
+
             float endX = getWidth() / 2f + (float) (meters * Math.cos(angleRadians));
             float endY = getHeight() / 2f + (float) (meters * Math.sin(angleRadians));
 
@@ -121,12 +127,49 @@ public class ProjectCanvas extends View {
             canvas.drawCircle(endX, endY, size / 2.5f, paint);
 
             paint.setColor(Color.BLACK);
-            paint.setTextSize(30/dataProject.mScaleFactor);
+            paint.setTextSize(30 / dataProject.mScaleFactor);
             canvas.drawText(id, endX + 25f, endY - 25f, paint);
 
             coordinates[counter] = new Coordinate(endX, endY, 0);
+            arrx[counter] = endX;
+            arry[counter] = endY;
             counter++;
+
         }
+
+
+        if (dataProject.getProjectTag().equals("AREA")) {
+            Log.d("ArrX", Arrays.toString(arrx));
+            Log.d("ArrY", Arrays.toString(arry));
+            paint.setColor(Color.BLACK);
+            paint.setStrokeWidth(5f);
+
+            // Disegna le linee tra i punti consecutivi
+            for (int i = 0; i < arrx.length - 1; i++) {
+                float startX = arrx[i];
+                float startY = arry[i];
+                float endX = arrx[i + 1];
+                float endY = arry[i + 1];
+                canvas.drawLine(startX, startY, endX, endY, paint);
+            }
+            canvas.drawLine(arrx[arrx.length - 1], arry[arry.length - 1], arrx[0], arry[0], paint);
+            // Disegna le linee che collegano i punti
+            paint.setColor(Color.BLACK);
+            paint.setStrokeWidth(5f);
+            Path path = new Path();
+            path.moveTo(arrx[0], arry[0]); // Muovi il percorso al primo punto
+            for (int i = 1; i < arrx.length; i++) {
+                path.lineTo(arrx[i], arry[i]); // Aggiungi una linea dal punto precedente al punto attuale
+            }
+            path.close(); // Chiudi il percorso
+
+            // Riempimento del percorso con un colore blu trasparente
+            paint.setColor(Color.parseColor("#800F00FF"));
+            paint.setStyle(Paint.Style.FILL);
+            canvas.drawPath(path, paint);
+        }
+
+
 
         if (dataProject.isDelaunay()) {
             GeometryFactory geometryFactory = new GeometryFactory();
@@ -147,55 +190,46 @@ public class ProjectCanvas extends View {
                 }
             }
             Coordinate[] triangoli = tmp.toArray(new Coordinate[0]);
-
             paint.setColor(Color.BLACK);
 
-            Coordinate start;
-            Coordinate dest;
+            if (dataProject.projectTag.equals("AB")) {
+                canvas.drawLine((float) coordinates[0].x, (float) coordinates[0].y, (float) coordinates[4].x, (float) coordinates[4].y, paint);
+                canvas.drawLine((float) coordinates[3].x, (float) coordinates[3].y, (float) coordinates[1].x, (float) coordinates[1].y, paint);
+                // Codice per riempire l'area chiusa
+                paint.setColor(Color.parseColor("#800F00FF")); // Colore rosso semitrasparente
+                paint.setStyle(Paint.Style.FILL);
 
-          /*  for (int i = 0; i < triangoli.length; i++) {
-                start = new Coordinate(triangoli[i].x, triangoli[i].y);
+                for (int i = 0; i < triangoli.length; i += 3) {
+                    Path trianglePath = new Path();
+                    trianglePath.moveTo((float) triangoli[i].x, (float) triangoli[i].y);
+                    trianglePath.lineTo((float) triangoli[i + 1].x, (float) triangoli[i + 1].y);
+                    trianglePath.lineTo((float) triangoli[i + 2].x, (float) triangoli[i + 2].y);
+                    trianglePath.close();
+                    canvas.drawPath(trianglePath, paint);
+                }
 
-                if ((i + 1) % 3 != 0)
-                    dest = new Coordinate(triangoli[i + 1].x, triangoli[i + 1].y);
-                else
-                    dest = new Coordinate(triangoli[i - 2].x, triangoli[i - 2].y);
-
-                canvas.drawLine((float) start.x, (float) start.y, (float) dest.x, (float) dest.y, paint);
-            }*/
-            canvas.drawLine((float) coordinates[0].x, (float) coordinates[0].y, (float) coordinates[4].x, (float) coordinates[4].y, paint);
-            canvas.drawLine((float) coordinates[3].x, (float) coordinates[3].y, (float) coordinates[1].x, (float) coordinates[1].y, paint);
-
-
-            // Codice per riempire l'area chiusa
-            paint.setColor(Color.parseColor("#800F00FF")); // Colore rosso semitrasparente
-            paint.setStyle(Paint.Style.FILL);
-
-            for (int i = 0; i < triangoli.length; i += 3) {
-                Path trianglePath = new Path();
-                trianglePath.moveTo((float) triangoli[i].x, (float) triangoli[i].y);
-                trianglePath.lineTo((float) triangoli[i + 1].x, (float) triangoli[i + 1].y);
-                trianglePath.lineTo((float) triangoli[i + 2].x, (float) triangoli[i + 2].y);
-                trianglePath.close();
-                canvas.drawPath(trianglePath, paint);
             }
+
+
         }
 
         if (indexLine != -1) {
             paint.setColor(Color.RED);
-            canvas.drawLine(half_width, half_height, (float) coordinates[indexLine].x, (float) coordinates[indexLine].y, paint);
-
+            if (dataProject.projectTag.equals("AB")) {
+                canvas.drawLine(half_width, half_height, (float) coordinates[indexLine].x, (float) coordinates[indexLine].y, paint);
+            }
             paint.setColor(Color.GREEN);
 
             canvas.drawCircle((float) coordinates[indexLine].x, (float) coordinates[indexLine].y, size / 2.5f, paint);
 
         }
-
-        paint.setColor(Color.YELLOW);
-        paint.setStrokeWidth(9f);
-        canvas.drawLine((float) coordinates[0].x, (float) coordinates[0].y, (float) coordinates[1].x, (float) coordinates[1].y, paint);
-       //  paint.setColor(Color.BLACK);
-       // canvas.drawCircle(half_width, half_height, 10 / dataProject.getmScaleFactor(), paint);
+        if (dataProject.projectTag.equals("AB")) {
+            paint.setColor(Color.YELLOW);
+            paint.setStrokeWidth(9f);
+            canvas.drawLine((float) coordinates[0].x, (float) coordinates[0].y, (float) coordinates[1].x, (float) coordinates[1].y, paint);
+            //  paint.setColor(Color.BLACK);
+            // canvas.drawCircle(half_width, half_height, 10 / dataProject.getmScaleFactor(), paint);
+        }
         if (DataSaved.imgMode == 0) {
             drawPalina();
         } else {
@@ -205,7 +239,7 @@ public class ProjectCanvas extends View {
     }
 
     private void drawPalina() {
-        float size=40;
+        float size = 40;
         if (dataProject.mScaleFactor > 1) {
             size = 40;
         } else {
@@ -315,11 +349,6 @@ public class ProjectCanvas extends View {
 
         return true;
     }
-
-
-
-
-
 
 
     // GestureDetector for pinch-to-zoom
