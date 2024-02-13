@@ -54,11 +54,11 @@ public class PickProjectDialog {
 
         File directory = new File(path);
         File[] files = directory.listFiles();
-        assert files != null;
-        for (File file : files) {
-            arrayFiles.add(file.getName());
+        if( files != null) {
+            for (File file : files) {
+                arrayFiles.add(file.getName());
+            }
         }
-
         arrayFiles.sort(Comparator.naturalOrder());
 
         pickProjectAdapter = new PickProjectAdapter(arrayFiles);

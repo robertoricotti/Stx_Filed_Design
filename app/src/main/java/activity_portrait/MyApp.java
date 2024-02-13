@@ -469,13 +469,17 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             activity.startActivity(new Intent(activity, MenuProject.class));
             activity.finish();
         });
-        btn2.setOnClickListener(view -> {
+        btn2.setOnLongClickListener(view -> {
             if (activity instanceof ABProject && ((ABProject) activity).pickIndex == 0) {
                 new Dialog_Edit_Zeta(activity, 0).show();
             } else {
                 ((ABProject) activity).metodoPick();
             }
 
+            return false;
+        });
+        btn2.setOnClickListener(view -> {
+            new CustomToast(activity,"Long Press To Delete").show();
         });
         btn3.setVisibility(View.INVISIBLE);
         btn5.setOnClickListener(view -> {

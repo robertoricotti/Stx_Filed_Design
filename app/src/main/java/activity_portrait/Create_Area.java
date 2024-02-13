@@ -198,7 +198,7 @@ public class Create_Area extends AppCompatActivity {
                                 if (zommaOut) {
                                     zommaIn = false;
 
-                                        dataProject.mScaleFactor +=1f;
+                                        dataProject.mScaleFactor -=1f;
 
 
 
@@ -206,7 +206,7 @@ public class Create_Area extends AppCompatActivity {
                                 if (zommaIn) {
                                     zommaOut = false;
 
-                                        dataProject.mScaleFactor -= 1f;
+                                        dataProject.mScaleFactor += 1f;
 
 
 

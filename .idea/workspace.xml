@@ -245,60 +245,24 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f92bf50-0241-4f68-8acd-219dc0291d3c" name="Changes" comment="usb modify">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/coords_calc/Polygon.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/utils/BluetoothFileTransfer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/utils/FileCopyUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/btn_copia_destra.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/btn_copia_sinistra.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/btn_refresh.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/copia_destra.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/copia_sinistra.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/delete.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/delete_raw.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/refresh.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_project_usb_nuova.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/xml/provider_paths.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/armeabi-v7a/CMakeFiles/sysmcu.dir/JniWrapper.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/armeabi-v7a/CMakeFiles/sysmcu.dir/Lock.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/armeabi-v7a/CMakeFiles/sysmcu.dir/Packet.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/armeabi-v7a/CMakeFiles/sysmcu.dir/PacketParser.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/armeabi-v7a/CMakeFiles/sysmcu.dir/TcpClient.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/armeabi-v7a/CMakeFiles/sysmcu.dir/Utils.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/armeabi-v7a/CMakeFiles/sysmcu.dir/VanException.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/armeabi-v7a/CMakeFiles/sysmcu.dir/VanRequest.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/armeabi-v7a/CMakeFiles/sysmcu.dir/VcxCmd.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/armeabi-v7a/CMakeFiles/sysmcu.dir/VcxCore.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/armeabi-v7a/CMakeFiles/sysmcu.dir/VcxHandler.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.0/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.0/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.0/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/checksums/sha1-checksums.bin" afterDir="false" />
+    <list default="true" id="4f92bf50-0241-4f68-8acd-219dc0291d3c" name="Changes" comment="area">
+      <change afterPath="$PROJECT_DIR$/app/release/app-release.apk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/baseline_add_to_drive_96.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/ABProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/ABProject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/AB_WorkActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/AB_WorkActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/Create_1P.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/Create_1P.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/Create_Area.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/Create_Area.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/LaunchScreenActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/LaunchScreenActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MyApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MyApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/UsbActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/UsbActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/dialogs/Confirm_Dialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/dialogs/Confirm_Dialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/dialogs/Dialog_Edit_Zeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/dialogs/Dialog_Edit_Zeta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/project/DataProjectSingleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/project/DataProjectSingleton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/project/ProjectCanvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/project/ProjectCanvas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/dialogs/PickProjectDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/dialogs/PickProjectDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/services_and_bluetooth/AutoConnectionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/services_and_bluetooth/AutoConnectionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/utils/UsbReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/utils/UsbReceiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_create_area.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_create_area.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/btn_selectfakepos.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/btn_selectfakepos.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -309,7 +273,7 @@
     <option name="parameterInfoViaClangd" value="false" />
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\rricotti\.android\avd\Stonex_S80_API_33.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[108TS86383000001]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -840,12 +804,19 @@
       <option name="project" value="LOCAL" />
       <updated>1706797251338</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="area">
+      <option name="closed" value="true" />
+      <created>1707757770598</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1707757770598</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="USB file ok R/W" />
     <MESSAGE value="Unique Lower and Upper Layouts managed by MyApp class" />
     <MESSAGE value="before migrate to androidX" />
     <MESSAGE value="unit of measure step_1" />
@@ -870,6 +841,7 @@
     <MESSAGE value="area implementation step 1" />
     <MESSAGE value="release USA 31/01/2024" />
     <MESSAGE value="usb modify" />
-    <option name="LAST_COMMIT_MESSAGE" value="usb modify" />
+    <MESSAGE value="area" />
+    <option name="LAST_COMMIT_MESSAGE" value="area" />
   </component>
 </project>

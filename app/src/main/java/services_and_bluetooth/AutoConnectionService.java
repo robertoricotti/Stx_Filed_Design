@@ -47,7 +47,7 @@ public class AutoConnectionService extends Service {
 
 
     private Executor mExecutor;
-    private static final int THREAD_POOL_SIZE = 4;
+    private static final int THREAD_POOL_SIZE = 1;
     Timer timer_100;
     TimerTask timertask_100;
 
@@ -126,28 +126,10 @@ public class AutoConnectionService extends Service {
         locationManager.addNmeaListener(nmeaMessageListener);
 
 
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 0, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
 
 
         mExecutor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
-    /*    handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                    if (!Bluetooth_CAN_Service.canIsConnected&&DataSaved.useTilt==1) {
-                        startService(new Intent(AutoConnectionService.this, Bluetooth_CAN_Service.class));
-                        Log.d("MioRunnable", "INSIDE RUNNABLE " + "mi riconnetto al CAN");
-                    }
-                if (!Bluetooth_GNSS_Service.gpsIsConnected&&DataSaved.useDemo==0) {
-                    startService(new Intent(AutoConnectionService.this, Bluetooth_GNSS_Service.class));
-                    Log.d("MioRunnable", "INSIDE RUNNABLE " + "mi riconnetto al GPS");
-                }
-
-
-                    // Ripeti il controllo ogni 2 secondi
-                    handler.postDelayed(this, 2000);
-            }
-        }, 2000);*/
 
 
 
