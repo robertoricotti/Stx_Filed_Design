@@ -329,6 +329,7 @@ public class ABProject extends AppCompatActivity {
 
     public void metodoBack() {
         new MyRW_IntMem().MyWrite("zoomF", String.valueOf(dataProject.mScaleFactor), this);
+        new Confirm_Dialog(ABProject.this,8).show();
     }
 
     public void metodoPick() {

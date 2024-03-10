@@ -1,6 +1,7 @@
 package dialogs;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,9 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.example.stx_field_design.R;
 
+import activity_portrait.Create_1P;
+import activity_portrait.Create_Area;
+import activity_portrait.MenuProject;
 import activity_portrait.UsbActivity;
 import activity_portrait.ABProject;
 import utils.FullscreenActivity;
@@ -46,10 +50,32 @@ public class Confirm_Dialog {
         yes = alertDialog.findViewById(R.id.yes);
         no = alertDialog.findViewById(R.id.no);
         if(activity instanceof ABProject){
-            title.setText("UPLOAD\nDATA?");
+            switch (flag){
+                case -1:
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                    title.setText("UPLOAD\nDATA?");
+                    break;
+
+                case 8:
+                    title.setText("EXIT?\nALL DATA WILL BE LOST");
+                    break;
+            }
         }
         if(activity instanceof UsbActivity){
             title.setText("DELETE\nSELECTED FILE?");
+        }
+        if(activity instanceof Create_Area){
+            title.setText("EXIT?\nALL DATA WILL BE LOST");
+        }
+        if(activity instanceof Create_1P){
+            title.setText("EXIT?\nALL DATA WILL BE LOST");
         }
     }
 
@@ -60,6 +86,7 @@ public class Confirm_Dialog {
             if (activity instanceof ABProject) {
                 switch (flag) {
                     case -1:
+
                         if(((ABProject)activity).progressBar.getVisibility()==View.INVISIBLE){
                             visu();
                             (new Handler()).postDelayed(this:: calcZ, 500);
@@ -76,31 +103,52 @@ public class Confirm_Dialog {
 
                         break;
                     case 0:
+
                         alertDialog.dismiss();
                         break;
                     case 1:
+
                         ((ABProject) activity).calcZ();
                         break;
                     case 2:
+
                         ((ABProject) activity).calc2();
                         break;
                     case 3:
+
                         ((ABProject) activity).calc3();
                         break;
                     case 4:
+
                         ((ABProject) activity).calc4();
                         break;
                     case 5:
+
                         ((ABProject) activity).calc5();
                         break;
                     case 6:
+
                         ((ABProject) activity).calc6();
                         break;
                     case 7:
+
                         ((ABProject) activity).calc7();
+                        break;
+                    case 8:
+
+                        activity.startActivity(new Intent(activity, MenuProject.class));
+                        activity.finish();
                         break;
                 }
 
+            }
+            if(activity instanceof Create_Area){
+                activity.startActivity(new Intent(activity, MenuProject.class));
+                activity.finish();
+            }
+            if(activity instanceof Create_1P){
+                activity.startActivity(new Intent(activity, MenuProject.class));
+                activity.finish();
             }
 
             alertDialog.dismiss();

@@ -411,8 +411,9 @@
         android:layout_margin="0dp"
         android:backgroundTint="@color/black"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/container_draw"
+        app:layout_constraintTop_toTopOf="@id/container_draw"
         app:layout_constraintLeft_toLeftOf="@id/container_draw"
+        app:layout_constraintRight_toLeftOf="@id/myCenterNav"
         app:srcCompat="@drawable/delete_96"
         app:tint="@color/white" />
 
@@ -426,7 +427,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/img_crs"
         app:layout_constraintEnd_toStartOf="@+id/myZoomIn"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/container_draw"
+        app:layout_constraintStart_toEndOf="@id/delete"
         app:layout_constraintTop_toTopOf="@+id/img_crs"
         app:srcCompat="@drawable/centerview"
         app:tint="@color/white" />

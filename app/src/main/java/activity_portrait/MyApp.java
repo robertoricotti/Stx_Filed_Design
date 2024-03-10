@@ -221,8 +221,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         btn4.setImageResource(R.drawable.btn_infoapp);
         btn5.setImageResource(R.drawable.btn_save);
         btn1.setOnClickListener(view -> {
-            activity.startActivity(new Intent(activity, MenuProject.class));
-            activity.finish();
+            ((Create_Area) activity).goBack();
         });
         btn2.setOnClickListener(view -> {
             ((Create_Area) activity).addPoint();
@@ -331,8 +330,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         btn1.setImageResource(R.drawable.btn_to_indietro);
         btn5.setImageResource(R.drawable.btn_save);
         btn1.setOnClickListener(view -> {
-            activity.startActivity(new Intent(activity, MenuProject.class));
-            activity.finish();
+            ((Create_1P) activity).goBack();
         });
         btn5.setOnClickListener(view -> {
             new Dialog_Edit_Zeta(activity, 0).show();
@@ -466,8 +464,6 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         btn4.setVisibility(View.INVISIBLE);
         btn1.setOnClickListener(view -> {
             ((ABProject) activity).metodoBack();
-            activity.startActivity(new Intent(activity, MenuProject.class));
-            activity.finish();
         });
         btn2.setOnLongClickListener(view -> {
             if (activity instanceof ABProject && ((ABProject) activity).pickIndex == 0) {
@@ -479,7 +475,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             return false;
         });
         btn2.setOnClickListener(view -> {
-            new CustomToast(activity,"Long Press To Delete").show();
+            new CustomToast(activity,"Long Press To Pick").show();
         });
         btn3.setVisibility(View.INVISIBLE);
         btn5.setOnClickListener(view -> {

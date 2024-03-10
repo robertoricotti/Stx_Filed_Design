@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import coords_calc.GPS;
+import dialogs.Confirm_Dialog;
 import dialogs.CoordsGNSSInfo;
 import dialogs.CustomToast;
 import dialogs.Dialog_Edit_Zeta;
@@ -174,9 +175,9 @@ public class Create_Area extends AppCompatActivity {
                                     double y = calculateYCoordinate((float) point.getY());
                                     canvas.drawCircle((float) x, (float) y, 10, paint);
                                     paint.setTextSize(25f);
-                                    canvas.drawText("P"+pickIndex,(float) x, (float) y,paint);
+                                    canvas.drawText("P"+(i+1),(float) x, (float) y,paint);
                                     paint.setColor(Color.BLACK);
-                                    paint.setStrokeWidth(4/dataProject.mScaleFactor);
+                                    paint.setStrokeWidth(6/dataProject.mScaleFactor);
                                     if (i > 0) {
                                         GPS prevPoint = points.get(i - 1);
                                         double prevX = calculateXCoordinate((float) prevPoint.getX());
@@ -347,6 +348,9 @@ public class Create_Area extends AppCompatActivity {
             Toast.makeText(this, "Pick at least 3 points", Toast.LENGTH_LONG).show();
         }
 
+    }
+    public void goBack(){
+        new Confirm_Dialog(Create_Area.this,0).show();
     }
 
     @SuppressLint("MissingSuperCall")

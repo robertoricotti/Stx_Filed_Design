@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.stx_field_design.R;
 
 import coords_calc.GPS;
+import dialogs.Confirm_Dialog;
 import dialogs.SaveFileDialog;
 import gnss.Nmea_In;
 import project.DataProjectSingleton;
@@ -99,12 +100,15 @@ public class Create_1P extends AppCompatActivity {
             }
         }
     }
+    public void goBack(){
+        new Confirm_Dialog(Create_1P.this,8).show();
+    }
+
+
 
     @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
-
-
     }
 
     @Override
