@@ -246,45 +246,31 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f92bf50-0241-4f68-8acd-219dc0291d3c" name="Changes" comment="area 13022024">
+    <list default="true" id="4f92bf50-0241-4f68-8acd-219dc0291d3c" name="Changes" comment="area 10032024">
+      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/arm64-v8a/CMakeFiles/sysmcu.dir/JniWrapper.cpp.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/arm64-v8a/CMakeFiles/sysmcu.dir/Lock.cpp.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/arm64-v8a/CMakeFiles/sysmcu.dir/Packet.cpp.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/arm64-v8a/CMakeFiles/sysmcu.dir/PacketParser.cpp.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/arm64-v8a/CMakeFiles/sysmcu.dir/TcpClient.cpp.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/arm64-v8a/CMakeFiles/sysmcu.dir/Utils.cpp.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/arm64-v8a/CMakeFiles/sysmcu.dir/VanException.cpp.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/arm64-v8a/CMakeFiles/sysmcu.dir/VanRequest.cpp.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/arm64-v8a/CMakeFiles/sysmcu.dir/VcxCmd.cpp.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/arm64-v8a/CMakeFiles/sysmcu.dir/VcxCore.cpp.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/arm64-v8a/CMakeFiles/sysmcu.dir/VcxHandler.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/ABProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/ABProject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/Create_1P.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/Create_1P.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/Create_Area.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/Create_Area.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/LaunchScreenActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/LaunchScreenActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MyApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MyApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/dialogs/Confirm_Dialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/dialogs/Confirm_Dialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_ab_project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_ab_project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/armeabi-v7a/CMakeFiles/sysmcu.dir/JniWrapper.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/armeabi-v7a/CMakeFiles/sysmcu.dir/Lock.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/armeabi-v7a/CMakeFiles/sysmcu.dir/Packet.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/armeabi-v7a/CMakeFiles/sysmcu.dir/PacketParser.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/armeabi-v7a/CMakeFiles/sysmcu.dir/TcpClient.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/armeabi-v7a/CMakeFiles/sysmcu.dir/Utils.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/armeabi-v7a/CMakeFiles/sysmcu.dir/VanException.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/armeabi-v7a/CMakeFiles/sysmcu.dir/VanRequest.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/armeabi-v7a/CMakeFiles/sysmcu.dir/VcxCmd.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/armeabi-v7a/CMakeFiles/sysmcu.dir/VcxCore.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/armeabi-v7a/CMakeFiles/sysmcu.dir/VcxHandler.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86_64/CMakeFiles/sysmcu.dir/JniWrapper.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86_64/CMakeFiles/sysmcu.dir/Lock.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86_64/CMakeFiles/sysmcu.dir/Packet.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86_64/CMakeFiles/sysmcu.dir/PacketParser.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86_64/CMakeFiles/sysmcu.dir/TcpClient.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86_64/CMakeFiles/sysmcu.dir/Utils.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86_64/CMakeFiles/sysmcu.dir/VanException.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86_64/CMakeFiles/sysmcu.dir/VanRequest.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86_64/CMakeFiles/sysmcu.dir/VcxCmd.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86_64/CMakeFiles/sysmcu.dir/VcxCore.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/x86_64/CMakeFiles/sysmcu.dir/VcxHandler.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MainActivity.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -295,7 +281,7 @@
     <option name="parameterInfoViaClangd" value="false" />
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[9d9fcebf]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\rricotti\.android\avd\Stonex_S80_API_33.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -327,6 +313,9 @@
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2Yb982GHnCQwvRlSOPoTklzfEQp" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -499,7 +488,7 @@
       <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>false</ForceTestExec>
+      <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
     <recent_temporary>
@@ -850,12 +839,19 @@
       <option name="project" value="LOCAL" />
       <updated>1707833895843</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="area 10032024">
+      <option name="closed" value="true" />
+      <created>1710063050403</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1710063050403</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="before migrate to androidX" />
     <MESSAGE value="unit of measure step_1" />
     <MESSAGE value="unit of measure step_2" />
     <MESSAGE value="unit of measure step_3 measuring tool implement" />
@@ -880,6 +876,7 @@
     <MESSAGE value="usb modify" />
     <MESSAGE value="area" />
     <MESSAGE value="area 13022024" />
-    <option name="LAST_COMMIT_MESSAGE" value="area 13022024" />
+    <MESSAGE value="area 10032024" />
+    <option name="LAST_COMMIT_MESSAGE" value="area 10032024" />
   </component>
 </project>
