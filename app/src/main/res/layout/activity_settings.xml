@@ -311,8 +311,97 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ckPalina"
                 app:tint="@color/bg_sfsred" />
+            <LinearLayout
+                android:id="@+id/lay_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/topView"
+                android:layout_marginTop="5dp"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/title_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/_____cancel_text"
+                    android:gravity="center"
+                    android:text="Unit of Measure"
+                    android:textColor="@color/white"
+                    android:textSize="18dp"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/custom_background_light">
+                        <CheckBox
+                            android:id="@+id/ckMetri"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:text="Meters" />
+
+                        <CheckBox
+                            android:id="@+id/ckPiedi"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:text="US Survey Feet" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/custom_background_light">
+                        <CheckBox
+                            android:id="@+id/ckDeg"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:text="Degrees (xx.xx °)" />
+
+                        <CheckBox
+                            android:id="@+id/ckPercent"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:text="Percent (xx.xx %)" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/title_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/_____cancel_text"
+                    android:gravity="center"
+                    android:text="Measuring Tool"
+                    android:textColor="@color/white"
+                    android:textSize="18dp"
+                    />
+
+
+            </LinearLayout>
 
         </LinearLayout>
+
 
     </ScrollView>
 

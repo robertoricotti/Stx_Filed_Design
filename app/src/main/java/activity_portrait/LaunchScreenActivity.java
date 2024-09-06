@@ -87,17 +87,16 @@ public class LaunchScreenActivity extends AppCompatActivity {
         }
         if (Build.VERSION.SDK_INT < 33 && Build.VERSION.SDK_INT > 29) {
             PERMISSIONS = new String[]{
+
                     Manifest.permission.BLUETOOTH,
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.INTERNET,
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.MANAGE_EXTERNAL_STORAGE,
                     Manifest.permission.ACCESS_NETWORK_STATE
             };
 
         }
+
         if (Build.VERSION.SDK_INT <= 29) {
 
             PERMISSIONS = new String[]{

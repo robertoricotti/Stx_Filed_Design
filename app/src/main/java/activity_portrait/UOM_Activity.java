@@ -25,14 +25,14 @@ public class UOM_Activity extends AppCompatActivity {
     private boolean zommaIn = false;
     private boolean zommaOut = false;
     double dist_3d, dist_2d, deltaz, slope, bearing;
-    CheckBox cbMeters, cbUSF, cbDeg, cbPcent;
+
     TextView result,tv_zoom;
-    int index;
+
     private boolean mRunning = true;
     private Handler mHandler;
     UOM_Canvas canvas;
     ConstraintLayout container_draw;
-    public double[] A_coord, B_coord;
+    public static double[] A_coord, B_coord;
     public int size = 0;
     String res1, res2, res3, res4, res5;
     ImageButton center, zoomIn, zoomOut;
@@ -49,11 +49,7 @@ public class UOM_Activity extends AppCompatActivity {
     }
 
     private void findView() {
-        index = Integer.parseInt(new MyRW_IntMem().MyRead("_unitofmeasure", this));
-        cbMeters = findViewById(R.id.ckMetri);
-        cbUSF = findViewById(R.id.ckPiedi);
-        cbDeg = findViewById(R.id.ckDeg);
-        cbPcent = findViewById(R.id.ckPercent);
+
         container_draw = findViewById(R.id.container_draw_uom);
         result = findViewById(R.id.txt_result);
         center=findViewById(R.id.myCenterNav);
@@ -68,58 +64,14 @@ public class UOM_Activity extends AppCompatActivity {
         canvas = new UOM_Canvas(this);
         container_draw.addView(canvas);
         result.setText("");
-        switch (index) {
-            case 0:
-                cbMeters.setChecked(true);
-                cbUSF.setChecked(false);
-                cbDeg.setChecked(true);
-                cbPcent.setChecked(false);
-                break;
-            case 1:
-                cbMeters.setChecked(true);
-                cbUSF.setChecked(false);
-                cbDeg.setChecked(false);
-                cbPcent.setChecked(true);
-                break;
-            case 2:
-                cbMeters.setChecked(false);
-                cbUSF.setChecked(true);
-                cbDeg.setChecked(true);
-                cbPcent.setChecked(false);
-                break;
-            case 3:
-                cbMeters.setChecked(false);
-                cbUSF.setChecked(true);
-                cbDeg.setChecked(false);
-                cbPcent.setChecked(true);
-                break;
-        }
+
 
     }
 
 
     @SuppressLint("ClickableViewAccessibility")
     private void onClick() {
-        cbMeters.setOnClickListener(view -> {
-            cbMeters.setChecked(true);
-            cbUSF.setChecked(false);
-            updateCB();
-        });
-        cbUSF.setOnClickListener(view -> {
-            cbUSF.setChecked(true);
-            cbMeters.setChecked(false);
-            updateCB();
-        });
-        cbDeg.setOnClickListener(view -> {
-            cbDeg.setChecked(true);
-            cbPcent.setChecked(false);
-            updateCB();
-        });
-        cbPcent.setOnClickListener(view -> {
-            cbPcent.setChecked(true);
-            cbDeg.setChecked(false);
-            updateCB();
-        });
+
 
         center.setOnClickListener((View v) -> {
             canvas.offsetX=0;
@@ -166,24 +118,7 @@ public class UOM_Activity extends AppCompatActivity {
         });
     }
 
-    private void updateCB() {
-        int out = 0;
-        if (cbMeters.isChecked() && !cbUSF.isChecked()) {
-            if (cbDeg.isChecked() && !cbPcent.isChecked()) {
-                out = 0;
-            } else if (cbPcent.isChecked() && !cbDeg.isChecked()) {
-                out = 1;
-            }
-        } else if (!cbMeters.isChecked() && cbUSF.isChecked()) {
-            if (cbDeg.isChecked() && !cbPcent.isChecked()) {
-                out = 2;
-            } else if (cbPcent.isChecked() && !cbDeg.isChecked()) {
-                out = 3;
-            }
-        }
-        new MyRW_IntMem().MyWrite("_unitofmeasure", String.valueOf(out), UOM_Activity.this);
 
-    }
 
     @SuppressLint({"SetTextI18n", "DefaultLocale"})
     private void updateUI() {
@@ -277,10 +212,13 @@ public class UOM_Activity extends AppCompatActivity {
         size = 0;
     }
 
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
 
     }
+
+
 
     public void setA_coord(double[] coord) {
         A_coord = coord;

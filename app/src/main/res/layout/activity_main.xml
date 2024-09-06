@@ -199,7 +199,7 @@
                     android:layout_height="60dp"
                     android:layout_weight="1"
                     android:padding="5dp"
-                    android:src="@drawable/btn_unitsofmeasure"
+                    android:src="@drawable/btn_picklibe"
                     app:tint="@color/_____cancel_text" />
 
                 <ImageView
@@ -237,7 +237,7 @@
                     android:layout_height="60dp"
                     android:layout_weight="1"
                     android:gravity="center|top"
-                    android:text="Units Of Measure"
+                    android:text="Measure And Align"
                     android:textColor="@color/_____cancel_text"
                     android:textSize="26px"
                     android:textStyle="bold" />

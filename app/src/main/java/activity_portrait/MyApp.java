@@ -364,6 +364,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         m_updateUI(whoLaunch, true);
         btn2.setVisibility(View.INVISIBLE);
         btn3.setVisibility(View.INVISIBLE);
+        btn4.setVisibility(View.INVISIBLE);
         btn5.setVisibility(View.GONE);
         btn1.setImageResource(R.drawable.btn_poweroff);
         btn4.setImageResource(R.drawable.btn_ecu_connect);
@@ -422,11 +423,12 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         m_updateUI(whoLaunch, true);
         btn1.setImageResource(R.drawable.btn_to_indietro);
         btn3.setImageResource(R.drawable.misura_punto);
+        btn5.setImageResource(R.drawable.delete_96);
 
         btn2.setVisibility(View.INVISIBLE);
         btn3.setVisibility(View.VISIBLE);
         btn4.setVisibility(View.INVISIBLE);
-        btn5.setVisibility(View.INVISIBLE);
+        btn5.setVisibility(View.VISIBLE);
         btn1.setOnClickListener(view -> {
             activity.startActivity(new Intent(activity, MainActivity.class));//gestisce gli eventi
             activity.finish();
@@ -449,6 +451,12 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                 new CustomToast(visibleActivity, "P2").show();
             }
 
+        });
+        btn5.setOnClickListener(view -> {
+            ((UOM_Activity) activity).size -= 1;
+            if (((UOM_Activity) activity).size <= 0) {
+                ((UOM_Activity) activity).size = 0;
+            }
         });
     }
 
@@ -475,7 +483,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             return false;
         });
         btn2.setOnClickListener(view -> {
-            new CustomToast(activity,"Long Press To Pick").show();
+            new CustomToast(activity, "Long Press To Pick").show();
         });
         btn3.setVisibility(View.INVISIBLE);
         btn5.setOnClickListener(view -> {
@@ -708,10 +716,10 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                                         btn5.setEnabled(true);
                                     }
                                 }
-                                if(visibleActivity instanceof Create_Area){
-                                    if(!Create_Area.shoeButton){
+                                if (visibleActivity instanceof Create_Area) {
+                                    if (!Create_Area.shoeButton) {
                                         btn2.setImageTintList(getApplicationContext().getColorStateList(R.color._____cancel_text));
-                                    }else {
+                                    } else {
                                         btn2.setImageTintList(getApplicationContext().getColorStateList(R.color.white));
                                     }
                                 }

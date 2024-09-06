@@ -79,6 +79,7 @@
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
         <config>
+          <state>portrait</state>
           <theme>@style/Theme.AppCompat.Light.NoActionBar</theme>
         </config>
       </layout>
@@ -246,18 +247,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f92bf50-0241-4f68-8acd-219dc0291d3c" name="Changes" comment="area 10032024">
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/arm64-v8a/CMakeFiles/sysmcu.dir/JniWrapper.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/arm64-v8a/CMakeFiles/sysmcu.dir/Lock.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/arm64-v8a/CMakeFiles/sysmcu.dir/Packet.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/arm64-v8a/CMakeFiles/sysmcu.dir/PacketParser.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/arm64-v8a/CMakeFiles/sysmcu.dir/TcpClient.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/arm64-v8a/CMakeFiles/sysmcu.dir/Utils.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/arm64-v8a/CMakeFiles/sysmcu.dir/VanException.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/arm64-v8a/CMakeFiles/sysmcu.dir/VanRequest.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/arm64-v8a/CMakeFiles/sysmcu.dir/VcxCmd.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/arm64-v8a/CMakeFiles/sysmcu.dir/VcxCore.cpp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/can/.cxx/Debug/3a373q49/arm64-v8a/CMakeFiles/sysmcu.dir/VcxHandler.cpp.o" afterDir="false" />
+    <list default="true" id="4f92bf50-0241-4f68-8acd-219dc0291d3c" name="Changes" comment="stx usa">
+      <change afterPath="$PROJECT_DIR$/app/release/STX_FIELD_1_0_0.apk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/checksums/sha1-checksums.bin" afterDir="false" />
@@ -265,12 +256,20 @@
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/release/stx_field_test_area_flat.apk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/LaunchScreenActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/LaunchScreenActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MyApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MyApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/SettingsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/SettingsActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/UOM_Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/UOM_Activity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/project/UOM_Canvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/project/UOM_Canvas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_uom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_uom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -281,7 +280,7 @@
     <option name="parameterInfoViaClangd" value="false" />
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\rricotti\.android\avd\Stonex_S80_API_33.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=RZ8N31JQT2V)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -327,20 +326,23 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Android App.app.executor&quot;: &quot;Run&quot;,
     &quot;ApkExportedModule&quot;: &quot;Stx_Field_Design.app&quot;,
     &quot;ExportApk.ApkPathForStx_Field_Design.app&quot;: &quot;D:\\Development\\Stx_Field_Design\\app&quot;,
     &quot;ResourceManagerPrefKey.ModuleName&quot;: &quot;Stx_Field_Design.app.main&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
     &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
     &quot;android-custom-viewC:/Users/rricotti/.gradle/caches/8.0/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.1.0/f2bdf79e1977939817f54a9d3e2f6bc52b63bdd0/recyclerview-1.1.0-sources.jar!/androidx/recyclerview/widget/RecyclerView.java_SELECTED&quot;: &quot;RecyclerView&quot;,
     &quot;android-custom-viewD:/Development/Stx_Field_Design/app/src/main/java/project/UOM_Canvas.java_SELECTED&quot;: &quot;UOM_Canvas&quot;,
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_directory_selection&quot;: &quot;D:/Development/Stx_Field_Design/app/src/main/res/drawable&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/BetaVersion/Ocmis_Linux&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/MyKey/cpKey/platform.keystore&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -419,7 +421,6 @@
       <option name="MODE" value="default_activity" />
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
-      <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
       <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
       <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
       <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
@@ -847,12 +848,19 @@
       <option name="project" value="LOCAL" />
       <updated>1710063050403</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="stx usa">
+      <option name="closed" value="true" />
+      <created>1715082885247</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1715082885247</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="unit of measure step_1" />
     <MESSAGE value="unit of measure step_2" />
     <MESSAGE value="unit of measure step_3 measuring tool implement" />
     <MESSAGE value="blade measurement" />
@@ -877,6 +885,7 @@
     <MESSAGE value="area" />
     <MESSAGE value="area 13022024" />
     <MESSAGE value="area 10032024" />
-    <option name="LAST_COMMIT_MESSAGE" value="area 10032024" />
+    <MESSAGE value="stx usa" />
+    <option name="LAST_COMMIT_MESSAGE" value="stx usa" />
   </component>
 </project>

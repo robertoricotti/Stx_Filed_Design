@@ -12,8 +12,10 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import activity_portrait.MyApp;
 import coords_calc.DistToPoint;
 import gnss.My_LocationCalc;
+import utils.Utils;
 
 public class UOM_Canvas extends View {
     Paint paint;
@@ -50,10 +52,10 @@ public class UOM_Canvas extends View {
 
             canvas.drawCircle(half_width, half_height, size * mScaleFactor, paint);
             paint.setColor(Color.BLUE);
-            paint.setTextSize(size/2f/ mScaleFactor);
-            String s1 = "E:" + String.format("%.3f", A_coord[0]);
-            String s2 = " N:" + String.format("%.3f", A_coord[1]);
-            String s3 = " Z:" + String.format("%.3f", A_coord[2]);
+            paint.setTextSize(size/1.5f/ mScaleFactor);
+            String s1 = "E:" + Utils.readUnitOfMeasure(String.valueOf(A_coord[0]), MyApp.visibleActivity);
+            String s2 = " N:" + Utils.readUnitOfMeasure(String.valueOf(A_coord[1]), MyApp.visibleActivity);
+            String s3 = " Z:" + Utils.readUnitOfMeasure(String.valueOf(A_coord[2]), MyApp.visibleActivity);
             canvas.drawText(s1+s2+s3, half_width + 50f, half_height + 50f, paint);
            // canvas.drawText(s2, half_width + 50f, half_height + 120f, paint);
            // canvas.drawText(s3, half_width + 50f, half_height + 190f, paint);
@@ -74,11 +76,11 @@ public class UOM_Canvas extends View {
                 paint.setColor(Color.RED);
                 canvas.drawCircle((float) endX, (float) endY, size * mScaleFactor, paint);
 
-                paint.setColor(Color.RED);
-                paint.setTextSize(size/2f / mScaleFactor);
-                String s4 = "E:" + String.format("%.3f", B_coord[0]);
-                String s5 = " N:" + String.format("%.3f", B_coord[1]);
-                String s6 = " Z:" + String.format("%.3f", B_coord[2]);
+                paint.setColor(Color.BLACK);
+                paint.setTextSize(size/1.5f / mScaleFactor);
+                String s4 = "E:" + Utils.readUnitOfMeasure(String.valueOf(B_coord[0]), MyApp.visibleActivity);
+                String s5 = " N:" + Utils.readUnitOfMeasure(String.valueOf(B_coord[1]), MyApp.visibleActivity);
+                String s6 = " Z:" + Utils.readUnitOfMeasure(String.valueOf(B_coord[2]), MyApp.visibleActivity);
                 canvas.drawText(s4+s5+s6, (float) (endX + 50f), (float) (endY + 50f), paint);
                 //canvas.drawText(s5, (float) (endX + 50f), (float) (endY + 120f), paint);
                 //canvas.drawText(s6, (float) (endX + 50f), (float) (endY + 190f), paint);
