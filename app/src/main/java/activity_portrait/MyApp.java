@@ -693,7 +693,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                 this.mRunning = true;
 
                 executorService = Executors.newSingleThreadScheduledExecutor();
-                executorService.scheduleAtFixedRate(new Runnable() {
+                executorService.scheduleWithFixedDelay(new Runnable() {
                     @Override
                     public void run() {
                         activity.runOnUiThread(new Runnable() {

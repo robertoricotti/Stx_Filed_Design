@@ -24,7 +24,7 @@ public class UOM_Canvas extends View {
     public  double[] B_coord, A_coord;
     public float mScaleFactor = 0.5f;
     public float scala = 100f;
-    public int pNumber = 0;
+    public static int pNumber;
     double distance = 0, orientation = 0;
 
     public UOM_Canvas(Context context) {

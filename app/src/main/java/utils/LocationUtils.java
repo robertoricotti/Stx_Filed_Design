@@ -9,10 +9,12 @@ import android.os.Build;
 import android.provider.Settings;
 import android.widget.Toast;
 
+import activity_portrait.MyApp;
+
 public class LocationUtils {
 
     public static boolean isLocationEnabled(Context context) {
-        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) context.getSystemService(MyApp.visibleActivity.getApplicationContext().LOCATION_SERVICE);
         return locationManager != null && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 

@@ -33,7 +33,7 @@ public class UOM_Activity extends AppCompatActivity {
     UOM_Canvas canvas;
     ConstraintLayout container_draw;
     public static double[] A_coord, B_coord;
-    public int size = 0;
+    public static int size;
     String res1, res2, res3, res4, res5;
     ImageButton center, zoomIn, zoomOut;
 
@@ -127,7 +127,9 @@ public class UOM_Activity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                try {
                 while (mRunning) {
+
 
                     //non UI
 
@@ -137,7 +139,7 @@ public class UOM_Activity extends AppCompatActivity {
                         public void run() {
 
                             //UI
-                            tv_zoom.setText(String.format("%.2f",canvas.mScaleFactor)+" x");
+                            tv_zoom.setText(String.format("%.2f", canvas.mScaleFactor) + " x");
                             if (zommaOut) {
                                 zommaIn = false;
                                 if (canvas.mScaleFactor > 0.04f) {
@@ -165,25 +167,25 @@ public class UOM_Activity extends AppCompatActivity {
                                     slope = Utils.slopeCalculator_primitive(A_coord, B_coord);
                                     res1 = Utils.readUnitOfMeasure(String.valueOf(dist_3d), UOM_Activity.this) + " " + Utils.getMetriSimbol(UOM_Activity.this);
                                     res2 = Utils.readUnitOfMeasure(String.valueOf(dist_2d), UOM_Activity.this) + " " + Utils.getMetriSimbol(UOM_Activity.this);
-                                    res3 =Utils.readUnitOfMeasure(String.valueOf(deltaz),UOM_Activity.this)+" "+Utils.getMetriSimbol(UOM_Activity.this);
-                                    res4=String.format("%.2f",bearing).replace(",",".");
-                                    res5=Utils.readAngolo(String.valueOf(slope),UOM_Activity.this)+" "+Utils.getGradiSimbol(UOM_Activity.this);
+                                    res3 = Utils.readUnitOfMeasure(String.valueOf(deltaz), UOM_Activity.this) + " " + Utils.getMetriSimbol(UOM_Activity.this);
+                                    res4 = String.format("%.2f", bearing).replace(",", ".");
+                                    res5 = Utils.readAngolo(String.valueOf(slope), UOM_Activity.this) + " " + Utils.getGradiSimbol(UOM_Activity.this);
 
 
                                 } catch (Exception e) {
-                                    res1=e.toString();
+                                    res1 = e.toString();
                                 }
 
                             }
                             if (size == 2) {
                                 try {
-                                    result.setText("3D Dist: "+res1+"\n"+
-                                            "2D Dist: "+res2+"\n"+
-                                            "Delta Z: "+res3+"\n"+
-                                            "HDT: "+res4+" °"+"\n"+
-                                            "Slope: "+res5);
+                                    result.setText("3D Dist: " + res1 + "\n" +
+                                            "2D Dist: " + res2 + "\n" +
+                                            "Delta Z: " + res3 + "\n" +
+                                            "HDT: " + res4 + " °" + "\n" +
+                                            "Slope: " + res5);
                                 } catch (Exception e) {
-                                   result.setText("");
+                                    result.setText("");
                                 }
 
                             }
@@ -200,6 +202,9 @@ public class UOM_Activity extends AppCompatActivity {
                         System.out.println(e.toString());
                     }
                 }
+            } catch (Exception e) {
+                    Log.e("ErrorUOM",e.toString());
+                }
             }
         }).start();
 
@@ -209,7 +214,7 @@ public class UOM_Activity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mRunning = false;
-        size = 0;
+
     }
 
     @SuppressLint("MissingSuperCall")
@@ -220,11 +225,5 @@ public class UOM_Activity extends AppCompatActivity {
 
 
 
-    public void setA_coord(double[] coord) {
-        A_coord = coord;
-    }
 
-    public void setB_coord(double[] coord) {
-        B_coord = coord;
-    }
 }

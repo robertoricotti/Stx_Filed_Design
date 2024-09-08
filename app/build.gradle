@@ -48,7 +48,7 @@ android {
     }
 
     dependencies {
-
+       // implementation 'org.ejml:ejml-all:0.41'
         implementation 'me.jahnen.libaums:core:0.10.0'
 
         implementation files('libs/cputils.v1.0.1.aar')

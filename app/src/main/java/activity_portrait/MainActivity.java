@@ -114,7 +114,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btn_units.setOnClickListener(view -> {
-            startActivity(new Intent(this, UOM_Activity.class));
+            Intent intent = new Intent(MainActivity.this, UOM_Activity.class);
+            startActivity(intent);
             finish();
 
         });
