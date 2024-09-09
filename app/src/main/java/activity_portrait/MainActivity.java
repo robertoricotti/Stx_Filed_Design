@@ -16,9 +16,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.stx_field_design.BuildConfig;
 import com.example.stx_field_design.R;
 
-import org.rajawali3d.BuildConfig;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

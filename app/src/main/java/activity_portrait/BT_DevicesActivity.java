@@ -68,7 +68,9 @@ public class BT_DevicesActivity extends AppCompatActivity {
         img_cbt = findViewById(R.id.img3);
         cbLayout=findViewById(R.id.cbLayout);
         checkBox=findViewById(R.id.ck);
-
+        checkBox.setVisibility(View.INVISIBLE);
+        DataSaved.useDemo=0;
+        new MyRW_IntMem().MyWrite("_usedemo",String.valueOf(DataSaved.useDemo),BT_DevicesActivity.this);
         // Inizializza l'adattatore Bluetooth
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter == null) {

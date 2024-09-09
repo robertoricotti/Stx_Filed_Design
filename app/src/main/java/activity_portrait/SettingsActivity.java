@@ -33,6 +33,8 @@ public class SettingsActivity extends AppCompatActivity {
     CheckBox cbMeters, cbUSF, cbDeg, cbPcent;
     ImageView img_connect, imgTest;
     TextView  txtsmootRmc, txt_tilt;
+    TextView tv1;
+    EditText et1;
     private Handler handler;
     EditText xyTol, zTol, tiltTol,hdtTol;
     private boolean mRunning = true;
@@ -74,6 +76,8 @@ public class SettingsActivity extends AppCompatActivity {
         useCircle = findViewById(R.id.ckPalina);
         useTriang = findViewById(R.id.ckNav);
         hdtTol=findViewById(R.id.hdt_tol);
+        tv1=findViewById(R.id.txt_unit);
+        et1=findViewById(R.id.et_z_h);
         if (DataSaved.useTilt == 0) {
             usetilt.setChecked(false);
         } else if (DataSaved.useTilt == 1) {
@@ -109,6 +113,9 @@ public class SettingsActivity extends AppCompatActivity {
         zTol.setText(Utils.readUnitOfMeasure(String.valueOf(DataSaved.z_tol),SettingsActivity.this).replace(",", "."));
         tiltTol.setText(String.format("%.1f", DataSaved.tilt_Tol).replace(",", "."));
         hdtTol.setText(String.format("%.1f", DataSaved.hdt_Tol).replace(",", "."));
+        String depth = Utils.readUnitOfMeasure(String.valueOf(DataSaved.D_AltezzaAnt), this);
+        et1.setText(depth);
+        tv1.setText(Utils.getMetriSimbol(SettingsActivity.this));
         switch (index) {
             case 0:
                 cbMeters.setChecked(true);
@@ -277,6 +284,8 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void metodoSave() {
+        new MyRW_IntMem().MyWrite("_altezzaantenna", Utils.writeMetri(et1.getText().toString(), SettingsActivity.this), SettingsActivity.this);
+        DataSaved.D_AltezzaAnt = Double.parseDouble(new MyRW_IntMem().MyRead("_altezzaantenna", SettingsActivity.this)) ;
         if (!xyTol.getText().toString().equals("")) {
             new MyRW_IntMem().MyWrite("xy_tol",Utils.writeMetri(xyTol.getText().toString(),this), this);
         }

@@ -70,16 +70,34 @@ public class SaveFileDialog {
                 //SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
                 String currentDateTime = "";//sdf.format(new Date());
                 DataProjectSingleton dataProject = DataProjectSingleton.getInstance();
+                // Nome del file senza estensione
+                String fileBaseName = fileName.getText().toString() + "_" + currentDateTime;
+
+                // Percorso base per la cartella Projects
+                String basePath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "Stx Field/Projects").getAbsolutePath();
+
+                // Creazione del percorso completo per la nuova cartella
+                File newDir = new File(basePath, fileBaseName);
+
+                // Crea la nuova cartella se non esiste
+                if (!newDir.exists()) {
+                    boolean isCreated = newDir.mkdirs();
+                    if (!isCreated) {
+                        Toast.makeText(activity, "Errore nella creazione della cartella!", Toast.LENGTH_SHORT).show();
+                        return; // Esci se la creazione fallisce
+                    }
+                }
+
                 if(activity instanceof ABProject){
-                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", "#AB_#"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag,String.valueOf(DataSaved.offset_Z_antenna));
+                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/"+newDir.getName()+"/", "#AB_#"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag,String.valueOf(DataSaved.offset_Z_antenna));
 
                 }
                 if(activity instanceof Create_1P){
-                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", "#1P_#"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag,String.valueOf(DataSaved.offset_Z_antenna));
+                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/"+newDir.getName()+"/", "#1P_#"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag,String.valueOf(DataSaved.offset_Z_antenna));
 
                 }
                 if(activity instanceof Create_Area){
-                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/", "#AR_#"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag,String.valueOf(DataSaved.offset_Z_antenna));
+                    dataProject.saveProject(new File(Environment.getExternalStorageDirectory().getAbsoluteFile().getPath(), "Stx Field").getAbsolutePath() + "/Projects/"+newDir.getName()+"/", "#AR_#"+fileName.getText().toString()+"_"+currentDateTime + ".pstx",tag,String.valueOf(DataSaved.offset_Z_antenna));
 
                 }
                 //aggiungere  cross section

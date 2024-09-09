@@ -59,9 +59,9 @@ public class AutoConnectionService extends Service {
     @SuppressLint("InlinedApi")
     @Override
     public void onCreate() {
-        if (!LocationUtils.isLocationEnabled(MyApp.visibleActivity)) {
+        if (!LocationUtils.isLocationEnabled(MyApp.visibleActivity.getApplicationContext())) {
             // Se la localizzazione è disabilitata apre la pag per attivazione
-            LocationUtils.requestLocationSettings(MyApp.visibleActivity);
+            LocationUtils.requestLocationSettings(MyApp.visibleActivity.getApplicationContext());
         }
 
 
@@ -209,7 +209,7 @@ public class AutoConnectionService extends Service {
 
                         }
                     };
-            timer_100.scheduleAtFixedRate(timertask_100, 100, 100);
+            timer_100.schedule(timertask_100, 100, 100);
 
 
         }
