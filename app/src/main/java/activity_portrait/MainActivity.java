@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.media.session.PlaybackState;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -120,6 +121,18 @@ public class MainActivity extends AppCompatActivity {
 
         });
         to_usbStick.setOnClickListener(view -> {
+                    try {
+                        // Intent esplicito per aprire l'activity del file manager
+                        Intent intent = new Intent();
+                        intent.setClassName("com.alphainventor.filemanager", "com.alphainventor.filemanager.activity.MainActivity");
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        // Gestione errore nel caso in cui l'app non è installata o l'activity non è trovata
+                        Toast.makeText(this, "File Manager not Found", Toast.LENGTH_SHORT).show();
+                        openAppInPlayStore("com.alphainventor.filemanager");
+                    }
+
+            /*
             if (Build.VERSION.SDK_INT <= 29) {
                 new CustomToast(this, "Can't Use USB Stick\nOn This Device").show();
                 Intent intent = new Intent(MainActivity.this, UsbActivity.class);
@@ -129,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, UsbActivity.class);
                 startActivity(intent);
                 finish();
-            }
+            }*/
         });
 
         to_info.setOnClickListener(view -> {
@@ -318,6 +331,18 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         mRunning = false;
 
+    }
+
+    private void openAppInPlayStore(String packageName) {
+        try {
+            // Apre l'app nel Play Store
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName));
+            startActivity(intent);
+        } catch (android.content.ActivityNotFoundException anfe) {
+            // Se il Play Store non è disponibile (ad es. su alcuni dispositivi senza Google Play Services)
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageName));
+            startActivity(intent);
+        }
     }
 
     

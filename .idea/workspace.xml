@@ -249,10 +249,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f92bf50-0241-4f68-8acd-219dc0291d3c" name="Changes" comment="stx usa">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/project/PickProjectAdapterUSB.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/baseline_subdirectory_arrow_right_96.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/folder_traffic_cone.png" afterDir="false" />
+    <list default="true" id="4f92bf50-0241-4f68-8acd-219dc0291d3c" name="Changes" comment="field versione 1.2.0">
+      <change afterPath="$PROJECT_DIR$/app/release/stx_field_1.2.0.apk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" afterDir="false" />
@@ -260,20 +258,13 @@
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/BT_DevicesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/BT_DevicesActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/SettingsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/SettingsActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/release/STX_FIELD_1_0_0.apk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/release/output-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/release/output-metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/LaunchScreenActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/LaunchScreenActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/activity_portrait/UsbActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/activity_portrait/UsbActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/dialogs/PickProjectDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/dialogs/PickProjectDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/dialogs/SaveFileDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/dialogs/SaveFileDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/project/PickProjectAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/project/PickProjectAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/services_and_bluetooth/AutoConnectionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/services_and_bluetooth/AutoConnectionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/pick_project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/pick_project.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -284,7 +275,7 @@
     <option name="parameterInfoViaClangd" value="false" />
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=RZ8N31JQT2V)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\rricotti\.android\avd\Apollo8PROS_API_26_2.avd)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -756,14 +747,6 @@
       <option name="project" value="LOCAL" />
       <updated>1705674865745</updated>
     </task>
-    <task id="LOCAL-00039" summary="area implementation step 1">
-      <option name="closed" value="true" />
-      <created>1706655711550</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1706655711551</updated>
-    </task>
     <task id="LOCAL-00040" summary="release USA 31/01/2024">
       <option name="closed" value="true" />
       <created>1706704319279</created>
@@ -868,12 +851,19 @@
       <option name="project" value="LOCAL" />
       <updated>1725793691304</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="field versione 1.2.0">
+      <option name="closed" value="true" />
+      <created>1725873127300</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1725873127300</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="unit of measure step_2" />
     <MESSAGE value="unit of measure step_3 measuring tool implement" />
     <MESSAGE value="blade measurement" />
     <MESSAGE value="blade measurement screen orientation" />
@@ -898,6 +888,7 @@
     <MESSAGE value="area 13022024" />
     <MESSAGE value="area 10032024" />
     <MESSAGE value="stx usa" />
-    <option name="LAST_COMMIT_MESSAGE" value="stx usa" />
+    <MESSAGE value="field versione 1.2.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="field versione 1.2.0" />
   </component>
 </project>

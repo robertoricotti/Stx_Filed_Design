@@ -70,6 +70,7 @@ public class LaunchScreenActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.R)
     private void init() {
+Log.w("init",(Build.VERSION.SDK_INT+""));
         if (Build.VERSION.SDK_INT >= 33) {
             PERMISSIONS = new String[]{
                     Manifest.permission.BLUETOOTH,
